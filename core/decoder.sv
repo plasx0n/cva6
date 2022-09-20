@@ -133,7 +133,7 @@ module decoder import ariane_pkg::*; (
                                         //  do not change privilege level if this is an illegal instruction
                                         instruction_o.op = ariane_pkg::ADD;
                                     end
-                                end
+                                end 
                                 // MRET
                                 12'b11_0000_0010: begin
                                     instruction_o.op = ariane_pkg::MRET;
