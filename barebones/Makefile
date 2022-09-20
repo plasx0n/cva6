@@ -4,7 +4,7 @@ LD=riscv64-unknown-elf-ld
 DMP=riscv64-unknown-elf-objdump
 
 EXEC=hello.elf
-SRC=./src/helloworld.c ./src/uart.c
+SRC=./src/helloworld.c ./src/uart.c ./src/custom_insn.S
 #SRC=./src/helloworld.c
 SRC_ASM=./start.S
 

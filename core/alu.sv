@@ -224,6 +224,8 @@ module alu import ariane_pkg::*;(
     always_comb begin
         result_o   = '0;
         unique case (fu_data_i.operator)
+            // ADD
+            INSN_TEST : result_o = fu_data_i.operand_a + fu_data_i.operand_b ; 
             // Standard Operations
             ANDL, ANDN: result_o = fu_data_i.operand_a & operand_b_neg[riscv::XLEN:1];
             ORL, ORN  : result_o = fu_data_i.operand_a | operand_b_neg[riscv::XLEN:1];
