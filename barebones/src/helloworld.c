@@ -16,20 +16,30 @@ static inline float fmsub( float rs1 , float rs2, float rs3  ){
     return rd;
 }
 
+static inline int ld_minmax( int rs1 , int rs2, int rs3  ){
+    int rd ; 
+    asm volatile(" ld_minmax %0,%1,%2,%3" \
+                            : "=r" (rd) \
+                            : "r" (rs1), "r" (rs2), "r"(rs3)); 
+    return rd;
+}
+
 int main()
 {
     init_uart(50000000, 115200);
     print_uart("Hello World FROM RISCV BAREBONE\r\n");
     
-    print_uart("After initialisation\r\n");
-    int test=0 ; 
-    test= template(1,2); 
-    print_uart_byte(test);
-    print_uart("After addition\r\n");
+    // print_uart("After initialisation\r\n");
+    // int test=0 ; 
+    // test= template(1,2); 
+    // print_uart_byte(test);
+    // print_uart("After addition\r\n");
     
     float testf = fmsub(2,2,2);
     print_uart_byte(testf); 
     print_uart("After mul\r\n");
+
+    ld_minmax(22,22,33); 
 
 
     return 0;

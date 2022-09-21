@@ -91,6 +91,7 @@ module decoder import ariane_pkg::*; (
         if (~ex_i.valid) begin
             case (instr.rtype.opcode)
                 // TEST
+                /*
                 riscv::OpcodeCustom0: begin
                     instruction_o.fu       = ALU; 
                     instruction_o.rs1[4:0] = instr.itype.rs1;
@@ -100,6 +101,24 @@ module decoder import ariane_pkg::*; (
                         {7'b000_0000, 3'b000}: instruction_o.op = ariane_pkg::INSN_TEST;
                     endcase
                 end
+                */
+
+                /*
+                riscv::OpcodeCustom0: begin
+                    if (FP_PRESENT && fs_i != riscv::Off) begin // only generate decoder if FP extensions are enabled (static)
+                        instruction_o.fu  = FPU;
+                        instruction_o.rs1 = instr.r4type.rs1;
+                        instruction_o.rs2 = instr.r4type.rs2;
+                        instruction_o.rd  = instr.r4type.rd;
+                        imm_select        = RS3; // rs3 into result field
+                        // check_fprm        = 1'b1;
+                        // select the correct fused operation
+                        unique case ({instr.r4type.funct2 , instr.r4type.funct3})
+                            {2'b11 , 3'b001}:instruction_o.op =ariane_pkg::LD_MINMAX;
+                        endcase
+                    end
+                end
+                */
 
                 riscv::OpcodeSystem: begin
                     instruction_o.fu       = CSR;
