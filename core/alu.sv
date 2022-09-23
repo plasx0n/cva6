@@ -225,7 +225,9 @@ module alu import ariane_pkg::*;(
         result_o   = '0;
         unique case (fu_data_i.operator)
             // ADD
-            INSN_TEST : result_o = fu_data_i.operand_a + fu_data_i.operand_b ; 
+            INSN_TEST : result_o = fu_data_i.operand_a + fu_data_i.operand_b ;
+            LD_MINMAX : result_o = fu_data_i.operand_a + fu_data_i.operand_b + fu_data_i.imm;
+
             // Standard Operations
             ANDL, ANDN: result_o = fu_data_i.operand_a & operand_b_neg[riscv::XLEN:1];
             ORL, ORN  : result_o = fu_data_i.operand_a | operand_b_neg[riscv::XLEN:1];

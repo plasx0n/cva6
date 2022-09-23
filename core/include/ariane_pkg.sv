@@ -464,8 +464,10 @@ package ariane_pkg;
     // ---------------
 
     typedef enum logic [7:0] { 
-                                // TEST
-                               INSN_TEST,
+                                    // TEST
+                                INSN_TEST,
+                                //    
+                                LD_MINMAX,
                                 // basic ALU op
                                ADD, SUB, ADDW, SUBW,
                                // logic operations

@@ -1,0 +1,114 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Thu Sep 22 16:01:04 2022
+[*]
+[dumpfile] "/home/ergreg/Documents/RV_Cores/cva6/hello.vcd"
+[dumpfile_mtime] "Thu Sep 22 15:07:21 2022"
+[dumpfile_size] 80856982
+[savefile] "/home/ergreg/Documents/RV_Cores/cva6/gtkwave_config.gtkw"
+[timestart] 0
+[size] 1920 1172
+[pos] -51 -51
+*-10.962413 2175 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[treeopen] TOP.ariane_pkg.
+[treeopen] TOP.ariane_soc.
+[treeopen] TOP.ariane_testharness.
+[treeopen] TOP.ariane_testharness.i_ariane.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.ex_stage_i.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.ex_stage_i.alu_i.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_o.
+[sst_width] 361
+[signals_width] 433
+[sst_expanded] 1
+[sst_vpaned_height] 342
+@22
+[color] 1
+TOP.ariane_testharness.i_ariane.i_cva6.ex_stage_i.alu_i.fu_data_i.__SYM__operator[7:0]
+[color] 1
+TOP.ariane_testharness.i_ariane.i_cva6.ex_stage_i.alu_i.fu_data_i.fu[3:0]
+[color] 1
+TOP.ariane_testharness.i_ariane.i_cva6.ex_stage_i.alu_i.fu_data_i.imm[63:0]
+[color] 1
+TOP.ariane_testharness.i_ariane.i_cva6.ex_stage_i.alu_i.fu_data_i.operand_a[63:0]
+[color] 1
+TOP.ariane_testharness.i_ariane.i_cva6.ex_stage_i.alu_i.fu_data_i.operand_b[63:0]
+@28
+[color] 1
+TOP.ariane_testharness.i_ariane.i_cva6.ex_stage_i.alu_i.fu_data_i.trans_id[2:0]
+@22
+[color] 1
+TOP.ariane_testharness.i_ariane.i_cva6.ex_stage_i.alu_i.result_o[63:0]
+@c00022
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+@28
+(0)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(1)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(2)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(3)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(4)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(5)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(6)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(7)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(8)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(9)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(10)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(11)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(12)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(13)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(14)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(15)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(16)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(17)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(18)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(19)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(20)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(21)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(22)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(23)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(24)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(25)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(26)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(27)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(28)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(29)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(30)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+(31)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_i[31:0]
+@1401200
+-group_end
+@22
+[color] 1
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_o.op[7:0]
+@c00028
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.r4type.funct2[26:25]
+@28
+(0)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.r4type.funct2[26:25]
+(1)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.r4type.funct2[26:25]
+@1401200
+-group_end
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.r4type.funct3[14:12]
+@c00022
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.r4type.opcode[6:0]
+@28
+(0)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.r4type.opcode[6:0]
+(1)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.r4type.opcode[6:0]
+(2)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.r4type.opcode[6:0]
+(3)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.r4type.opcode[6:0]
+(4)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.r4type.opcode[6:0]
+(5)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.r4type.opcode[6:0]
+(6)TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.r4type.opcode[6:0]
+@1401200
+-group_end
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.r4type.rd[11:7]
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.r4type.rs1[19:15]
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.r4type.rs2[24:20]
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.r4type.rs3[31:27]
+[pattern_trace] 1
+[pattern_trace] 0
