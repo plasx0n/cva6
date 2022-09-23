@@ -224,7 +224,7 @@ package ariane_pkg;
     localparam NR_WB_PORTS = 5;
 
     // Read ports for general purpose register files
-    localparam NR_RGPR_PORTS = 2;
+    localparam NR_RGPR_PORTS = 3;
     typedef logic [(NR_RGPR_PORTS == 3 ? riscv::XLEN : FLEN)-1:0] rs3_len_t;
 
     // static debug hartinfo
@@ -586,6 +586,7 @@ package ariane_pkg;
     function automatic logic is_imm_fpr (input fu_op op);
         if (FP_PRESENT) begin // makes function static for non-fp case
             unique case (op) inside
+                [LD_MINMAX:INSN_TEST],
                 [FADD:FSUB],                         // ADD/SUB need inputs as Operand B/C
                 [FMADD:FNMADD],                      // Fused Computational Operations
                 [VFCPKAB_S:VFCPKCD_D] : return 1'b1; // Vectorial FP cast and pack ops

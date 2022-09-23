@@ -35,9 +35,8 @@ int main()
     // print_uart_byte(test);
     // print_uart("After addition\r\n");
     
-    // float testf = fmsub(2,2,2);
-    // print_uart_byte(testf); 
-    // print_uart("After mul\r\n");
+    float testf = fmsub(2,2,2);
+    print_uart_byte(testf); 
 
     int reg1,reg2,reg3 ; 
     reg1 = 1 ; 

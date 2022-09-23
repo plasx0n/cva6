@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Thu Sep 22 16:01:04 2022
+[*] Fri Sep 23 14:49:43 2022
 [*]
 [dumpfile] "/home/ergreg/Documents/RV_Cores/cva6/hello.vcd"
-[dumpfile_mtime] "Thu Sep 22 15:07:21 2022"
-[dumpfile_size] 80856982
+[dumpfile_mtime] "Fri Sep 23 14:36:37 2022"
+[dumpfile_size] 25326095
 [savefile] "/home/ergreg/Documents/RV_Cores/cva6/gtkwave_config.gtkw"
 [timestart] 0
 [size] 1920 1172
-[pos] -51 -51
-*-10.962413 2175 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] -29 -29
+*-9.543482 3669 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.ariane_pkg.
 [treeopen] TOP.ariane_soc.
@@ -26,7 +26,7 @@
 [sst_width] 361
 [signals_width] 433
 [sst_expanded] 1
-[sst_vpaned_height] 342
+[sst_vpaned_height] 744
 @22
 [color] 1
 TOP.ariane_testharness.i_ariane.i_cva6.ex_stage_i.alu_i.fu_data_i.__SYM__operator[7:0]
@@ -110,5 +110,7 @@ TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.r4type.rd[11:7
 TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.r4type.rs1[19:15]
 TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.r4type.rs2[24:20]
 TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.r4type.rs3[31:27]
+@29
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_scoreboard.rs3_valid_o
 [pattern_trace] 1
 [pattern_trace] 0
