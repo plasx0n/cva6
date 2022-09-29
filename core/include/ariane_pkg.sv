@@ -586,7 +586,6 @@ package ariane_pkg;
     function automatic logic is_imm_fpr (input fu_op op);
         if (FP_PRESENT) begin // makes function static for non-fp case
             unique case (op) inside
-                [LD_MINMAX:INSN_TEST],
                 [FADD:FSUB],                         // ADD/SUB need inputs as Operand B/C
                 [FMADD:FNMADD],                      // Fused Computational Operations
                 [VFCPKAB_S:VFCPKCD_D] : return 1'b1; // Vectorial FP cast and pack ops

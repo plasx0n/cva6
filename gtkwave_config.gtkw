@@ -1,15 +1,15 @@
 [*]
-[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Fri Sep 23 14:49:43 2022
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Mon Sep 26 17:42:25 2022
 [*]
-[dumpfile] "/home/ergreg/Documents/RV_Cores/cva6/hello.vcd"
-[dumpfile_mtime] "Fri Sep 23 14:36:37 2022"
-[dumpfile_size] 25326095
-[savefile] "/home/ergreg/Documents/RV_Cores/cva6/gtkwave_config.gtkw"
-[timestart] 0
-[size] 1920 1172
-[pos] -29 -29
-*-9.543482 3669 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[dumpfile] "/home/dizzy/Documents/PHD/cva6/vcd"
+[dumpfile_mtime] "Mon Sep 26 17:41:30 2022"
+[dumpfile_size] 30015605
+[savefile] "/home/dizzy/Documents/PHD/cva6/gtkwave_config.gtkw"
+[timestart] 4050
+[size] 1920 1043
+[pos] -2009 -116
+*-3.730923 4089 2875 4085 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.ariane_pkg.
 [treeopen] TOP.ariane_soc.
@@ -110,7 +110,17 @@ TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.r4type.rd[11:7
 TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.r4type.rs1[19:15]
 TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.r4type.rs2[24:20]
 TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instr.r4type.rs3[31:27]
-@29
+@28
+[color] 2
 TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_scoreboard.rs3_valid_o
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.operand_a_regfile[63:0]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.operand_b_regfile[63:0]
+[color] 2
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.operand_c_regfile[63:0]
+[color] 2
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.issue_instr_i.op[7:0]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.imm_n[63:0]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.issue_instr_i.result[63:0]
 [pattern_trace] 1
 [pattern_trace] 0

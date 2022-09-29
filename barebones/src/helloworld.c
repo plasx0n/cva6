@@ -18,7 +18,7 @@ static inline float fmsub( float rs1 , float rs2, float rs3  ){
 
 static inline int ld_minmax( int rs1 , int rs2, int rs3  ){
     int rd ; 
-    asm volatile(" ld_minmax %0,%1,%2,%3" \
+    asm volatile(" ld3_minmax %0,%1,%2,%3" \
                             : "=r" (rd) \
                             : "r" (rs1), "r" (rs2), "r"(rs3)); 
     return rd;
