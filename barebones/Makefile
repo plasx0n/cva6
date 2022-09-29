@@ -1,6 +1,6 @@
-GCC= /opt/riscv/bin/riscv64-unknown-elf-gcc
-AS=riscv64-unknown-elf-as
-LD=riscv64-unknown-elf-ld
+GCC=/opt/riscv/bin/riscv64-unknown-elf-gcc
+AS=/opt/riscv/bin/riscv64-unknown-elf-as
+LD=/opt/riscv/bin/riscv64-unknown-elf-ld
 DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
 
 EXEC=hello.elf
