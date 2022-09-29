@@ -1,7 +1,7 @@
-GCC=riscv64-unknown-elf-gcc
+GCC= /opt/riscv/bin/riscv64-unknown-elf-gcc
 AS=riscv64-unknown-elf-as
 LD=riscv64-unknown-elf-ld
-DMP=riscv64-unknown-elf-objdump
+DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
 
 EXEC=hello.elf
 SRC=./src/helloworld.c ./src/uart.c
