@@ -224,7 +224,7 @@ package ariane_pkg;
     localparam NR_WB_PORTS = 5;
 
     // Read ports for general purpose register files
-    localparam NR_RGPR_PORTS = 2;
+    localparam NR_RGPR_PORTS = 3;
     typedef logic [(NR_RGPR_PORTS == 3 ? riscv::XLEN : FLEN)-1:0] rs3_len_t;
 
     // static debug hartinfo
