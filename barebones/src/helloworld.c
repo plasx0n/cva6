@@ -37,16 +37,9 @@ int main()
     
     float testf = fmsub(2,2,2);
     print_uart_byte(testf); 
-
-    int reg1,reg2,reg3 ; 
-    reg1 = 1 ; 
-    reg2 = 2 ; 
-    reg3 = 3 ; 
-
-    // ld_minmax(reg1,reg2,reg3); 
-    int test_int = template(reg1,reg2); 
+    int test_int=0; 
     print_uart_byte(test_int);
-    test_int =ld_minmax(reg1,reg2,reg3);
+    test_int =ld_minmax(2,2,2);
     print_uart_byte(test_int);
 
     return 0;

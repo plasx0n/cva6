@@ -92,19 +92,20 @@ module decoder import ariane_pkg::*; (
             case (instr.rtype.opcode)
                 // TEST
                 
-                riscv::OpcodeCustom0: begin
-                    instruction_o.fu       = ALU; 
-                    instruction_o.rs1[4:0] = instr.itype.rs1;
-                    instruction_o.rs2[4:0] = instr.rtype.rs2;   //TODO: needs to be checked if better way is available
-                    instruction_o.rd[4:0]  = instr.itype.rd;
-                    unique case ({instr.rtype.funct7, instr.rtype.funct3})
-                        {7'b000_0000, 3'b000}: instruction_o.op = ariane_pkg::INSN_TEST;
-                    endcase
-                end
+                // riscv::OpcodeCustom0: begin
+                //     instruction_o.fu       = ALU; 
+                //     instruction_o.rs1[4:0] = instr.itype.rs1;
+                //     instruction_o.rs2[4:0] = instr.rtype.rs2;   //TODO: needs to be checked if better way is available
+                //     instruction_o.rd[4:0]  = instr.itype.rd;
+                //     unique case ({instr.rtype.funct7, instr.rtype.funct3})
+                //         {7'b000_0000, 3'b000}: instruction_o.op = ariane_pkg::INSN_TEST;
+                //     endcase
+                // end
                 
 
                 
                 riscv::OpcodeCustom0: begin
+                        $display("MINMAX") ; 
                         instruction_o.fu  = ALU;
                         instruction_o.rs1 = instr.r4type.rs1;
                         instruction_o.rs2 = instr.r4type.rs2;
