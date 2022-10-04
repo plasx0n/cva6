@@ -214,7 +214,7 @@ module issue_read_operands import ariane_pkg::*; #(
         // for FP operations, the imm field can also be the third operand from the regfile
         if (NR_RGPR_PORTS == 3) begin
             imm_n  = is_imm_fpr(issue_instr_i.op) ? {{riscv::XLEN-FLEN{1'b0}}, operand_c_regfile} :
-                                                    issue_instr_i.op == OFFLOAD ? operand_c_regfile : issue_instr_i.result;
+                                                    issue_instr_i.op == ariane_pkg::LD_MINMAX ? operand_c_regfile : issue_instr_i.result;
         end else begin
             imm_n  = is_imm_fpr(issue_instr_i.op) ? {{riscv::XLEN-FLEN{1'b0}}, operand_c_regfile} : issue_instr_i.result;
         end
