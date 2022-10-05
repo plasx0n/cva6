@@ -3,8 +3,8 @@ AS=/opt/riscv/bin/riscv64-unknown-elf-as
 LD=/opt/riscv/bin/riscv64-unknown-elf-ld
 DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
 
-EXEC=ldpc_int8.elf
-SRC=./src/stdlib.c ./src/ldpc_int8.c
+EXEC=ldpc_int8_cst.elf
+SRC=./src/stdlib.c ./src/ldpc_int8_cst.c
 #SRC=./src/helloworld.c
 SRC_ASM=./start.S
 

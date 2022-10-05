@@ -92,30 +92,24 @@ module decoder import ariane_pkg::*; (
             case (instr.rtype.opcode)
                 // TEST
                 
-                // riscv::OpcodeCustom0: begin
-                //     instruction_o.fu       = ALU; 
-                //     instruction_o.rs1[4:0] = instr.itype.rs1;
-                //     instruction_o.rs2[4:0] = instr.rtype.rs2;   //TODO: needs to be checked if better way is available
-                //     instruction_o.rd[4:0]  = instr.itype.rd;
-                //     unique case ({instr.rtype.funct7, instr.rtype.funct3})
-                //         {7'b000_0000, 3'b000}: instruction_o.op = ariane_pkg::INSN_TEST;
-                //     endcase
-                // end
-                
-
-                
-                riscv::OpcodeCustom0: begin 
-                        instruction_o.fu  = ALU;
-                        instruction_o.rs1 = instr.r4type.rs1;
-                        instruction_o.rs2 = instr.r4type.rs2;
-                        instruction_o.rd  = instr.r4type.rd;
-                        imm_select        = RS3; // rs3 into result field
-                        // check_fprm        = 1'b1;
-                        // select the correct fused operation
-                        unique case ({instr.r4type.funct2 , instr.r4type.funct3})
-                            {2'b11 , 3'b001}:instruction_o.op =ariane_pkg::LD_MINMAX;
-                        endcase
+                riscv::LDPC: begin
+                    instruction_o.fu       = ALU; 
+                    instruction_o.rs1[4:0] = instr.itype.rs1;
+                    instruction_o.rs2[4:0] = instr.rtype.rs2;
+                    instruction_o.rd[4:0]  = instr.itype.rd;
+                    unique case ({instr.rtype.funct7, instr.rtype.funct3})
+                        {7'b000_0000, 3'b011} : instruction_o.op = LDPC_MIN;
+                        {7'b000_0000, 3'b010} : instruction_o.op = LDPC_MAX;
+                        {7'b000_0000, 3'b001} : instruction_o.op = LDPC_ABS;
+                        {7'b000_0000, 3'b100} : instruction_o.op = LDPC_NMESS;
+                        {7'b000_0000, 3'b101} : instruction_o.op = LDPC_SUB_SAT;
+                        // kit v2 
+                        {7'b000_0001, 3'b000} : instruction_o.op = LDPC_EVAL ;
+                        {7'b000_0001, 3'b001} : instruction_o.op = LDPC_RSIGN ; 
+                        {7'b000_0001, 3'b010} : instruction_o.op = LDPC_ADD_SAT ;
+                    endcase
                 end
+                
                 
 
                 riscv::OpcodeSystem: begin

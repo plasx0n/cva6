@@ -224,7 +224,7 @@ package ariane_pkg;
     localparam NR_WB_PORTS = 5;
 
     // Read ports for general purpose register files
-    localparam NR_RGPR_PORTS = 3;
+    localparam NR_RGPR_PORTS = 2;
     typedef logic [(NR_RGPR_PORTS == 3 ? riscv::XLEN : FLEN)-1:0] rs3_len_t;
 
     // static debug hartinfo
@@ -464,11 +464,18 @@ package ariane_pkg;
     // ---------------
 
     typedef enum logic [7:0] { 
-                                    // TEST
-                                INSN_TEST,
-                                //    
-                                LD_MINMAX,
-                                // basic ALU op
+                               // LDPC
+                               LDPC_IABS,
+                               LDPC_MIN,
+                               LDPC_MAX,
+                               LDPC_ABS,
+                               LDPC_NMESS,
+                               LDPC_SUB_SAT,
+                               LDPC_ADD_SAT,
+                               LDPC_EVAL,
+                               LDPC_RSIGN,
+                            
+                               // basic ALU op
                                ADD, SUB, ADDW, SUBW,
                                // logic operations
                                XORL, ORL, ANDL,
@@ -607,16 +614,6 @@ package ariane_pkg;
                 [VFMIN:VFSGNJX],                     // Vectorial MIN/MAX and SGNJ
                 [VFCPKAB_S:VFCPKCD_D] : return 1'b1; // Vectorial FP cast and pack ops
                 default               : return 1'b0; // all other ops
-            endcase
-        end else
-            return 1'b0;
-    endfunction
-
-    function automatic logic is_rd_custom_3reg (input fu_op op);
-        if (FP_PRESENT) begin // makes function static for non-fp case
-            unique case (op) inside
-                LD_MINMAX               : return 1'b1; // 
-                default                 : return 1'b0; // all other ops
             endcase
         end else
             return 1'b0;
