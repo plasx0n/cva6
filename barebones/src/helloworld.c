@@ -1,46 +1,31 @@
-#include "uart.h"
+// #include "uart.h"
+#include "stdlib.h"
 
-static inline int template( int rs1 , int rs2){
-    int rd; 
-    asm volatile(" ld.sign %0,%1,%2" \
-                            : "=r" (rd) \
-                            : "r" (rs1), "r" (rs2)); 
-    return rd;
-}
-
-static inline float fmsub( float rs1 , float rs2, float rs3  ){
-    float rd ; 
-    asm volatile(" fmsub.s %0,%1,%2,%3" \
-                            : "=f" (rd) \
-                            : "f" (rs1), "f" (rs2), "f"(rs3)); 
-    return rd;
-}
-
-static inline int ld_minmax( int rs1 , int rs2, int rs3  ){
-    int rd ; 
-    asm volatile(" ld3_minmax %0,%1,%2,%3" \
-                            : "=r" (rd) \
-                            : "r" (rs1), "r" (rs2), "r"(rs3)); 
-    return rd;
-}
 
 int main()
 {
-    init_uart(50000000, 115200);
+    // init_uart(50000000, 115200);
     // print_uart("Hello World FROM RISCV BAREBONE\r\n");
+    printf("test\n") ;
+
+    long cycle1,cycles2  ; 
+    long insn1, insn2 ;
+
+    cycle1 = cycles() ; 
+    insn1 = insn() ; 
+
+    int dummy_var ; 
+    for (int i = 0; i < 100; i++)
+    {
+        dummy_var++; 
+    }
+     
+    cycles2 = cycles() - cycle1 ;  
+    insn2   = insn() - insn1 ;  
+
+    printf("cycles : %d \n",cycles2);
+    printf("insn : %d \n",insn2);
     
-    // print_uart("After initialisation\r\n");
-    // int test=0 ; 
-    // test= template(1,2); 
-    // print_uart_byte(test);
-    // print_uart("After addition\r\n");
-    
-    float testf = fmsub(2,2,2);
-    print_uart_byte(testf); 
-    int test_int=0; 
-    print_uart_byte(test_int);
-    test_int =ld_minmax(2,2,2);
-    print_uart_byte(test_int);
 
     return 0;
 }

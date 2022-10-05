@@ -612,7 +612,7 @@ package ariane_pkg;
             return 1'b0;
     endfunction
 
-    function automatic logic is_rd_custom (input fu_op op);
+    function automatic logic is_rd_custom_3reg (input fu_op op);
         if (FP_PRESENT) begin // makes function static for non-fp case
             unique case (op) inside
                 LD_MINMAX               : return 1'b1; // 

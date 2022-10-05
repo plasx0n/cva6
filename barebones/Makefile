@@ -3,14 +3,14 @@ AS=/opt/riscv/bin/riscv64-unknown-elf-as
 LD=/opt/riscv/bin/riscv64-unknown-elf-ld
 DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
 
-EXEC=hello.elf
-SRC=./src/helloworld.c ./src/uart.c
+EXEC=ldpc_int8.elf
+SRC=./src/stdlib.c ./src/ldpc_int8.c
 #SRC=./src/helloworld.c
 SRC_ASM=./start.S
 
 LINKER_SCRIPT=./rv64.ld
 
-GCC_FLAGS=-Wall -Wextra -march=rv64imafc -mcmodel=medany -mabi=lp64f -ffreestanding
+GCC_FLAGS=-Wall -Wextra -march=rv64imafc -mcmodel=medany -mabi=lp64f -ffreestanding -static -O3
 AS_FLAGS=-march=rv64imafc -mabi=lp64f
 LD_FLAGS=-nostdlib
 

@@ -104,8 +104,7 @@ module decoder import ariane_pkg::*; (
                 
 
                 
-                riscv::OpcodeCustom0: begin
-                        $display("MINMAX") ; 
+                riscv::OpcodeCustom0: begin 
                         instruction_o.fu  = ALU;
                         instruction_o.rs1 = instr.r4type.rs1;
                         instruction_o.rs2 = instr.r4type.rs2;

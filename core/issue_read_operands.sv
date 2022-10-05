@@ -215,7 +215,7 @@ module issue_read_operands import ariane_pkg::*; #(
 
         if (NR_RGPR_PORTS == 3) begin
             imm_n  = is_imm_fpr(issue_instr_i.op) ? {{riscv::XLEN-FLEN{1'b0}}, operand_c_regfile} :
-                                                    is_rd_custom(issue_instr_i.op) ? operand_c_regfile : issue_instr_i.result;
+                                                    is_rd_custom_3reg(issue_instr_i.op) ? operand_c_regfile : issue_instr_i.result;
         end else begin
             imm_n  = is_imm_fpr(issue_instr_i.op) ? {{riscv::XLEN-FLEN{1'b0}}, operand_c_regfile} : issue_instr_i.result;
         end
