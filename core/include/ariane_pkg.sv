@@ -465,15 +465,16 @@ package ariane_pkg;
 
     typedef enum logic [7:0] { 
                                // LDPC
-                               LDPC_IABS,
                                LDPC_MIN,
                                LDPC_MAX,
                                LDPC_ABS,
-                               LDPC_NMESS,
                                LDPC_SUB_SAT,
                                LDPC_ADD_SAT,
-                               LDPC_EVAL,
-                               LDPC_RSIGN,
+                            
+                               //LDPC 3 REGS    
+                               LDPC_MINMAX,
+                               LDPC_MIN_SORTING,
+                               LDPC_RSIGN_NMESS,
                             
                                // basic ALU op
                                ADD, SUB, ADDW, SUBW,
@@ -614,6 +615,19 @@ package ariane_pkg;
                 [VFMIN:VFSGNJX],                     // Vectorial MIN/MAX and SGNJ
                 [VFCPKAB_S:VFCPKCD_D] : return 1'b1; // Vectorial FP cast and pack ops
                 default               : return 1'b0; // all other ops
+            endcase
+        end else
+            return 1'b0;
+    endfunction
+
+    function automatic logic is_ldpc_3reg (input fu_op op);
+        if (FP_PRESENT) begin // makes function static for non-fp case
+            unique case (op) inside
+                
+                LDPC_MINMAX,
+                LDPC_MIN_SORTING,
+                LDPC_RSIGN_NMESS  : return 1'b1; // Vectorial FP cast and pack ops
+                default           : return 1'b0; // all other ops
             endcase
         end else
             return 1'b0;

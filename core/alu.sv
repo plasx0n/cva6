@@ -246,16 +246,8 @@ module alu import ariane_pkg::*;(
         ldpc_result ={24'h0,  (ldpc_comp)? fu_data_i.operand_b[7:0] : fu_data_i.operand_a[7:0] };
       end
 
-      LDPC_MAX: begin 
-        ldpc_result ={24'h0, (ldpc_comp)? fu_data_i.operand_a[7:0] : fu_data_i.operand_b[7:0] };
-      end 
-
       LDPC_ABS: begin 
         ldpc_result ={24'h0,   ($signed(fu_data_i.operand_a[7:0]) >= 0 )? fu_data_i.operand_a[7:0]: -fu_data_i.operand_a[7:0] }; 
-      end 
-
-      LDPC_NMESS : begin 
-        ldpc_result ={24'h0, ( fu_data_i.operand_a >= 1 )? fu_data_i.operand_b[7:0]:-fu_data_i.operand_b[7:0] };
       end 
 
       LDPC_SUB_SAT : begin 
@@ -272,18 +264,7 @@ module alu import ariane_pkg::*;(
         {24'h0,ldpc_res_plus[7:0]} ; 
       end 
 
-      // v2 
 
-      LDPC_EVAL : begin
-         ldpc_result = { 24'h0 , $signed(fu_data_i.operand_a) != $signed(fu_data_i.operand_b) ? 8'h0:8'hff}  ; 
-        
-      end 
-
-      LDPC_RSIGN : begin
-        ldpc_result =
-         fu_data_i.operand_a ^ (($signed(fu_data_i.operand_b) >= 0 )? 1 :0 ); 
-      end
-      
       default begin
         ldpc_result=32'h0 ; 
       end
@@ -298,14 +279,10 @@ module alu import ariane_pkg::*;(
         unique case (fu_data_i.operator)
             
             // LDPC operations 
-            LDPC_MAX,
             LDPC_MIN,
             LDPC_ABS,
-            LDPC_NMESS,
             LDPC_SUB_SAT,
-            LDPC_ADD_SAT,
-            LDPC_EVAL,
-            LDPC_RSIGN : result_o = ldpc_result;
+            LDPC_ADD_SAT : result_o = ldpc_result;
 
 
             // Standard Operations
