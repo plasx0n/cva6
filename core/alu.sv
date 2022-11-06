@@ -221,7 +221,7 @@ module alu import ariane_pkg::*;(
   ////////////////
   // LDPC       //
   ////////////////
-
+  logic alu_dummy_test ; 
   logic [31:0]  ldpc_result=32'h0 ; 
   // parameter integer QTF_SIZE  = 8 ; 
   
@@ -235,11 +235,37 @@ module alu import ariane_pkg::*;(
   assign ldpc_res_minus = $signed( fu_data_i.operand_a[7:0]) - $signed( fu_data_i.operand_b[7:0]) ; 
 
   // A VERIF 
+  // a >= b ? 
   logic  ldpc_comp ; 
-  assign ldpc_comp = ($signed(fu_data_i.operand_a[7:0]) >= $signed(fu_data_i.operand_b[7:0])) ? 1:0 ; 
+  assign ldpc_comp = ($signed(fu_data_i.operand_a[7:0]) >= $signed(fu_data_i.operand_b[7:0] )) ? 1:0 ; 
+
+  logic [7:0] minmax_res ;
+  // max
+  logic [7:0] ldpc_temp ; 
+  assign ldpc_temp  = (ldpc_comp)? fu_data_i.operand_a[7:0] : fu_data_i.operand_b[7:0] ; 
+  
+  // min
+  assign minmax_res = ($signed(fu_data_i.imm[7:0]) >= $signed(ldpc_temp)) ? ldpc_temp: fu_data_i.imm[7:0] ; 
+
+
+  // min_sorting 
+    // mask 
+    logic[7:0] ms_mask ; 
+    assign ms_mask = (fu_data_i.operand_a[7:0]!=fu_data_i.operand_b[7:0])? 8'h00 : 8'hff ; 
+
+    // min_t
+    logic [7:0] min_t ; 
+    assign min_t = (fu_data_i.operand_a[7:0] & (~ms_mask)) ;
+
+    // min_u
+    logic [7:0] min_u ; 
+    assign min_u = (fu_data_i.imm[7:0] & ms_mask) ;
+
+
 
   always_comb begin
     ldpc_result=32'h0 ; 
+    alu_dummy_test=0 ; 
     unique case (fu_data_i.operator)
 
       LDPC_MIN: begin
@@ -264,9 +290,23 @@ module alu import ariane_pkg::*;(
         {24'h0,ldpc_res_plus[7:0]} ; 
       end 
 
+      LDPC_MINMAX : begin
+           
+        ldpc_result = { 24'h0, minmax_res } ; 
+      end
+
+      LDPC_MIN_SORTING : begin
+        alu_dummy_test= 1 ;
+        ldpc_result = { 24'h0, min_t | min_u } ;
+      end
+
+      LDPC_RSIGN_NMESS : begin
+        ldpc_result = { 24'h0, (fu_data_i.operand_a[7:0] ^ ($signed(fu_data_i.operand_b[7:0]) >= 0 ) ? 1:0 ) >= 0 ? fu_data_i.imm[7:0] : -fu_data_i.imm[7:0] };  
+      end
 
       default begin
         ldpc_result=32'h0 ; 
+        alu_dummy_test = 0 ; 
       end
     endcase
   end 
@@ -282,7 +322,10 @@ module alu import ariane_pkg::*;(
             LDPC_MIN,
             LDPC_ABS,
             LDPC_SUB_SAT,
-            LDPC_ADD_SAT : result_o = ldpc_result;
+            LDPC_ADD_SAT,
+            LDPC_MINMAX,
+            LDPC_MIN_SORTING,
+            LDPC_RSIGN_NMESS : result_o = ldpc_result;
 
 
             // Standard Operations

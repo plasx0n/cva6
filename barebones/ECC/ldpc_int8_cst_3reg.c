@@ -108,7 +108,7 @@ inline int8_t Sign(int8_t rs1,int8_t rs2)
 
 static inline int sign3( int rs1 , int rs2, int rs3  ){
     int rd ; 
-    asm volatile(" ld_sign3 %0,%1,%2,%3" \
+    asm volatile(" ld3_sign3 %0,%1,%2,%3" \
                             : "=r" (rd) \
                             : "r" (rs1), "r" (rs2), "r"(rs3)); 
     return rd;
@@ -116,7 +116,7 @@ static inline int sign3( int rs1 , int rs2, int rs3  ){
 
 static inline int minmax( int rs1 , int rs2, int rs3  ){
     int rd ; 
-    asm volatile(" ld_minmax %0,%1,%2,%3" \
+    asm volatile(" ld3_minmax %0,%1,%2,%3" \
                             : "=r" (rd) \
                             : "r" (rs1), "r" (rs2), "r"(rs3)); 
     return rd;
@@ -124,7 +124,7 @@ static inline int minmax( int rs1 , int rs2, int rs3  ){
 
 static inline int ld_rsign_nmess( int rs1 , int rs2, int rs3  ){
     int rd ; 
-    asm volatile(" ld_rsign_nmess %0,%1,%2,%3" \
+    asm volatile(" ld3_rsign_nmess %0,%1,%2,%3" \
                             : "=r" (rd) \
                             : "r" (rs1), "r" (rs2), "r"(rs3)); 
     return rd;
@@ -132,7 +132,7 @@ static inline int ld_rsign_nmess( int rs1 , int rs2, int rs3  ){
 
 static inline int ld_min_sorting( int rs1 , int rs2, int rs3  ){
     int rd ; 
-    asm volatile(" ld_min_sorting %0,%1,%2,%3" \
+    asm volatile(" ld3_min_sorting %0,%1,%2,%3" \
                             : "=r" (rd) \
                             : "r" (rs1), "r" (rs2), "r"(rs3)); 
     return rd;
