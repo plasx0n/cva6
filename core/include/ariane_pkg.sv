@@ -470,6 +470,7 @@ package ariane_pkg;
                                LDPC_ABS,
                                LDPC_SUB_SAT,
                                LDPC_ADD_SAT,
+                               LDPC_SIGN,
                             
                                //LDPC 3 REGS    
                                LDPC_MINMAX,

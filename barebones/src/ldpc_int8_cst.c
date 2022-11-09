@@ -8,19 +8,16 @@
 #include <stdlib.h>
 #include <stdint.h>
 
+
+
 #define CODE   ("LDPC")
 #define ordo   ("Horizontal layered")
-#define qtf    ("int8")
+#define qtf    ("int8_tx4")
 #define iter 	10
 #define nb_VN 	34
 #define nb_CN 	14
 
 
-
-int8_t 	codw[]=  {1,1,0,0,0,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0,1,1,1,1,0,0,0,1,0,0,0,0,0,0}; 
-int8_t 	err_[] = {1,1,0,0,1,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0,1,1,1,1,0,0,0,1,0,0,0,0,0,0}; 
-
-int8_t  	accuVn[nb_VN]={3, 5, -4, -4, 0,-7, 1,-4,-5, 0,-4,-3, 0, 0,-4,-3, 4,-7,-1, -4, 5, 7, 2, 6, 1,-2,-7,4,1,-1, 0,-4,-9, -4 } ; 
 
 // deg de chaque CN
 int8_t deg_Cns[] = 
@@ -28,9 +25,9 @@ int8_t deg_Cns[] =
     8,8,10,10,8,8,10,10,4,4,6,6,6,6  
 }; 
 
-int8_t c2v [nb_CN *nb_VN ]= {0} ; 
+int64_t c2v [nb_CN *nb_VN ]= {0} ; 
 
-int8_t posVn[]= {
+int64_t posVn[]= {
     1, 3, 4, 6, 13, 19, 20, 22,
     0, 2, 5, 7, 12, 18, 21, 23,
     1, 6, 9, 11, 12, 14, 16, 18, 22, 24,
@@ -47,10 +44,56 @@ int8_t posVn[]= {
     0, 11, 14, 19, 23, 33,
 } ; 
 
+
+// verification 
+
+int8_t 	codw1[]=  {1,1,0,0,0,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0,1,1,1,1,0,0,0,1,0,0,0,0,0,0};  
+int8_t 	err_1[] = {1,1,0,0,1,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0,1,1,1,1,0,0,0,1,0,0,0,0,0,0}; 
+		   
+//    3, 5, -4, -4, 0,-7, 1,-4,-5, 0,-4,-3, 0, 0,-4,-3, 4,-7,-1, -4, 5, 7, 2, 6, 1,-2,-7,4,1,-1, 0,-4,-9, -4 
+
+// parviens pas à corriger 
+int8_t codw2[]  ={0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,0,1,0,0,1,1,0,1,0,1,0,1} ;
+int8_t err_2[] = {0,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,0,1,0,0,1,1,0,1,0,1,0,1};
+			
+
+// []={-6,-4,5,-4,0,2,1,5,4,0,5,6,0,9,5,6,4,-7,-1,-4,-4,7,-7,6,1,-2,2,4,1,8,0,5,-9,5, } ;
+				  
+int8_t codw3[]  ={1,1,1,1,0,0,1,1,0,0,0,0,0,1,1,1,0,1,0,0,1,1,1,0,0,1,0,0,0,1,1,0,1,0} ;
+int8_t err_3[] = {1,1,1,1,0,1,1,1,0,0,0,0,0,1,1,1,0,1,0,0,1,1,1,0,0,1,0,0,0,1,1,0,1,0};
+			      
+// []={3,5,5,5,-9,2,1,5,-5,-9,-4,-3,-9,9,5,6,-5,2,-1,-4,5,7,2,-3,1,7,-7,-5,1,8,9,-4,0,-4, } ; 
+
+// parviens pas à corriger
+int8_t codw4[]  ={1,1,1,1,1,1,0,1,0,1,1,1,0,0,1,1,0,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,0} ;
+int8_t err_4[] = {1,1,0,1,1,1,0,1,0,1,1,1,0,0,1,1,0,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,0}; 
+
+// []={3,5,-4,5,0,2,-8,5,-5,0,5,6,-9,0,5,6,-5,2,-1,5,-4,-2,-7,-3,1,-2,-7,4,1,-1,0,-4,0,-4, 
+ 
+
+int64_t accuVn[34] ; 
+
+int8_t trames[] = {
+3,5,-4,-4,0,-7, 1,-4,-5, 0,-4,-3, 0, 0,-4,-3, 4,-7,-1, -4, 5, 7, 2, 6, 1,-2,-7,4,1,-1, 0,-4,-9, -4, 
+-6,-4,5,-4,0,2,1,5,4,0,5,6,0,9,5,6,4,-7,-1,-4,-4,7,-7,6,1,-2,2,4,1,8,0,5,-9,5,
+3,5,5,5,-9,2,1,5,-5,-9,-4,-3,-9,9,5,6,-5,2,-1,-4,5,7,2,-3,1,7,-7,-5,1,8,9,-4,0,-4,
+3,5,-4,5,0,2,-8,5,-5,0,5,6,-9,0,5,6,-5,2,-1,5,-4,-2,-7,-3,1,-2,-7,4,1,-1,0,-4,0,-4,
+
+3,5,-4,-4,0,-7, 1,-4,-5, 0,-4,-3, 0, 0,-4,-3, 4,-7,-1, -4, 5, 7, 2, 6, 1,-2,-7,4,1,-1, 0,-4,-9, -4, 
+-6,-4,5,-4,0,2,1,5,4,0,5,6,0,9,5,6,4,-7,-1,-4,-4,7,-7,6,1,-2,2,4,1,8,0,5,-9,5,
+3,5,5,5,-9,2,1,5,-5,-9,-4,-3,-9,9,5,6,-5,2,-1,-4,5,7,2,-3,1,7,-7,-5,1,8,9,-4,0,-4,
+3,5,-4,5,0,2,-8,5,-5,0,5,6,-9,0,5,6,-5,2,-1,5,-4,-2,-7,-3,1,-2,-7,4,1,-1,0,-4,0,-4,
+} ;
+
+
+#define callSign(rd,rs1,rs2) asm volatile("ld.sign %0,%1,%2" \
+	                            : "=r" (rd) \
+	                            : "r" (rs1), "r" (rs2)); 
+
 // basiquement reviens au meme 
-inline int8_t callAbs(int8_t rs1,int8_t rs2)
+inline int64_t callAbs(int64_t rs1,int64_t rs2)
 {
-	int8_t rd ; 
+	int64_t rd ; 
 	asm volatile("ld.abs %0,%1,%2" \
 	            	: "=r" (rd) \
 	            	: "r" (rs1), "r" (rs2));
@@ -65,9 +108,9 @@ inline int8_t callAbs(int8_t rs1,int8_t rs2)
 	                            // : "=r" (rd) \
 	                            // : "r" (rs1), "r" (rs2)); 
 
-inline int8_t callMin(int8_t rs1,int8_t rs2)
+inline int64_t callMin(int64_t rs1,int64_t rs2)
 {
-	int8_t rd ; 
+	int64_t rd ; 
 	asm volatile("ld.min %0,%1,%2" \
 	            	: "=r" (rd) \
 	            	: "r" (rs1), "r" (rs2));
@@ -87,9 +130,9 @@ inline int8_t callMin(int8_t rs1,int8_t rs2)
 	                            : "=r" (rd) \
 	                            : "r" (rs1), "r" (rs2)); 
 
-inline int8_t Sign(int8_t rs1,int8_t rs2)
+inline int64_t Sign(int64_t rs1,int64_t rs2)
 {
-	int8_t rd ; 
+	int64_t rd ; 
 	asm volatile("ld.sign %0,%1,%2" \
 	                : "=r" (rd) \
 	                : "r" (rs1), "r" (rs2));
@@ -106,32 +149,33 @@ inline int8_t Sign(int8_t rs1,int8_t rs2)
 	                            : "r" (rs1), "r" (rs2)); 
 
 
-static inline int sign3( int rs1 , int rs2, int rs3  ){
-    int rd ; 
+
+static inline int64_t sign3( int64_t rs1 , int64_t rs2, int64_t rs3  ){
+    int64_t rd ; 
     asm volatile(" ld3_sign3 %0,%1,%2,%3" \
                             : "=r" (rd) \
                             : "r" (rs1), "r" (rs2), "r"(rs3)); 
     return rd;
 }
 
-static inline int minmax( int rs1 , int rs2, int rs3  ){
-    int rd ; 
+static inline int64_t minmax( int64_t rs1 , int64_t rs2, int64_t rs3  ){
+    int64_t rd ; 
     asm volatile(" ld3_minmax %0,%1,%2,%3" \
                             : "=r" (rd) \
                             : "r" (rs1), "r" (rs2), "r"(rs3)); 
     return rd;
 }
 
-static inline int ld_rsign_nmess( int rs1 , int rs2, int rs3  ){
-    int rd ; 
+static inline int64_t ld_rsign_nmess( int64_t rs1 , int64_t rs2, int64_t rs3  ){
+    int64_t rd ; 
     asm volatile(" ld3_rsign_nmess %0,%1,%2,%3" \
                             : "=r" (rd) \
                             : "r" (rs1), "r" (rs2), "r"(rs3)); 
     return rd;
 }
 
-static inline int ld_min_sorting( int rs1 , int rs2, int rs3  ){
-    int rd ; 
+static inline int64_t ld_min_sorting( int64_t rs1 , int64_t rs2, int64_t rs3  ){
+    int64_t rd ; 
     asm volatile(" ld3_min_sorting %0,%1,%2,%3" \
                             : "=r" (rd) \
                             : "r" (rs1), "r" (rs2), "r"(rs3)); 
@@ -139,26 +183,74 @@ static inline int ld_min_sorting( int rs1 , int rs2, int rs3  ){
 }
 
 
+void reorder(int64_t* dest, const int8_t* src, int N) // a = sign, b = value
+{
+    int8_t* ptr = (int8_t*) dest;
+    for (int8_t i=0; i<N; i++)
+    {
+        for (int64_t z = 0; z < 8; z+= 1)
+        {
+            ptr[(8*i) + z] = src[z * N + i];  
+        }
+    }
+}
+
+void ireorder(int8_t* dest, int64_t* src, int N) // a = sign, b = value
+{
+    int8_t* ptr = (int8_t*) src;
+    for (int64_t i = 0; i < N; i += 1)
+    {
+        for (int64_t j = 0; j < 8; j += 1)
+        {
+            dest[j * N + i] = ptr[8 * i + j];
+        }
+    }
+}
+
+void trameCheck(int8_t * codw ,int8_t * err_ ){
+	printf("Diff in : \n") ;
+	for (int i=0 ; i<34; i++){
+      	int decb = err_[i] > 0;
+      	if( codw[i] != decb )
+        	printf("E") ;
+      	else  
+        	printf("-") ;
+	}
+	printf("\n") ; 
+}
+
+void postTrameCheck(int8_t * trame, int8_t * codw, int N ){
+
+	printf("Diff post: \n") ;
+	for (int i=N ; i<N+34; i++){
+      	int decb = trame[i] > 0;
+      	if( codw[i] != decb )
+        	printf("E") ;
+      	else  
+        	printf("-") ;
+	}
+	printf("\n") ; 
+}
+
 void process()
 {
-	// DOIT COMMENCER ICI AVEC AccVun déja remplit 
-    
-    // HL /////////////////////////////////
+	// ordering is part of the decoder 
+	reorder(accuVn,trames,34); 
 
-	int8_t Resu[32]  ;
+	int64_t Resu[32]  ;
 
 		for(int l=0;l<iter;l++)
 		{
-			int8_t* ptr_posVn = posVn ;
-			int8_t* ptr_c2v   = c2v ;
+			int64_t* ptr_posVn = posVn ;
+			int64_t* ptr_c2v   = c2v ;
 
 			// parcours des CN
 			for( int idex_Cn = 0 ; idex_Cn < nb_CN ; idex_Cn++)
 			{
 
-				int8_t min1    = 127 ;
-				int8_t min2    = 127 ;
-				int8_t sign    =   0 ;
+				int64_t min1    = (int64_t) 0x7F7F7F7F7F7F7F7F;
+				int64_t min2    = (int64_t) 0x7F7F7F7F7F7F7F7F;
+				int64_t sign    =   0 ;
 
 				// parcours des VN liés au Cn courant
 				int degCn = deg_Cns[idex_Cn];
@@ -166,18 +258,18 @@ void process()
 				{
 
 					int indice = ptr_posVn[ idex_Vn ];
-					int8_t pVn  =	accuVn[ indice];
-					int8_t msg  =	ptr_c2v [ idex_Vn ];
+					int64_t pVn  =	accuVn[ indice];
+					int64_t msg  =	ptr_c2v [ idex_Vn ];
 
-					int8_t vAccu ;
+					int64_t vAccu ;
 					callSubSat(vAccu,pVn,msg);				
 					Resu[idex_Vn] =  vAccu; 
 
-					// check min & signe ;
-					// int8_t testacc =  
-					sign  ^=  ( vAccu < 0); 
+					int64_t SignVAcc ;
+					callSign(SignVAcc,vAccu,0);
+					sign^= SignVAcc; 
 	
-					int8_t a = callAbs(vAccu,0); 
+					int64_t a = callAbs(vAccu,0); 
 					
 					// int8_t min_temp ;
 					// callMax(min_temp,min1,a) ; 
@@ -191,19 +283,19 @@ void process()
 				// parcours des VN liés au Cn courant
 				for( int idex_Vn =0 ; idex_Vn < degCn ; idex_Vn++)
 				{
-					int8_t nMessage  ;
-					int8_t temp = Resu[idex_Vn] ; 
+					int64_t nMessage  ;
+					int64_t temp = Resu[idex_Vn] ; 
 
-					int8_t eval ; 
+					int64_t eval ; 
 
 					// callEval(eval,min1,temp); 
 					// int8_t min_t = min1 & ~eval ; 
 					// int8_t min_u = min2 & eval ; 
 					// int8_t min_  = min_t | min_u ; 
-					int8_t min_ = ld_min_sorting(eval,min1,temp);
+					int64_t min_ = ld_min_sorting(eval,min1,temp);
 
 
-					int8_t Rsign ; 
+					int64_t Rsign ; 
 					// callRsign(Rsign,sign,temp) ; 
 					// callNmess(nMessage,Rsign,min_ ) ;
 					nMessage = ld_rsign_nmess(min_,sign,temp); 
@@ -228,32 +320,24 @@ void process()
 
 int main( ) 
 {
-	printf("%s(%d,%d) :: %s:: %d ite :: %s \n",CODE,nb_VN,nb_VN-nb_CN,ordo ,iter,qtf) ; 
-	// generic test 
-
+	printf("%s(%d,%d) :: %s:: %d ite :: %s\n",CODE,nb_VN,nb_VN-nb_CN,ordo ,iter,qtf) ; 
 	printf("GENEREE : %s - %s\n", __DATE__, __TIME__);
 
 	long insn_start,insn_stop,insn_tot ; 
 	long cycle_start,cycle_stop , cycle_tot ; 
    	long time_start,time_stop , time_tot ;
 
-    printf("\n"); 
-    printf("\n diff in :"); 
-    for (int i=0 ; i<nb_VN; i++){
-        if( i%32 == 0 ) printf("\n");
-        int decb = err_[i] > 0;
-        if( codw[i] != decb )
-            printf("E") ;
-        else  
-            printf("-") ;
-	}
-
-
+	// re-order operation 
+	trameCheck(codw1,err_1) ; 
+	trameCheck(codw2,err_2) ; 
+	trameCheck(codw3,err_3) ; 
+	trameCheck(codw4,err_4) ;
+  	
 	// 4 cycles pour sortir les infos 
 	cycle_start= cycles()-4;
 	insn_start = insn()-4; 
 	
-   process() ; 
+   	process() ; 
 
 	cycle_stop= cycles()-4;
 	insn_stop = insn()-4; 
@@ -264,17 +348,42 @@ int main( )
 	printf("cycles	: %d \n", cycle_tot) ; 
 	printf("insn	: %d \n", insn_tot);
 
-    printf("\n"); 
-    printf("\n diff out :"); 
-    for (int i=0 ; i<nb_VN; i++){
-        if( i%32 == 0 ) printf("\n");
-        int decb = accuVn[i] > 0;
-        if( codw[i] != decb )
-            printf("E") ;
-        else  
-            printf("-") ;
-    }
+ 
+	postTrameCheck(trames,codw1,0) ;
 
-	return 0 ; 
+	printf("Diff post: \n") ;
+	for (int i=0 ; i<34; i++){
+      	int decb = trames[34+i] > 0;
+		  printf("trame %d codw2 %d ",trames[34+i], codw2[i] ); 
+      	if( codw2[i] != decb )
+        	printf("E") ;
+      	else  
+        	printf("-") ;
+	printf("\n"); 
+	}
+	printf("\n") ; 
+
+	printf("Diff post: \n") ;
+	for (int i=0 ; i<34; i++){
+      	int decb = trames[68+i] > 0;
+      	if( codw3[i] != decb )
+        	printf("E") ;
+      	else  
+        	printf("-") ;
+	}
+	printf("\n") ; 
+
+	printf("Diff post: \n") ;
+	for (int i=0 ; i<34; i++){
+      	int decb = trames[(34*3)+i] > 0;
+      	if( codw4[i] != decb )
+        	printf("E") ;
+      	else  
+        	printf("-") ;
+	}
+	printf("\n") ; 
+
+
+  return 0;
 
 }

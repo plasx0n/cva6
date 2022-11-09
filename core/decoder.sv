@@ -100,6 +100,7 @@ module decoder import ariane_pkg::*; (
                     unique case (instr.r4type.funct2)
                         2'b00: begin
                             unique case ({instr.rtype.funct7, instr.rtype.funct3})
+                                {7'b000_0000, 3'b000} : instruction_o.op = LDPC_SIGN;
                                 {7'b000_0000, 3'b011} : instruction_o.op = LDPC_MIN;
                                 {7'b000_0000, 3'b001} : instruction_o.op = LDPC_ABS;
                                 {7'b000_0000, 3'b101} : instruction_o.op = LDPC_SUB_SAT;

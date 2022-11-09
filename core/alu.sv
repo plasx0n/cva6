@@ -324,6 +324,7 @@ module alu import ariane_pkg::*;(
             LDPC_SUB_SAT,
             LDPC_ADD_SAT,
             LDPC_MINMAX,
+            LDPC_SIGN,
             LDPC_MIN_SORTING,
             LDPC_RSIGN_NMESS : result_o = ldpc_result;
 
