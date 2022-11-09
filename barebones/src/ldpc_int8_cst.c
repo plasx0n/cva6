@@ -15,6 +15,7 @@
 #define nb_VN 	34
 #define nb_CN 	14
 
+// #define three_regs
 
 
 int8_t 	codw[]=  {1,1,0,0,0,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0,1,1,1,1,0,0,0,1,0,0,0,0,0,0}; 
@@ -114,24 +115,24 @@ static inline int sign3( int rs1 , int rs2, int rs3  ){
     return rd;
 }
 
-static inline int minmax( int rs1 , int rs2, int rs3  ){
-    int rd ; 
+static inline int8_t minmax( int8_t rs1 , int8_t rs2, int8_t rs3  ){
+    int8_t rd ; 
     asm volatile(" ld3_minmax %0,%1,%2,%3" \
                             : "=r" (rd) \
                             : "r" (rs1), "r" (rs2), "r"(rs3)); 
     return rd;
 }
 
-static inline int ld_rsign_nmess( int rs1 , int rs2, int rs3  ){
-    int rd ; 
+static inline int8_t ld_rsign_nmess( int8_t rs1 , int8_t rs2, int8_t rs3  ){
+    int8_t rd ; 
     asm volatile(" ld3_rsign_nmess %0,%1,%2,%3" \
                             : "=r" (rd) \
                             : "r" (rs1), "r" (rs2), "r"(rs3)); 
     return rd;
 }
 
-static inline int ld_min_sorting( int rs1 , int rs2, int rs3  ){
-    int rd ; 
+static inline int8_t ld_min_sorting( int8_t rs1 , int8_t rs2, int8_t rs3  ){
+    int8_t rd ; 
     asm volatile(" ld3_min_sorting %0,%1,%2,%3" \
                             : "=r" (rd) \
                             : "r" (rs1), "r" (rs2), "r"(rs3)); 
@@ -179,11 +180,14 @@ void process()
 	
 					int8_t a = callAbs(vAccu,0); 
 					
-					// int8_t min_temp ;
-					// callMax(min_temp,min1,a) ; 
-					// min2 = callMin( min2, min_temp )  ;   
-					
-					min2 = minmax(min2,min1,a); 
+					#ifndef three_regs
+						int8_t min_temp ;
+						callMax(min_temp,min1,a) ; 
+						min2 = callMin( min2, min_temp )  ;   
+					#else
+						min2 = minmax(min2,min1,a); 
+					#endif 
+
 					min1 = callMin( a,min1) ; 
 
 				}
@@ -196,17 +200,23 @@ void process()
 
 					int8_t eval ; 
 
-					// callEval(eval,min1,temp); 
-					// int8_t min_t = min1 & ~eval ; 
-					// int8_t min_u = min2 & eval ; 
-					// int8_t min_  = min_t | min_u ; 
-					int8_t min_ = ld_min_sorting(eval,min1,temp);
+					#ifndef three_regs
+						callEval(eval,min1,temp); 
+						int8_t min_t = min1 & ~eval ; 
+						int8_t min_u = min2 & eval ; 
+						int8_t min_  = min_t | min_u ; 
+					#else 
+						int8_t min_ = ld_min_sorting(eval,min1,temp);
+					#endif
 
 
 					int8_t Rsign ; 
-					// callRsign(Rsign,sign,temp) ; 
-					// callNmess(nMessage,Rsign,min_ ) ;
-					nMessage = ld_rsign_nmess(min_,sign,temp); 
+					#ifndef	three_regs
+						callRsign(Rsign,sign,temp) ; 
+						callNmess(nMessage,Rsign,min_ ) ;
+					#else 
+						nMessage = ld_rsign_nmess(min_,sign,temp); 
+					#endif 
 
 					// maj c2v
 					ptr_c2v[idex_Vn] = nMessage ;
@@ -253,7 +263,7 @@ int main( )
 	cycle_start= cycles()-4;
 	insn_start = insn()-4; 
 	
-   process() ; 
+   	process() ; 
 
 	cycle_stop= cycles()-4;
 	insn_stop = insn()-4; 
