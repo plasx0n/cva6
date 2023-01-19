@@ -226,20 +226,11 @@ module alu import ariane_pkg::*;(
   logic [31:0]  polar_result='0 ; 
   parameter integer QTF_SIZE  = 8 ; 
 
+  logic [QTF_SIZE:0]  polar_Res_minus1 ; 
+  logic [QTF_SIZE:0]  polar_Res_plus1 ;
 
-  // fonction G 
-  logic [QTF_SIZE:0]  polar_minus1 ;
-  logic [QTF_SIZE-1 : 0] res_minus1 ; 
-
-  logic [QTF_SIZE:0]  polar_plus1 ;
-  logic [QTF_SIZE-1 : 0] res_plus1 ; 
-
-  assign polar_minus1 = $signed( fu_data_i.operand_a[7:0])   - $signed( fu_data_i.operand_b[7:0]) ;
-  assign polar_plus1  = $signed( fu_data_i.operand_a[7:0])   + $signed( fu_data_i.operand_b[7:0]) ;
-
-  assign res_minus1 = ($signed(polar_minus1) > 127)? 8'h7f : ($signed(polar_minus1) < -127)? 8'h81 : polar_minus1[QTF_SIZE-1:0] ;
-  assign res_plus1  = ($signed(polar_plus1) >  127)? 8'h7f : ($signed(polar_plus1) < -127)? 8'h81 : polar_plus1[QTF_SIZE-1:0]  ;
-
+  assign polar_Res_minus1 = $signed( fu_data_i.operand_a[7:0])   - $signed( fu_data_i.operand_b[7:0]) ;
+  assign polar_Res_plus1  = $signed( fu_data_i.operand_a[7:0])   + $signed( fu_data_i.operand_b[7:0]) ;
   // others fonctions 
   logic                 sign1 ;
   logic [QTF_SIZE-1:0]  min11 ; 
@@ -271,9 +262,20 @@ module alu import ariane_pkg::*;(
         } ;
       end
 
-      PL_G : begin 
+      PL_SUBSAT :begin
         polar_result = 
-        { 24'h00 , (fu_data_i.imm==0)? res_plus1: res_minus1} ; 
+        {
+        24'h00 ,
+        ($signed(polar_Res_minus1) > 127)? 8'h7f : ($signed(polar_Res_minus1) < -127)? 8'h81 : polar_Res_minus1[QTF_SIZE-1:0] 
+        }; 
+      end
+
+      PL_ADDSAT :begin 
+        polar_result = 
+        {
+        24'h00 ,
+        ($signed(polar_Res_plus1) >  127)? 8'h7f : ($signed(polar_Res_plus1) < -127)? 8'h81 : polar_Res_plus1[QTF_SIZE-1:0] 
+        }; 
       end 
 
 
@@ -293,7 +295,7 @@ module alu import ariane_pkg::*;(
             // polar  operations 
             PL_F,
             PL_R,
-            PL_G : result_o = polar_result;
+            PL_ADDSAT, PL_SUBSAT : result_o = polar_result;
 
 
             // Standard Operations

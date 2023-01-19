@@ -467,7 +467,8 @@ package ariane_pkg;
                                // POLAR
                                PL_F,
                                PL_R,
-                               PL_G,
+                               PL_ADDSAT,
+                               PL_SUBSAT,
                             
                                // basic ALU op
                                ADD, SUB, ADDW, SUBW,
@@ -611,13 +612,6 @@ package ariane_pkg;
             endcase
         end else
             return 1'b0;
-    endfunction
-
-    function automatic logic is_rs3_3reg (input fu_op op);
-            unique case (op) inside
-                PL_G              : return 1'b1; // Vectorial FP cast and pack ops
-                default           : return 1'b0; // all other ops
-            endcase
     endfunction
 
     function automatic logic is_amo (fu_op op);
