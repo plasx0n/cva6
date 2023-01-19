@@ -10,16 +10,15 @@
 	                            : "+r" (a) \
 	                            : "r" (b), "r" (c)); 
 
-static inline int8_t func_g(int8_t rs1, int8_t rs2,int8_t rs3){
-    int8_t rd ; 
-    asm volatile("pl3_g %0,%1,%2,%3" \
-                            :"=r"(rd) \
-                            :"r"(rs1),"r"(rs2),"r"(rs3));           
-    return rd;
-}
+#define callSubSat(a,b,c) asm volatile("pl.subsat %0,%1,%2" \
+	                            : "=r" (a) \
+	                            : "r" (b), "r" (c)); 
                                 
+#define callAddSat(a,b,c) asm volatile("pl.addsat %0,%1,%2" \
+	                            : "=r" (a) \
+	                            : "r" (b), "r" (c)); 
 
-
+                            
 // PARAMETERS 
 #define codw_N 1024
 #define K codw_N/2
@@ -43,7 +42,7 @@ static inline int8_t func_g(int8_t rs1, int8_t rs2,int8_t rs3){
 
 // low level polar funcs
 
-/*
+
 int16_t func_g(int8_t sa,int8_t la,int8_t lb)
 {
     int8_t res ; 
@@ -57,7 +56,7 @@ int16_t func_g(int8_t sa,int8_t la,int8_t lb)
     }
     return res ;
 }
-*/
+
 
 ////////////////////////// 
 // main func 
@@ -89,8 +88,8 @@ void node( int8_t* ptr_sum, int8_t *LLR , int N, int8_t *fz_bits,int8_t *decode)
         // ON CALCULE LES G
         for( int x = 0;  x < N/2; x += 1 )
         {
-            // (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
-            (LLR+N)[ x ] = func_g( LLR[ x ], (LLR+N/2)[ x ] , ptr_sum[x]) ;
+            (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
+            
 
         }
 
