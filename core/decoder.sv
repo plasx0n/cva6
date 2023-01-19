@@ -92,33 +92,32 @@ module decoder import ariane_pkg::*; (
             case (instr.rtype.opcode)
                 // TEST
                 
-                riscv::LDPC: begin
+                riscv::PL: begin
                     instruction_o.fu       = ALU; 
                     instruction_o.rs1[4:0] = instr.itype.rs1;
                     instruction_o.rs2[4:0] = instr.rtype.rs2;
                     instruction_o.rd[4:0]  = instr.itype.rd;
                     unique case (instr.r4type.funct2)
-                        2'b00: begin
+                        2'b00: begin // FC2 est clean 
                             unique case ({instr.rtype.funct7, instr.rtype.funct3})
-                                {7'b000_0000, 3'b000} : instruction_o.op = LDPC_SIGN;
-                                {7'b000_0000, 3'b011} : instruction_o.op = LDPC_MIN;
-                                {7'b000_0000, 3'b001} : instruction_o.op = LDPC_ABS;
-                                {7'b000_0000, 3'b101} : instruction_o.op = LDPC_SUB_SAT;
+                                {7'b000_0000, 3'b000} : begin
+                                    instruction_o.op = ariane_pkg::PL_F;
+                                    // $display("pl_f");
+                                end 
+                                {7'b000_0000, 3'b001} : begin
+                                    instruction_o.op = ariane_pkg::PL_R;
+                                    // $display("pl_R");
+                                end
                             endcase
                         end
 
-                        2'b01: begin
-                            unique case ({instr.rtype.funct7, instr.rtype.funct3})
-                                {7'b000_0001, 3'b010} : instruction_o.op = LDPC_ADD_SAT ;
-                            endcase
-                        end 
-
-                        2'b11:begin
+                        2'b11:begin 
                             imm_select        = RS3; // rs3 into result field
-                            unique case ({instr.r4type.funct2 , instr.r4type.funct3})
-                                {2'b11 , 3'b001}:instruction_o.op =ariane_pkg::LDPC_MINMAX;
-                                {2'b11 , 3'b010}:instruction_o.op =ariane_pkg::LDPC_RSIGN_NMESS;
-                                {2'b11 , 3'b011}:instruction_o.op =ariane_pkg::LDPC_MIN_SORTING;
+                            unique case (instr.r4type.funct3)
+                                {3'b000}:begin
+                                    instruction_o.op = ariane_pkg::PL_G;
+                                    // $display("PL_G");
+                                end 
                             endcase
                         end
                     endcase

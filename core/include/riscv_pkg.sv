@@ -213,7 +213,7 @@ package riscv;
     // Quadrant 1
     localparam OpcodeStore     = 7'b01_000_11;
     localparam OpcodeStoreFp   = 7'b01_001_11;
-    localparam OpcodeCustom1   = 7'b01_010_11;
+    localparam PL              = 7'b01_010_11;
     localparam OpcodeAmo       = 7'b01_011_11;
     localparam OpcodeOp        = 7'b01_100_11;
     localparam OpcodeLui       = 7'b01_101_11;

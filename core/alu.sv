@@ -219,94 +219,66 @@ module alu import ariane_pkg::*;(
     end
 
   ////////////////
-  // LDPC       //
+  //POLAR       //
   ////////////////
-  logic alu_dummy_test ; 
-  logic [31:0]  ldpc_result=32'h0 ; 
-  // parameter integer QTF_SIZE  = 8 ; 
-  
-  // si la data d'entrée est définie sur 8 bits (int8) mauvaise interprétation liée au bit supplémentaire 
-  // -4 = xfc (8b) & xff ff ff fc (32b) => calcul devient faut puisque interprété comme x0fc sur (9 bits) 
-  // bit 9 est utilisé pour l'overflow et par la suite évalué 
-  logic [8:0]   ldpc_res_plus ; 
-  assign ldpc_res_plus = $signed( fu_data_i.operand_a[7:0]) + $signed( fu_data_i.operand_b[7:0]) ; 
+  // Pas d'optis 
 
-  logic [8:0]   ldpc_res_minus ; 
-  assign ldpc_res_minus = $signed( fu_data_i.operand_a[7:0]) - $signed( fu_data_i.operand_b[7:0]) ; 
-
-  // A VERIF 
-  // a >= b ? 
-  logic  ldpc_comp ; 
-  assign ldpc_comp = ($signed(fu_data_i.operand_a[7:0]) >= $signed(fu_data_i.operand_b[7:0] )) ? 1:0 ; 
-
-  logic [7:0] minmax_res ;
-  // max
-  logic [7:0] ldpc_temp ; 
-  assign ldpc_temp  = (ldpc_comp)? fu_data_i.operand_a[7:0] : fu_data_i.operand_b[7:0] ; 
-  
-  // min
-  assign minmax_res = ($signed(fu_data_i.imm[7:0]) >= $signed(ldpc_temp)) ? ldpc_temp: fu_data_i.imm[7:0] ; 
+  logic [31:0]  polar_result='0 ; 
+  parameter integer QTF_SIZE  = 8 ; 
 
 
-  // min_sorting 
-    // mask 
-    logic[7:0] ms_mask ; 
-    assign ms_mask = (fu_data_i.operand_a[7:0]!=fu_data_i.operand_b[7:0])? 8'h00 : 8'hff ; 
+  // fonction G 
+  logic [QTF_SIZE:0]  polar_minus1 ;
+  logic [QTF_SIZE-1 : 0] res_minus1 ; 
 
-    // min_t
-    logic [7:0] min_t ; 
-    assign min_t = (fu_data_i.operand_a[7:0] & (~ms_mask)) ;
+  logic [QTF_SIZE:0]  polar_plus1 ;
+  logic [QTF_SIZE-1 : 0] res_plus1 ; 
 
-    // min_u
-    logic [7:0] min_u ; 
-    assign min_u = (fu_data_i.imm[7:0] & ms_mask) ;
+  assign polar_minus1 = $signed( fu_data_i.operand_a[7:0])   - $signed( fu_data_i.operand_b[7:0]) ;
+  assign polar_plus1  = $signed( fu_data_i.operand_a[7:0])   + $signed( fu_data_i.operand_b[7:0]) ;
 
+  assign res_minus1 = ($signed(polar_minus1) > 127)? 8'h7f : ($signed(polar_minus1) < -127)? 8'h81 : polar_minus1[QTF_SIZE-1:0] ;
+  assign res_plus1  = ($signed(polar_plus1) >  127)? 8'h7f : ($signed(polar_plus1) < -127)? 8'h81 : polar_plus1[QTF_SIZE-1:0]  ;
+
+  // others fonctions 
+  logic                 sign1 ;
+  logic [QTF_SIZE-1:0]  min11 ; 
+  logic [QTF_SIZE-1:0]  min21 ;
+
+  assign sign1 = ( (	$signed( fu_data_i.operand_a[7:0]   ) >= 0) ? 0:1)  ^ ( ( $signed(fu_data_i.operand_b[7:0]   ) >= 0 )? 0:1)   ; 
+  assign min11 = ( ( $signed( fu_data_i.operand_a[7:0]   ) >= 0) ? fu_data_i.operand_a[7:0]   : -fu_data_i.operand_a[7:0]   ) ;
+  assign min21 = ( ( $signed( fu_data_i.operand_b[7:0]   ) >= 0) ? fu_data_i.operand_b[7:0]   : -fu_data_i.operand_b[7:0] ) ;
 
 
   always_comb begin
-    ldpc_result=32'h0 ; 
-    alu_dummy_test=0 ; 
+    // ouf 
+    polar_result='0 ; 
     unique case (fu_data_i.operator)
 
-      LDPC_MIN: begin
-        ldpc_result ={24'h0,  (ldpc_comp)? fu_data_i.operand_b[7:0] : fu_data_i.operand_a[7:0] };
-      end
-
-      LDPC_ABS: begin 
-        ldpc_result ={24'h0,   ($signed(fu_data_i.operand_a[7:0]) >= 0 )? fu_data_i.operand_a[7:0]: -fu_data_i.operand_a[7:0] }; 
+      PL_R: begin 
+        polar_result =  
+        {
+        24'h00 ,
+        ($signed(fu_data_i.operand_b[7:0] ) == 1) ? 8'h00 : ($signed(fu_data_i.operand_a[7:0] ) < 0 ) ? 8'h01 : 8'h00 
+        }; 
       end 
 
-      LDPC_SUB_SAT : begin 
-        ldpc_result = 
-        ($signed(ldpc_res_minus) >  127)? 127 : 
-        ($signed(ldpc_res_minus) < -127)? -127 : 
-        {24'h0,ldpc_res_minus[7:0]} ; 
+      PL_F : begin 
+        polar_result = 
+        {
+        24'h00 ,
+        ( min11 > min21 ) ? (( sign1 == 0 ) ? min21 : -min21 ) : (( sign1 == 0 ) ? min11 : -min11 )  
+        } ;
+      end
+
+      PL_G : begin 
+        polar_result = 
+        { 24'h00 , (fu_data_i.imm==0)? res_plus1: res_minus1} ; 
       end 
 
-      LDPC_ADD_SAT : begin 
-        ldpc_result = 
-        ($signed(ldpc_res_plus) >  127)? 127 : 
-        ($signed(ldpc_res_plus) < -127)? -127 : 
-        {24'h0,ldpc_res_plus[7:0]} ; 
-      end 
 
-      LDPC_MINMAX : begin
-           
-        ldpc_result = { 24'h0, minmax_res } ; 
-      end
-
-      LDPC_MIN_SORTING : begin
-        alu_dummy_test= 1 ;
-        ldpc_result = { 24'h0, min_t | min_u } ;
-      end
-
-      LDPC_RSIGN_NMESS : begin
-        ldpc_result = { 24'h0, (fu_data_i.operand_a[7:0] ^ ($signed(fu_data_i.operand_b[7:0]) >= 0 ) ? 1:0 ) >= 0 ? fu_data_i.imm[7:0] : -fu_data_i.imm[7:0] };  
-      end
-
-      default begin
-        ldpc_result=32'h0 ; 
-        alu_dummy_test = 0 ; 
+      default: begin
+        polar_result='0 ; 
       end
     endcase
   end 
@@ -318,15 +290,10 @@ module alu import ariane_pkg::*;(
         result_o   = '0;
         unique case (fu_data_i.operator)
             
-            // LDPC operations 
-            LDPC_MIN,
-            LDPC_ABS,
-            LDPC_SUB_SAT,
-            LDPC_ADD_SAT,
-            LDPC_MINMAX,
-            LDPC_SIGN,
-            LDPC_MIN_SORTING,
-            LDPC_RSIGN_NMESS : result_o = ldpc_result;
+            // polar  operations 
+            PL_F,
+            PL_R,
+            PL_G : result_o = polar_result;
 
 
             // Standard Operations
