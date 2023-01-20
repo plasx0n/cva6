@@ -245,7 +245,7 @@ module alu import ariane_pkg::*;(
   logic [QTF_SIZE-1:0]  min11 ; 
   logic [QTF_SIZE-1:0]  min21 ;
 
-  assign sign1 = ( (	$signed( fu_data_i.operand_a[7:0]   ) >= 0) ? 0:1)  ^ ( ( $signed(fu_data_i.operand_b[7:0]   ) >= 0 )? 0:1)   ; 
+  assign sign1 = ( ( $signed( fu_data_i.operand_a[7:0]   ) >= 0) ? 0:1)  ^ ( ( $signed(fu_data_i.operand_b[7:0]   ) >= 0 )? 0:1)   ; 
   assign min11 = ( ( $signed( fu_data_i.operand_a[7:0]   ) >= 0) ? fu_data_i.operand_a[7:0]   : -fu_data_i.operand_a[7:0]   ) ;
   assign min21 = ( ( $signed( fu_data_i.operand_b[7:0]   ) >= 0) ? fu_data_i.operand_b[7:0]   : -fu_data_i.operand_b[7:0] ) ;
 
@@ -273,7 +273,7 @@ module alu import ariane_pkg::*;(
 
       PL_G : begin 
         polar_result = 
-        { 24'h00 , (fu_data_i.imm==0)? res_plus1: res_minus1} ; 
+        { 24'h00 , (fu_data_i.imm[7:0]==8'h00)? res_plus1: res_minus1} ; 
       end 
 
 
