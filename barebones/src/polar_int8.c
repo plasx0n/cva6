@@ -13,7 +13,7 @@
 static inline int8_t func_g(int8_t rs1, int8_t rs2,int8_t rs3){
     int8_t rd ; 
     asm volatile("pl3_g %0,%1,%2,%3" \
-                            :"=r"(rd) \
+                            :"+r"(rd) \
                             :"r"(rs1),"r"(rs2),"r"(rs3));           
     return rd;
 }
@@ -90,9 +90,15 @@ void node( int8_t* ptr_sum, int8_t *LLR , int N, int8_t *fz_bits,int8_t *decode)
         for( int x = 0;  x < N/2; x += 1 )
         {
             // (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
+<<<<<<< HEAD
             printf("sa %d, d1 %d , d2 %d",ptr_sum[x], LLR[ x ], (LLR+N/2)[ x ]); 
             (LLR+N)[ x ] = func_g( LLR[ x ], (LLR+N/2)[ x ] , ptr_sum[x] ) ;
             printf(" res : %d \n",(LLR+N)[ x ]); 
+=======
+            (LLR+N)[ x ] = func_g( LLR[ x ], (LLR+N/2)[ x ] , ptr_sum[x]) ;
+            printf("sa %d rs1 %d rs2 %d res %d\n" , ptr_sum[x] , LLR[ x ], (LLR+N/2)[ x ] , (LLR+N)[x] );
+
+>>>>>>> 42db89e8a07217cebb7ae2d5a8e37a5a0e03c510
         }
 
         // ON CALCULE LA BRANCHE DROITE
@@ -108,7 +114,32 @@ void node( int8_t* ptr_sum, int8_t *LLR , int N, int8_t *fz_bits,int8_t *decode)
 }
 
 
-int main(int argc, char **argv) {
+void test_plg ( int8_t sa ,int8_t rs1 , int8_t rs2)
+{
+    int8_t res ; 
+    res = func_g( rs1 , rs2, sa) ; 
+    printf(" sa %d rs1 %d rs2 %d res %d ", sa, rs1 , rs2 , res ) ; 
+}
+
+
+
+int main() {
+
+test_plg(0 , 1 , 2 ) ; 
+test_plg(1 , 1 , 2 ) ; 
+
+test_plg(0 , -1 , 2 ) ; 
+test_plg(1 , -1 , 2 ) ; 
+
+test_plg(0 , -1 , -2 ) ; 
+test_plg(1 , -1 , -2 ) ; 
+
+test_plg(0 , 1 , -2 ) ; 
+test_plg(1 , 1 , -2 ) ; 
+
+
+
+
 
 for( int i = 0 ; i < codw_N ; ++i)
 	LLR[i] =(int8_t) codw_int[i] ; 
@@ -139,7 +170,11 @@ for( int i = 0 ; i < codw_N ; ++i)
     for( int i=0 ; i < codw_N ; i++)
     {
         if( froozen_bits[i]==0 && U[j++]!=decode[i]  )
-            cpt++ ;              
+        {
+            cpt++ ;
+            printf("%d ",i ) ; 
+        }
+                          
     }
 
     printf(" %d",cpt) ; 

@@ -1,0 +1,995 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Fri Jan 20 10:32:02 2023
+[*]
+[dumpfile] "/home/dizzy/Documents/PHD/cva6/cd=vcd"
+[dumpfile_mtime] "Fri Jan 20 10:03:04 2023"
+[dumpfile_size] 5070682068
+[savefile] "/home/dizzy/Documents/PHD/cva6/debug.gtkw"
+[timestart] 49034
+[size] 1920 1163
+[pos] -51 -51
+*-3.501850 49067 49063 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[treeopen] TOP.ariane_testharness.
+[treeopen] TOP.ariane_testharness.i_ariane.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.ex_stage_i.lsu_i.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.fu_data_id_ex.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.issue_scoreboard.
+[treeopen] TOP.ariane_testharness.i_dm_top.
+[treeopen] TOP.ariane_testharness.i_dm_top.i_dm_csrs.
+[sst_width] 241
+[signals_width] 419
+[sst_expanded] 1
+[sst_vpaned_height] 607
+@28
+>24
+TOP.clk_i
+>0
+[color] 1
+TOP.rst_ni
+@200
+-DEBUG
+@c00200
+-debug_features
+@800200
+-AXI
+@c00200
+-dm_axi_m_req
+@28
+TOP.ariane_testharness.dm_axi_m_req.ar_valid
+TOP.ariane_testharness.dm_axi_m_req.aw_valid
+TOP.ariane_testharness.dm_axi_m_req.b_ready
+TOP.ariane_testharness.dm_axi_m_req.r_ready
+TOP.ariane_testharness.dm_axi_m_req.w_valid
+@c00200
+-ar
+@22
+TOP.ariane_testharness.dm_axi_m_req.ar.addr[63:0]
+@28
+TOP.ariane_testharness.dm_axi_m_req.ar.burst[1:0]
+@22
+TOP.ariane_testharness.dm_axi_m_req.ar.cache[3:0]
+TOP.ariane_testharness.dm_axi_m_req.ar.id[3:0]
+TOP.ariane_testharness.dm_axi_m_req.ar.len[7:0]
+@28
+TOP.ariane_testharness.dm_axi_m_req.ar.lock
+TOP.ariane_testharness.dm_axi_m_req.ar.prot[2:0]
+@22
+TOP.ariane_testharness.dm_axi_m_req.ar.qos[3:0]
+TOP.ariane_testharness.dm_axi_m_req.ar.region[3:0]
+@28
+TOP.ariane_testharness.dm_axi_m_req.ar.size[2:0]
+#{user[1:0]} TOP.ariane_testharness.dm_axi_m_req.ar.user[0]
+@1401200
+-ar
+@c00200
+-aw
+@22
+TOP.ariane_testharness.dm_axi_m_req.aw.addr[63:0]
+TOP.ariane_testharness.dm_axi_m_req.aw.atop[5:0]
+@28
+TOP.ariane_testharness.dm_axi_m_req.aw.burst[1:0]
+@22
+TOP.ariane_testharness.dm_axi_m_req.aw.cache[3:0]
+TOP.ariane_testharness.dm_axi_m_req.aw.id[3:0]
+TOP.ariane_testharness.dm_axi_m_req.aw.len[7:0]
+@28
+TOP.ariane_testharness.dm_axi_m_req.aw.lock
+TOP.ariane_testharness.dm_axi_m_req.aw.prot[2:0]
+@22
+TOP.ariane_testharness.dm_axi_m_req.aw.qos[3:0]
+TOP.ariane_testharness.dm_axi_m_req.aw.region[3:0]
+@28
+TOP.ariane_testharness.dm_axi_m_req.aw.size[2:0]
+#{user[1:0]} TOP.ariane_testharness.dm_axi_m_req.aw.user[0]
+@1401200
+-aw
+@c00200
+-w
+@22
+TOP.ariane_testharness.dm_axi_m_req.w.data[63:0]
+@28
+TOP.ariane_testharness.dm_axi_m_req.w.last
+@22
+TOP.ariane_testharness.dm_axi_m_req.w.strb[7:0]
+@28
+#{user[1:0]} TOP.ariane_testharness.dm_axi_m_req.w.user[0]
+@1401200
+-w
+-dm_axi_m_req
+@c00200
+-dm_axi_m_resp
+@28
+TOP.ariane_testharness.dm_axi_m_resp.ar_ready
+TOP.ariane_testharness.dm_axi_m_resp.aw_ready
+TOP.ariane_testharness.dm_axi_m_resp.b_valid
+TOP.ariane_testharness.dm_axi_m_resp.r_valid
+TOP.ariane_testharness.dm_axi_m_resp.w_ready
+@c00200
+-b
+@22
+TOP.ariane_testharness.dm_axi_m_resp.b.id[3:0]
+@28
+TOP.ariane_testharness.dm_axi_m_resp.b.resp[1:0]
+#{user[1:0]} TOP.ariane_testharness.dm_axi_m_resp.b.user[0]
+@1401200
+-b
+@c00200
+-r
+@22
+TOP.ariane_testharness.dm_axi_m_resp.r.data[63:0]
+TOP.ariane_testharness.dm_axi_m_resp.r.id[3:0]
+@28
+TOP.ariane_testharness.dm_axi_m_resp.r.last
+TOP.ariane_testharness.dm_axi_m_resp.r.resp[1:0]
+#{user[1:0]} TOP.ariane_testharness.dm_axi_m_resp.r.user[0]
+@1401200
+-r
+-dm_axi_m_resp
+@200
+-
+@800200
+-axi_ariane_req
+@28
+TOP.ariane_testharness.axi_ariane_req.ar_valid
+TOP.ariane_testharness.axi_ariane_req.aw_valid
+[color] 3
+TOP.ariane_testharness.axi_ariane_req.b_ready
+@100000028
+[color] 1
+TOP.ariane_testharness.axi_ariane_req.r_ready
+@28
+TOP.ariane_testharness.axi_ariane_req.w_valid
+@c00200
+-ar
+@22
+TOP.ariane_testharness.axi_ariane_req.ar.addr[63:0]
+@28
+TOP.ariane_testharness.axi_ariane_req.ar.burst[1:0]
+@22
+TOP.ariane_testharness.axi_ariane_req.ar.cache[3:0]
+TOP.ariane_testharness.axi_ariane_req.ar.id[3:0]
+TOP.ariane_testharness.axi_ariane_req.ar.len[7:0]
+@28
+TOP.ariane_testharness.axi_ariane_req.ar.lock
+TOP.ariane_testharness.axi_ariane_req.ar.prot[2:0]
+@22
+TOP.ariane_testharness.axi_ariane_req.ar.qos[3:0]
+TOP.ariane_testharness.axi_ariane_req.ar.region[3:0]
+@28
+TOP.ariane_testharness.axi_ariane_req.ar.size[2:0]
+#{user[1:0]} TOP.ariane_testharness.axi_ariane_req.ar.user[0]
+@1401200
+-ar
+@c00200
+-aw
+@22
+TOP.ariane_testharness.axi_ariane_req.aw.addr[63:0]
+TOP.ariane_testharness.axi_ariane_req.aw.atop[5:0]
+@28
+TOP.ariane_testharness.axi_ariane_req.aw.burst[1:0]
+@22
+TOP.ariane_testharness.axi_ariane_req.aw.cache[3:0]
+TOP.ariane_testharness.axi_ariane_req.aw.id[3:0]
+TOP.ariane_testharness.axi_ariane_req.aw.len[7:0]
+@28
+TOP.ariane_testharness.axi_ariane_req.aw.lock
+TOP.ariane_testharness.axi_ariane_req.aw.prot[2:0]
+@22
+TOP.ariane_testharness.axi_ariane_req.aw.qos[3:0]
+TOP.ariane_testharness.axi_ariane_req.aw.region[3:0]
+@28
+TOP.ariane_testharness.axi_ariane_req.aw.size[2:0]
+#{user[1:0]} TOP.ariane_testharness.axi_ariane_req.aw.user[0]
+@1401200
+-aw
+@c00200
+-w
+@22
+TOP.ariane_testharness.axi_ariane_req.w.data[63:0]
+@28
+TOP.ariane_testharness.axi_ariane_req.w.last
+@22
+TOP.ariane_testharness.axi_ariane_req.w.strb[7:0]
+@28
+#{user[1:0]} TOP.ariane_testharness.axi_ariane_req.w.user[0]
+@1401200
+-w
+@1000200
+-axi_ariane_req
+@800200
+-axi_ariane_resp
+@28
+TOP.ariane_testharness.axi_ariane_resp.ar_ready
+TOP.ariane_testharness.axi_ariane_resp.aw_ready
+[color] 3
+TOP.ariane_testharness.axi_ariane_resp.b_valid
+@100000028
+[color] 1
+TOP.ariane_testharness.axi_ariane_resp.r_valid
+@28
+TOP.ariane_testharness.axi_ariane_resp.w_ready
+@800200
+-b
+@22
+TOP.ariane_testharness.axi_ariane_resp.b.id[3:0]
+@100000028
+[color] 3
+TOP.ariane_testharness.axi_ariane_resp.b.resp[1:0]
+@28
+#{user[1:0]} TOP.ariane_testharness.axi_ariane_resp.b.user[0]
+@1000200
+-b
+@800200
+-r
+@22
+TOP.ariane_testharness.axi_ariane_resp.r.data[63:0]
+TOP.ariane_testharness.axi_ariane_resp.r.id[3:0]
+@28
+TOP.ariane_testharness.axi_ariane_resp.r.last
+@100000028
+[color] 1
+TOP.ariane_testharness.axi_ariane_resp.r.resp[1:0]
+@28
+#{user[1:0]} TOP.ariane_testharness.axi_ariane_resp.r.user[0]
+@1000200
+-r
+-axi_ariane_resp
+@200
+-
+@c00200
+-axi_clint_req
+@28
+TOP.ariane_testharness.axi_clint_req.ar_valid
+TOP.ariane_testharness.axi_clint_req.aw_valid
+TOP.ariane_testharness.axi_clint_req.b_ready
+TOP.ariane_testharness.axi_clint_req.r_ready
+TOP.ariane_testharness.axi_clint_req.w_valid
+@c00200
+-ar
+@22
+TOP.ariane_testharness.axi_clint_req.ar.addr[63:0]
+@28
+TOP.ariane_testharness.axi_clint_req.ar.burst[1:0]
+@22
+TOP.ariane_testharness.axi_clint_req.ar.cache[3:0]
+TOP.ariane_testharness.axi_clint_req.ar.id[4:0]
+TOP.ariane_testharness.axi_clint_req.ar.len[7:0]
+@28
+TOP.ariane_testharness.axi_clint_req.ar.lock
+TOP.ariane_testharness.axi_clint_req.ar.prot[2:0]
+@22
+TOP.ariane_testharness.axi_clint_req.ar.qos[3:0]
+TOP.ariane_testharness.axi_clint_req.ar.region[3:0]
+@28
+TOP.ariane_testharness.axi_clint_req.ar.size[2:0]
+#{user[1:0]} TOP.ariane_testharness.axi_clint_req.ar.user[0]
+@1401200
+-ar
+@c00200
+-aw
+@22
+TOP.ariane_testharness.axi_clint_req.aw.addr[63:0]
+TOP.ariane_testharness.axi_clint_req.aw.atop[5:0]
+@28
+TOP.ariane_testharness.axi_clint_req.aw.burst[1:0]
+@22
+TOP.ariane_testharness.axi_clint_req.aw.cache[3:0]
+TOP.ariane_testharness.axi_clint_req.aw.id[4:0]
+TOP.ariane_testharness.axi_clint_req.aw.len[7:0]
+@28
+TOP.ariane_testharness.axi_clint_req.aw.lock
+TOP.ariane_testharness.axi_clint_req.aw.prot[2:0]
+@22
+TOP.ariane_testharness.axi_clint_req.aw.qos[3:0]
+TOP.ariane_testharness.axi_clint_req.aw.region[3:0]
+@28
+TOP.ariane_testharness.axi_clint_req.aw.size[2:0]
+#{user[1:0]} TOP.ariane_testharness.axi_clint_req.aw.user[0]
+@1401200
+-aw
+@c00200
+-w
+@22
+TOP.ariane_testharness.axi_clint_req.w.data[63:0]
+@28
+TOP.ariane_testharness.axi_clint_req.w.last
+@22
+TOP.ariane_testharness.axi_clint_req.w.strb[7:0]
+@28
+#{user[1:0]} TOP.ariane_testharness.axi_clint_req.w.user[0]
+@1401200
+-w
+-axi_clint_req
+@c00200
+-axi_clint_resp
+@28
+TOP.ariane_testharness.axi_clint_resp.ar_ready
+TOP.ariane_testharness.axi_clint_resp.aw_ready
+TOP.ariane_testharness.axi_clint_resp.b_valid
+TOP.ariane_testharness.axi_clint_resp.r_valid
+TOP.ariane_testharness.axi_clint_resp.w_ready
+@c00200
+-b
+@22
+TOP.ariane_testharness.axi_clint_resp.b.id[4:0]
+@28
+TOP.ariane_testharness.axi_clint_resp.b.resp[1:0]
+#{user[1:0]} TOP.ariane_testharness.axi_clint_resp.b.user[0]
+@1401200
+-b
+@c00200
+-r
+@22
+TOP.ariane_testharness.axi_clint_resp.r.data[63:0]
+TOP.ariane_testharness.axi_clint_resp.r.id[4:0]
+@28
+TOP.ariane_testharness.axi_clint_resp.r.last
+TOP.ariane_testharness.axi_clint_resp.r.resp[1:0]
+#{user[1:0]} TOP.ariane_testharness.axi_clint_resp.r.user[0]
+@1401200
+-r
+-axi_clint_resp
+@1000200
+-AXI
+@28
+TOP.ariane_testharness.i_ariane.debug_req_i
+@200
+-
+@c00200
+-dmcontrol_q
+@28
+TOP.ariane_testharness.i_dm_top.i_dm_csrs.dmcontrol_q.ackhavereset
+TOP.ariane_testharness.i_dm_top.i_dm_csrs.dmcontrol_q.clrresethaltreq
+TOP.ariane_testharness.i_dm_top.i_dm_csrs.dmcontrol_q.dmactive
+TOP.ariane_testharness.i_dm_top.i_dm_csrs.dmcontrol_q.haltreq
+TOP.ariane_testharness.i_dm_top.i_dm_csrs.dmcontrol_q.hartreset
+@22
+TOP.ariane_testharness.i_dm_top.i_dm_csrs.dmcontrol_q.hartselhi[15:6]
+TOP.ariane_testharness.i_dm_top.i_dm_csrs.dmcontrol_q.hartsello[25:16]
+@28
+TOP.ariane_testharness.i_dm_top.i_dm_csrs.dmcontrol_q.hasel
+TOP.ariane_testharness.i_dm_top.i_dm_csrs.dmcontrol_q.ndmreset
+TOP.ariane_testharness.i_dm_top.i_dm_csrs.dmcontrol_q.resumereq
+TOP.ariane_testharness.i_dm_top.i_dm_csrs.dmcontrol_q.setresethaltreq
+TOP.ariane_testharness.i_dm_top.i_dm_csrs.dmcontrol_q.zero0[5:4]
+TOP.ariane_testharness.i_dm_top.i_dm_csrs.dmcontrol_q.zero1
+@1401200
+-dmcontrol_q
+@200
+-
+@800200
+-regfiles
+@c00200
+-gpr
+@420
++{x0 [zero] (hard-wired zero)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(0)[63:0]
+@22
++{x1 [ra] (Return address)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(1)[63:0]
++{x2 [sp] (Stack pointer)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(2)[63:0]
++{x3 [gp] (Global pointer)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(3)[63:0]
+@c00022
++{x4 [tp] (Thread pointer)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+@28
+(0)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(1)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(2)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(3)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(4)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(5)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(6)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(7)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(8)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(9)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(10)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(11)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(12)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(13)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(14)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(15)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(16)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(17)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(18)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(19)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(20)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(21)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(22)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(23)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(24)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(25)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(26)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(27)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(28)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(29)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(30)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(31)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(32)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(33)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(34)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(35)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(36)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(37)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(38)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(39)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(40)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(41)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(42)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(43)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(44)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(45)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(46)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(47)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(48)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(49)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(50)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(51)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(52)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(53)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(54)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(55)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(56)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(57)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(58)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(59)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(60)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(61)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(62)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+(63)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(4)[63:0]
+@1401200
+-group_end
+@420
++{x5 [t0] (Temp/alt link reg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(5)[63:0]
++{x6 [t1] (temp)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(6)[63:0]
++{x7 [t2] (temp)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(7)[63:0]
+@22
++{x8 [s0/fp] (Saved reg/frame pointer)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(8)[63:0]
+@420
++{x9 [s1] (Saved reg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(9)[63:0]
++{x10 [a0] (Funct arg/ret val)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(10)[63:0]
++{x11 [a1] (Funct arg/ret val)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(11)[63:0]
++{x12 [a2] (Funct arg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(12)[63:0]
++{x13 [a3] (Funct arg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(13)[63:0]
++{x14 [a4] (Funct arg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(14)[63:0]
++{x15 [a5] (Funct arg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(15)[63:0]
++{x16 [a6] (Funct arg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(16)[63:0]
++{x17 [a7] (Funct arg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(17)[63:0]
++{x18 [s2] (Saved reg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(18)[63:0]
++{x19 [s3] (Saved reg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(19)[63:0]
++{x21 [s5] (Saved reg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(21)[63:0]
++{x20 [s4] (Saved reg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(20)[63:0]
++{x22 [s6] (Saved reg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(22)[63:0]
++{x23 [s7] (Saved reg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(23)[63:0]
++{x24 [s8] (Saved reg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(24)[63:0]
++{x25 [s9] (Saved reg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(25)[63:0]
++{x26 [s10] (Saved reg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(26)[63:0]
++{x27 [s11] (Saved reg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(27)[63:0]
++{x28 [t3] (Temp)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(28)[63:0]
++{x29 [t4] (Temp)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(29)[63:0]
++{x30 [t5] (Temp)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(30)[63:0]
++{x31 [t6] (Temp)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.mem(31)[63:0]
+@200
+-
+@28
+[color] 2
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.we_i[1:0]
+@1401200
+-gpr
+@c00200
+-fpr
+@420
++{f0 [ft0] (FP Temp)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(0)[63:0]
++{f1 [ft1] (FP Temp)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(1)[63:0]
++{f2 [ft2] (FP Temp)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(2)[63:0]
++{f3 [ft3] (FP Temp)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(3)[63:0]
++{f4 [ft4] (FP Temp)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(4)[63:0]
++{f5 [ft5] (FP Temp)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(5)[63:0]
++{f6 [ft6] (FP Temp)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(6)[63:0]
++{f7 [ft7] (FP Temp)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(7)[63:0]
++{f8 [fs0] (FP saved reg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(8)[63:0]
++{f9 [fs1] (FP saved reg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(9)[63:0]
++{f10 [fa0] (FP arg/ret val)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(10)[63:0]
++{f11 [fa1] (FP arg/ret val)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(11)[63:0]
++{f12 [fa2] (FP ret val)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(12)[63:0]
++{f13 [fa3] (FP ret val)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(13)[63:0]
++{f14 [fa4] (FP ret val)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(14)[63:0]
++{f15 [fa5] (FP ret val)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(15)[63:0]
++{f16 [fa6] (FP ret val)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(16)[63:0]
++{f17 [fa7] (FP ret val)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(17)[63:0]
++{f18 [fs2] (FP saved reg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(18)[63:0]
++{f19 [fs3] (FP saved reg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(19)[63:0]
++{f20 [fs4] (FP saved reg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(20)[63:0]
++{f21 [fs5] (FP saved reg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(21)[63:0]
++{f22 [fs6] (FP saved reg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(22)[63:0]
++{f23 [fs7] (FP saved reg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(23)[63:0]
++{f24 [fs8] (FP saved reg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(24)[63:0]
++{f25 [fs9] (FP saved reg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(25)[63:0]
++{f26 [fs10] (FP saved reg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(26)[63:0]
++{f27 [fs11] (FP saved reg)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(27)[63:0]
+@c00420
++{f28 [ft8] (FP Temp)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+@28
+(0)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(1)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(2)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(3)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(4)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(5)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(6)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(7)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(8)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(9)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(10)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(11)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(12)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(13)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(14)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(15)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(16)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(17)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(18)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(19)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(20)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(21)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(22)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(23)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(24)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(25)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(26)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(27)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(28)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(29)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(30)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(31)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(32)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(33)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(34)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(35)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(36)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(37)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(38)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(39)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(40)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(41)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(42)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(43)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(44)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(45)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(46)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(47)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(48)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(49)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(50)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(51)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(52)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(53)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(54)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(55)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(56)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(57)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(58)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(59)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(60)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(61)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(62)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+(63)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(28)[63:0]
+@1401200
+-group_end
+@420
++{f29 [ft9] (FP Temp)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(29)[63:0]
++{f30 [ft10] (FP Temp)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(30)[63:0]
++{f31 [ft11] (FP Temp)} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.mem(31)[63:0]
+@200
+-
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.i_ariane_fp_regfile.we_i[1:0]
+@1401200
+-fpr
+@1000200
+-regfiles
+@1401200
+-debug_features
+@200
+-FRONTEND
+@800200
+-FRONTEND
+@c00200
+-input
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_ready_i
+@1401200
+-input
+@800200
+-output
+-fetch_entry_o
+@c00022
+TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+@28
+(0)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(1)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(2)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(3)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(4)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(5)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(6)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(7)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(8)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(9)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(10)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(11)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(12)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(13)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(14)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(15)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(16)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(17)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(18)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(19)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(20)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(21)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(22)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(23)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(24)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(25)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(26)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(27)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(28)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(29)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(30)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(31)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(32)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(33)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(34)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(35)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(36)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(37)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(38)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(39)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(40)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(41)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(42)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(43)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(44)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(45)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(46)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(47)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(48)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(49)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(50)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(51)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(52)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(53)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(54)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(55)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(56)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(57)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(58)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(59)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(60)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(61)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(62)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+(63)TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.address[63:0]
+@1401200
+-group_end
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.instruction[31:0]
+@c00200
+-branch_predict
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.branch_predict.cf[2:0]
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.branch_predict.predict_address[63:0]
+@1401200
+-branch_predict
+@c00200
+-ex
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.ex.cause[63:0]
+TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.ex.tval[63:0]
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_o.ex.valid
+@1401200
+-ex
+@1000200
+-fetch_entry_o
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.i_frontend.fetch_entry_valid_o
+@1000200
+-output
+-FRONTEND
+@200
+-Counters
+@28
+[color] 3
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_scoreboard.decoded_instr_ack_o
+@200
+-ISSUE
+@800200
+-ISSUE_STAGE
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.pc_o[63:0]
+@800200
+-scoreboard
+@c00200
+-fifo
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_scoreboard.issue_en
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_scoreboard.issue_cnt_q[3:0]
+@24
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_scoreboard.issue_pointer_q[2:0]
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_scoreboard.flush_i
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.sb_full_o
+@1401200
+-fifo
+@1000200
+-scoreboard
+@800200
+-issue_read_operands
+@100c00028
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.fu_data_o.fu[3:0]
+@28
+(0)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.fu_data_o.fu[3:0]
+(1)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.fu_data_o.fu[3:0]
+(2)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.fu_data_o.fu[3:0]
+(3)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.fu_data_o.fu[3:0]
+@1401200
+-group_end
+@100c00028
++{op[7:0]} TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.fu_data_o.__SYM__operator[7:0]
+@28
+(0)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.fu_data_o.__SYM__operator[7:0]
+(1)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.fu_data_o.__SYM__operator[7:0]
+(2)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.fu_data_o.__SYM__operator[7:0]
+(3)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.fu_data_o.__SYM__operator[7:0]
+(4)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.fu_data_o.__SYM__operator[7:0]
+(5)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.fu_data_o.__SYM__operator[7:0]
+(6)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.fu_data_o.__SYM__operator[7:0]
+(7)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.fu_data_o.__SYM__operator[7:0]
+@1401200
+-group_end
+@420
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.fu_data_o.imm[63:0]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.fu_data_o.operand_a[63:0]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.fu_data_o.operand_b[63:0]
+@200
+-
+@c00200
+-orig_instr
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.instr[31:0]
+@800200
+-types
+@c00200
+-atype
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.atype.aq
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.atype.funct3[14:12]
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.atype.funct5[31:27]
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.atype.opcode[6:0]
+@24
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.atype.rd[11:7]
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.atype.rl
+@24
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.atype.rs1[19:15]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.atype.rs2[24:20]
+@1401200
+-atype
+@c00200
+-itype
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.itype.funct3[14:12]
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.itype.imm[31:20]
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.itype.opcode[6:0]
+@24
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.itype.rd[11:7]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.itype.rs1[19:15]
+@1401200
+-itype
+@c00200
+-r4type
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.r4type.funct2[26:25]
+@c00028
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.r4type.funct3[14:12]
+@28
+(0)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.r4type.funct3[14:12]
+(1)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.r4type.funct3[14:12]
+(2)TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.r4type.funct3[14:12]
+@1401200
+-group_end
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.r4type.opcode[6:0]
+@24
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.r4type.rd[11:7]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.r4type.rs1[19:15]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.r4type.rs2[24:20]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.r4type.rs3[31:27]
+@1401200
+-r4type
+@c00200
+-rftype
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.rftype.fmt[26:25]
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.rftype.funct5[31:27]
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.rftype.opcode[6:0]
+@24
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.rftype.rd[11:7]
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.rftype.rm[14:12]
+@24
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.rftype.rs1[19:15]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.rftype.rs2[24:20]
+@1401200
+-rftype
+@c00200
+-rtype
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.rtype.funct3[14:12]
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.rtype.funct7[31:25]
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.rtype.opcode[6:0]
+@24
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.rtype.rd[11:7]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.rtype.rs1[19:15]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.rtype.rs2[24:20]
+@1401200
+-rtype
+@c00200
+-rvftype
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.rvftype.funct2[31:30]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.rvftype.opcode[6:0]
+@24
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.rvftype.rd[11:7]
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.rvftype.repl[14]
+@24
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.rvftype.rs1[19:15]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.rvftype.rs2[24:20]
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.rvftype.vecfltop[29:25]
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.rvftype.vfmt[13:12]
+@1401200
+-rvftype
+@c00200
+-stype
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.stype.funct3[14:12]
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.stype.imm0[11:7]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.stype.imm[31:25]
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.stype.opcode[6:0]
+@24
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.stype.rs1[19:15]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.stype.rs2[24:20]
+@1401200
+-stype
+@c00200
+-utype
+@420
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.utype.imm[31:12]
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.utype.opcode[6:0]
+@24
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.orig_instr.utype.rd[11:7]
+@1401200
+-utype
+@1000200
+-types
+@1401200
+-orig_instr
+@1000200
+-issue_read_operands
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.alu_valid_o
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.lsu_valid_o
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.branch_valid_o
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.mult_valid_o
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.fpu_valid_o
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.csr_valid_o
+@200
+-
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_ack_i[1:0]
+@c00200
+-commit_instr_port0
+@100000028
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(0).fu[3:0]
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(0).is_compressed
+@100000028
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(0).op[7:0]
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(0).pc[63:0]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(0).rd[5:0]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(0).result[63:0]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(0).rs1[5:0]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(0).rs2[5:0]
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(0).trans_id[2:0]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(0).use_imm
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(0).use_pc
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(0).use_zimm
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(0).valid
+@c00200
+-branch_predict
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(0).bp.cf[2:0]
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(0).bp.predict_address[63:0]
+@1401200
+-branch_predict
+@c00200
+-ex
+@100000028
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(0).ex.cause[63:0]
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(0).ex.tval[63:0]
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(0).ex.valid
+@1401200
+-ex
+-commit_instr_port0
+@c00200
+-commit_instr_port1
+@100000028
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(1).fu[3:0]
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(1).is_compressed
+@100000028
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(1).op[7:0]
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(1).pc[63:0]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(1).rd[5:0]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(1).result[63:0]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(1).rs1[5:0]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(1).rs2[5:0]
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(1).trans_id[2:0]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(1).use_imm
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(1).use_pc
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(1).use_zimm
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(1).valid
+@c00200
+-branch_predict
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(1).bp.cf[2:0]
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(1).bp.predict_address[63:0]
+@1401200
+-branch_predict
+@c00200
+-ex
+@100000028
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(1).ex.cause[63:0]
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(1).ex.tval[63:0]
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.commit_instr_o(1).ex.valid
+@1401200
+-ex
+-commit_instr_port1
+@1000200
+-ISSUE_STAGE
+[pattern_trace] 1
+[pattern_trace] 0
