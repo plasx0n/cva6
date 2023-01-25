@@ -234,7 +234,7 @@ module alu import ariane_pkg::*;(
   logic [QTF_SIZE:0]  polar_plus1 ;
   logic [QTF_SIZE-1 : 0] res_plus1 ; 
 
-  assign polar_minus1 = $signed( fu_data_i.operand_a[7:0])   - $signed( fu_data_i.operand_b[7:0]) ;
+  assign polar_minus1 = $signed( fu_data_i.operand_b[7:0])   - $signed( fu_data_i.operand_a[7:0]) ;
   assign polar_plus1  = $signed( fu_data_i.operand_a[7:0])   + $signed( fu_data_i.operand_b[7:0]) ;
 
   assign res_minus1 = ($signed(polar_minus1) > 127)? 8'h7f : ($signed(polar_minus1) < -127)? 8'h81 : polar_minus1[QTF_SIZE-1:0] ;
