@@ -90,15 +90,9 @@ void node( int8_t* ptr_sum, int8_t *LLR , int N, int8_t *fz_bits,int8_t *decode)
         for( int x = 0;  x < N/2; x += 1 )
         {
             // (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
-<<<<<<< HEAD
             printf("sa %d, d1 %d , d2 %d",ptr_sum[x], LLR[ x ], (LLR+N/2)[ x ]); 
             (LLR+N)[ x ] = func_g( LLR[ x ], (LLR+N/2)[ x ] , ptr_sum[x] ) ;
             printf(" res : %d \n",(LLR+N)[ x ]); 
-=======
-            (LLR+N)[ x ] = func_g( LLR[ x ], (LLR+N/2)[ x ] , ptr_sum[x]) ;
-            printf("sa %d rs1 %d rs2 %d res %d\n" , ptr_sum[x] , LLR[ x ], (LLR+N/2)[ x ] , (LLR+N)[x] );
-
->>>>>>> 42db89e8a07217cebb7ae2d5a8e37a5a0e03c510
         }
 
         // ON CALCULE LA BRANCHE DROITE
