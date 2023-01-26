@@ -41,4 +41,4 @@ work-*/*
 install/
 xrun_results/
 .vscode
-barebones/bin/
+barebones/bin/*

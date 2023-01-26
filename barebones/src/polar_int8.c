@@ -148,7 +148,7 @@ for( int i = 0 ; i < codw_N ; ++i)
         if( froozen_bits[i]==0 && U[j++]!=decode[i]  )
         {
             cpt++ ;
-            printf("%d ",i ) ; 
+            // printf("%d ",i ) ; 
         }
                           
     }

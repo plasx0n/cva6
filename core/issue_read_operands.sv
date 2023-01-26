@@ -195,7 +195,7 @@ module issue_read_operands import ariane_pkg::*; #(
 
     // Only check clobbered gpr for OFFLOADED instruction
         if (is_imm_fpr(issue_instr_i.op) ? rd_clobber_fpr_i[issue_instr_i.result[REG_ADDR_SIZE-1:0]] != NONE
-                     : issue_instr_i.op == OFFLOAD && NR_RGPR_PORTS == 3 ? rd_clobber_gpr_i[issue_instr_i.result[REG_ADDR_SIZE-1:0]] != NONE : 0) begin
+                     : is_rs3_3reg(issue_instr_i.op) && NR_RGPR_PORTS == 3 ? rd_clobber_gpr_i[issue_instr_i.result[REG_ADDR_SIZE-1:0]] != NONE : 0) begin
             // if the operand is available, forward it. CSRs don't write to/from FPR so no need to check
             if (rs3_valid_i) begin
                 forward_rs3 = 1'b1;
