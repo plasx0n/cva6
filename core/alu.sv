@@ -217,71 +217,95 @@ module alu import ariane_pkg::*;(
           .empty_o (lz_tz_wempty)
         );
     end
+    ////////////////
+    //POLAR autogen //
+    ////////////////
+    // Pas d'optis 
 
-  ////////////////
-  //POLAR       //
-  ////////////////
-  // Pas d'optis 
+    logic [riscv::XLEN-1:0] polar_result; 
+    parameter integer QTF_SIZE      = 8 ;
+    parameter integer SIMD_LEVEL    = 4 ; 
+    // Array of vectors [ SIMD_lvl | simd_lvl-1 | simd_lvl-2 | ect..]   
+    parameter integer VARRAY_LENGHT = (QTF_SIZE*SIMD_LEVEL) ;
 
-  logic [31:0]  polar_result='0 ; 
-  parameter integer QTF_SIZE  = 8 ; 
+/*
+    SIMD level 4
+    QTF SIZE = 8  
+    8b :vec1[QTF_SIZE-1 : 0]
+    8b :vec2[QTF_SIZE-1 : 0]
+    8b :vec3[QTF_SIZE-1 : 0]
+    8b :vec4[QTF_SIZE-1 : 0]
+    tot : 32b 
 
-  logic [QTF_SIZE:0]  polar_Res_minus1 ; 
-  logic [QTF_SIZE:0]  polar_Res_plus1 ;
+    8'h00 is hardcoded respectively with QTF_SIZE
+    other solutions i am seeing would be a dual array vectArray[SIMD][QTF_SIZE]
 
-  assign polar_Res_minus1 = $signed( fu_data_i.operand_a[7:0])   - $signed( fu_data_i.operand_b[7:0]) ;
-  assign polar_Res_plus1  = $signed( fu_data_i.operand_a[7:0])   + $signed( fu_data_i.operand_b[7:0]) ;
-  // others fonctions 
-  logic                 sign1 ;
-  logic [QTF_SIZE-1:0]  min11 ; 
-  logic [QTF_SIZE-1:0]  min21 ;
+*/
 
-  assign sign1 = ( (	$signed( fu_data_i.operand_a[7:0]   ) >= 0) ? 0:1)  ^ ( ( $signed(fu_data_i.operand_b[7:0]   ) >= 0 )? 0:1)   ; 
-  assign min11 = ( ( $signed( fu_data_i.operand_a[7:0]   ) >= 0) ? fu_data_i.operand_a[7:0]   : -fu_data_i.operand_a[7:0]   ) ;
-  assign min21 = ( ( $signed( fu_data_i.operand_b[7:0]   ) >= 0) ? fu_data_i.operand_b[7:0]   : -fu_data_i.operand_b[7:0] ) ;
+    // 8*4 :=> 32 
+    logic [(VARRAY_LENGHT)-1:0]     polar_res_aminusb; 
+    logic [(VARRAY_LENGHT)-1:0]     polar_res_aplusb; 
+
+    // pl_r 
+    logic [(VARRAY_LENGHT)-1:0]     func_r ;
+    logic [SIMD_LEVEL:0]            sign ;
+    logic [(VARRAY_LENGHT)-1:0]     abs_a ; 
+    logic [(VARRAY_LENGHT)-1:0]     abs_b ;
+    logic [(VARRAY_LENGHT)-1:0]     func_f;
+    logic [(VARRAY_LENGHT)-1:0]     func_addsat;
+    logic [(VARRAY_LENGHT)-1:0]     func_subsat;
+
+    // cycle trought the vectors 
+   
+    
+    generate
+        for ( genvar i =0 ;  i<SIMD_LEVEL ;i++ ) begin
+            
+            // assign i = k*QTF_SIZE ; 
+
+            // assign byte0 = dword[0 +: 8];    // Same as dword[7:0]
+
+            // This is illegal due to the variable i, even though the width is always 8 bits
+            // assign byte = dword[(i*8)+7 : i*8];  // ** Not allowed!
+
+            // Use the indexed part select 
+            // assign byte = dword[i*8 +: 8];
+            
+            assign func_r[ i*QTF_SIZE +:QTF_SIZE ]  = ($signed(fu_data_i.operand_b[i*QTF_SIZE +:QTF_SIZE ] ) == 1) ? 8'h00 : ($signed(fu_data_i.operand_a[i*QTF_SIZE +:QTF_SIZE ] ) < 0 ) ? 8'h01 : 8'h00 ; 
+
+            assign polar_res_aminusb[ i*QTF_SIZE +:QTF_SIZE]  = $signed( fu_data_i.operand_a[ i*QTF_SIZE +:QTF_SIZE])   - $signed( fu_data_i.operand_b[  i*QTF_SIZE +:QTF_SIZE]) ;
+            assign polar_res_aplusb[ i*QTF_SIZE +:QTF_SIZE]   = $signed( fu_data_i.operand_a[ i*QTF_SIZE +:QTF_SIZE])   + $signed( fu_data_i.operand_b[  i*QTF_SIZE +:QTF_SIZE]) ;
+
+            assign sign[i] =  ( ( $signed( fu_data_i.operand_a[i*QTF_SIZE +:QTF_SIZE ]  ) >= 0) ? 1'b0:1'b1)  ^ ( ( $signed(fu_data_i.operand_b[i*QTF_SIZE +:QTF_SIZE] ) >= 0 )? 1'b0:1'b1)   ;
+
+            assign abs_a[ i*QTF_SIZE +:QTF_SIZE] = ( ( $signed( fu_data_i.operand_a[i*QTF_SIZE +:QTF_SIZE]   ) >= 0) ? fu_data_i.operand_a[i*QTF_SIZE +:QTF_SIZE]   : -fu_data_i.operand_a[i*QTF_SIZE +:QTF_SIZE] ) ;
+            assign abs_b[ i*QTF_SIZE +:QTF_SIZE] = ( ( $signed( fu_data_i.operand_b[i*QTF_SIZE +:QTF_SIZE]   ) >= 0) ? fu_data_i.operand_b[i*QTF_SIZE +:QTF_SIZE]   : -fu_data_i.operand_b[i*QTF_SIZE +:QTF_SIZE] ) ;
+
+            assign func_f[i*QTF_SIZE +:QTF_SIZE] =
+                                        ( abs_a[i*QTF_SIZE +:QTF_SIZE] > abs_b[i*QTF_SIZE +:QTF_SIZE] ) ? 
+                                            (( sign[i*QTF_SIZE +:QTF_SIZE] == 0 ) ? abs_b[i*QTF_SIZE +:QTF_SIZE] : -abs_b[i*QTF_SIZE +:QTF_SIZE] ) 
+                                                        : 
+                                            (( sign[i*QTF_SIZE +:QTF_SIZE] == 0 ) ? abs_a[i*QTF_SIZE +:QTF_SIZE] : -abs_a[i*QTF_SIZE +:QTF_SIZE] ) ; 
+
+            assign func_subsat[ i*QTF_SIZE +:QTF_SIZE] = ($signed(polar_res_aminusb[i*QTF_SIZE +:QTF_SIZE]) > 127)? 8'h7f : ($signed(polar_res_aminusb[i*QTF_SIZE +:QTF_SIZE]) < -127)? 8'h81 : polar_res_aminusb[i*QTF_SIZE +:QTF_SIZE ];
+            assign func_addsat[ i*QTF_SIZE +:QTF_SIZE] = ($signed(polar_res_aplusb[i*QTF_SIZE +:QTF_SIZE])  > 127)? 8'h7f : ($signed(polar_res_aplusb[i*QTF_SIZE +:QTF_SIZE])  < -127)? 8'h81 : polar_res_aplusb[i*QTF_SIZE +:QTF_SIZE] ;
+
+        end 
+  endgenerate
 
 
   always_comb begin
-    // ouf 
     polar_result='0 ; 
     unique case (fu_data_i.operator)
 
-      PL_R: begin 
-        polar_result =  
-        {
-        24'h00 ,
-        ($signed(fu_data_i.operand_b[7:0] ) == 1) ? 8'h00 : ($signed(fu_data_i.operand_a[7:0] ) < 0 ) ? 8'h01 : 8'h00 
-        }; 
-      end 
-
-      PL_F : begin 
-        polar_result = 
-        {
-        24'h00 ,
-        ( min11 > min21 ) ? (( sign1 == 0 ) ? min21 : -min21 ) : (( sign1 == 0 ) ? min11 : -min11 )  
-        } ;
-      end
-
-      PL_SUBSAT :begin
-        polar_result = 
-        {
-        24'h00 ,
-        ($signed(polar_Res_minus1) > 127)? 8'h7f : ($signed(polar_Res_minus1) < -127)? 8'h81 : polar_Res_minus1[QTF_SIZE-1:0] 
-        }; 
-      end
-
+      PL_R: polar_result =  { {(riscv::XLEN-1 - VARRAY_LENGHT){1'b0}} ,func_r}; 
+      PL_F: polar_result =  { {(riscv::XLEN-1 - VARRAY_LENGHT){1'b0}} ,func_f} ;
+   
+      PL_SUBSAT :polar_result = { {(riscv::XLEN-1 - VARRAY_LENGHT){1'b0}} , func_subsat}; 
       PL_ADDSAT :begin 
-        polar_result = 
-        {
-        24'h00 ,
-        ($signed(polar_Res_plus1) >  127)? 8'h7f : ($signed(polar_Res_plus1) < -127)? 8'h81 : polar_Res_plus1[QTF_SIZE-1:0] 
-        }; 
+        polar_result = { {(riscv::XLEN-1 - VARRAY_LENGHT){1'b0}} , func_addsat};
       end 
-
-
-      default: begin
-        polar_result='0 ; 
-      end
+      default: polar_result='0 ; 
     endcase
   end 
 
