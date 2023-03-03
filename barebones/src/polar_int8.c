@@ -2,11 +2,11 @@
 #include "./stdlib.h"
 
 #define callRinstr(a,b,c) asm volatile("pl.r %0,%1,%2" \
-	                            : "+r" (a) \
+	                            : "=r" (a) \
 	                            : "r" (b), "r" (c)); 
 
 #define callFinstr(a,b,c) asm volatile("pl.f %0,%1,%2" \
-	                            : "+r" (a) \
+	                            : "=r" (a) \
 	                            : "r" (b), "r" (c)); 
 
 #define callSubSat(a,b,c) asm volatile("pl.subsat %0,%1,%2" \
@@ -88,7 +88,7 @@ void node( int8_t* ptr_sum, int8_t *LLR , int N, int8_t *fz_bits,int8_t *decode)
         for( int x = 0;  x < N/2; x += 1 )
         {
             (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
-            // printf("sa %d rs1 %d rs2 %d res %d\n" , ptr_sum[x] , LLR[ x ], (LLR+N/2)[ x ] , (LLR+N)[x] );
+            printf("sa %d rs1 %d rs2 %d res %d\n" , ptr_sum[x] , LLR[ x ], (LLR+N/2)[ x ] , (LLR+N)[x] );
 
         }
 

@@ -28,6 +28,14 @@ void displayVector( int8_tx4 vector ){
 	printf("V1[7:0]   %d \n",(vector<<24)>>24) ;
 }
 
+void displayVectorHex( int8_tx4 vector ){
+	printf("V4[31:24] %x ",   vector>>24) ;
+	printf("V3[23:16] %x ",  (vector<<8)>>24) ;
+	printf("V2[15:8]  %x ",  (vector<<16)>>24) ;
+	printf("V1[7:0]   %x \n",(vector<<24)>>24) ;
+}
+
+
 int main() {
 
 
@@ -42,9 +50,13 @@ int main() {
 
     int8_tx4 test_vec = a | b<<8 | c << 16 | d <<24 ; 
     int8_tx4 sat_vec =  125 | 124 << 8 | 123 << 16 | 122 << 24 ;
-    
-    displayVector(test_vec) ; 
-    int8_tx4 res_vec ; 
+    int8_tx4 res_vec ;
+
+
+    // displayVector(test_vec) ; 
+     
+      // callAddSat(res_vec,test_vec,test_vec) ; 
+      // callAddSat(res_vec,sat_vec,sat_vec) ; 
 
     // test de addsat 
     printf("addsat\n"); 
@@ -74,15 +86,6 @@ int main() {
     printf("subsat\n"); 
     callSubSat(res_vec,sat_vec,sat_vec) ; 
     displayVector(res_vec) ; 
-
-    // printf("F\n"); 
-    // callFinstr(res_vec,test_vec,test_vec) ; 
-    // displayVector(res_vec) ; 
- 
-    // printf("R\n"); 
-    // callRinstr(res_vec,test_vec,test_vec) ; 
-    // displayVector(res_vec) ; 
-
 
 
   return 0;

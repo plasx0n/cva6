@@ -230,6 +230,7 @@ module alu import ariane_pkg::*;(
     parameter signed UP_SAT = 127 ;
     parameter signed LW_SAT =-127 ;
 /*
+  Exemple : 
     SIMD level 4
     QTF SIZE = 8  
     8b :vec1[Q-1 : 0]
@@ -238,7 +239,7 @@ module alu import ariane_pkg::*;(
     8b :vec4[Q-1 : 0]
     tot : 32b 
 
-    8'h00 is hardcoded respectively with Q at -127(8'h81) + 127(8'h7f) 
+    8'h00 is hardcoded respectively with Q at -127(8'h81) +127(8'h7f) 
     other solutions i am seeing would be a dual array vectArray[SIMD][Q]
 
 */
@@ -285,11 +286,11 @@ module alu import ariane_pkg::*;(
             assign func_f[i*Q +:Q] =
                                         ( abs_a[i*Q +:Q] > abs_b[i*Q +:Q] ) ? 
                                             (( sign[i*Q +:Q] == 0 ) ? abs_b[i*Q +:Q] : -abs_b[i*Q +:Q] ) 
-                                                        : 
+                                            : 
                                             (( sign[i*Q +:Q] == 0 ) ? abs_a[i*Q +:Q] : -abs_a[i*Q +:Q] ) ; 
 
-            assign func_subsat[ i*Q +:Q] = ($signed(polar_res_aminusb[i*Q +:Q]) > 127)? 8'h7f : ($signed(polar_res_aminusb[i*Q +:Q]) < -127)? 8'h81 : polar_res_aminusb[i*Q +:Q ];
-            assign func_addsat[ i*Q +:Q] = ($signed(polar_res_aplusb[i*Q +:Q])  > 127)? 8'h7f : ($signed(polar_res_aplusb[i*Q +:Q])  < -127)? 8'h81 : polar_res_aplusb[i*Q +:Q] ;
+            assign func_subsat[ i*Q +:Q] = ($signed(polar_res_aminusb[i*Q +:Q]) > 8'h7f)? 8'h7f : ($signed(polar_res_aminusb[i*Q +:Q]) < 8'h81)? 8'h81 : polar_res_aminusb[i*Q +:Q ];
+            assign func_addsat[ i*Q +:Q] = ($signed(polar_res_aplusb[i*Q +:Q])  > 8'h7f)? 8'h7f : ($signed(polar_res_aplusb[i*Q +:Q])  < 8'h81)? 8'h81 : polar_res_aplusb[i*Q +:Q] ;
 
         end 
   endgenerate

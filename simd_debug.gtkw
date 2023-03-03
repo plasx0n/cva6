@@ -1,0 +1,103 @@
+[*]
+[*] GTKWave Analyzer v3.3.113 (w)1999-2022 BSI
+[*] Fri Mar  3 10:21:13 2023
+[*]
+[dumpfile] "/home/dizzy/Documents/PHD/cva6/vcd"
+[dumpfile_mtime] "Fri Mar  3 09:33:01 2023"
+[dumpfile_size] 5818850
+[savefile] "/home/dizzy/Documents/PHD/cva6/simd_debug.gtkw"
+[timestart] 774
+[size] 1920 1163
+[pos] -51 -51
+*-4.307231 866 2875 4085 2875 3935 857 849 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[treeopen] TOP.ariane_pkg.
+[treeopen] TOP.ariane_soc.
+[treeopen] TOP.ariane_testharness.
+[treeopen] TOP.ariane_testharness.i_ariane.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.ex_stage_i.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.ex_stage_i.fpu_gen.fpu_i.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.ex_stage_i.fpu_gen.fpu_i.fpu_gen.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_o.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.float_regfile_gen.
+[treeopen] TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.
+[sst_width] 374
+[signals_width] 432
+[sst_expanded] 1
+[sst_vpaned_height] 555
+@28
+TOP.clk_i
+@200
+-ALU
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.ex_stage_i.alu_i.fu_data_i.__SYM__operator[7:0]
+TOP.ariane_testharness.i_ariane.i_cva6.ex_stage_i.alu_i.fu_data_i.fu[3:0]
+@23
+TOP.ariane_testharness.i_ariane.i_cva6.ex_stage_i.alu_i.polar_res_aplusb[31:0]
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.ex_stage_i.alu_i.polar_res_aminusb[31:0]
+TOP.ariane_testharness.i_ariane.i_cva6.ex_stage_i.alu_i.result_o[63:0]
+TOP.ariane_testharness.i_ariane.i_cva6.ex_stage_i.alu_i.fu_data_i.imm[63:0]
+TOP.ariane_testharness.i_ariane.i_cva6.ex_stage_i.alu_i.fu_data_i.operand_b[63:0]
+TOP.ariane_testharness.i_ariane.i_cva6.ex_stage_i.alu_i.fu_data_i.operand_a[63:0]
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.ex_stage_i.alu_i.fu_data_i.trans_id[2:0]
+@200
+-
+-DECODER
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.imm_select[3:0]
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.instruction[31:0]
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_o.bp.cf[2:0]
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_o.bp.predict_address[63:0]
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_o.ex.cause[63:0]
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_o.ex.tval[63:0]
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_o.ex.valid
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_o.fu[3:0]
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_o.is_compressed
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_o.op[7:0]
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_o.pc[63:0]
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_o.rd[5:0]
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_o.result[63:0]
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_o.rs1[5:0]
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_o.rs2[5:0]
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_o.trans_id[2:0]
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_o.use_imm
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_o.use_pc
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_o.use_zimm
+TOP.ariane_testharness.i_ariane.i_cva6.id_stage_i.decoder_i.instruction_o.valid
+@200
+-
+-ISSUE_READ_OP
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.imm_n[63:0]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.operand_c_regfile[63:0]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.issue_instr_i.result[63:0]
+@28
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.forward_rs1
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.forward_rs2
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.forward_rs3
+@200
+-
+-regfiles
+@22
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.rdata_o(0)[63:0]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.rdata_o(1)[63:0]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.raddr_i(0)[4:0]
+TOP.ariane_testharness.i_ariane.i_cva6.issue_stage_i.i_issue_read_operands.i_ariane_regfile.raddr_i(1)[4:0]
+@200
+-
+[pattern_trace] 1
+[pattern_trace] 0
