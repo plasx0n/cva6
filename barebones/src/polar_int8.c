@@ -34,7 +34,7 @@
 
     //--------------
     // min arrays n-sys 
-    int8_t     LLR[2*codw_N]   = {0}; 
+    int8_t    LLR[2*codw_N]   = {0}; 
     int8_t     PS[codw_N]     = {0};
     int8_t     decode[codw_N] = {0};
 
