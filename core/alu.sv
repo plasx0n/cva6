@@ -223,12 +223,10 @@ module alu import ariane_pkg::*;(
     // Pas d'optis 
 
     logic [riscv::XLEN-1:0] polar_result; 
-    parameter integer Q      = 8 ;
-    parameter integer SIMD    = 4 ; 
+    parameter integer Q       = 8 ;
+    parameter integer SIMD    = 1  ; 
     // Array of vectors [ SIMD_lvl | simd_lvl-1 | simd_lvl-2 | ect..]   
     parameter integer V_LENGHT = (Q*SIMD) ;
-    parameter signed UP_SAT = 127 ;
-    parameter signed LW_SAT =-127 ;
 /*
   Exemple : 
     SIMD level 4
