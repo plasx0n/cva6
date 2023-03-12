@@ -87,8 +87,8 @@ void node( int8_t* ptr_sum, int8_t *LLR , int N, int8_t *fz_bits,int8_t *decode)
         // ON CALCULE LES G
         for( int x = 0;  x < N/2; x += 1 )
         {
-            (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
-            // printf("sa %d rs1 %d rs2 %d res %d\n" , ptr_sum[x] , LLR[ x ], (LLR+N/2)[ x ] , (LLR+N)[x] );
+            (LLR+N)[ x ] = func_g( ptr_sum[x] , LLR[ x ], (LLR+N/2)[ x ]) ;
+            printf("sa %d rs1 %d rs2 %d res %d\n" , ptr_sum[x] , LLR[ x ], (LLR+N/2)[ x ] , (LLR+N)[x] );   
 
         }
 

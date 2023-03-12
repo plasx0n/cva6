@@ -224,7 +224,7 @@ module alu import ariane_pkg::*;(
 
     logic [riscv::XLEN-1:0] polar_result; 
     parameter integer Q       = 8 ;
-    parameter integer SIMD    = 1  ; 
+    parameter integer SIMD    = 8  ; 
     // Array of vectors [ SIMD_lvl | simd_lvl-1 | simd_lvl-2 | ect..]   
     parameter integer V_LENGHT = (Q*SIMD) ;
 /*
@@ -242,9 +242,8 @@ module alu import ariane_pkg::*;(
 
 */
 
-    // 8*4 :=> 32 
-    logic [(V_LENGHT)-1:0]     polar_res_aminusb; 
-    logic [(V_LENGHT)-1:0]     polar_res_aplusb; 
+    logic [9*SIMD:0]     polar_res_aminusb; 
+    logic [9*SIMD:0]     polar_res_aplusb; 
 
     // pl_r 
     logic [(V_LENGHT)-1:0]     func_r ;
@@ -256,13 +255,11 @@ module alu import ariane_pkg::*;(
     logic [(V_LENGHT)-1:0]     func_subsat;
 
     // cycle trought the vectors 
-   
-    
     generate
+
         for ( genvar i =0 ;  i<SIMD ;i++ ) begin
             
             // assign i = k*Q ; 
-
             // assign byte0 = dword[0 +: 8];    // Same as dword[7:0]
 
             // This is illegal due to the variable i, even though the width is always 8 bits
@@ -273,8 +270,9 @@ module alu import ariane_pkg::*;(
             
             assign func_r[ i*Q +:Q ]  = ($signed(fu_data_i.operand_b[i*Q +:Q ] ) == 1) ? '0 : ($signed(fu_data_i.operand_a[i*Q +:Q ] ) < 0 ) ? {{Q{1'b0}}, 1 } : '0 ; 
 
-            assign polar_res_aminusb[ i*Q +:Q]  = $signed( fu_data_i.operand_a[ i*Q +:Q])   - $signed( fu_data_i.operand_b[  i*Q +:Q]) ;
-            assign polar_res_aplusb[ i*Q +:Q]   = $signed( fu_data_i.operand_a[ i*Q +:Q])   + $signed( fu_data_i.operand_b[  i*Q +:Q]) ;
+            // we have to account for possible overflow
+            assign polar_res_aminusb[(i*9) +:9]  = $signed( fu_data_i.operand_a[ i*Q +:Q]) - $signed( fu_data_i.operand_b[i*Q +:Q]) ;
+            assign polar_res_aplusb[(i*9)  +:9]  = $signed( fu_data_i.operand_a[ i*Q +:Q]) + $signed( fu_data_i.operand_b[i*Q +:Q]) ;
 
             assign sign[i] =  ( ( $signed( fu_data_i.operand_a[i*Q +:Q ]  ) >= 0) ? 1'b0:1'b1)  ^ ( ( $signed(fu_data_i.operand_b[i*Q +:Q] ) >= 0 )? 1'b0:1'b1)   ;
 
@@ -283,12 +281,21 @@ module alu import ariane_pkg::*;(
 
             assign func_f[i*Q +:Q] =
                                         ( abs_a[i*Q +:Q] > abs_b[i*Q +:Q] ) ? 
-                                            (( sign[i*Q +:Q] == 0 ) ? abs_b[i*Q +:Q] : -abs_b[i*Q +:Q] ) 
+                                            (( sign[i*Q +:Q] == 1'b0 ) ? abs_b[i*Q +:Q] : 
+                                                                        -abs_b[i*Q +:Q] ) 
                                             : 
-                                            (( sign[i*Q +:Q] == 0 ) ? abs_a[i*Q +:Q] : -abs_a[i*Q +:Q] ) ; 
+                                            (( sign[i*Q +:Q] == 1'b0 ) ? abs_a[i*Q +:Q] : 
+                                                                        -abs_a[i*Q +:Q] ) ; 
 
-            assign func_subsat[ i*Q +:Q] = ($signed(polar_res_aminusb[i*Q +:Q]) > 8'h7f)? 8'h7f : ($signed(polar_res_aminusb[i*Q +:Q]) < 8'h81)? 8'h81 : polar_res_aminusb[i*Q +:Q ];
-            assign func_addsat[ i*Q +:Q] = ($signed(polar_res_aplusb[i*Q +:Q])  > 8'h7f)? 8'h7f : ($signed(polar_res_aplusb[i*Q +:Q])  < 8'h81)? 8'h81 : polar_res_aplusb[i*Q +:Q] ;
+            // need to compare with signed 
+            // synth will do the rest 
+            assign func_subsat[ i*Q +:Q] =  ($signed(polar_res_aminusb[(i*9) +:9]) >  9'sd127)?  9'sd127 : 
+                                            ($signed(polar_res_aminusb[(i*9) +:9]) < -9'sd127)? -9'sd127 : 
+                                            polar_res_aminusb[(i*9) +:9];
+
+            assign func_addsat[ i*Q +:Q] =  ( $signed(polar_res_aplusb[(i*9) +:9])  >  9'sd127) ? 9'sd127 : 
+                                            ( $signed(polar_res_aplusb[(i*9) +:9])  < -9'sd127)? -9'sd127 : 
+                                            polar_res_aplusb[(i*9) +:9] ;
 
         end 
   endgenerate
@@ -298,13 +305,11 @@ module alu import ariane_pkg::*;(
     polar_result='0 ; 
     unique case (fu_data_i.operator)
 
-      PL_R: polar_result =  { {(riscv::XLEN-1 - V_LENGHT){1'b0}} ,func_r}; 
-      PL_F: polar_result =  { {(riscv::XLEN-1 - V_LENGHT){1'b0}} ,func_f} ;
-   
-      PL_SUBSAT :polar_result = { {(riscv::XLEN-1 - V_LENGHT){1'b0}} , func_subsat}; 
-      PL_ADDSAT :begin 
-        polar_result = { {(riscv::XLEN-1 - V_LENGHT){1'b0}} , func_addsat};
-      end 
+      PL_R:       polar_result =  func_r; 
+      PL_F:       polar_result =  func_f ;
+      PL_SUBSAT : polar_result =  func_subsat; 
+      PL_ADDSAT : polar_result =  func_addsat;
+
       default: polar_result='0 ; 
     endcase
   end 
