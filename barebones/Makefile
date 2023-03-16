@@ -3,8 +3,9 @@ AS=/opt/riscv/bin/riscv64-unknown-elf-as
 LD=/opt/riscv/bin/riscv64-unknown-elf-ld
 DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
 
-EXEC=polar_int8.elf
-SRC=./src/stdlib.c ./src/polar_int8.c
+EXEC?=polar_int8
+
+SRC=./src/stdlib.c ./src/$(EXEC).c
 #SRC=./src/helloworld.c
 SRC_ASM=./start.S
 
@@ -18,7 +19,7 @@ OBJ=$(SRC:.c=.o)
 ASM=$(SRC_ASM:.S=.o)
 
 
-$(EXEC): $(OBJ) $(ASM)
+$(EXEC).elf: $(OBJ) $(ASM)
 	$(GCC) $(GCC_FLAGS) $(LD_FLAGS) -T $(LINKER_SCRIPT) $(ASM) $(OBJ) -o ./bin/$@
 
 %.o: %.c
@@ -28,7 +29,7 @@ $(EXEC): $(OBJ) $(ASM)
 	$(GCC) -o $@ -c $< $(AS_FLAGS)
 
 
-dump: $(EXEC)
+dump: $(EXEC).elf
 	$(DMP) -d ./bin/$^ > dmp.txt
 
 .PHONY: all clean mrproper dump
@@ -38,4 +39,4 @@ clean:
 	find . -name *.s -delete
 
 mrproper: clean
-	rm ./bin/$(EXEC)
+	rm ./bin/$(EXEC).elf

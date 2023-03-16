@@ -100,14 +100,10 @@ module decoder import ariane_pkg::*; (
                     unique case (instr.r4type.funct2)
                         2'b00: begin // FC2 est clean 
                             unique case ({instr.rtype.funct7, instr.rtype.funct3})
-                                {7'b000_0000, 3'b000} : begin
-                                    instruction_o.op = ariane_pkg::PL_F;
-                                    // $display("pl_f");
-                                end 
-                                {7'b000_0000, 3'b001} : begin
-                                    instruction_o.op = ariane_pkg::PL_R;
-                                    // $display("pl_R");
-                                end
+                                {7'b000_0000, 3'b000} : instruction_o.op = ariane_pkg::PL_F;
+                                {7'b000_0000, 3'b001} : instruction_o.op = ariane_pkg::PL_R;
+                                {7'b000_0000, 3'b100} : instruction_o.op = ariane_pkg::PL_DECODE;
+                                {7'b000_0000, 3'b101} : instruction_o.op = ariane_pkg::PL_EVAL;
                             endcase
                         end
 
