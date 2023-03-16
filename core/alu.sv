@@ -224,7 +224,7 @@ module alu import ariane_pkg::*;(
 
     logic [riscv::XLEN-1:0] polar_result; 
     parameter integer Q       = 8 ;
-    parameter integer SIMD    = 8  ; 
+    parameter integer SIMD    = 8 ; 
     // Array of vectors [ SIMD_lvl | simd_lvl-1 | simd_lvl-2 | ect..]   
     parameter integer V_LENGHT = (Q*SIMD) ;
 /*
@@ -242,17 +242,22 @@ module alu import ariane_pkg::*;(
 
 */
 
+// 9 bits to compute overflow for SIMD values.. .
     logic [9*SIMD:0]     polar_res_aminusb; 
     logic [9*SIMD:0]     polar_res_aplusb; 
 
     // pl_r 
     logic [(V_LENGHT)-1:0]     func_r ;
+    // sign is 1 bit 
     logic [SIMD:0]             sign ;
     logic [(V_LENGHT)-1:0]     abs_a ; 
     logic [(V_LENGHT)-1:0]     abs_b ;
     logic [(V_LENGHT)-1:0]     func_f;
     logic [(V_LENGHT)-1:0]     func_addsat;
     logic [(V_LENGHT)-1:0]     func_subsat;
+    logic [(V_LENGHT)-1:0]     decode;
+    logic [(V_LENGHT)-1:0]     eval;
+
 
     // cycle trought the vectors 
     generate
@@ -297,6 +302,12 @@ module alu import ariane_pkg::*;(
                                             ( $signed(polar_res_aplusb[(i*9) +:9])  < -9'sd127)? -9'sd127 : 
                                             polar_res_aplusb[(i*9) +:9] ;
 
+            assign decode[i*Q+:Q] =(fu_data_i.operand_b[i*Q:+Q] ==8'h00 ) ? fu_data_i.operand_a[i*Q+:Q] : 8'h00 ; 
+
+            assign eval[i*Q+:Q] =(fu_data_i.operand_a[i*Q:+Q] ==8'd1 ) ? 8'hFF : 8'h00 ; 
+
+
+
         end 
   endgenerate
 
@@ -309,6 +320,8 @@ module alu import ariane_pkg::*;(
       PL_F:       polar_result =  func_f ;
       PL_SUBSAT : polar_result =  func_subsat; 
       PL_ADDSAT : polar_result =  func_addsat;
+      PL_DECODE : polar_result =  decode ; 
+      PL_EVAL   : polar_result =  eval ; 
 
       default: polar_result='0 ; 
     endcase
@@ -324,6 +337,8 @@ module alu import ariane_pkg::*;(
             // polar  operations 
             PL_F,
             PL_R,
+            PL_DECODE,
+            PL_EVAL,
             PL_ADDSAT, PL_SUBSAT : result_o = polar_result;
 
 

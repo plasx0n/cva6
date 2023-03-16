@@ -1,12 +1,11 @@
-#include "stdint.h"
 #include "./stdlib.h"
 
 #define callRinstr(a,b,c) asm volatile("pl.r %0,%1,%2" \
-	                            : "+r" (a) \
+	                            : "=r" (a) \
 	                            : "r" (b), "r" (c)); 
 
 #define callFinstr(a,b,c) asm volatile("pl.f %0,%1,%2" \
-	                            : "+r" (a) \
+	                            : "=r" (a) \
 	                            : "r" (b), "r" (c)); 
 
 #define callSubSat(a,b,c) asm volatile("pl.subsat %0,%1,%2" \
@@ -39,7 +38,8 @@ void displayVectorHex_int8x4( int8_tx4 vector ){
 
 
 void displayVector_int8x8( int8_tx8 vector ){
-	printf("V8[64:56]:%d ",    vector     >>56) ;
+	printf("=========================\n"); 
+  printf("V8[64:56]:%d ",    vector     >>56) ;
 	printf("V7[55:48]:%d ",   (vector<<8 )>>56) ;
 	printf("V6[47:40]:%d ",   (vector<<16)>>56) ;
 	printf("V5[39:32]:%d \n", (vector<<24)>>56) ;
@@ -47,25 +47,28 @@ void displayVector_int8x8( int8_tx8 vector ){
 	printf("V3[23:16]:%d ",   (vector<<40)>>56) ;
 	printf("V2[15:8] :%d ",   (vector<<48)>>56) ;
 	printf("V1[7:0]  :%d \n", (vector<<56)>>56) ;
+	printf("=========================\n"); 
 }
 
 
 
 int main() {
 
-
-
-
-  int8_tx8 vec64, vec64_test=0 ; 
-
+  int8_tx8 vec64, 
+  vec64_test=0 ,
+  vec64_test2 = 0 ;  
   vec64_test = 0x1122334455667788 ;  
 
+  printf("addsat \n"); 
   displayVector_int8x8(vec64_test) ; 
   callAddSat(vec64,vec64_test, vec64_test);
   displayVector_int8x8(vec64) ;
 
+
+  vec64_test2 = 0x8899aa44ff55ee66 ;
+  printf("subsat \n "); 
   displayVector_int8x8(vec64_test) ; 
-  callSubSat(vec64,vec64_test, vec64_test);
+  callSubSat(vec64,vec64_test2, vec64_test);
   displayVector_int8x8(vec64) ;
 
   displayVector_int8x8(vec64_test) ; 

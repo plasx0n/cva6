@@ -42,7 +42,7 @@
 // low level polar funcs
 
 
-int16_t func_g(int8_t sa,int8_t la,int8_t lb)
+int8_t func_g(int8_t sa,int8_t la,int8_t lb)
 {
     int8_t res ; 
     if ( sa==0 )
@@ -88,7 +88,7 @@ void node( int8_t* ptr_sum, int8_t *LLR , int N, int8_t *fz_bits,int8_t *decode)
         for( int x = 0;  x < N/2; x += 1 )
         {
             (LLR+N)[ x ] = func_g( ptr_sum[x] , LLR[ x ], (LLR+N/2)[ x ]) ;
-            printf("sa %d rs1 %d rs2 %d res %d\n" , ptr_sum[x] , LLR[ x ], (LLR+N/2)[ x ] , (LLR+N)[x] );   
+            // printf("sa %d rs1 %d rs2 %d res %d\n" , ptr_sum[x] , LLR[ x ], (LLR+N/2)[ x ] , (LLR+N)[x] );   
 
         }
 

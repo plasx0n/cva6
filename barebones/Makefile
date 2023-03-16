@@ -3,8 +3,8 @@ AS=/opt/riscv/bin/riscv64-unknown-elf-as
 LD=/opt/riscv/bin/riscv64-unknown-elf-ld
 DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
 
-EXEC=simd_test.elf
-SRC=./src/stdlib.c ./src/simd_test.c
+EXEC=polar_int8x8_inter.elf
+SRC=./src/stdlib.c ./src/polar_int8x8_inter.c
 #SRC=./src/helloworld.c
 SRC_ASM=./start.S
 

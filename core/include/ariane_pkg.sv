@@ -469,6 +469,8 @@ package ariane_pkg;
                                PL_R,
                                PL_ADDSAT,
                                PL_SUBSAT,
+                               PL_DECODE, 
+                               PL_EVAL,
                             
                                // basic ALU op
                                ADD, SUB, ADDW, SUBW,
