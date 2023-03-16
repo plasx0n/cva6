@@ -3,22 +3,20 @@
 #include "./stdlib.h"
 
 #define callRinstr(a,b,c) asm volatile("pl.r %0,%1,%2" \
-	                            : "+r" (a) \
+	                            : "=r" (a) \
 	                            : "r" (b), "r" (c)); 
 
 #define callFinstr(a,b,c) asm volatile("pl.f %0,%1,%2" \
-	                            : "+r" (a) \
+	                            : "=r" (a) \
 	                            : "r" (b), "r" (c)); 
 
 static inline int8_t func_g(int8_t rs1, int8_t rs2,int8_t rs3){
     int8_t rd ; 
     asm volatile("pl3_g %0,%1,%2,%3" \
-                            :"+r"(rd) \
+                            :"=r"(rd) \
                             :"r"(rs1),"r"(rs2),"r"(rs3));           
     return rd;
 }
-                                
-
 
 // PARAMETERS 
 #define codw_N 1024
@@ -39,35 +37,14 @@ static inline int8_t func_g(int8_t rs1, int8_t rs2,int8_t rs3){
     int8_t    LLR[2*codw_N]   = {0}; 
     int8_t     PS[codw_N]     = {0};
     int8_t     decode[codw_N] = {0};
-
-
-// low level polar funcs
-
-/*
-int16_t func_g(int8_t sa,int8_t la,int8_t lb)
-{
-    int8_t res ; 
-    if ( sa==0 )
-    {    
-        callAddSat(res,la,lb);
-    }
-    else
-    { 
-        callSubSat(res,lb,la) ; 
-    }
-    return res ;
-}
-*/
-
 ////////////////////////// 
 // main func 
 
 void node( int8_t* ptr_sum, int8_t *LLR , int N, int8_t *fz_bits,int8_t *decode)
 {
     if( N == 1 )
-    {
-        
-		callRinstr(*ptr_sum,*LLR, *fz_bits ); 
+    {     
+        callRinstr( *ptr_sum,*LLR, *fz_bits ) ; 
         if ( *fz_bits == 0 )
 			*decode = *ptr_sum ;
 		else
@@ -76,22 +53,18 @@ void node( int8_t* ptr_sum, int8_t *LLR , int N, int8_t *fz_bits,int8_t *decode)
         return;
     }
         // ON CALCULE LES F
-
         for( int x = 0 ; x < N/2; x += 1 )
         {
-            callFinstr( (LLR+N)[ x ], LLR[ x ],(LLR+N/2)[ x ])  ;  
+            callFinstr( (LLR+N)[ x ] , LLR[ x ], (LLR+N/2)[ x ]);
         }
  
         // ON CALCULE LA BRANCHE GAUCHE
-
         node( ptr_sum, (LLR+N), N/2, fz_bits,decode);
 
         // ON CALCULE LES G
         for( int x = 0;  x < N/2; x += 1 )
         {
-            // (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
             (LLR+N)[ x ] = func_g( LLR[ x ], (LLR+N/2)[ x ] , ptr_sum[x] ) ;
-            //  printf("sa %d rs1 %d rs2 %d res %d\n" , ptr_sum[x] , LLR[ x ], (LLR+N/2)[ x ] , (LLR+N)[x] );
         }
 
         // ON CALCULE LA BRANCHE DROITE
@@ -99,26 +72,16 @@ void node( int8_t* ptr_sum, int8_t *LLR , int N, int8_t *fz_bits,int8_t *decode)
         node( ptr_sum+ N/2, (LLR+N), N/2,  fz_bits+ N/2, decode+N/2);
     
         // ON FAIT LES CALCUL DES H (XOR DES SP)
-
         for(int x = 0 ; x < N/2 ; x += 1 )
         {          
-            ptr_sum[x] ^=ptr_sum[ x + (N/2) ];      
+            ptr_sum[x] ^=  ptr_sum[ x + (N/2)];     
         }
 }
 
-
-void test_plg ( int8_t sa ,int8_t rs1 , int8_t rs2)
-{
-    int8_t res ; 
-    res = func_g( rs1 , rs2, sa) ; 
-    printf(" sa %d rs1 %d rs2 %d res %d ", sa, rs1 , rs2 , res ) ; 
-}
-
-
-
 int main() {
+
 for( int i = 0 ; i < codw_N ; ++i)
-	LLR[i] =(int8_t) codw_int[i] ; 
+	LLR[i] = codw_int[i] ; 
 
     long insn_start,insn_stop,insn_tot ; 
 	long cycle_start,cycle_stop , cycle_tot ; 
@@ -146,11 +109,7 @@ for( int i = 0 ; i < codw_N ; ++i)
     for( int i=0 ; i < codw_N ; i++)
     {
         if( froozen_bits[i]==0 && U[j++]!=decode[i]  )
-        {
-            cpt++ ;
-            // printf("%d ",i ) ; 
-        }
-                          
+            cpt++;       
     }
 
     printf(" %d",cpt) ; 

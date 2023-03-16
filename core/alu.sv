@@ -273,8 +273,7 @@ module alu import ariane_pkg::*;(
 
       PL_G : begin 
         // $display("imm %b",fu_data_i.imm);
-        polar_result = 
-        { 24'h00 , (fu_data_i.imm[7:0]==8'h00)? res_plus1: res_minus1} ; 
+        polar_result =  (fu_data_i.imm[7:0]==8'h00)? res_plus1: res_minus1 ; 
       end 
 
 
