@@ -91,8 +91,9 @@ int32_t func_g(int32_t sa,int32_t la,int32_t lb)
     int32_t eval ;   
     callEval(eval,sa,0) ;  
 
-    int32_t v1=0;
+    int32_t v1;
     int32_t v2,vf ; 
+    callSubSat(v1,la,lb) ; 
     callSubSat(v2,lb,la) ; 
 
     v1 = v1 & ~eval ;
