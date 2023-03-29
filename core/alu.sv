@@ -261,6 +261,10 @@ module alu import ariane_pkg::*;(
     logic [7:0] min_u ; 
     assign min_u = (fu_data_i.imm[7:0] & ms_mask) ;
 
+    // RSIGN 
+    logic temp_eval ;
+    assign temp_eval = (fu_data_i.operand_b[0] ^ ( ($signed(fu_data_i.operand_a[7:0]) >= 8'sb0)? 1'b1 : 1'b0 )) ; 
+  
 
 
   always_comb begin
@@ -290,6 +294,8 @@ module alu import ariane_pkg::*;(
         {24'h0,ldpc_res_plus[7:0]} ; 
       end 
 
+      // 3regs 
+
       LDPC_MINMAX : begin
            
         ldpc_result = { 24'h0, minmax_res } ; 
@@ -301,7 +307,7 @@ module alu import ariane_pkg::*;(
       end
 
       LDPC_RSIGN_NMESS : begin
-        ldpc_result = { 24'h0, (fu_data_i.operand_a[7:0] ^ ($signed(fu_data_i.operand_b[7:0]) >= 0 ) ? 1:0 ) >= 0 ? fu_data_i.imm[7:0] : -fu_data_i.imm[7:0] };  
+        ldpc_result = { 24'h0, temp_eval? fu_data_i.imm[7:0] : -fu_data_i.imm[7:0] };  
       end
 
       default begin
