@@ -3,9 +3,10 @@ AS=/opt/riscv/bin/riscv64-unknown-elf-as
 LD=/opt/riscv/bin/riscv64-unknown-elf-ld
 DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
 
-# EXEC=ldpc_int8_cst.elf
+
 BINARIES = ldpc_int8_cst ldpc_int8
 SRC=./src/stdlib.c
+
 SRC_ASM=./start.S
 
 LINKER_SCRIPT=./rv64.ld

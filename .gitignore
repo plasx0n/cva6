@@ -41,3 +41,4 @@ work-*/*
 install/
 xrun_results/
 barebones/bin/
+barebones/dmp.txt
