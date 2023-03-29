@@ -13,10 +13,6 @@ inline int8_t callAbs(int8_t rs1,int8_t rs2)
 	                            : "=r" (rd) \
 	                            : "r" (rs1), "r" (rs2)); 
 
-// #define callMin(rd,rs1,rs2) asm volatile("ld.min %0,%1,%2" \
-	                            // : "=r" (rd) \
-	                            // : "r" (rs1), "r" (rs2)); 
-
 inline int8_t callMin(int8_t rs1,int8_t rs2)
 {
 	int8_t rd ; 
