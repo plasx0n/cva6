@@ -222,94 +222,116 @@ module alu import ariane_pkg::*;(
   // LDPC       //
   ////////////////
 
-  logic [31:0]  ldpc_result=32'h0 ; 
+    logic [riscv::XLEN-1:0] ldpc_result; 
+    parameter integer Q       = 8 ;
+    parameter integer SIMD    = 4 ; 
+    // Array of vectors [ SIMD_lvl | simd_lvl-1 | simd_lvl-2 | ect..]   
+    parameter integer V_LENGHT = (Q*SIMD) ;
 
-  // si la data d'entrée est définie sur 8 bits (int8) mauvaise interprétation liée au bit supplémentaire 
-  // -4 = xfc (8b) & xff ff ff fc (32b) => calcul devient faut puisque interprété comme x0fc sur (9 bits) 
-  // bit 9 est utilisé pour l'overflow et par la suite évalué 
-  logic [8:0]   ldpc_res_plus ; 
-  assign ldpc_res_plus = $signed( fu_data_i.operand_a[7:0]) + $signed( fu_data_i.operand_b[7:0]) ; 
+// 9 bits to compute overflow for SIMD values
+    logic[9*SIMD:0] ldpc_res_plus,
+                    ldpc_res_minus; 
+// 8bits holders 
+    logic[(V_LENGHT-1):0] minmax_res,
+                          ms_mask,
+                          ldpc_temp,
+                          min_t,
+                          min_u,
+                          r_addsat,
+                          r_subsat,
+                          r_min, r_rsign_nmess, r_abs;              
+// hold just 1 bit 
+    logic[SIMD-1:0] ldpc_comp,
+                    temp_eval; 
 
-  logic [8:0]   ldpc_res_minus ; 
-  assign ldpc_res_minus = $signed( fu_data_i.operand_a[7:0]) - $signed( fu_data_i.operand_b[7:0]) ; 
+// 
 
-  // A VERIF 
-  // a >= b ? 
-  logic  ldpc_comp ; 
-  assign ldpc_comp = ($signed(fu_data_i.operand_a[7:0]) >= $signed(fu_data_i.operand_b[7:0] )) ? 1:0 ; 
+    generate
+      for(genvar i=0 ; i<SIMD; i++) begin
+      
 
-  logic [7:0] minmax_res ;
-  // max
-  logic [7:0] ldpc_temp ; 
-  assign ldpc_temp  = (ldpc_comp)? fu_data_i.operand_a[7:0] : fu_data_i.operand_b[7:0] ; 
-  
-  // min
-  assign minmax_res = ($signed(fu_data_i.imm[7:0]) >= $signed(ldpc_temp)) ? ldpc_temp: fu_data_i.imm[7:0] ; 
+        assign ldpc_res_plus[(i*9) +:9]   = $signed( fu_data_i.operand_a[i*Q +:Q ]) + $signed( fu_data_i.operand_b[i*Q +:Q ]) ; 
+        assign r_addsat[ i*Q +:Q]         = ($signed(ldpc_res_plus[(i*9) +:9]) >  9'sd127)?  8'sd127 : 
+                                            ($signed(ldpc_res_plus[(i*9) +:9]) < -9'sd127)? -8'sd127 : 
+                                            ldpc_res_plus[(i*9) +:9]; //let the synthesizer handle the conversion ?
 
 
-  // min_sorting 
-    // mask 
-    logic[7:0] ms_mask ; 
-    assign ms_mask = (fu_data_i.operand_a[7:0]!=fu_data_i.operand_b[7:0])? 8'h00 : 8'hff ; 
+        assign ldpc_res_minus[(i*9) +:9]  = $signed( fu_data_i.operand_a[i*Q +:Q ]) - $signed( fu_data_i.operand_b[i*Q +:Q ]) ;
+        assign r_subsat[ i*Q +:Q]         = ($signed(ldpc_res_minus[(i*9) +:9]) >  9'sd127)?  8'sd127 : 
+                                            ($signed(ldpc_res_minus[(i*9) +:9]) < -9'sd127)? -8'sd127 : 
+                                            ldpc_res_minus[(i*9) +:9]; 
 
-    // min_t
-    logic [7:0] min_t ; 
-    assign min_t = (fu_data_i.operand_a[7:0] & (~ms_mask)) ;
+        // return bit of comparison (a >= b)? 
+        assign ldpc_comp[i]      = ($signed(fu_data_i.operand_a[i*Q +:Q]) >= $signed(fu_data_i.operand_b[i*Q +:Q] )) ? 1:0 ; 
+      
+        // return val max
+        assign ldpc_temp[i]      = (ldpc_comp[i])? fu_data_i.operand_a[i*Q +:Q] : fu_data_i.operand_b[i*Q +:Q] ; 
 
-    // min_u
-    logic [7:0] min_u ; 
-    assign min_u = (fu_data_i.imm[7:0] & ms_mask) ;
+        // return min 
+        assign r_min[ i*Q +:Q]   = (ldpc_comp[i])? fu_data_i.operand_b[i*Q +:Q] : fu_data_i.operand_a[i*Q +:Q] ;
 
-    // RSIGN 
-    logic temp_eval ;
-    assign temp_eval = (fu_data_i.operand_b[0] ^ ( ($signed(fu_data_i.operand_a[7:0]) >= 8'sb0)? 1'b1 : 1'b0 )) ; 
-  
+        // min for minmax 3 regs 
+        assign minmax_res[i]     = ($signed(fu_data_i.imm[i*Q +:Q]) >= $signed(ldpc_temp[i])) ? ldpc_temp[i]: fu_data_i.imm[i*Q +:Q] ; 
+
+        // min_sorting 
+        // mask 
+        assign ms_mask[ i*Q +:Q]  = (fu_data_i.operand_a[i*Q +:Q]!=fu_data_i.operand_b[i*Q +:Q])? 8'h00 : 8'hff ; 
+
+        // min_t
+        assign min_t[ i*Q +:Q]  = (fu_data_i.operand_a[i*Q +:Q] & (~ms_mask)) ;
+
+        // min_u
+        assign min_u[ i*Q +:Q]  = (fu_data_i.imm[i*Q +:Q] & ms_mask) ;
+
+        // RSIGN 
+        assign temp_eval[i]             =  (fu_data_i.operand_b[i*Q +:Q] ^ ( ($signed(fu_data_i.operand_a[i*Q +:Q]) >= 8'sb0)? 1'b1 : 1'b0 )) ; 
+        assign r_rsign_nmess[ i*Q +:Q]  =  (temp_eval[i])? fu_data_i.imm[i*Q +:Q] : -fu_data_i.imm[i*Q +:Q] ;
+
+        assign r_abs[ i*Q +:Q] = ($signed(fu_data_i.operand_a[i*Q +:Q]) >= 0 )? fu_data_i.operand_a[i*Q +:Q]: -fu_data_i.operand_a[i*Q +:Q] ; 
+      end
+    endgenerate
+
+
+
 
 
   always_comb begin
-    ldpc_result=32'h0 ; 
-    alu_dummy_test=0 ; 
+    ldpc_result=0 ; 
+
     unique case (fu_data_i.operator)
 
       LDPC_MIN: begin
-        ldpc_result ={24'h0,  (ldpc_comp)? fu_data_i.operand_b[7:0] : fu_data_i.operand_a[7:0] };
+        ldpc_result =r_min ; 
       end
 
       LDPC_ABS: begin 
-        ldpc_result ={24'h0,   ($signed(fu_data_i.operand_a[7:0]) >= 0 )? fu_data_i.operand_a[7:0]: -fu_data_i.operand_a[7:0] }; 
+        ldpc_result =r_abs; 
       end 
 
       LDPC_SUB_SAT : begin 
-        ldpc_result = 
-        ($signed(ldpc_res_minus) >  127)? 127 : 
-        ($signed(ldpc_res_minus) < -127)? -127 : 
-        {24'h0,ldpc_res_minus[7:0]} ; 
+        ldpc_result = r_subsat ; 
       end 
 
       LDPC_ADD_SAT : begin 
-        ldpc_result = 
-        ($signed(ldpc_res_plus) >  127)? 127 : 
-        ($signed(ldpc_res_plus) < -127)? -127 : 
-        {24'h0,ldpc_res_plus[7:0]} ; 
+        ldpc_result =r_addsat ; 
       end 
 
       // 3regs 
 
       LDPC_MINMAX : begin
-        ldpc_result = { 24'h0, minmax_res } ; 
+        ldpc_result = minmax_res ; 
       end
 
       LDPC_MIN_SORTING : begin
-        ldpc_result = { 24'h0, min_t | min_u } ;
+        ldpc_result = min_t | min_u  ;
       end
 
       LDPC_RSIGN_NMESS : begin
-        ldpc_result = { 24'h0, temp_eval? fu_data_i.imm[7:0] : -fu_data_i.imm[7:0] };  
+        ldpc_result = r_rsign_nmess;  
       end
 
       default begin
-        ldpc_result=32'h0 ; 
-        alu_dummy_test = 0 ; 
+        ldpc_result=0 ; 
       end
     endcase
   end 
