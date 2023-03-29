@@ -4,7 +4,7 @@ LD=/opt/riscv/bin/riscv64-unknown-elf-ld
 DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
 
 
-BINARIES = ldpc_int8_cst ldpc_int8 ldpc_int32 ldpc_int32_cst
+BINARIES = ldpc_int8_cst ldpc_int8 ldpc_int32 ldpc_int32_cst ldpc_int64 ldpc_int64_cst 
 SRC=./src/stdlib.c
 
 SRC_ASM=./start.S
@@ -19,6 +19,8 @@ ldpc_int8 : ./src/ldpc_int8.o
 ldpc_int8_cst : ./src/ldpc_int8_cst.o
 ldpc_int8 : ./src/ldpc_int32.o
 ldpc_int8_cst : ./src/ldpc_int32_cst.o
+ldpc_int64 : ./src/ldpc_int64.o
+ldpc_int64_cst : ./src/ldpc_int64_cst.o
 
 
 OBJ=$(SRC:.c=.o)
@@ -44,4 +46,4 @@ dump: $(EXEC)
 clean:
 	find . -name *.o -delete
 	find . -name *.s -delete
-	rm -rf bin/*.elf
+	rm -rf bin/*
