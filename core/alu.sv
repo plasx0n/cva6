@@ -221,10 +221,9 @@ module alu import ariane_pkg::*;(
   ////////////////
   // LDPC       //
   ////////////////
-  logic alu_dummy_test ; 
+
   logic [31:0]  ldpc_result=32'h0 ; 
-  // parameter integer QTF_SIZE  = 8 ; 
-  
+
   // si la data d'entrée est définie sur 8 bits (int8) mauvaise interprétation liée au bit supplémentaire 
   // -4 = xfc (8b) & xff ff ff fc (32b) => calcul devient faut puisque interprété comme x0fc sur (9 bits) 
   // bit 9 est utilisé pour l'overflow et par la suite évalué 
@@ -297,12 +296,10 @@ module alu import ariane_pkg::*;(
       // 3regs 
 
       LDPC_MINMAX : begin
-           
         ldpc_result = { 24'h0, minmax_res } ; 
       end
 
       LDPC_MIN_SORTING : begin
-        alu_dummy_test= 1 ;
         ldpc_result = { 24'h0, min_t | min_u } ;
       end
 
