@@ -134,7 +134,7 @@ void postTrameCheck(int8_t * trame, int8_t * codw, int N ){
 void process()
 {
 	// DOIT COMMENCER ICI AVEC AccVun déja remplit 
-    
+
 	// size 32 to compability 
 	int32_t Resu[32]  ;
 
@@ -167,9 +167,9 @@ void process()
 
 					// de mem : 2 boucles l'une permet de maj les v2c pour chaque vn et de cac sign + xor
 
-                    int32_t indice = ptr_posVn[ idex_Vn ];
-					int32_t pVn  =	accuVn[ indice] 	;
-					int32_t msg    =	ptr_c2v  [ idex_Vn ];
+                    int32_t indice 	= ptr_posVn[ idex_Vn ];
+					int32_t pVn  	= accuVn[ indice] 	;
+					int32_t msg    	= ptr_c2v  [ idex_Vn ];
 					
 					int32_t vAccu ;
 					callSubSat(vAccu,pVn,msg);				
@@ -213,6 +213,7 @@ void process()
 				ptr_c2v     += degCN;
 
 			}
+			ireorder(trames,accuVn,34) ;
 		}
 
 }
@@ -237,8 +238,16 @@ int main( )
 	// 4 cycles pour sortir les infos 
 	cycle_start= cycles()-4;
 	insn_start = insn()-4; 
-	
+	 
+	// this is ok 
+	reorder(accuVn,trames,34);
    	process() ; 
+	printf("post process\n"); 
+	for (int i = 0; i < 34; i++)
+	 {
+		printf("%d|%d|\n",i,accuVn[i]);
+	 }
+	 printf("\n"); 	
 
 	cycle_stop= cycles()-4;
 	insn_stop = insn()-4; 

@@ -233,28 +233,34 @@ module alu import ariane_pkg::*;(
                     ldpc_res_minus; 
 // 8bits holders 
     logic[(V_LENGHT-1):0] minmax_res,
+                          temp_eval,
                           ms_mask,
-                          ldpc_temp,
+                          ldpc_max_vector,
                           min_t,
                           min_u,
                           r_addsat,
                           r_subsat,
                           r_min, r_rsign_nmess, r_abs;              
 // hold just 1 bit 
-    logic[SIMD-1:0] ldpc_comp,
-                    temp_eval; 
+    logic[SIMD-1:0] ldpc_comp; 
 
-// 
+// Debug 
+logic   alu_min,
+        alu_abs,
+        alu_minmax,
+        alu_min_sorting,
+        alu_rsign_nmess;
+
+
+  logic [V_LENGHT-1:0] a_sign_v ;  
 
     generate
       for(genvar i=0 ; i<SIMD; i++) begin
       
-
         assign ldpc_res_plus[(i*9) +:9]   = $signed( fu_data_i.operand_a[i*Q +:Q ]) + $signed( fu_data_i.operand_b[i*Q +:Q ]) ; 
         assign r_addsat[ i*Q +:Q]         = ($signed(ldpc_res_plus[(i*9) +:9]) >  9'sd127)?  8'sd127 : 
                                             ($signed(ldpc_res_plus[(i*9) +:9]) < -9'sd127)? -8'sd127 : 
                                             ldpc_res_plus[(i*9) +:9]; //let the synthesizer handle the conversion ?
-
 
         assign ldpc_res_minus[(i*9) +:9]  = $signed( fu_data_i.operand_a[i*Q +:Q ]) - $signed( fu_data_i.operand_b[i*Q +:Q ]) ;
         assign r_subsat[ i*Q +:Q]         = ($signed(ldpc_res_minus[(i*9) +:9]) >  9'sd127)?  8'sd127 : 
@@ -262,30 +268,34 @@ module alu import ariane_pkg::*;(
                                             ldpc_res_minus[(i*9) +:9]; 
 
         // return bit of comparison (a >= b)? 
-        assign ldpc_comp[i]      = ($signed(fu_data_i.operand_a[i*Q +:Q]) >= $signed(fu_data_i.operand_b[i*Q +:Q] )) ? 1:0 ; 
+        //ok
+        assign ldpc_comp[i]         = ($signed(fu_data_i.operand_a[i*Q +:Q]) >= $signed(fu_data_i.operand_b[i*Q +:Q] )) ? 1'b1:1'b0 ; 
       
         // return val max
-        assign ldpc_temp[i]      = (ldpc_comp[i])? fu_data_i.operand_a[i*Q +:Q] : fu_data_i.operand_b[i*Q +:Q] ; 
+        //ok
+        assign ldpc_max_vector[i*Q +:Q]   = (ldpc_comp[i])? fu_data_i.operand_a[i*Q +:Q] : fu_data_i.operand_b[i*Q +:Q] ; 
 
-        // return min 
-        assign r_min[ i*Q +:Q]   = (ldpc_comp[i])? fu_data_i.operand_b[i*Q +:Q] : fu_data_i.operand_a[i*Q +:Q] ;
+        // return val min 
+        assign r_min[ i*Q +:Q]      = (ldpc_comp[i])? fu_data_i.operand_b[i*Q +:Q] : fu_data_i.operand_a[i*Q +:Q] ;
 
         // min for minmax 3 regs 
-        assign minmax_res[i]     = ($signed(fu_data_i.imm[i*Q +:Q]) >= $signed(ldpc_temp[i])) ? ldpc_temp[i]: fu_data_i.imm[i*Q +:Q] ; 
+        assign minmax_res[i*Q +:Q]  = ($signed(fu_data_i.imm[i*Q +:Q]) >= $signed(ldpc_max_vector[i*Q +:Q])) ? ldpc_max_vector[i*Q +:Q]: fu_data_i.imm[i*Q +:Q] ; 
 
         // min_sorting 
         // mask 
-        assign ms_mask[ i*Q +:Q]  = (fu_data_i.operand_a[i*Q +:Q]!=fu_data_i.operand_b[i*Q +:Q])? 8'h00 : 8'hff ; 
+        assign ms_mask[ i*Q +:Q]    = (fu_data_i.operand_a[i*Q +:Q]!=fu_data_i.operand_b[i*Q +:Q])? 8'h00 : 8'hff ; 
 
         // min_t
-        assign min_t[ i*Q +:Q]  = (fu_data_i.operand_a[i*Q +:Q] & (~ms_mask)) ;
+        assign min_t[ i*Q +:Q]      = (fu_data_i.operand_a[i*Q +:Q] & (~ms_mask[ i*Q +:Q])) ;
 
         // min_u
-        assign min_u[ i*Q +:Q]  = (fu_data_i.imm[i*Q +:Q] & ms_mask) ;
+        assign min_u[ i*Q +:Q]      = (fu_data_i.imm[i*Q +:Q] & ms_mask[ i*Q +:Q]) ;
 
         // RSIGN 
-        assign temp_eval[i]             =  (fu_data_i.operand_b[i*Q +:Q] ^ ( ($signed(fu_data_i.operand_a[i*Q +:Q]) >= 8'sb0)? 1'b1 : 1'b0 )) ; 
-        assign r_rsign_nmess[ i*Q +:Q]  =  (temp_eval[i])? fu_data_i.imm[i*Q +:Q] : -fu_data_i.imm[i*Q +:Q] ;
+        
+        assign a_sign_v[i*Q +:Q]      =  ($signed(fu_data_i.operand_a[i*Q +:Q]) >= 8'sb0)? 8'h01 : 8'h00  ; 
+        assign temp_eval[i*Q +:Q]       =  fu_data_i.operand_b[i*Q +:Q] ^ a_sign_v[i*Q +:Q] ; 
+        assign r_rsign_nmess[ i*Q +:Q]  =  (temp_eval[i*Q +:Q]>=1)? fu_data_i.imm[i*Q +:Q] : -fu_data_i.imm[i*Q +:Q] ;
 
         assign r_abs[ i*Q +:Q] = ($signed(fu_data_i.operand_a[i*Q +:Q]) >= 0 )? fu_data_i.operand_a[i*Q +:Q]: -fu_data_i.operand_a[i*Q +:Q] ; 
       end
@@ -296,20 +306,28 @@ module alu import ariane_pkg::*;(
 
 
   always_comb begin
-    ldpc_result=0 ; 
+    ldpc_result='0 ; 
+    alu_min =0 ; 
+    alu_abs =0 ;
+    alu_minmax =0 ;
+    alu_min_sorting =0 ;
+    alu_rsign_nmess =0 ;
 
     unique case (fu_data_i.operator)
 
       LDPC_MIN: begin
         ldpc_result =r_min ; 
+        alu_min= 1 ; 
       end
 
       LDPC_ABS: begin 
-        ldpc_result =r_abs; 
+        ldpc_result =r_abs;
+        alu_abs=1 ;  
       end 
 
       LDPC_SUB_SAT : begin 
-        ldpc_result = r_subsat ; 
+        ldpc_result = r_subsat ;
+         
       end 
 
       LDPC_ADD_SAT : begin 
@@ -320,18 +338,26 @@ module alu import ariane_pkg::*;(
 
       LDPC_MINMAX : begin
         ldpc_result = minmax_res ; 
+        alu_minmax = 1 ; 
       end
 
       LDPC_MIN_SORTING : begin
         ldpc_result = min_t | min_u  ;
+        alu_min_sorting = 1 ; 
       end
 
       LDPC_RSIGN_NMESS : begin
         ldpc_result = r_rsign_nmess;  
+        alu_rsign_nmess = 1 ; 
       end
 
       default begin
-        ldpc_result=0 ; 
+        ldpc_result='0 ; 
+        alu_min =0 ; 
+        alu_abs =0 ;
+        alu_minmax =0 ;
+        alu_min_sorting =0 ;
+        alu_rsign_nmess =0 ;
       end
     endcase
   end 

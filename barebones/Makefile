@@ -4,7 +4,7 @@ LD=/opt/riscv/bin/riscv64-unknown-elf-ld
 DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
 
 
-BINARIES = ldpc_int8_r3_cst ldpc_int8 ldpc_int8_cst ldpc_int8x4_inter_r3_cst 
+BINARIES = ldpc_int8_r3_cst ldpc_int8 ldpc_int8x4_inter_r3_cst simd_unit_tests 
 SRC=./src/stdlib.c
 
 SRC_ASM=./start.S
@@ -17,7 +17,7 @@ LD_FLAGS	=-nostdlib
 
 ldpc_int8_r3_cst : ./src/ldpc_int8_r3_cst.o
 ldpc_int8 : ./src/ldpc_int8.o
-ldpc_int8_cst : ./src/ldpc_int8_cst.o
+simd_unit_tests : ./src/simd_unit_tests.o
 ldpc_int8x4_inter_r3_cst : ./src/ldpc_int8x4_inter_r3_cst.o
 
 OBJ=$(SRC:.c=.o)
