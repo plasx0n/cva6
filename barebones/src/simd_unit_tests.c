@@ -89,19 +89,35 @@ r4 		= 0x81818181;
 
 /*---*/
 //126 / 127 / 10 / 1 
-// min2 = 0x7E7F0A01 ;
+min2 = 0x7E7F0A01 ;
 
 // 1 / 2 / 3 / 4 
-// min1 	= 0x01020304 ; 
-// Dummy = callMin(min2,min1); 
-// idk 
+min1 	= 0x01020304 ; 
+callMin(Dummy,min2,min1);
+printf(" dummy %x", Dummy); 
+displayVector(Dummy) ; 
+
 /*---*/
 
 /*---*/
-Dummy =ld_rsign_nmess(r4,r1,r2); //seems ok 
+// 0 / 0/ 5 / 11  
+// r1 = 0x0000050B ; 
+
+//126 / 127 / 10 / 1 
+// r2 = 0x7E7F0A01 ;
+
+// 0 / 1/ 5 / 10  
+// r4 = 0x0001050A ; 
+
+// Dummy =ld_min_sorting(r4,r1,r2); //to test
+// printf("dummy : %x",Dummy); 
+// displayVector(Dummy) ; 
+
 
 /*---*/
 
 // Dummy =ld_min_sorting(r4,r1,r2); 
 
+
+return 1 ; 
 }

@@ -96,7 +96,11 @@ void process()
 
 					// check min & signe ;
 					// min avec vResu
-					sign  ^=  ( vAccu < 0);  
+					// sign  ^=  ( vAccu < 0); 
+					
+					int32_t SignVAcc ;
+					callSign(SignVAcc,vAccu,0);
+					sign^=SignVAcc ;  
 				
 					int8_t a = callAbs(vAccu,0); 
 					min2 = minmax(min1,a,min2); 

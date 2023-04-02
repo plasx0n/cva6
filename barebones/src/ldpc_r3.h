@@ -35,14 +35,9 @@ inline int8_t callMin(int8_t rs1,int8_t rs2)
 	                            : "=r" (rd) \
 	                            : "r" (rs1), "r" (rs2)); 
 
-inline int8_t Sign(int8_t rs1,int8_t rs2)
-{
-	int8_t rd ; 
-	asm volatile("ld.sign %0,%1,%2" \
-	                : "=r" (rd) \
-	                : "r" (rs1), "r" (rs2));
-	return rd ; 
-}
+#define callSign(rd,rs1,rs2) asm volatile("ld.sign %0,%1,%2" \
+	                            : "=r" (rd) \
+	                            : "r" (rs1), "r" (rs2)); 
 
 #define callEval(rd,rs1,rs2) asm volatile("ld.eval %0,%1,%2" \
 	                            : "=r" (rd) \

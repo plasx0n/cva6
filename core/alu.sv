@@ -240,12 +240,13 @@ module alu import ariane_pkg::*;(
                           min_u,
                           r_addsat,
                           r_subsat,
+                          r_sign,
                           r_min, r_rsign_nmess, r_abs;              
 // hold just 1 bit 
     logic[SIMD-1:0] ldpc_comp; 
 
 // Debug 
-logic   alu_min,
+logic   alu_min_test,
         alu_abs,
         alu_minmax,
         alu_min_sorting,
@@ -256,6 +257,8 @@ logic   alu_min,
 
     generate
       for(genvar i=0 ; i<SIMD; i++) begin
+
+        assign r_sign[ i*Q +:Q] =  ( $signed(fu_data_i.operand_a[i*Q +:Q]) < 8'sb0) ? 8'h01 : 8'h00 ;  
       
         assign ldpc_res_plus[(i*9) +:9]   = $signed( fu_data_i.operand_a[i*Q +:Q ]) + $signed( fu_data_i.operand_b[i*Q +:Q ]) ; 
         assign r_addsat[ i*Q +:Q]         = ($signed(ldpc_res_plus[(i*9) +:9]) >  9'sd127)?  8'sd127 : 
@@ -295,7 +298,7 @@ logic   alu_min,
         
         assign a_sign_v[i*Q +:Q]      =  ($signed(fu_data_i.operand_a[i*Q +:Q]) >= 8'sb0)? 8'h01 : 8'h00  ; 
         assign temp_eval[i*Q +:Q]       =  fu_data_i.operand_b[i*Q +:Q] ^ a_sign_v[i*Q +:Q] ; 
-        assign r_rsign_nmess[ i*Q +:Q]  =  (temp_eval[i*Q +:Q]>=1)? fu_data_i.imm[i*Q +:Q] : -fu_data_i.imm[i*Q +:Q] ;
+        assign r_rsign_nmess[ i*Q +:Q]  =  (temp_eval[i*Q +:Q]>=8'b1)? fu_data_i.imm[i*Q +:Q] : -fu_data_i.imm[i*Q +:Q] ;
 
         assign r_abs[ i*Q +:Q] = ($signed(fu_data_i.operand_a[i*Q +:Q]) >= 0 )? fu_data_i.operand_a[i*Q +:Q]: -fu_data_i.operand_a[i*Q +:Q] ; 
       end
@@ -307,7 +310,7 @@ logic   alu_min,
 
   always_comb begin
     ldpc_result='0 ; 
-    alu_min =0 ; 
+    alu_min_test =0 ; 
     alu_abs =0 ;
     alu_minmax =0 ;
     alu_min_sorting =0 ;
@@ -315,9 +318,13 @@ logic   alu_min,
 
     unique case (fu_data_i.operator)
 
+      LDPC_SIGN: begin
+        ldpc_result =r_sign ; 
+      end
+
       LDPC_MIN: begin
         ldpc_result =r_min ; 
-        alu_min= 1 ; 
+        alu_min_test= 1'b1 ; 
       end
 
       LDPC_ABS: begin 
@@ -351,13 +358,13 @@ logic   alu_min,
         alu_rsign_nmess = 1 ; 
       end
 
-      default begin
+      default: begin
         ldpc_result='0 ; 
-        alu_min =0 ; 
         alu_abs =0 ;
         alu_minmax =0 ;
         alu_min_sorting =0 ;
         alu_rsign_nmess =0 ;
+        alu_min_test=0 ; 
       end
     endcase
   end 
@@ -371,6 +378,7 @@ logic   alu_min,
             
             // LDPC operations 
             LDPC_MIN,
+            LDPC_SIGN,
             LDPC_ABS,
             LDPC_SUB_SAT,
             LDPC_ADD_SAT,

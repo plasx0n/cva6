@@ -130,6 +130,14 @@ void postTrameCheck(int8_t * trame, int8_t * codw, int N ){
 	printf("\n") ; 
 }
 
+void displayVector( int32_t vector ){
+	printf("V4[31:24] %d ",   vector>>24) ;
+	printf("V3[23:16] %d ",  (vector<<8)>>24) ;
+	printf("V2[15:8]  %d ",  (vector<<16)>>24) ;
+	printf("V1[7:0]   %d \n",(vector<<24)>>24) ;
+}
+
+// #define debug
 
 void process()
 {
@@ -140,6 +148,9 @@ void process()
 
 		for( int l=0; l<iter; l++)
 		{
+			#ifdef debug
+				printf("ITER nb %d\n",iter);
+			#endif
 			// pour bouger dans le tableau d'indices
 			int32_t* ptr_posVn = posVn ;
 			int32_t* ptr_c2v   = c2v ;
@@ -147,13 +158,15 @@ void process()
 			// parcours des CN
 			for( int idex_Cn = 0 ; idex_Cn < nb_CN ; idex_Cn++)
 			{
-
+				#ifdef debug
+					printf("idex_cn %d\n",idex_Cn);
+				#endif
 				// stocke les résu locaux des Vn pour traitement
 				// degMax Cn -> 10
 
 				
-				int32_t min1    = 0X7F7F7F7F ;
-				int32_t min2    = 0X7F7F7F7F ;
+				int32_t min1    = (int32_t) 0X7F7F7F7F ;
+				int32_t min2    = (int32_t) 0X7F7F7F7F ;
 				int32_t sign    =  0 ;
 
 
@@ -161,7 +174,9 @@ void process()
                 int32_t degCN = deg_Cns[idex_Cn];
 				for( int idex_Vn =0 ; idex_Vn < degCN ; idex_Vn++)
 				{
-
+					#ifdef debug
+						printf("idex_Vn %d\n",idex_Vn);
+					#endif
 					// float Resu = nouveau - ancien
 					// ancien :     SOv = LLR + S c2v ( eq 1.6 )  | v2c = SOv - c2v eq 1.7
 
@@ -175,20 +190,49 @@ void process()
 					callSubSat(vAccu,pVn,msg);				
 					Resu[idex_Vn] =  vAccu; 
 
+					#ifdef debug
+						printf("vAccu : \n") ; 
+						displayVector(vAccu) ; 
+					#endif
+
 					// check min & signe ;
 					// min avec vResu
-					sign  ^=  ( vAccu < 0);  
+					int32_t SignVAcc ;
+					callSign(SignVAcc,vAccu,0);
+					sign^=SignVAcc ; 
+
+					#ifdef debug
+						printf("sign : \n") ; 
+						displayVector(sign) ; 
+					#endif
 				
 					int32_t a = callAbs(vAccu,0); 
+
+					#ifdef debug
+						printf("a : \n") ; 
+						displayVector(a) ; 
+					#endif
+
 					min2 = minmax(min1,a,min2); 
-					min1 = callMin( a,min1) ; 
-					
+					callMin(min1, a,min1) ; 
+
+					#ifdef debug
+						printf("min1 : \n") ; 
+						displayVector(min1) ; 
+
+						printf("min2 : \n") ; 
+						displayVector(min2) ; 
+					#endif
 
 				}
 
 				// parcours des VN liés au Cn courant
 				for( int idex_Vn = 0 ; idex_Vn < degCN; idex_Vn++)
 				{
+					#ifdef debug
+						printf("idex_Vn %d\n",idex_Vn);
+					#endif
+
 					int32_t nMessage ;
 					int32_t temp = Resu[idex_Vn] ; 
 
@@ -196,13 +240,36 @@ void process()
 					// avec les mins et les signe
 					// mask pour supprimer les branches conds. 
 					int32_t min_ = ld_min_sorting(min1,temp,min2);
+					
+					#ifdef debug
+						printf("min1 : \n") ; 
+						displayVector(min1) ; 
 
-					nMessage = ld_rsign_nmess(temp,sign,min_); 
+						printf("temp : \n") ; 
+						displayVector(temp) ; 
+
+						printf("min2 : \n") ; 
+						displayVector(min2) ; 
+
+						printf("min_ : \n") ; 
+						displayVector(min_) ; 
+					#endif
+					
+					nMessage 	 = ld_rsign_nmess(temp,sign,min_); 
+
+					#ifdef debug
+						printf("nMessage : \n") ; 
+						displayVector(nMessage) ; 
+					#endif
 
 					// maj c2v
 					ptr_c2v[idex_Vn] = nMessage ;
 					callAddSat(temp,temp, nMessage) ;
 
+					#ifdef debug
+						printf("temp : \n") ; 
+						displayVector(temp) ; 
+					#endif
 					// up accuVn ;
                     int32_t    indice = ptr_posVn[ idex_Vn ];
 					accuVn[ indice ] = temp ;
@@ -213,7 +280,6 @@ void process()
 				ptr_c2v     += degCN;
 
 			}
-			ireorder(trames,accuVn,34) ;
 		}
 
 }
@@ -242,12 +308,7 @@ int main( )
 	// this is ok 
 	reorder(accuVn,trames,34);
    	process() ; 
-	printf("post process\n"); 
-	for (int i = 0; i < 34; i++)
-	 {
-		printf("%d|%d|\n",i,accuVn[i]);
-	 }
-	 printf("\n"); 	
+	ireorder(trames,accuVn,34) ;
 
 	cycle_stop= cycles()-4;
 	insn_stop = insn()-4; 

@@ -13,15 +13,9 @@ inline int32_t callAbs(int32_t rs1,int32_t rs2)
 	                            : "=r" (rd) \
 	                            : "r" (rs1), "r" (rs2)); 
 
-inline int32_t callMin(int32_t rs1,int32_t rs2)
-{
-	int32_t rd ; 
-	asm volatile("ld.min %0,%1,%2" \
-	            	: "=r" (rd) \
-	            	: "r" (rs1), "r" (rs2));
-	return rd ;
-}
-
+#define callMin(rd,rs1,rs2) asm volatile("ld.min %0,%1,%2" \
+	                            : "=r" (rd) \
+	                            : "r" (rs1), "r" (rs2));
 
 #define callNmess(rd,rs1,rs2) asm volatile("ld.nmess %0,%1,%2" \
 	                            : "=r" (rd) \
@@ -35,21 +29,16 @@ inline int32_t callMin(int32_t rs1,int32_t rs2)
 	                            : "=r" (rd) \
 	                            : "r" (rs1), "r" (rs2)); 
 
-inline int32_t Sign(int32_t rs1,int32_t rs2)
-{
-	int32_t rd ; 
-	asm volatile("ld.sign %0,%1,%2" \
-	                : "=r" (rd) \
-	                : "r" (rs1), "r" (rs2));
-	return rd ; 
-}
+#define callSign(rd,rs1,rs2) asm volatile("ld.sign %0,%1,%2" \
+	                            : "=r" (rd) \
+	                            : "r" (rs1), "r" (rs2)); 
 
 #define callEval(rd,rs1,rs2) asm volatile("ld.eval %0,%1,%2" \
 	                            : "=r" (rd) \
 	                            : "r" (rs1), "r" (rs2)); 
 
 
-#define callAddSat(rd,rs1,rs2) asm volatile("ld.invminand %0,%1,%2" \
+#define callAddSat(rd,rs1,rs2) asm volatile("ld.addsat %0,%1,%2" \
 	                            : "=r" (rd) \
 	                            : "r" (rs1), "r" (rs2)); 
 
