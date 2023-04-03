@@ -224,7 +224,7 @@ module alu import ariane_pkg::*;(
 
     logic [riscv::XLEN-1:0] ldpc_result; 
     parameter integer Q       = 8 ;
-    parameter integer SIMD    = 4 ; 
+    parameter integer SIMD    = 8 ; 
     // Array of vectors [ SIMD_lvl | simd_lvl-1 | simd_lvl-2 | ect..]   
     parameter integer V_LENGHT = (Q*SIMD) ;
 
@@ -244,13 +244,6 @@ module alu import ariane_pkg::*;(
                           r_min, r_rsign_nmess, r_abs;              
 // hold just 1 bit 
     logic[SIMD-1:0] ldpc_comp; 
-
-// Debug 
-logic   alu_min_test,
-        alu_abs,
-        alu_minmax,
-        alu_min_sorting,
-        alu_rsign_nmess;
 
 
   logic [V_LENGHT-1:0] a_sign_v ;  
@@ -310,11 +303,6 @@ logic   alu_min_test,
 
   always_comb begin
     ldpc_result='0 ; 
-    alu_min_test =0 ; 
-    alu_abs =0 ;
-    alu_minmax =0 ;
-    alu_min_sorting =0 ;
-    alu_rsign_nmess =0 ;
 
     unique case (fu_data_i.operator)
 
@@ -324,12 +312,10 @@ logic   alu_min_test,
 
       LDPC_MIN: begin
         ldpc_result =r_min ; 
-        alu_min_test= 1'b1 ; 
       end
 
       LDPC_ABS: begin 
         ldpc_result =r_abs;
-        alu_abs=1 ;  
       end 
 
       LDPC_SUB_SAT : begin 
@@ -345,26 +331,18 @@ logic   alu_min_test,
 
       LDPC_MINMAX : begin
         ldpc_result = minmax_res ; 
-        alu_minmax = 1 ; 
       end
 
       LDPC_MIN_SORTING : begin
-        ldpc_result = min_t | min_u  ;
-        alu_min_sorting = 1 ; 
+        ldpc_result = min_t | min_u  ; 
       end
 
       LDPC_RSIGN_NMESS : begin
         ldpc_result = r_rsign_nmess;  
-        alu_rsign_nmess = 1 ; 
       end
 
       default: begin
         ldpc_result='0 ; 
-        alu_abs =0 ;
-        alu_minmax =0 ;
-        alu_min_sorting =0 ;
-        alu_rsign_nmess =0 ;
-        alu_min_test=0 ; 
       end
     endcase
   end 

@@ -4,7 +4,7 @@ LD=/opt/riscv/bin/riscv64-unknown-elf-ld
 DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
 
 
-BINARIES = simd_unit_tests 
+BINARIES = simd_unit_tests ldpc_int8x4_inter_r3_cst ldpc_int8x8_inter_r3_cst
 SRC=./src/stdlib.c
 
 SRC_ASM=./start.S
@@ -19,6 +19,7 @@ ldpc_int8_r3_cst : ./src/ldpc_int8_r3_cst.o
 ldpc_int8 : ./src/ldpc_int8.o
 simd_unit_tests : ./src/simd_unit_tests.o
 ldpc_int8x4_inter_r3_cst : ./src/ldpc_int8x4_inter_r3_cst.o
+ldpc_int8x8_inter_r3_cst  : ./src/ldpc_int8x8_inter_r3_cst.o
 
 OBJ=$(SRC:.c=.o)
 ASM=$(SRC_ASM:.S=.o)
@@ -38,11 +39,9 @@ all: $(BINARIES)
 dump: $(BINARIES)
 	$(DMP) -d ./bin/$^ > $^.txt
 
-.PHONY: all clean mrproper dump
-
 clean:
 	find . -name *.o -delete
 	find . -name *.s -delete
-	rm trace*
 	rm -rf bin/*
-	rm dmp.txt
+
+.PHONY: all clean mrproper dump

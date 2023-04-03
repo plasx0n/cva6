@@ -8,12 +8,11 @@
 
 #include <stdint.h>
 
-#include "ldpc_r3_int8x4.h"
-
+#include "ldpc_r3_int8x8.h"
 
 #define CODE   ("LDPC")
 #define ordo   ("Horizontal layered")
-#define qtf    ("int32_t")
+#define qtf    ("int64_t SIMD:8 ")
 #define nb_VN 	34
 #define nb_CN 	14
 #define iter 	10
@@ -42,26 +41,56 @@ int8_t codw4[]  ={1,1,1,1,1,1,0,1,0,1,1,1,0,0,1,1,0,1,0,1,0,0,0,0,0,0,0,1,0,0,0,
 int8_t err_4[] = {1,1,0,1,1,1,0,1,0,1,1,1,0,0,1,1,0,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,0}; 
 
 // []={3,5,-4,5,0,2,-8,5,-5,0,5,6,-9,0,5,6,-5,2,-1,5,-4,-2,-7,-3,1,-2,-7,4,1,-1,0,-4,0,-4, 
+
+int8_t 	codw5[]=  {1,1,0,0,0,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0,1,1,1,1,0,0,0,1,0,0,0,0,0,0};  
+int8_t 	err_5[] = {1,1,0,0,1,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0,1,1,1,1,0,0,0,1,0,0,0,0,0,0}; 
+		   
+//    3, 5, -4, -4, 0,-7, 1,-4,-5, 0,-4,-3, 0, 0,-4,-3, 4,-7,-1, -4, 5, 7, 2, 6, 1,-2,-7,4,1,-1, 0,-4,-9, -4 
+
+// parviens pas à corriger 
+int8_t codw6[]  ={0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,0,1,0,0,1,1,0,1,0,1,0,1} ;
+int8_t err_6[] = {0,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,0,1,0,0,1,1,0,1,0,1,0,1};
+			
+
+// []={-6,-4,5,-4,0,2,1,5,4,0,5,6,0,9,5,6,4,-7,-1,-4,-4,7,-7,6,1,-2,2,4,1,8,0,5,-9,5, } ;
+				  
+int8_t codw7[]  ={1,1,1,1,0,0,1,1,0,0,0,0,0,1,1,1,0,1,0,0,1,1,1,0,0,1,0,0,0,1,1,0,1,0} ;
+int8_t err_7[] = {1,1,1,1,0,1,1,1,0,0,0,0,0,1,1,1,0,1,0,0,1,1,1,0,0,1,0,0,0,1,1,0,1,0};
+			      
+// []={3,5,5,5,-9,2,1,5,-5,-9,-4,-3,-9,9,5,6,-5,2,-1,-4,5,7,2,-3,1,7,-7,-5,1,8,9,-4,0,-4, } ; 
+
+// parviens pas à corriger
+int8_t codw8[]  ={1,1,1,1,1,1,0,1,0,1,1,1,0,0,1,1,0,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,0} ;
+int8_t err_8[] = {1,1,0,1,1,1,0,1,0,1,1,1,0,0,1,1,0,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,0}; 
+
+// []={3,5,-4,5,0,2,-8,5,-5,0,5,6,-9,0,5,6,-5,2,-1,5,-4,-2,-7,-3,1,-2,-7,4,1,-1,0,-4,0,-4, 
  
 
-int32_t  accuVn[34] ; 
+int64_t  accuVn[34] ; 
 
 int8_t trames[] = {
+//t1 to t4  
 3,5,-4,-4,0,-7, 1,-4,-5, 0,-4,-3, 0, 0,-4,-3, 4,-7,-1, -4, 5, 7, 2, 6, 1,-2,-7,4,1,-1, 0,-4,-9, -4, 
 -6,-4,5,-4,0,2,1,5,4,0,5,6,0,9,5,6,4,-7,-1,-4,-4,7,-7,6,1,-2,2,4,1,8,0,5,-9,5,
 3,5,5,5,-9,2,1,5,-5,-9,-4,-3,-9,9,5,6,-5,2,-1,-4,5,7,2,-3,1,7,-7,-5,1,8,9,-4,0,-4,
 3,5,-4,5,0,2,-8,5,-5,0,5,6,-9,0,5,6,-5,2,-1,5,-4,-2,-7,-3,1,-2,-7,4,1,-1,0,-4,0,-4,
+// copy 
+3,5,-4,-4,0,-7, 1,-4,-5, 0,-4,-3, 0, 0,-4,-3, 4,-7,-1, -4, 5, 7, 2, 6, 1,-2,-7,4,1,-1, 0,-4,-9, -4, 
+-6,-4,5,-4,0,2,1,5,4,0,5,6,0,9,5,6,4,-7,-1,-4,-4,7,-7,6,1,-2,2,4,1,8,0,5,-9,5,
+3,5,5,5,-9,2,1,5,-5,-9,-4,-3,-9,9,5,6,-5,2,-1,-4,5,7,2,-3,1,7,-7,-5,1,8,9,-4,0,-4,
+3,5,-4,5,0,2,-8,5,-5,0,5,6,-9,0,5,6,-5,2,-1,5,-4,-2,-7,-3,1,-2,-7,4,1,-1,0,-4,0,-4,
+
 } ;
 
 // deg de chaque CN
-int32_t deg_Cns[] = 
+int64_t deg_Cns[] = 
 {
     8,8,10,10,8,8,10,10,4,4,6,6,6,6  
 }; 
 
-int32_t c2v [nb_CN *nb_VN ]= {0} ; 
+int64_t c2v [nb_CN *nb_VN ]= {0} ; 
 
-int32_t posVn[]= {
+int64_t posVn[]= {
     1, 3, 4, 6, 13, 19, 20, 22,
     0, 2, 5, 7, 12, 18, 21, 23,
     1, 6, 9, 11, 12, 14, 16, 18, 22, 24,
@@ -80,27 +109,26 @@ int32_t posVn[]= {
 
 
 // feed trames * 4 array of int8_t 
-
-void reorder(int32_t* dest, const int8_t* src, int N) // a = sign, b = value
+void reorder(int64_t* dest, const int8_t* src, int N) // a = sign, b = value
 {
     int8_t* ptr = (int8_t*) dest;
     for (int8_t i=0; i<N; i++)
     {
-        for (int32_t z = 0; z < 4; z+= 1)
+        for (int64_t z = 0; z < 8; z+= 1)
         {
-            ptr[(4*i) + z] = src[z * N + i];  
+            ptr[(8*i) + z] = src[z * N + i];  
         }
     }
 }
 
-void ireorder(int8_t* dest, int32_t* src, int N) // a = sign, b = value
+void ireorder(int8_t* dest, int64_t* src, int N) // a = sign, b = value
 {
     int8_t* ptr = (int8_t*) src;
     for (int32_t i = 0; i < N; i += 1)
     {
-        for (int32_t j = 0; j < 4; j += 1)
+        for (int32_t j = 0; j < 8; j += 1)
         {
-            dest[j * N + i] = ptr[4 * i + j];
+            dest[j * N + i] = ptr[8 * i + j];
         }
     }
 }
@@ -144,7 +172,7 @@ void process()
 	// DOIT COMMENCER ICI AVEC AccVun déja remplit 
 
 	// size 32 to compability 
-	int32_t Resu[32]  ;
+	int64_t Resu[32]  ;
 
 		for( int l=0; l<iter; l++)
 		{
@@ -152,8 +180,8 @@ void process()
 				printf("ITER nb %d\n",iter);
 			#endif
 			// pour bouger dans le tableau d'indices
-			int32_t* ptr_posVn = posVn ;
-			int32_t* ptr_c2v   = c2v ;
+			int64_t* ptr_posVn = posVn ;
+			int64_t* ptr_c2v   = c2v ;
 
 			// parcours des CN
 			for( int idex_Cn = 0 ; idex_Cn < nb_CN ; idex_Cn++)
@@ -165,13 +193,13 @@ void process()
 				// degMax Cn -> 10
 
 				
-				int32_t min1    = (int32_t) 0X7F7F7F7F ;
-				int32_t min2    = (int32_t) 0X7F7F7F7F ;
-				int32_t sign    =  0 ;
+				int64_t min1    = (int64_t) 0X7F7F7F7F7F7F7F7F ;
+				int64_t min2    = (int64_t) 0X7F7F7F7F7F7F7F7F ;
+				int64_t sign    =  0 ;
 
 
 				// parcours des VN liés au Cn courant
-                int32_t degCN = deg_Cns[idex_Cn];
+                int64_t degCN = deg_Cns[idex_Cn];
 				for( int idex_Vn =0 ; idex_Vn < degCN ; idex_Vn++)
 				{
 					#ifdef debug
@@ -182,11 +210,11 @@ void process()
 
 					// de mem : 2 boucles l'une permet de maj les v2c pour chaque vn et de cac sign + xor
 
-                    int32_t indice 	= ptr_posVn[ idex_Vn ];
-					int32_t pVn  	= accuVn[ indice] 	;
-					int32_t msg    	= ptr_c2v  [ idex_Vn ];
+                    int64_t indice 	= ptr_posVn[ idex_Vn ];
+					int64_t pVn  	= accuVn[ indice] 	;
+					int64_t msg    	= ptr_c2v  [ idex_Vn ];
 					
-					int32_t vAccu ;
+					int64_t vAccu ;
 					callSubSat(vAccu,pVn,msg);				
 					Resu[idex_Vn] =  vAccu; 
 
@@ -197,7 +225,7 @@ void process()
 
 					// check min & signe ;
 					// min avec vResu
-					int32_t SignVAcc ;
+					int64_t SignVAcc ;
 					callSign(SignVAcc,vAccu,0);
 					sign^=SignVAcc ; 
 
@@ -206,7 +234,7 @@ void process()
 						displayVector(sign) ; 
 					#endif
 				
-					int32_t a = callAbs(vAccu,0); 
+					int64_t a = callAbs(vAccu,0); 
 
 					#ifdef debug
 						printf("a : \n") ; 
@@ -233,13 +261,13 @@ void process()
 						printf("idex_Vn %d\n",idex_Vn);
 					#endif
 
-					int32_t nMessage ;
-					int32_t temp = Resu[idex_Vn] ; 
+					int64_t nMessage ;
+					int64_t temp = Resu[idex_Vn] ; 
 
 					// maj des messages c2v
 					// avec les mins et les signe
 					// mask pour supprimer les branches conds. 
-					int32_t min_ = ld_min_sorting(min1,temp,min2);
+					int64_t min_ = ld_min_sorting(min1,temp,min2);
 					
 					#ifdef debug
 						printf("min1 : \n") ; 
@@ -354,5 +382,48 @@ int main( )
 	printf("\n") ; 
 
 	printf("|=======================|\n");
+
+		printf("Diff post: \n") ;
+	for (int i=0 ; i<34; i++){
+      	int decb = trames[(34*4)+i] > 0;
+      	if( codw5[i] != decb )
+        	printf("E") ;
+      	else  
+        	printf("-") ;
+	}
+	printf("\n") ;
+
+			printf("Diff post: \n") ;
+	for (int i=0 ; i<34; i++){
+      	int decb = trames[(34*5)+i] > 0;
+      	if( codw6[i] != decb )
+        	printf("E") ;
+      	else  
+        	printf("-") ;
+	}
+	printf("\n") ;
+
+
+		printf("Diff post: \n") ;
+	for (int i=0 ; i<34; i++){
+      	int decb = trames[(34*6)+i] > 0;
+      	if( codw7[i] != decb )
+        	printf("E") ;
+      	else  
+        	printf("-") ;
+	}
+	printf("\n") ;
+
+
+		printf("Diff post: \n") ;
+	for (int i=0 ; i<34; i++){
+      	int decb = trames[(34*7)+i] > 0;
+      	if( codw8[i] != decb )
+        	printf("E") ;
+      	else  
+        	printf("-") ;
+	}
+	printf("\n") ;
+
 
 }

@@ -7,7 +7,7 @@
 
 
 #include <stdint.h>
-#include "ldpc_r3_int8x4.h"
+#include "ldpc_r3_int8x8.h"
 
 #define int8_tx4 int32_t
 #define int8_tx8 int64_t 
@@ -45,8 +45,8 @@ void displayVector_int8x8( int8_tx8 vector ){
 int main( ) 
 {
 
-int8_tx4 r1,r2,r3,r4,Res,Dummy ; 
-int8_tx4 min1,min2,a ; 
+int8_tx8 r1,r2,r3,r4,Res,Dummy ; 
+int8_tx8 min1,min2,a ; 
 
 
 
@@ -62,40 +62,48 @@ r4 		= 0x81818181;
 
 
 /*---*/
-// r1 = (a) | (b<<8) | (c<<16) | (d <<24) ; 
-//   int32_t vect = v1 | (v2<<8) | (v3<<16) | (v4<<24) ;
+// 		r1 = (a) | (b<<8) | (c<<16) | (d <<24) ; 
+//   	int32_t vect = v1 | (v2<<8) | (v3<<16) | (v4<<24) ;
 
-// r1 = 0x7E81F601 ; 
-// Dummy = callAbs(r1,0); // seems ok 
+// r1 		= 0x7E81F6017E81F601 ; 
+// Dummy = callAbs(r1,0); 
+// printf("dummy %x \n", Dummy); 
+// displayVector_int8x8(Dummy) ; 
+
+// Ok
+
 /*---*/
 
 
 /*---*/
 //126 / 127 / 10 / 1 
-// int8_tx4 min2 = 0x7E7F0A01 ;
+// min2 = 0x7E7F0A017E7F0A01 ;
 
 // 1 / 2 / 3 / 4 
-// int8_tx4 min1 	= 0x01020304 ; 
+// min1 	= 0x0102030401020304 ; 
 
 // 0 / 1/ 5 / 10  
-// int8_tx4 a 		= 0x0001050A ; 
+// a 		= 0x0001050A0001050A ; 
 
 // 1/2/5/10
 // puis 
 // 1/2/5/1
 // Dummy = minmax(min1,a,min2); 
+// printf("dummy %x \n", Dummy); 
+// displayVector_int8x8(Dummy) ; 
+
 //ok 
 /*---*/
 
 /*---*/
 //126 / 127 / 10 / 1 
-min2 = 0x7E7F0A01 ;
-
 // 1 / 2 / 3 / 4 
-min1 	= 0x01020304 ; 
-callMin(Dummy,min2,min1);
-printf(" dummy %x", Dummy); 
-displayVector(Dummy) ; 
+
+// min2 	= 0x7E7F0A017E7F0A01 ;
+// min1 	= 0x0102030401020304 ; 
+// callMin(Dummy,min2,min1);
+// printf("dummy %x \n", Dummy); 
+// displayVector_int8x8(Dummy) ; 
 
 /*---*/
 
