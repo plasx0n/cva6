@@ -242,6 +242,15 @@ module alu import ariane_pkg::*;(
     ldpc_result=32'h0 ; 
     unique case (fu_data_i.operator)
 
+      LDPC_SIGN : begin
+        ldpc_result = {
+         ( ($signed( fu_data_i.operand_a[31:24] )<0 ) ? 8'h01 :8'h00 )  ,
+         ( ($signed( fu_data_i.operand_a[23:16] )<0 ) ? 8'h01 :8'h00 ) ,
+         ( ($signed( fu_data_i.operand_a[15:8]  )<0 ) ? 8'h01 :8'h00 )  ,
+         ( ($signed( fu_data_i.operand_a[7:0]   )<0 ) ? 8'h01 :8'h00 )       
+        } ; 
+      end
+
       LDPC_MIN: begin
         ldpc_result ={24'h0,  (ldpc_comp)? fu_data_i.operand_b[7:0] : fu_data_i.operand_a[7:0] };
       end
@@ -298,6 +307,7 @@ module alu import ariane_pkg::*;(
         unique case (fu_data_i.operator)
             
             // LDPC operations 
+            LDPC_SIGN, 
             LDPC_MAX,
             LDPC_MIN,
             LDPC_ABS,

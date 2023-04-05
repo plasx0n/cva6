@@ -465,7 +465,7 @@ package ariane_pkg;
 
     typedef enum logic [7:0] { 
                                // LDPC
-                               LDPC_IABS,
+                               LDPC_SIGN,
                                LDPC_MIN,
                                LDPC_MAX,
                                LDPC_ABS,

@@ -98,6 +98,7 @@ module decoder import ariane_pkg::*; (
                     instruction_o.rs2[4:0] = instr.rtype.rs2;
                     instruction_o.rd[4:0]  = instr.itype.rd;
                     unique case ({instr.rtype.funct7, instr.rtype.funct3})
+                        {7'b000_0000, 3'b000} : instruction_o.op = LDPC_SIGN;
                         {7'b000_0000, 3'b011} : instruction_o.op = LDPC_MIN;
                         {7'b000_0000, 3'b010} : instruction_o.op = LDPC_MAX;
                         {7'b000_0000, 3'b001} : instruction_o.op = LDPC_ABS;

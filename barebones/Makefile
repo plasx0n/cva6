@@ -4,7 +4,7 @@ LD=/opt/riscv/bin/riscv64-unknown-elf-ld
 DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
 
 
-BINARIES = ldpc_int8_cst ldpc_int8 ldpc_int32 ldpc_int32_cst ldpc_int64 ldpc_int64_cst 
+BINARIES = ldpc_int8x8_inter ldpc_int8x4_inter
 SRC=./src/stdlib.c
 
 SRC_ASM=./start.S
@@ -15,12 +15,9 @@ GCC_FLAGS	=-Wall -Wextra -march=rv64imafc -mcmodel=medany -mabi=lp64f -ffreestan
 AS_FLAGS	=-march=rv64imafc -mabi=lp64f
 LD_FLAGS	=-nostdlib
 
-ldpc_int8 : ./src/ldpc_int8.o
-ldpc_int8_cst : ./src/ldpc_int8_cst.o
-ldpc_int8 : ./src/ldpc_int32.o
-ldpc_int8_cst : ./src/ldpc_int32_cst.o
-ldpc_int64 : ./src/ldpc_int64.o
-ldpc_int64_cst : ./src/ldpc_int64_cst.o
+ldpc_int8x8_inter : ./src/ldpc_int8x8_inter.o
+ldpc_int8x4_inter : ./src/ldpc_int8x4_inter.o
+
 
 
 OBJ=$(SRC:.c=.o)
