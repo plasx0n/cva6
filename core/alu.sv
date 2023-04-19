@@ -300,7 +300,7 @@ module alu import ariane_pkg::*;(
 
 
 
-
+  // Can be removed 
   always_comb begin
     ldpc_result='0 ; 
 
