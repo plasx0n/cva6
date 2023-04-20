@@ -48,7 +48,7 @@ par slli / srai
 	                            : "r" (rs1), "r" (rs2)); 
 
 
-#define callAddSat(rd,rs1,rs2) asm volatile("ld.invminand %0,%1,%2" \
+#define callAddSat(rd,rs1,rs2) asm volatile("ld.addsat %0,%1,%2" \
 	                            : "=r" (rd) \
 	                            : "r" (rs1), "r" (rs2)); 
 
@@ -195,24 +195,17 @@ void process()
 					int32_t min_temp ;
 					int32_t a ;
 
-					int indice = ptr_posVn[ idex_Vn ];
+					int32_t indice = ptr_posVn[ idex_Vn ];
 					int32_t pVn  =	accuVn[ indice];
 					int32_t msg  =	ptr_c2v [ idex_Vn ];
 					
 					callSubSat(vAccu,pVn,msg);				
 					Resu[idex_Vn] =  vAccu; 
 
-					// check min & signe ;
-					// int8_t testacc =  
-					// andi	s8,t3,255
-					// sb	t3,0(a6)
-					// srli	s8,s8,0x7
-
 					// doit etre compatible avec 32b 
 					int32_t SignVAcc ;
 					callSign(SignVAcc,vAccu,0);
 					sign^= SignVAcc; 
-	
 					// min casse la séquence car force slli & srai 
 					callAbs(a,vAccu,0); 
 					callMax(min_temp,min1,a) ; 
@@ -232,14 +225,14 @@ void process()
 
 					// idem avec eval qui slli & srai 
 					callEval(eval,min1,temp); 
-					
+					callRsign(Rsign,sign,temp) ;
 
 					// generation du mask + min à sortir
 					int32_t min_t = min1 & ~eval ; 
 					int32_t min_u = min2 & eval ; 
 					int32_t min_  = min_t | min_u ; 
  
-					callRsign(Rsign,sign,temp) ;
+					
 					callNmess(nMessage,Rsign,min_ ) ;
 
 					// maj c2v
@@ -247,7 +240,7 @@ void process()
 	
 					callAddSat(temp,temp, nMessage) ;
 
-					int  indice = ptr_posVn[ idex_Vn ];
+					int32_t  indice = ptr_posVn[ idex_Vn ];
 					accuVn[ indice ] = temp ;
 				}
 				
@@ -258,6 +251,27 @@ void process()
 
 }
 
+
+int main()
+{
+
+	int a,b,c ; 
+	callSubSat(a,b,c);
+
+	b = 0xFF112233; 
+	callSign(a,b,0);
+	callAbs(a,b,c);
+	callMax(a,b,c);
+	callMin(a,b,c);
+	// callAbs(a,b,c);
+	// callAbs(a,b,c);
+
+	/* code */
+	return 0;
+}
+
+
+/*
 int main( ) 
 {
 	printf("%s(%d,%d) :: %s:: %d ite :: %s\n",CODE,nb_VN,nb_VN-nb_CN,ordo ,iter,qtf) ; 
@@ -332,3 +346,4 @@ int main( )
 	return 0; 
 
 }
+*/

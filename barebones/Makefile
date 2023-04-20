@@ -4,7 +4,7 @@ LD=/opt/riscv/bin/riscv64-unknown-elf-ld
 DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
 
 
-BINARIES = ldpc_int8x8_inter ldpc_int8x4_inter
+BINARIES = ldpc_int8x8_inter ldpc_int8x4_inter ldpc_int8_cst
 SRC=./src/stdlib.c
 
 SRC_ASM=./start.S
@@ -15,9 +15,11 @@ GCC_FLAGS	=-Wall -Wextra -march=rv64imafc -mcmodel=medany -mabi=lp64f -ffreestan
 AS_FLAGS	=-march=rv64imafc -mabi=lp64f
 LD_FLAGS	=-nostdlib
 
-ldpc_int8x8_inter : ./src/ldpc_int8x8_inter.o
-ldpc_int8x4_inter : ./src/ldpc_int8x4_inter.o
+SRC_DIR = ./src/
 
+ldpc_int8x8_inter : $(SRC_DIR)ldpc_int8x8_inter.o
+ldpc_int8x4_inter : $(SRC_DIR)ldpc_int8x4_inter.o
+ldpc_int8_cst : 	$(SRC_DIR)ldpc_int8_cst.o
 
 
 OBJ=$(SRC:.c=.o)
@@ -35,7 +37,7 @@ all: $(BINARIES)
 	$(GCC) -o $@ -c $< $(AS_FLAGS)
 
 
-dump: $(EXEC)
+dump: ldpc_int8x4_inter
 	$(DMP) -d ./bin/$^ > dmp.txt
 
 .PHONY: all clean mrproper dump
