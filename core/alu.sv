@@ -319,6 +319,10 @@ module alu import ariane_pkg::*;(
         ldpc_result =r_addsat ; 
       end 
 
+    // SIGN IS THE FIRST INSTRUCTION THAT COMES 
+    // so it's defaulting to it with the parameters 
+    // fu_op[0] => usually it's add but now it will be sign 
+
       LDPC_SIGN : begin
         fix_sign =1 ; 
         ldpc_result = r_sign; 
