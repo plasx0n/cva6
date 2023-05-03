@@ -5,6 +5,7 @@ par slli / srai
 
 */
 #include <stdint.h>
+#include "stdlib.h"
 
 #define CODE   ("LDPC")
 #define ordo   ("Horizontal layered")
@@ -48,7 +49,7 @@ par slli / srai
 	                            : "r" (rs1), "r" (rs2)); 
 
 
-#define callAddSat(rd,rs1,rs2) asm volatile("ld.invminand %0,%1,%2" \
+#define callAddSat(rd,rs1,rs2) asm volatile("ld.addsat %0,%1,%2" \
 	                            : "=r" (rd) \
 	                            : "r" (rs1), "r" (rs2)); 
 
@@ -286,7 +287,8 @@ void process()
 
 }
 
-int main( ) 
+
+void runProcess()
 {
 	printf("%s(%d,%d) :: %s:: %d ite :: %s\n",CODE,nb_VN,nb_VN-nb_CN,ordo ,iter,qtf) ; 
 	printf("GENEREE : %s - %s\n", __DATE__, __TIME__);
@@ -300,7 +302,6 @@ int main( )
 
 	long insn_start,insn_stop,insn_tot ; 
 	long cycle_start,cycle_stop , cycle_tot ; 
-   	long time_start,time_stop , time_tot ;
 
 	// 4 cycles pour sortir les infos 
 	cycle_start= cycles()-4;
@@ -316,7 +317,6 @@ int main( )
 
 	cycle_tot = cycle_stop - cycle_start ; 
 	insn_tot = insn_stop - insn_start ; 
-	time_tot = time_stop - time_start ;
 
 	printf("\n|=======================|\n");
 	printf("cycles	: %d \n", cycle_tot) ; 
@@ -334,7 +334,13 @@ int main( )
       	else  
         	printf("-") ;
 	}
-	printf("\n") ; 
+	printf("\n") ;
+
+}
+
+int main( ) 
+{
+	
 
 	return 0; 
 
