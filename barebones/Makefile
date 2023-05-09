@@ -4,7 +4,7 @@ LD=/opt/riscv/bin/riscv64-unknown-elf-ld
 DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
 
 
-BINARIES = ldpc_int8x8_inter ldpc_int8x4_inter ldpc_int8_cst simd_unit_test
+BINARIES = ldpc_int8x8_inter ldpc_int8x4_inter ldpc_int8_cst simd_unit_test ldpc_int8
 SRC=./src/stdlib.c
 
 SRC_ASM=./start.S
@@ -17,10 +17,11 @@ LD_FLAGS	=-nostdlib
 
 SRC_DIR = ./src/
 
-ldpc_int8x8_inter : $(SRC_DIR)ldpc_int8x8_inter.o
-ldpc_int8x4_inter : $(SRC_DIR)ldpc_int8x4_inter.o
-ldpc_int8_cst : 	$(SRC_DIR)ldpc_int8_cst.o
-simd_unit_test :	$(SRC_DIR)simd_unit_test.o
+ldpc_int8  			: $(SRC_DIR)ldpc_int8.o
+ldpc_int8x8_inter 	: $(SRC_DIR)ldpc_int8x8_inter.o
+ldpc_int8x4_inter 	: $(SRC_DIR)ldpc_int8x4_inter.o
+ldpc_int8_cst 		: $(SRC_DIR)ldpc_int8_cst.o
+simd_unit_test 		: $(SRC_DIR)simd_unit_test.o
 
 OBJ=$(SRC:.c=.o)
 ASM=$(SRC_ASM:.S=.o)
@@ -38,7 +39,11 @@ all: $(BINARIES)
 
 
 dump: ldpc_int8x4_inter
-	$(DMP) -d ./bin/$^ > dmp.txt
+	$(DMP) -d ./bin/$^ > $^.txt
+
+dump_simd_unit_test: simd_unit_test
+	$(DMP) -d ./bin/$^ > $^.txt
+
 
 .PHONY: all clean mrproper dump
 

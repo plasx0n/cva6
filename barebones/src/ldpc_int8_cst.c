@@ -4,12 +4,14 @@ min pose toujours pb avec le signe et oblige le gcc à passer
 par slli / srai 
 
 */
+
+#define debug 
 #include <stdint.h>
 
 #define CODE   ("LDPC")
 #define ordo   ("Horizontal layered")
 #define qtf    ("int8")
-#define iter 	10
+#define iter 	1
 #define nb_VN 	34
 #define nb_CN 	14
 
@@ -110,7 +112,21 @@ void process()
 					int8_t pVn  =	accuVn[ indice];
 					int8_t msg  =	ptr_c2v [ idex_Vn ];
 					
-					callSubSat(vAccu,pVn,msg);				
+					callSubSat(vAccu,pVn,msg);	
+
+					#ifdef debug 
+						printf("iter %d\n", l);
+						printf("	CN %d\n", idex_Cn); 
+						printf("		VN%d\n",idex_Vn);
+
+						printf("			indice  %d \n",indice);
+						printf("			subsat \n");
+						printf("			pVn  	%d \n", pVn);
+						printf("			msg  	%d \n", msg);
+						printf("			vAccu  	%d \n", vAccu);
+						// printf("			sign %d \n", sign); 
+					#endif
+
 					Resu[idex_Vn] =  vAccu; 
 
 					// check min & signe ;
@@ -119,13 +135,27 @@ void process()
 					// sb	t3,0(a6)
 					// srli	s8,s8,0x7
 
-					sign  ^=  ( vAccu < 0); 
+					sign  ^=  ( vAccu < 0);
+
+					#ifdef debug 
+						printf("			sign \n"); 
+						printf("			vAccu  	%d \n", vAccu);
+						printf("			sign 	%d \n", sign); 
+					#endif 
+
+
 	
 					// min casse la séquence car force slli & srai 
 					callAbs(a,vAccu,0); 
 					callMax(min_temp,min1,a) ; 
 					callMin(min2, min2, min_temp )  ;   
 					callMin(min1, a,min1) ; 
+
+					#ifdef debug 
+						printf("			a 	 %d\n", a ); 
+						printf("			min1 %d\n", min1 ); 
+						printf("			min2 %d\n", min2 ); 
+					#endif 
 
 				}
 
@@ -142,6 +172,18 @@ void process()
 					callEval(eval,min1,temp); 
 					callRsign(Rsign,sign,temp) ;
 
+					#ifdef debug 
+						printf("iter %d\n", l);
+						printf("	CN %d\n", idex_Cn); 
+						printf("		VN%d\n",idex_Vn);
+
+						printf("			Rsign \n"); 
+						printf("			sign  %d \n", sign); 
+						printf("			temp  %d \n", temp);
+						printf("			Rsign %d \n", Rsign); 
+					#endif 
+
+
 					// generation du mask + min à sortir
 					int8_t min_t = min1 & ~eval ; 
 					int8_t min_u = min2 & eval ; 
@@ -149,10 +191,22 @@ void process()
  
 					callNmess(nMessage,Rsign,min_ ) ;
 
+					#ifdef debug 
+						printf("			Nmess \n"); 
+						printf("			min_  	 %d \n", min_); 
+						printf("			Rsign  	 %d \n", Rsign);
+						printf("			Nmessage %d \n", nMessage); 
+					#endif 
+
 					// maj c2v
 					ptr_c2v[idex_Vn] = nMessage ;
 	
 					callAddSat(temp,temp, nMessage) ;
+					#ifdef debug 
+						printf("			callAddSat \n"); 
+						printf("			min_  	 	%d \n", min_); 
+						printf("			res temp  	%d \n", temp);
+					#endif 
 
 					int8_t    indice = ptr_posVn[ idex_Vn ];
 					accuVn[ indice ] = temp ;
@@ -161,6 +215,15 @@ void process()
 				ptr_posVn   += degCn;
 				ptr_c2v     += degCn;
 			}
+
+			#ifdef debug
+				printf("AccuVn\n"); 
+				for (int i = 0; i < nb_VN; i++)
+				{
+					printf("%d ",accuVn[i]) ; 
+				}
+				
+			#endif 
 		}
 
 }

@@ -4,16 +4,37 @@ min pose toujours pb avec le signe et oblige le gcc à passer
 par slli / srai 
 
 */
+#define debug
 #include <stdint.h>
 
 #define CODE   ("LDPC")
 #define ordo   ("Horizontal layered")
 #define qtf    ("int8x4 SIMD:4")
-#define iter 	10
+#define iter 	1
 #define nb_VN 	34
 #define nb_CN 	14
 
+#define int8_tx4 int32_t
+#define int8_tx8 int64_t 
 
+#ifdef debug
+/**/
+	void displayVector( int8_tx4 vector ){
+		printf("V4[31:24] %d ",   vector>>24) ;
+		printf("V3[23:16] %d ",  (vector<<8)>>24) ;
+		printf("V2[15:8]  %d ",  (vector<<16)>>24) ;
+		printf("V1[7:0]   %d \n",(vector<<24)>>24) ;
+	}
+
+	/**/
+	void displayVectorHex_int8x4( int8_tx4 vector ){
+		printf("V4[31:24] %x ",   vector>>24) ;
+		printf("V3[23:16] %x ",  (vector<<8)>>24) ;
+		printf("V2[15:8]  %x ",  (vector<<16)>>24) ;
+		printf("V1[7:0]   %x \n",(vector<<24)>>24) ;
+	}
+
+#endif
 
 #define callSign(rd,rs1,rs2) asm volatile("ld.sign %0,%1,%2" \
 	                            : "=r" (rd) \
@@ -80,12 +101,12 @@ int8_t err_4[] = {1,1,0,1,1,1,0,1,0,1,1,1,0,0,1,1,0,1,0,1,0,0,0,0,0,0,0,1,0,0,0,
 
 int32_t  accuVn[34] ; 
 
-int8_t trames[] = {
-3,5,-4,-4,0,-7, 1,-4,-5, 0,-4,-3, 0, 0,-4,-3, 4,-7,-1, -4, 5, 7, 2, 6, 1,-2,-7,4,1,-1, 0,-4,-9, -4, 
--6,-4,5,-4,0,2,1,5,4,0,5,6,0,9,5,6,4,-7,-1,-4,-4,7,-7,6,1,-2,2,4,1,8,0,5,-9,5,
-3,5,5,5,-9,2,1,5,-5,-9,-4,-3,-9,9,5,6,-5,2,-1,-4,5,7,2,-3,1,7,-7,-5,1,8,9,-4,0,-4,
-3,5,-4,5,0,2,-8,5,-5,0,5,6,-9,0,5,6,-5,2,-1,5,-4,-2,-7,-3,1,-2,-7,4,1,-1,0,-4,0,-4,
-} ;
+int8_t trames[nb_VN*4] = {
+	3,5,-4,-4,0,-7, 1,-4,-5, 0,-4,-3, 0, 0,-4,-3, 4,-7,-1, -4, 5, 7, 2, 6, 1,-2,-7,4,1,-1, 0,-4,-9, -4,
+	-6,-4,5,-4,0,2,1,5,4,0,5,6,0,9,5,6,4,-7,-1,-4,-4,7,-7,6,1,-2,2,4,1,8,0,5,-9,5,
+	3,5,5,5,-9,2,1,5,-5,-9,-4,-3,-9,9,5,6,-5,2,-1,-4,5,7,2,-3,1,7,-7,-5,1,8,9,-4,0,-4,
+	3,5,-4,5,0,2,-8,5,-5,0,5,6,-9,0,5,6,-5,2,-1,5,-4,-2,-7,-3,1,-2,-7,4,1,-1,0,-4,0,-4 
+	};
 
 // deg de chaque CN
 int32_t deg_Cns[] = 
@@ -202,10 +223,46 @@ void process()
 					callSubSat(vAccu,pVn,msg);				
 					Resu[idex_Vn] =  vAccu; 
 
+					#ifdef debug 
+						printf("iter %d\n", l);
+						printf("	CN %d\n", idex_Cn); 
+						printf("		VN%d\n",idex_Vn);
+						printf("			indice  %d \n",indice);
+						
+						printf("			subsat \n"); 
+						printf("			pVN");
+						displayVector(pVn) ; 
+						printf("			msg"); 
+						displayVector(msg) ; 
+						printf("			vAccu"); 
+						displayVector(vAccu) ;
+						
+						 
+					#endif 
+
+
+
+
 					// doit etre compatible avec 32b 
 					int32_t SignVAcc ;
 					callSign(SignVAcc,vAccu,0);
 					sign^= SignVAcc; 
+
+					#ifdef debug 
+						printf("iter %d\n", l);
+						printf("	CN %d\n", idex_Cn); 
+						printf("		VN%d\n",idex_Vn);
+
+						printf("			sign \n"); 
+						printf("			vAccu"); 
+						displayVector(vAccu) ; 
+						printf("			SignVAcc");
+						displayVector(SignVAcc) ; 
+						printf("			sign"); 
+						displayVector(sign) ; 
+					#endif 
+
+
 					// min casse la séquence car force slli & srai 
 					callAbs(a,vAccu,0); 
 					callMax(min_temp,min1,a) ; 
@@ -219,13 +276,27 @@ void process()
 				{
 					int32_t nMessage ;
 					int32_t eval ; 
-					int32_t Rsign; ; 
+					int32_t Rsign;
 
 					int32_t temp = Resu[idex_Vn] ; 
 
 					// idem avec eval qui slli & srai 
 					callEval(eval,min1,temp); 
 					callRsign(Rsign,sign,temp) ;
+
+					#ifdef debug 
+						printf("iter %d\n", l);
+						printf("	CN %d\n", idex_Cn); 
+						printf("		VN%d\n",idex_Vn);
+
+						printf("			Rsign \n"); 
+						printf("			sign"); 
+						displayVector(sign) ; 
+						printf("			temp");
+						displayVector(temp) ; 
+						printf("			Rsign"); 
+						displayVector(Rsign) ; 
+					#endif 
 
 					// generation du mask + min à sortir
 					int32_t min_t = min1 & ~eval ; 
@@ -252,26 +323,6 @@ void process()
 }
 
 
-int main()
-{
-
-	int a,b,c ; 
-	callSubSat(a,b,c);
-
-	b = 0xFF112233; 
-	callSign(a,b,0);
-	callAbs(a,b,c);
-	callMax(a,b,c);
-	callMin(a,b,c);
-	// callAbs(a,b,c);
-	// callAbs(a,b,c);
-
-	/* code */
-	return 0;
-}
-
-
-/*
 int main( ) 
 {
 	printf("%s(%d,%d) :: %s:: %d ite :: %s\n",CODE,nb_VN,nb_VN-nb_CN,ordo ,iter,qtf) ; 
@@ -294,6 +345,13 @@ int main( )
 	
 	// ordering is part of the decoder 
 	reorder(accuVn,trames,34); 
+
+#ifdef debug 
+	for (int i = 0; i < nb_VN; i++)
+		displayVector(accuVn[i]) ; 
+#endif
+	
+
    	process() ; 
 	ireorder(trames,accuVn,34) ; 
 
@@ -346,4 +404,3 @@ int main( )
 	return 0; 
 
 }
-*/

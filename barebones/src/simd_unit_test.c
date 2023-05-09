@@ -201,13 +201,17 @@ r4 		= 0x81818181;
     // min1 	= 0x7E7F0A017E7F0A01 ;
     // min2 	= min1 ; 
 
+    // int8_tx8 sign = 0x0101010100000000 ; 
+
+
+
     // // a ^ (( b >=0 )? 1 : 0 ))
 
-    // callRsign(Dummy,min1,r1); //to test
+    // callRsign(Dummy,sign,r1); //to test
     // printf("dummy : %x",Dummy); 
     // displayVector_int8x8(Dummy) ; 
 
-    // to test 
+    // seems ok 
 
 /*---*/
 // a= 1 ;//x01
@@ -215,18 +219,16 @@ r4 		= 0x81818181;
 // c= -127 ; //x81
 // d= 126 ; //x7E
 
+    // r1 		= 0x7E81F6017E81F601 ; 
+
 //126 / 127 / 10 / 1  //126 / 127 / 10 / 1 
+    // min1 	= 0x7E7F0A017E7F0A01 ;   
 
-    r1 		= 0x7E81F6017E81F601 ; 
-    min1 	= 0x7E7F0A017E7F0A01 ;
+    // callEval(Dummy,r1,r1);
+    // printf("dummy : %x",Dummy); 
+    // displayVector_int8x8(Dummy) ; 
 
-    // a ^ (( b >=0 )? 1 : 0 ))
-
-    callEval(Dummy,min1,r1); //to test
-    printf("dummy : %x",Dummy); 
-    displayVector_int8x8(Dummy) ; 
-
-    // seems ok 
+    //ok
 
 /*---*/
 
