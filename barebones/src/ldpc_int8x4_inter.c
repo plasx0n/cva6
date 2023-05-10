@@ -4,13 +4,13 @@ min pose toujours pb avec le signe et oblige le gcc à passer
 par slli / srai 
 
 */
-#define debug
+// #define debug
 #include <stdint.h>
 
 #define CODE   ("LDPC")
 #define ordo   ("Horizontal layered")
 #define qtf    ("int8x4 SIMD:4")
-#define iter 	1
+#define iter 	10
 #define nb_VN 	34
 #define nb_CN 	14
 
@@ -193,6 +193,9 @@ void process()
 
 		for(int l=0;l<iter;l++)
 		{
+		#ifdef debug 
+			printf("iter %d\n", l);
+		#endif
 			// garder les ptrs en data type 
 			int32_t* ptr_posVn = posVn ;
 			int32_t* ptr_c2v   = c2v ;
@@ -201,8 +204,12 @@ void process()
 			for( int idex_Cn = 0 ; idex_Cn < nb_CN ; idex_Cn++)
 			{
 
-				int32_t min1    = INT32_MAX ;
-				int32_t min2    = INT32_MAX ;
+			#ifdef debug 
+				printf("	CN %d\n", idex_Cn); 
+			#endif
+
+				int32_t min1    = 	0x7E7E7E7E ;
+				int32_t min2    = 	0x7E7E7E7E ;
 				int32_t sign    =   0 ;
 
 				// parcours des VN liés au Cn courant
@@ -212,6 +219,10 @@ void process()
 				int degCn = deg_Cns[idex_Cn];
 				for( int idex_Vn =0 ; idex_Vn < degCn ; idex_Vn++)
 				{
+
+					#ifdef debug 
+						printf("		VN %d\n",idex_Vn);
+					#endif
 					int32_t vAccu ;
 					int32_t min_temp ;
 					int32_t a ;
@@ -224,20 +235,15 @@ void process()
 					Resu[idex_Vn] =  vAccu; 
 
 					#ifdef debug 
-						printf("iter %d\n", l);
-						printf("	CN %d\n", idex_Cn); 
-						printf("		VN%d\n",idex_Vn);
-						printf("			indice  %d \n",indice);
-						
 						printf("			subsat \n"); 
-						printf("			pVN");
+						printf("			pVN ");
 						displayVector(pVn) ; 
-						printf("			msg"); 
+						printf("			msg "); 
 						displayVector(msg) ; 
-						printf("			vAccu"); 
+						printf("			vAccu "); 
 						displayVector(vAccu) ;
-						
-						 
+
+
 					#endif 
 
 
@@ -249,16 +255,12 @@ void process()
 					sign^= SignVAcc; 
 
 					#ifdef debug 
-						printf("iter %d\n", l);
-						printf("	CN %d\n", idex_Cn); 
-						printf("		VN%d\n",idex_Vn);
-
 						printf("			sign \n"); 
-						printf("			vAccu"); 
+						printf("			vAccu "); 
 						displayVector(vAccu) ; 
-						printf("			SignVAcc");
+						printf("			SignVAcc ");
 						displayVector(SignVAcc) ; 
-						printf("			sign"); 
+						printf("			sign "); 
 						displayVector(sign) ; 
 					#endif 
 
@@ -268,12 +270,22 @@ void process()
 					callMax(min_temp,min1,a) ; 
 					callMin(min2, min2, min_temp )  ;   
 					callMin(min1, a,min1) ; 
-
+					#ifdef debug 
+						printf("			a	" ); 
+						displayVector(a) ;
+						printf("			min1 " ); 
+						displayVector(min1) ;
+						printf("			min2 " ); 
+						displayVector(min2) ;
+					#endif 
 				}
 
 				// parcours des VN liés au Cn courant
 				for( int idex_Vn =0 ; idex_Vn < degCn ; idex_Vn++)
 				{
+					#ifdef debug 
+						printf("		VN %d\n",idex_Vn);
+					#endif
 					int32_t nMessage ;
 					int32_t eval ; 
 					int32_t Rsign;
@@ -285,16 +297,12 @@ void process()
 					callRsign(Rsign,sign,temp) ;
 
 					#ifdef debug 
-						printf("iter %d\n", l);
-						printf("	CN %d\n", idex_Cn); 
-						printf("		VN%d\n",idex_Vn);
-
 						printf("			Rsign \n"); 
-						printf("			sign"); 
+						printf("			sign "); 
 						displayVector(sign) ; 
-						printf("			temp");
+						printf("			temp ");
 						displayVector(temp) ; 
-						printf("			Rsign"); 
+						printf("			Rsign "); 
 						displayVector(Rsign) ; 
 					#endif 
 
@@ -305,11 +313,28 @@ void process()
  
 					
 					callNmess(nMessage,Rsign,min_ ) ;
+					#ifdef debug 
+						printf("			Nmess  \n"); 
+						printf("			min_ 	 ");
+						displayVector(min_);  
+						printf("			Rsign  	 ");
+						displayVector(Rsign);  
+						printf("			Nmessage "); 
+						displayVector(nMessage);  
+
+					#endif 
 
 					// maj c2v
 					ptr_c2v[idex_Vn] = nMessage ;
 	
 					callAddSat(temp,temp, nMessage) ;
+					#ifdef debug 
+						printf("			callAddSat "); 
+						printf("			nMessage   "); 
+						displayVector(nMessage);
+						printf("			res temp   ");
+						displayVector(temp) ; 
+					#endif 
 
 					int32_t  indice = ptr_posVn[ idex_Vn ];
 					accuVn[ indice ] = temp ;
@@ -318,6 +343,11 @@ void process()
 				ptr_posVn   += degCn;
 				ptr_c2v     += degCn;
 			}
+
+			#ifdef debug 
+				for (int i = 0; i < nb_VN; i++)
+					displayVector(accuVn[i]) ; 
+			#endif
 		}
 
 }

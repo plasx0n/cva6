@@ -5,13 +5,13 @@ par slli / srai
 
 */
 
-#define debug 
+// #define debug 
 #include <stdint.h>
 
 #define CODE   ("LDPC")
 #define ordo   ("Horizontal layered")
 #define qtf    ("int8")
-#define iter 	1
+#define iter 	10
 #define nb_VN 	34
 #define nb_CN 	14
 
@@ -85,6 +85,11 @@ void process()
 
 		for(int l=0;l<iter;l++)
 		{
+		
+		#ifdef debug 
+			printf("iter %d\n", l);
+		#endif
+
 			// garder les ptrs en data type 
 			int8_t* ptr_posVn = posVn ;
 			int8_t* ptr_c2v   = c2v ;
@@ -92,6 +97,11 @@ void process()
 			// parcours des CN
 			for( int idex_Cn = 0 ; idex_Cn < nb_CN ; idex_Cn++)
 			{
+			
+			#ifdef debug 
+				printf("	CN %d\n", idex_Cn); 
+			#endif
+
 
 				int8_t min1    = INT8_MAX ;
 				int8_t min2    = INT8_MAX ;
@@ -104,6 +114,10 @@ void process()
 				int degCn = deg_Cns[idex_Cn];
 				for( int idex_Vn =0 ; idex_Vn < degCn ; idex_Vn++)
 				{
+					#ifdef debug 
+						printf("		VN%d\n",idex_Vn);
+					#endif
+
 					int8_t vAccu ;
 					int8_t min_temp ;
 					int8_t a ;
@@ -115,10 +129,6 @@ void process()
 					callSubSat(vAccu,pVn,msg);	
 
 					#ifdef debug 
-						printf("iter %d\n", l);
-						printf("	CN %d\n", idex_Cn); 
-						printf("		VN%d\n",idex_Vn);
-
 						printf("			indice  %d \n",indice);
 						printf("			subsat \n");
 						printf("			pVn  	%d \n", pVn);
@@ -161,7 +171,10 @@ void process()
 
 				// parcours des VN liés au Cn courant
 				for( int idex_Vn =0 ; idex_Vn < degCn ; idex_Vn++)
-				{
+				{	
+					#ifdef debug 
+						printf("		VN%d\n",idex_Vn);
+					#endif
 					int8_t nMessage ;
 					int8_t eval ; 
 					int8_t Rsign; ; 
@@ -170,13 +183,18 @@ void process()
 
 					// idem avec eval qui slli & srai 
 					callEval(eval,min1,temp); 
+
+					#ifdef debug 
+						printf("			eval \n"); 
+						printf("			min1  %d \n", min1); 
+						printf("			temp  %d \n", temp);
+						printf("			eval  %d \n", eval);
+					#endif 
+
+
 					callRsign(Rsign,sign,temp) ;
 
 					#ifdef debug 
-						printf("iter %d\n", l);
-						printf("	CN %d\n", idex_Cn); 
-						printf("		VN%d\n",idex_Vn);
-
 						printf("			Rsign \n"); 
 						printf("			sign  %d \n", sign); 
 						printf("			temp  %d \n", temp);

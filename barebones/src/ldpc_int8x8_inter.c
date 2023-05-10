@@ -209,8 +209,8 @@ void process()
 			for( int idex_Cn = 0 ; idex_Cn < nb_CN ; idex_Cn++)
 			{
 
-				int64_t min1    = INT32_MAX ;
-				int64_t min2    = INT32_MAX ;
+				int64_t min1    = 0x7E7E7E7E0E7E7E7E ;
+				int64_t min2    = min1 ;
 				int64_t sign    =   0 ;
 
 				// parcours des VN liés au Cn courant
@@ -288,7 +288,7 @@ void process()
 }
 
 
-void runProcess()
+int main()
 {
 	printf("%s(%d,%d) :: %s:: %d ite :: %s\n",CODE,nb_VN,nb_VN-nb_CN,ordo ,iter,qtf) ; 
 	printf("GENEREE : %s - %s\n", __DATE__, __TIME__);
@@ -325,23 +325,64 @@ void runProcess()
 
 	postTrameCheck(trames,codw1,0) ;
 
+	printf("Diff post: \n") ;
+	for (int i=0 ; i<34; i++){
+      	int decb = trames[34+i] > 0;
+		  printf("trame %d codw2 %d ",trames[34+i], codw2[i] ); 
+      	if( codw2[i] != decb )
+        	printf("E") ;
+      	else  
+        	printf("-") ;
+	printf("\n"); 
+	}
+	printf("\n") ; 
 
 	printf("Diff post: \n") ;
 	for (int i=0 ; i<34; i++){
-      	int decb = trames[(34*4)+i] > 0;
-      	if( codw4[i] != decb )
+      	int decb = trames[68+i] > 0;
+      	if( codw3[i] != decb )
         	printf("E") ;
       	else  
         	printf("-") ;
 	}
-	printf("\n") ;
+	printf("\n") ; 
 
-}
+	printf("Diff post: \n") ;
+	for (int i=0 ; i<34; i++){
+      	int decb = trames[(34*3)+i] > 0;
+      	if( codw4[i] != decb )
+        	printf("E") ;
+      	else  
+        	printf("-") ;
 
-int main( ) 
-{
-	
+	}
+				printf("Diff post: \n") ;
+	for (int i=0 ; i<34; i++){
+      	int decb = trames[(34*4)+i] > 0;
+      	if( codw5[i] != decb )
+        	printf("E") ;
+      	else  
+        	printf("-") ;
+	}
 
-	return 0; 
+				printf("Diff post: \n") ;
+	for (int i=0 ; i<34; i++){
+      	int decb = trames[(34*5)+i] > 0;
+      	if( codw6[i] != decb )
+        	printf("E") ;
+      	else  
+        	printf("-") ;
+	}
+
+
+				printf("Diff post: \n") ;
+	for (int i=0 ; i<34; i++){
+      	int decb = trames[(34*6)+i] > 0;
+      	if( codw7[i] != decb )
+        	printf("E") ;
+      	else  
+        	printf("-") ;
+	}
+	printf("\n") ; 
 
 }
