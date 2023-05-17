@@ -300,7 +300,7 @@ void process()
 						printf("			Rsign \n"); 
 						printf("			sign "); 
 						displayVector(sign) ; 
-						printf("			temp ");
+						printf("		+++	temp ");
 						displayVector(temp) ; 
 						printf("			Rsign "); 
 						displayVector(Rsign) ; 
