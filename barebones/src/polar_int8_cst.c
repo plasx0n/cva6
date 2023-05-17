@@ -1,5 +1,5 @@
 #include "stdint.h"
-#include "./stdlib.h"
+#include "stdlib.h"
 
 #define callRinstr(a,b,c) asm volatile("pl.r %0,%1,%2" \
 	                            : "=r" (a) \
@@ -64,13 +64,11 @@ void node( int8_t* ptr_sum, int8_t *LLR , int N, int8_t *fz_bits,int8_t *decode)
 {
     if( N == 1 )
     {
-        
 		callRinstr(*ptr_sum,*LLR, *fz_bits ); 
         if ( *fz_bits == 0 )
 			*decode = *ptr_sum ;
 		else
 			*decode = 0;
-
         return;
     }
         // ON CALCULE LES F
@@ -105,14 +103,13 @@ void node( int8_t* ptr_sum, int8_t *LLR , int N, int8_t *fz_bits,int8_t *decode)
 }
 
 
-int main(int argc, char **argv) {
+int main() {
 
-for( int i = 0 ; i < codw_N ; ++i)
-	LLR[i] =(int8_t) codw_int[i] ; 
+    for( int i = 0 ; i < codw_N ; ++i)
+	    LLR[i] =(int8_t) codw_int[i] ; 
 
     long insn_start,insn_stop,insn_tot ; 
 	long cycle_start,cycle_stop , cycle_tot ; 
-
 
     // 4 cycles pour sortir les infos 
 	cycle_start= cycles()-4;
@@ -129,9 +126,8 @@ for( int i = 0 ; i < codw_N ; ++i)
 	printf("cycles	: %d \n", cycle_tot) ; 
 	printf("insn	: %d \n", insn_tot);
  
-
-      // check resu ; 
-    int j= 0; 
+    // check resu ; 
+    int j   = 0; 
     int cpt = 0 ; 
     for( int i=0 ; i < codw_N ; i++)
     {
@@ -139,7 +135,7 @@ for( int i = 0 ; i < codw_N ; ++i)
             cpt++ ;              
     }
 
-    printf(" %d",cpt) ; 
+    printf("Errors %d",cpt);
 
   return 0;
 }
