@@ -4,6 +4,8 @@ BUg
 */
 #include <stdint.h>
 
+#define debug 
+
 #define CODE   ("LDPC")
 #define ordo   ("Horizontal layered")
 #define qtf    ("int32_t")
@@ -68,7 +70,7 @@ int32_t posVn[]= {
 	                            : "r" (rs1), "r" (rs2)); 
 
 
-#define callAddSat(rd,rs1,rs2) asm volatile("ld.invminand %0,%1,%2" \
+#define callAddSat(rd,rs1,rs2) asm volatile("ld.addsat %0,%1,%2" \
 	                            : "=r" (rd) \
 	                            : "r" (rs1), "r" (rs2)); 
 
@@ -80,6 +82,10 @@ void process()
 
 		for(int l=0;l<iter;l++)
 		{
+			#ifdef debug 
+				printf("iter %d\n", l);
+			#endif
+
 			// garder les ptrs en data type 
 			int32_t* ptr_posVn = posVn ;
 			int32_t* ptr_c2v   = c2v ;
@@ -87,6 +93,11 @@ void process()
 			// parcours des CN
 			for( int idex_Cn = 0 ; idex_Cn < nb_CN ; idex_Cn++)
 			{
+
+				#ifdef debug 
+					printf("	CN %d\n", idex_Cn); 
+				#endif
+
 
 				int32_t min1    = INT8_MAX ;
 				int32_t min2    = INT8_MAX ;
@@ -99,6 +110,11 @@ void process()
 				int degCn = deg_Cns[idex_Cn];
 				for( int idex_Vn =0 ; idex_Vn < degCn ; idex_Vn++)
 				{
+					#ifdef debug 
+						printf("		VN%d\n",idex_Vn);
+					#endif
+
+
 					int32_t vAccu ;
 					int32_t min_temp ;
 					int32_t a ;
@@ -107,7 +123,18 @@ void process()
 					int32_t pVn  =	accuVn[ indice];
 					int32_t msg  =	ptr_c2v [ idex_Vn ];
 					
-					callSubSat(vAccu,pVn,msg);				
+					callSubSat(vAccu,pVn,msg);	
+					
+					#ifdef debug 
+						printf("			indice  %d \n",indice);
+						printf("			subsat \n");
+						printf("			pVn  	%d \n", pVn);
+						printf("			msg  	%d \n", msg);
+						printf("			vAccu  	%d \n", vAccu);
+						// printf("			sign %d \n", sign); 
+					#endif
+
+								
 					Resu[idex_Vn] =  vAccu; 
 
 					// check min & signe ;
@@ -117,18 +144,37 @@ void process()
 					// srli	s8,s8,0x7
 
 					sign  ^=  ( vAccu < 0); 
-	
+					
+					#ifdef debug 
+						printf("			sign \n"); 
+						printf("			vAccu  	%d \n", vAccu);
+						printf("			sign 	%d \n", sign); 
+					#endif 
+
+
 					// min casse la séquence car force slli & srai 
 					callAbs(a,vAccu,0); 
 					callMax(min_temp,min1,a) ; 
 					callMin(min2, min2, min_temp )  ;   
 					callMin(min1, a,min1) ; 
 
+					#ifdef debug 
+						printf("			a 	 %d\n", a ); 
+						printf("			min1 %d\n", min1 ); 
+						printf("			min2 %d\n", min2 ); 
+					#endif 
+
+
 				}
 
 				// parcours des VN liés au Cn courant
 				for( int idex_Vn =0 ; idex_Vn < degCn ; idex_Vn++)
 				{
+
+					#ifdef debug 
+						printf("		VN%d\n",idex_Vn);
+					#endif
+
 					int32_t nMessage ;
 					int32_t eval ; 
 					int32_t Rsign; ; 
@@ -137,7 +183,22 @@ void process()
 
 					// idem avec eval qui slli & srai 
 					callEval(eval,min1,temp); 
+					#ifdef debug 
+						printf("			eval \n"); 
+						printf("			min1  %d \n", min1); 
+						printf("			temp  %d \n", temp);
+						printf("			eval  %d \n", eval);
+					#endif 
+
+
 					callRsign(Rsign,sign,temp) ;
+
+					#ifdef debug 
+						printf("			Rsign \n"); 
+						printf("			sign  %d \n", sign); 
+						printf("			temp  %d \n", temp);
+						printf("			Rsign %d \n", Rsign); 
+					#endif 
 
 					// generation du mask + min à sortir
 					int32_t min_t = min1 & ~eval ; 
@@ -146,10 +207,25 @@ void process()
  
 					callNmess(nMessage,Rsign,min_ ) ;
 
+					#ifdef debug 
+						printf("			Nmess \n"); 
+						printf("			min_  	 %d \n", min_); 
+						printf("			Rsign  	 %d \n", Rsign);
+						printf("			Nmessage %d \n", nMessage); 
+					#endif 
+
+
 					// maj c2v
 					ptr_c2v[idex_Vn] = nMessage ;
 	
 					callAddSat(temp,temp, nMessage) ;
+
+					#ifdef debug 
+						printf("			callAddSat \n"); 
+						printf("			min_  	 	%d \n", min_); 
+						printf("			res temp  	%d \n", temp);
+					#endif 
+
 
 					int32_t    indice = ptr_posVn[ idex_Vn ];
 					accuVn[ indice ] = temp ;

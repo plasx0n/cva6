@@ -1,0 +1,4140 @@
+LDPC(34,20) :: Horizontal layered:: 10 ite :: int32_t 
+GENEREE : May 29 2023 - 18:51:45
+
+
+ diff in :
+----E---------------------------
+--iter 0
+	CN 0
+		VN0
+			indice  1 
+			subsat 
+			pVn  	5 
+			msg  	0 
+			vAccu  	0 
+			sign 
+			vAccu  	5 
+			sign 	0 
+			a 	 5
+			min1 5
+			min2 127
+		VN1
+			indice  3 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	5 
+			sign 
+			vAccu  	-4 
+			sign 	1 
+			a 	 16843012
+			min1 4
+			min2 5
+		VN2
+			indice  4 
+			subsat 
+			pVn  	0 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	0 
+			sign 	1 
+			a 	 0
+			min1 0
+			min2 4
+		VN3
+			indice  6 
+			subsat 
+			pVn  	1 
+			msg  	0 
+			vAccu  	0 
+			sign 
+			vAccu  	1 
+			sign 	1 
+			a 	 1
+			min1 0
+			min2 1
+		VN4
+			indice  13 
+			subsat 
+			pVn  	0 
+			msg  	0 
+			vAccu  	1 
+			sign 
+			vAccu  	0 
+			sign 	1 
+			a 	 0
+			min1 0
+			min2 0
+		VN5
+			indice  19 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	0 
+			sign 
+			vAccu  	-4 
+			sign 	0 
+			a 	 16843012
+			min1 0
+			min2 0
+		VN6
+			indice  20 
+			subsat 
+			pVn  	5 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	5 
+			sign 	0 
+			a 	 5
+			min1 0
+			min2 0
+		VN7
+			indice  22 
+			subsat 
+			pVn  	2 
+			msg  	0 
+			vAccu  	5 
+			sign 
+			vAccu  	2 
+			sign 	0 
+			a 	 2
+			min1 0
+			min2 0
+		VN0
+			eval 
+			min1  0 
+			temp  5 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  5 
+			Rsign 16843009 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843009 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	5 
+		VN1
+			eval 
+			min1  0 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -4 
+			Rsign 0 
+			Nmess 
+			min_  	 0 
+			Rsign  	 0 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-4 
+		VN2
+			eval 
+			min1  0 
+			temp  0 
+			eval  -1 
+			Rsign 
+			sign  0 
+			temp  0 
+			Rsign 16843009 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843009 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	0 
+		VN3
+			eval 
+			min1  0 
+			temp  1 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  1 
+			Rsign 16843009 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843009 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	1 
+		VN4
+			eval 
+			min1  0 
+			temp  0 
+			eval  -1 
+			Rsign 
+			sign  0 
+			temp  0 
+			Rsign 16843009 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843009 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	0 
+		VN5
+			eval 
+			min1  0 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -4 
+			Rsign 0 
+			Nmess 
+			min_  	 0 
+			Rsign  	 0 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-4 
+		VN6
+			eval 
+			min1  0 
+			temp  5 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  5 
+			Rsign 16843009 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843009 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	5 
+		VN7
+			eval 
+			min1  0 
+			temp  2 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  2 
+			Rsign 16843009 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843009 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	2 
+	CN 1
+		VN0
+			indice  0 
+			subsat 
+			pVn  	3 
+			msg  	0 
+			vAccu  	2 
+			sign 
+			vAccu  	3 
+			sign 	0 
+			a 	 3
+			min1 3
+			min2 127
+		VN1
+			indice  2 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	3 
+			sign 
+			vAccu  	-4 
+			sign 	1 
+			a 	 16843012
+			min1 3
+			min2 4
+		VN2
+			indice  5 
+			subsat 
+			pVn  	-7 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	-7 
+			sign 	0 
+			a 	 16843015
+			min1 3
+			min2 4
+		VN3
+			indice  7 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	-7 
+			sign 
+			vAccu  	-4 
+			sign 	1 
+			a 	 16843012
+			min1 3
+			min2 4
+		VN4
+			indice  12 
+			subsat 
+			pVn  	0 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	0 
+			sign 	1 
+			a 	 0
+			min1 0
+			min2 3
+		VN5
+			indice  18 
+			subsat 
+			pVn  	-1 
+			msg  	0 
+			vAccu  	0 
+			sign 
+			vAccu  	-1 
+			sign 	0 
+			a 	 16843009
+			min1 0
+			min2 1
+		VN6
+			indice  21 
+			subsat 
+			pVn  	7 
+			msg  	0 
+			vAccu  	-1 
+			sign 
+			vAccu  	7 
+			sign 	0 
+			a 	 7
+			min1 0
+			min2 1
+		VN7
+			indice  23 
+			subsat 
+			pVn  	6 
+			msg  	0 
+			vAccu  	7 
+			sign 
+			vAccu  	6 
+			sign 	0 
+			a 	 6
+			min1 0
+			min2 1
+		VN0
+			eval 
+			min1  0 
+			temp  3 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  3 
+			Rsign 16843009 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843009 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	3 
+		VN1
+			eval 
+			min1  0 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -4 
+			Rsign 0 
+			Nmess 
+			min_  	 0 
+			Rsign  	 0 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-4 
+		VN2
+			eval 
+			min1  0 
+			temp  -7 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -7 
+			Rsign 0 
+			Nmess 
+			min_  	 0 
+			Rsign  	 0 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-7 
+		VN3
+			eval 
+			min1  0 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -4 
+			Rsign 0 
+			Nmess 
+			min_  	 0 
+			Rsign  	 0 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-4 
+		VN4
+			eval 
+			min1  0 
+			temp  0 
+			eval  -1 
+			Rsign 
+			sign  0 
+			temp  0 
+			Rsign 16843009 
+			Nmess 
+			min_  	 1 
+			Rsign  	 16843009 
+			Nmessage 1 
+			callAddSat 
+			min_  	 	1 
+			res temp  	1 
+		VN5
+			eval 
+			min1  0 
+			temp  -1 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -1 
+			Rsign 0 
+			Nmess 
+			min_  	 0 
+			Rsign  	 0 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-1 
+		VN6
+			eval 
+			min1  0 
+			temp  7 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  7 
+			Rsign 16843009 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843009 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	7 
+		VN7
+			eval 
+			min1  0 
+			temp  6 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  6 
+			Rsign 16843009 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843009 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	6 
+	CN 2
+		VN0
+			indice  1 
+			subsat 
+			pVn  	5 
+			msg  	0 
+			vAccu  	6 
+			sign 
+			vAccu  	5 
+			sign 	0 
+			a 	 5
+			min1 5
+			min2 127
+		VN1
+			indice  6 
+			subsat 
+			pVn  	1 
+			msg  	0 
+			vAccu  	5 
+			sign 
+			vAccu  	1 
+			sign 	0 
+			a 	 1
+			min1 1
+			min2 5
+		VN2
+			indice  9 
+			subsat 
+			pVn  	0 
+			msg  	0 
+			vAccu  	1 
+			sign 
+			vAccu  	0 
+			sign 	0 
+			a 	 0
+			min1 0
+			min2 1
+		VN3
+			indice  11 
+			subsat 
+			pVn  	-3 
+			msg  	0 
+			vAccu  	0 
+			sign 
+			vAccu  	-3 
+			sign 	1 
+			a 	 16843011
+			min1 0
+			min2 1
+		VN4
+			indice  12 
+			subsat 
+			pVn  	1 
+			msg  	0 
+			vAccu  	-3 
+			sign 
+			vAccu  	1 
+			sign 	1 
+			a 	 1
+			min1 0
+			min2 1
+		VN5
+			indice  14 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	1 
+			sign 
+			vAccu  	-4 
+			sign 	0 
+			a 	 16843012
+			min1 0
+			min2 1
+		VN6
+			indice  16 
+			subsat 
+			pVn  	4 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	4 
+			sign 	0 
+			a 	 4
+			min1 0
+			min2 1
+		VN7
+			indice  18 
+			subsat 
+			pVn  	-1 
+			msg  	0 
+			vAccu  	4 
+			sign 
+			vAccu  	-1 
+			sign 	1 
+			a 	 16843009
+			min1 0
+			min2 1
+		VN8
+			indice  22 
+			subsat 
+			pVn  	2 
+			msg  	0 
+			vAccu  	-1 
+			sign 
+			vAccu  	2 
+			sign 	1 
+			a 	 2
+			min1 0
+			min2 1
+		VN9
+			indice  24 
+			subsat 
+			pVn  	1 
+			msg  	0 
+			vAccu  	2 
+			sign 
+			vAccu  	1 
+			sign 	1 
+			a 	 1
+			min1 0
+			min2 1
+		VN0
+			eval 
+			min1  0 
+			temp  5 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  5 
+			Rsign 16843008 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843008 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	5 
+		VN1
+			eval 
+			min1  0 
+			temp  1 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  1 
+			Rsign 16843008 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843008 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	1 
+		VN2
+			eval 
+			min1  0 
+			temp  0 
+			eval  -1 
+			Rsign 
+			sign  1 
+			temp  0 
+			Rsign 16843008 
+			Nmess 
+			min_  	 1 
+			Rsign  	 16843008 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	255 
+		VN3
+			eval 
+			min1  0 
+			temp  -3 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -3 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-3 
+		VN4
+			eval 
+			min1  0 
+			temp  1 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  1 
+			Rsign 16843008 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843008 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	1 
+		VN5
+			eval 
+			min1  0 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -4 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-4 
+		VN6
+			eval 
+			min1  0 
+			temp  4 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  4 
+			Rsign 16843008 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843008 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	4 
+		VN7
+			eval 
+			min1  0 
+			temp  -1 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -1 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-1 
+		VN8
+			eval 
+			min1  0 
+			temp  2 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  2 
+			Rsign 16843008 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843008 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	2 
+		VN9
+			eval 
+			min1  0 
+			temp  1 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  1 
+			Rsign 16843008 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843008 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	1 
+	CN 3
+		VN0
+			indice  0 
+			subsat 
+			pVn  	3 
+			msg  	0 
+			vAccu  	1 
+			sign 
+			vAccu  	3 
+			sign 	0 
+			a 	 3
+			min1 3
+			min2 127
+		VN1
+			indice  7 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	3 
+			sign 
+			vAccu  	-4 
+			sign 	1 
+			a 	 16843012
+			min1 3
+			min2 4
+		VN2
+			indice  8 
+			subsat 
+			pVn  	-5 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	-5 
+			sign 	0 
+			a 	 16843013
+			min1 3
+			min2 4
+		VN3
+			indice  10 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	-5 
+			sign 
+			vAccu  	-4 
+			sign 	1 
+			a 	 16843012
+			min1 3
+			min2 4
+		VN4
+			indice  13 
+			subsat 
+			pVn  	0 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	0 
+			sign 	1 
+			a 	 0
+			min1 0
+			min2 3
+		VN5
+			indice  15 
+			subsat 
+			pVn  	-3 
+			msg  	0 
+			vAccu  	0 
+			sign 
+			vAccu  	-3 
+			sign 	0 
+			a 	 16843011
+			min1 0
+			min2 3
+		VN6
+			indice  17 
+			subsat 
+			pVn  	-7 
+			msg  	0 
+			vAccu  	-3 
+			sign 
+			vAccu  	-7 
+			sign 	1 
+			a 	 16843015
+			min1 0
+			min2 3
+		VN7
+			indice  19 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	-7 
+			sign 
+			vAccu  	-4 
+			sign 	0 
+			a 	 16843012
+			min1 0
+			min2 3
+		VN8
+			indice  23 
+			subsat 
+			pVn  	6 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	6 
+			sign 	0 
+			a 	 6
+			min1 0
+			min2 3
+		VN9
+			indice  25 
+			subsat 
+			pVn  	-2 
+			msg  	0 
+			vAccu  	6 
+			sign 
+			vAccu  	-2 
+			sign 	1 
+			a 	 16843010
+			min1 0
+			min2 2
+		VN0
+			eval 
+			min1  0 
+			temp  3 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  3 
+			Rsign 16843008 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843008 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	3 
+		VN1
+			eval 
+			min1  0 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -4 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-4 
+		VN2
+			eval 
+			min1  0 
+			temp  -5 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -5 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-5 
+		VN3
+			eval 
+			min1  0 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -4 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-4 
+		VN4
+			eval 
+			min1  0 
+			temp  0 
+			eval  -1 
+			Rsign 
+			sign  1 
+			temp  0 
+			Rsign 16843008 
+			Nmess 
+			min_  	 2 
+			Rsign  	 16843008 
+			Nmessage 254 
+			callAddSat 
+			min_  	 	2 
+			res temp  	254 
+		VN5
+			eval 
+			min1  0 
+			temp  -3 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -3 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-3 
+		VN6
+			eval 
+			min1  0 
+			temp  -7 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -7 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-7 
+		VN7
+			eval 
+			min1  0 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -4 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-4 
+		VN8
+			eval 
+			min1  0 
+			temp  6 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  6 
+			Rsign 16843008 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843008 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	6 
+		VN9
+			eval 
+			min1  0 
+			temp  -2 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -2 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-2 
+	CN 4
+		VN0
+			indice  1 
+			subsat 
+			pVn  	5 
+			msg  	0 
+			vAccu  	-2 
+			sign 
+			vAccu  	5 
+			sign 	0 
+			a 	 5
+			min1 5
+			min2 127
+		VN1
+			indice  2 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	5 
+			sign 
+			vAccu  	-4 
+			sign 	1 
+			a 	 16843012
+			min1 4
+			min2 5
+		VN2
+			indice  6 
+			subsat 
+			pVn  	1 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	1 
+			sign 	1 
+			a 	 1
+			min1 1
+			min2 4
+		VN3
+			indice  8 
+			subsat 
+			pVn  	-5 
+			msg  	0 
+			vAccu  	1 
+			sign 
+			vAccu  	-5 
+			sign 	0 
+			a 	 16843013
+			min1 1
+			min2 4
+		VN4
+			indice  16 
+			subsat 
+			pVn  	4 
+			msg  	0 
+			vAccu  	-5 
+			sign 
+			vAccu  	4 
+			sign 	0 
+			a 	 4
+			min1 1
+			min2 4
+		VN5
+			indice  21 
+			subsat 
+			pVn  	7 
+			msg  	0 
+			vAccu  	4 
+			sign 
+			vAccu  	7 
+			sign 	0 
+			a 	 7
+			min1 1
+			min2 4
+		VN6
+			indice  24 
+			subsat 
+			pVn  	1 
+			msg  	0 
+			vAccu  	7 
+			sign 
+			vAccu  	1 
+			sign 	0 
+			a 	 1
+			min1 1
+			min2 1
+		VN7
+			indice  26 
+			subsat 
+			pVn  	-7 
+			msg  	0 
+			vAccu  	1 
+			sign 
+			vAccu  	-7 
+			sign 	1 
+			a 	 16843015
+			min1 1
+			min2 1
+		VN0
+			eval 
+			min1  1 
+			temp  5 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  5 
+			Rsign 16843008 
+			Nmess 
+			min_  	 1 
+			Rsign  	 16843008 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	4 
+		VN1
+			eval 
+			min1  1 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -4 
+			Rsign 1 
+			Nmess 
+			min_  	 1 
+			Rsign  	 1 
+			Nmessage 1 
+			callAddSat 
+			min_  	 	1 
+			res temp  	-3 
+		VN2
+			eval 
+			min1  1 
+			temp  1 
+			eval  -1 
+			Rsign 
+			sign  1 
+			temp  1 
+			Rsign 16843008 
+			Nmess 
+			min_  	 1 
+			Rsign  	 16843008 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	0 
+		VN3
+			eval 
+			min1  1 
+			temp  -5 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -5 
+			Rsign 1 
+			Nmess 
+			min_  	 1 
+			Rsign  	 1 
+			Nmessage 1 
+			callAddSat 
+			min_  	 	1 
+			res temp  	-4 
+		VN4
+			eval 
+			min1  1 
+			temp  4 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  4 
+			Rsign 16843008 
+			Nmess 
+			min_  	 1 
+			Rsign  	 16843008 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	3 
+		VN5
+			eval 
+			min1  1 
+			temp  7 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  7 
+			Rsign 16843008 
+			Nmess 
+			min_  	 1 
+			Rsign  	 16843008 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	6 
+		VN6
+			eval 
+			min1  1 
+			temp  1 
+			eval  -1 
+			Rsign 
+			sign  1 
+			temp  1 
+			Rsign 16843008 
+			Nmess 
+			min_  	 1 
+			Rsign  	 16843008 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	0 
+		VN7
+			eval 
+			min1  1 
+			temp  -7 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -7 
+			Rsign 1 
+			Nmess 
+			min_  	 1 
+			Rsign  	 1 
+			Nmessage 1 
+			callAddSat 
+			min_  	 	1 
+			res temp  	-6 
+	CN 5
+		VN0
+			indice  0 
+			subsat 
+			pVn  	3 
+			msg  	0 
+			vAccu  	-7 
+			sign 
+			vAccu  	3 
+			sign 	0 
+			a 	 3
+			min1 3
+			min2 127
+		VN1
+			indice  3 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	3 
+			sign 
+			vAccu  	-4 
+			sign 	1 
+			a 	 16843012
+			min1 3
+			min2 4
+		VN2
+			indice  7 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	-4 
+			sign 	0 
+			a 	 16843012
+			min1 3
+			min2 4
+		VN3
+			indice  9 
+			subsat 
+			pVn  	255 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	255 
+			sign 	0 
+			a 	 1
+			min1 1
+			min2 3
+		VN4
+			indice  17 
+			subsat 
+			pVn  	-7 
+			msg  	0 
+			vAccu  	255 
+			sign 
+			vAccu  	-7 
+			sign 	1 
+			a 	 16843015
+			min1 1
+			min2 3
+		VN5
+			indice  20 
+			subsat 
+			pVn  	5 
+			msg  	0 
+			vAccu  	-7 
+			sign 
+			vAccu  	5 
+			sign 	1 
+			a 	 5
+			min1 1
+			min2 3
+		VN6
+			indice  25 
+			subsat 
+			pVn  	-2 
+			msg  	0 
+			vAccu  	5 
+			sign 
+			vAccu  	-2 
+			sign 	0 
+			a 	 16843010
+			min1 1
+			min2 2
+		VN7
+			indice  27 
+			subsat 
+			pVn  	4 
+			msg  	0 
+			vAccu  	-2 
+			sign 
+			vAccu  	4 
+			sign 	0 
+			a 	 4
+			min1 1
+			min2 2
+		VN0
+			eval 
+			min1  1 
+			temp  3 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  3 
+			Rsign 16843009 
+			Nmess 
+			min_  	 1 
+			Rsign  	 16843009 
+			Nmessage 1 
+			callAddSat 
+			min_  	 	1 
+			res temp  	4 
+		VN1
+			eval 
+			min1  1 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -4 
+			Rsign 0 
+			Nmess 
+			min_  	 1 
+			Rsign  	 0 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	-5 
+		VN2
+			eval 
+			min1  1 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -4 
+			Rsign 0 
+			Nmess 
+			min_  	 1 
+			Rsign  	 0 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	-5 
+		VN3
+			eval 
+			min1  1 
+			temp  255 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  255 
+			Rsign 16843008 
+			Nmess 
+			min_  	 1 
+			Rsign  	 16843008 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	254 
+		VN4
+			eval 
+			min1  1 
+			temp  -7 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -7 
+			Rsign 0 
+			Nmess 
+			min_  	 1 
+			Rsign  	 0 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	-8 
+		VN5
+			eval 
+			min1  1 
+			temp  5 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  5 
+			Rsign 16843009 
+			Nmess 
+			min_  	 1 
+			Rsign  	 16843009 
+			Nmessage 1 
+			callAddSat 
+			min_  	 	1 
+			res temp  	6 
+		VN6
+			eval 
+			min1  1 
+			temp  -2 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -2 
+			Rsign 0 
+			Nmess 
+			min_  	 1 
+			Rsign  	 0 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	-3 
+		VN7
+			eval 
+			min1  1 
+			temp  4 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  4 
+			Rsign 16843009 
+			Nmess 
+			min_  	 1 
+			Rsign  	 16843009 
+			Nmessage 1 
+			callAddSat 
+			min_  	 	1 
+			res temp  	5 
+	CN 6
+		VN0
+			indice  2 
+			subsat 
+			pVn  	-3 
+			msg  	0 
+			vAccu  	4 
+			sign 
+			vAccu  	-3 
+			sign 	1 
+			a 	 16843011
+			min1 3
+			min2 127
+		VN1
+			indice  4 
+			subsat 
+			pVn  	0 
+			msg  	0 
+			vAccu  	-3 
+			sign 
+			vAccu  	0 
+			sign 	1 
+			a 	 0
+			min1 0
+			min2 3
+		VN2
+			indice  8 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	0 
+			sign 
+			vAccu  	-4 
+			sign 	0 
+			a 	 16843012
+			min1 0
+			min2 3
+		VN3
+			indice  10 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	-4 
+			sign 	1 
+			a 	 16843012
+			min1 0
+			min2 3
+		VN4
+			indice  13 
+			subsat 
+			pVn  	254 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	254 
+			sign 	1 
+			a 	 2
+			min1 0
+			min2 2
+		VN5
+			indice  14 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	254 
+			sign 
+			vAccu  	-4 
+			sign 	0 
+			a 	 16843012
+			min1 0
+			min2 2
+		VN6
+			indice  16 
+			subsat 
+			pVn  	3 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	3 
+			sign 	0 
+			a 	 3
+			min1 0
+			min2 2
+		VN7
+			indice  18 
+			subsat 
+			pVn  	-1 
+			msg  	0 
+			vAccu  	3 
+			sign 
+			vAccu  	-1 
+			sign 	1 
+			a 	 16843009
+			min1 0
+			min2 1
+		VN8
+			indice  20 
+			subsat 
+			pVn  	6 
+			msg  	0 
+			vAccu  	-1 
+			sign 
+			vAccu  	6 
+			sign 	1 
+			a 	 6
+			min1 0
+			min2 1
+		VN9
+			indice  26 
+			subsat 
+			pVn  	-6 
+			msg  	0 
+			vAccu  	6 
+			sign 
+			vAccu  	-6 
+			sign 	0 
+			a 	 16843014
+			min1 0
+			min2 1
+		VN0
+			eval 
+			min1  0 
+			temp  -3 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -3 
+			Rsign 0 
+			Nmess 
+			min_  	 0 
+			Rsign  	 0 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-3 
+		VN1
+			eval 
+			min1  0 
+			temp  0 
+			eval  -1 
+			Rsign 
+			sign  0 
+			temp  0 
+			Rsign 16843009 
+			Nmess 
+			min_  	 1 
+			Rsign  	 16843009 
+			Nmessage 1 
+			callAddSat 
+			min_  	 	1 
+			res temp  	1 
+		VN2
+			eval 
+			min1  0 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -4 
+			Rsign 0 
+			Nmess 
+			min_  	 0 
+			Rsign  	 0 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-4 
+		VN3
+			eval 
+			min1  0 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -4 
+			Rsign 0 
+			Nmess 
+			min_  	 0 
+			Rsign  	 0 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-4 
+		VN4
+			eval 
+			min1  0 
+			temp  254 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  254 
+			Rsign 16843008 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843008 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	254 
+		VN5
+			eval 
+			min1  0 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -4 
+			Rsign 0 
+			Nmess 
+			min_  	 0 
+			Rsign  	 0 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-4 
+		VN6
+			eval 
+			min1  0 
+			temp  3 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  3 
+			Rsign 16843009 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843009 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	3 
+		VN7
+			eval 
+			min1  0 
+			temp  -1 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -1 
+			Rsign 0 
+			Nmess 
+			min_  	 0 
+			Rsign  	 0 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-1 
+		VN8
+			eval 
+			min1  0 
+			temp  6 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  6 
+			Rsign 16843009 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843009 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	6 
+		VN9
+			eval 
+			min1  0 
+			temp  -6 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -6 
+			Rsign 0 
+			Nmess 
+			min_  	 0 
+			Rsign  	 0 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-6 
+	CN 7
+		VN0
+			indice  3 
+			subsat 
+			pVn  	-5 
+			msg  	0 
+			vAccu  	-6 
+			sign 
+			vAccu  	-5 
+			sign 	1 
+			a 	 16843013
+			min1 5
+			min2 127
+		VN1
+			indice  5 
+			subsat 
+			pVn  	-7 
+			msg  	0 
+			vAccu  	-5 
+			sign 
+			vAccu  	-7 
+			sign 	0 
+			a 	 16843015
+			min1 5
+			min2 7
+		VN2
+			indice  9 
+			subsat 
+			pVn  	254 
+			msg  	0 
+			vAccu  	-7 
+			sign 
+			vAccu  	254 
+			sign 	0 
+			a 	 2
+			min1 2
+			min2 5
+		VN3
+			indice  11 
+			subsat 
+			pVn  	-3 
+			msg  	0 
+			vAccu  	254 
+			sign 
+			vAccu  	-3 
+			sign 	1 
+			a 	 16843011
+			min1 2
+			min2 3
+		VN4
+			indice  12 
+			subsat 
+			pVn  	1 
+			msg  	0 
+			vAccu  	-3 
+			sign 
+			vAccu  	1 
+			sign 	1 
+			a 	 1
+			min1 1
+			min2 2
+		VN5
+			indice  15 
+			subsat 
+			pVn  	-3 
+			msg  	0 
+			vAccu  	1 
+			sign 
+			vAccu  	-3 
+			sign 	0 
+			a 	 16843011
+			min1 1
+			min2 2
+		VN6
+			indice  17 
+			subsat 
+			pVn  	-8 
+			msg  	0 
+			vAccu  	-3 
+			sign 
+			vAccu  	-8 
+			sign 	1 
+			a 	 16843016
+			min1 1
+			min2 2
+		VN7
+			indice  19 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	-8 
+			sign 
+			vAccu  	-4 
+			sign 	0 
+			a 	 16843012
+			min1 1
+			min2 2
+		VN8
+			indice  21 
+			subsat 
+			pVn  	6 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	6 
+			sign 	0 
+			a 	 6
+			min1 1
+			min2 2
+		VN9
+			indice  27 
+			subsat 
+			pVn  	5 
+			msg  	0 
+			vAccu  	6 
+			sign 
+			vAccu  	5 
+			sign 	0 
+			a 	 5
+			min1 1
+			min2 2
+		VN0
+			eval 
+			min1  1 
+			temp  -5 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -5 
+			Rsign 0 
+			Nmess 
+			min_  	 1 
+			Rsign  	 0 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	-6 
+		VN1
+			eval 
+			min1  1 
+			temp  -7 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -7 
+			Rsign 0 
+			Nmess 
+			min_  	 1 
+			Rsign  	 0 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	-8 
+		VN2
+			eval 
+			min1  1 
+			temp  254 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  254 
+			Rsign 16843008 
+			Nmess 
+			min_  	 1 
+			Rsign  	 16843008 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	253 
+		VN3
+			eval 
+			min1  1 
+			temp  -3 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -3 
+			Rsign 0 
+			Nmess 
+			min_  	 1 
+			Rsign  	 0 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	-4 
+		VN4
+			eval 
+			min1  1 
+			temp  1 
+			eval  -1 
+			Rsign 
+			sign  0 
+			temp  1 
+			Rsign 16843009 
+			Nmess 
+			min_  	 2 
+			Rsign  	 16843009 
+			Nmessage 2 
+			callAddSat 
+			min_  	 	2 
+			res temp  	3 
+		VN5
+			eval 
+			min1  1 
+			temp  -3 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -3 
+			Rsign 0 
+			Nmess 
+			min_  	 1 
+			Rsign  	 0 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	-4 
+		VN6
+			eval 
+			min1  1 
+			temp  -8 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -8 
+			Rsign 0 
+			Nmess 
+			min_  	 1 
+			Rsign  	 0 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	-9 
+		VN7
+			eval 
+			min1  1 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -4 
+			Rsign 0 
+			Nmess 
+			min_  	 1 
+			Rsign  	 0 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	-5 
+		VN8
+			eval 
+			min1  1 
+			temp  6 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  6 
+			Rsign 16843009 
+			Nmess 
+			min_  	 1 
+			Rsign  	 16843009 
+			Nmessage 1 
+			callAddSat 
+			min_  	 	1 
+			res temp  	7 
+		VN9
+			eval 
+			min1  1 
+			temp  5 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  5 
+			Rsign 16843009 
+			Nmess 
+			min_  	 1 
+			Rsign  	 16843009 
+			Nmessage 1 
+			callAddSat 
+			min_  	 	1 
+			res temp  	6 
+	CN 8
+		VN0
+			indice  1 
+			subsat 
+			pVn  	4 
+			msg  	0 
+			vAccu  	5 
+			sign 
+			vAccu  	4 
+			sign 	0 
+			a 	 4
+			min1 4
+			min2 127
+		VN1
+			indice  2 
+			subsat 
+			pVn  	-3 
+			msg  	0 
+			vAccu  	4 
+			sign 
+			vAccu  	-3 
+			sign 	1 
+			a 	 16843011
+			min1 3
+			min2 4
+		VN2
+			indice  23 
+			subsat 
+			pVn  	6 
+			msg  	0 
+			vAccu  	-3 
+			sign 
+			vAccu  	6 
+			sign 	1 
+			a 	 6
+			min1 3
+			min2 4
+		VN3
+			indice  28 
+			subsat 
+			pVn  	1 
+			msg  	0 
+			vAccu  	6 
+			sign 
+			vAccu  	1 
+			sign 	1 
+			a 	 1
+			min1 1
+			min2 3
+		VN0
+			eval 
+			min1  1 
+			temp  4 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  4 
+			Rsign 16843008 
+			Nmess 
+			min_  	 1 
+			Rsign  	 16843008 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	3 
+		VN1
+			eval 
+			min1  1 
+			temp  -3 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -3 
+			Rsign 1 
+			Nmess 
+			min_  	 1 
+			Rsign  	 1 
+			Nmessage 1 
+			callAddSat 
+			min_  	 	1 
+			res temp  	-2 
+		VN2
+			eval 
+			min1  1 
+			temp  6 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  6 
+			Rsign 16843008 
+			Nmess 
+			min_  	 1 
+			Rsign  	 16843008 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	5 
+		VN3
+			eval 
+			min1  1 
+			temp  1 
+			eval  -1 
+			Rsign 
+			sign  1 
+			temp  1 
+			Rsign 16843008 
+			Nmess 
+			min_  	 3 
+			Rsign  	 16843008 
+			Nmessage 253 
+			callAddSat 
+			min_  	 	3 
+			res temp  	254 
+	CN 9
+		VN0
+			indice  0 
+			subsat 
+			pVn  	4 
+			msg  	0 
+			vAccu  	1 
+			sign 
+			vAccu  	4 
+			sign 	0 
+			a 	 4
+			min1 4
+			min2 127
+		VN1
+			indice  3 
+			subsat 
+			pVn  	-6 
+			msg  	0 
+			vAccu  	4 
+			sign 
+			vAccu  	-6 
+			sign 	1 
+			a 	 16843014
+			min1 4
+			min2 6
+		VN2
+			indice  22 
+			subsat 
+			pVn  	2 
+			msg  	0 
+			vAccu  	-6 
+			sign 
+			vAccu  	2 
+			sign 	1 
+			a 	 2
+			min1 2
+			min2 4
+		VN3
+			indice  29 
+			subsat 
+			pVn  	-1 
+			msg  	0 
+			vAccu  	2 
+			sign 
+			vAccu  	-1 
+			sign 	0 
+			a 	 16843009
+			min1 1
+			min2 2
+		VN0
+			eval 
+			min1  1 
+			temp  4 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  4 
+			Rsign 16843009 
+			Nmess 
+			min_  	 1 
+			Rsign  	 16843009 
+			Nmessage 1 
+			callAddSat 
+			min_  	 	1 
+			res temp  	5 
+		VN1
+			eval 
+			min1  1 
+			temp  -6 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -6 
+			Rsign 0 
+			Nmess 
+			min_  	 1 
+			Rsign  	 0 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	-7 
+		VN2
+			eval 
+			min1  1 
+			temp  2 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  2 
+			Rsign 16843009 
+			Nmess 
+			min_  	 1 
+			Rsign  	 16843009 
+			Nmessage 1 
+			callAddSat 
+			min_  	 	1 
+			res temp  	3 
+		VN3
+			eval 
+			min1  1 
+			temp  -1 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -1 
+			Rsign 0 
+			Nmess 
+			min_  	 1 
+			Rsign  	 0 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	-2 
+	CN 10
+		VN0
+			indice  1 
+			subsat 
+			pVn  	3 
+			msg  	0 
+			vAccu  	-1 
+			sign 
+			vAccu  	3 
+			sign 	0 
+			a 	 3
+			min1 3
+			min2 127
+		VN1
+			indice  3 
+			subsat 
+			pVn  	-7 
+			msg  	0 
+			vAccu  	3 
+			sign 
+			vAccu  	-7 
+			sign 	1 
+			a 	 16843015
+			min1 3
+			min2 7
+		VN2
+			indice  10 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	-7 
+			sign 
+			vAccu  	-4 
+			sign 	0 
+			a 	 16843012
+			min1 3
+			min2 4
+		VN3
+			indice  15 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	-4 
+			sign 	1 
+			a 	 16843012
+			min1 3
+			min2 4
+		VN4
+			indice  23 
+			subsat 
+			pVn  	5 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	5 
+			sign 	1 
+			a 	 5
+			min1 3
+			min2 4
+		VN5
+			indice  30 
+			subsat 
+			pVn  	0 
+			msg  	0 
+			vAccu  	5 
+			sign 
+			vAccu  	0 
+			sign 	1 
+			a 	 0
+			min1 0
+			min2 3
+		VN0
+			eval 
+			min1  0 
+			temp  3 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  3 
+			Rsign 16843008 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843008 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	3 
+		VN1
+			eval 
+			min1  0 
+			temp  -7 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -7 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-7 
+		VN2
+			eval 
+			min1  0 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -4 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-4 
+		VN3
+			eval 
+			min1  0 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -4 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-4 
+		VN4
+			eval 
+			min1  0 
+			temp  5 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  5 
+			Rsign 16843008 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843008 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	5 
+		VN5
+			eval 
+			min1  0 
+			temp  0 
+			eval  -1 
+			Rsign 
+			sign  1 
+			temp  0 
+			Rsign 16843008 
+			Nmess 
+			min_  	 3 
+			Rsign  	 16843008 
+			Nmessage 253 
+			callAddSat 
+			min_  	 	3 
+			res temp  	253 
+	CN 11
+		VN0
+			indice  0 
+			subsat 
+			pVn  	5 
+			msg  	0 
+			vAccu  	0 
+			sign 
+			vAccu  	5 
+			sign 	0 
+			a 	 5
+			min1 5
+			min2 127
+		VN1
+			indice  2 
+			subsat 
+			pVn  	-2 
+			msg  	0 
+			vAccu  	5 
+			sign 
+			vAccu  	-2 
+			sign 	1 
+			a 	 16843010
+			min1 2
+			min2 5
+		VN2
+			indice  11 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	-2 
+			sign 
+			vAccu  	-4 
+			sign 	0 
+			a 	 16843012
+			min1 2
+			min2 4
+		VN3
+			indice  14 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	-4 
+			sign 	1 
+			a 	 16843012
+			min1 2
+			min2 4
+		VN4
+			indice  22 
+			subsat 
+			pVn  	3 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	3 
+			sign 	1 
+			a 	 3
+			min1 2
+			min2 3
+		VN5
+			indice  31 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	3 
+			sign 
+			vAccu  	-4 
+			sign 	0 
+			a 	 16843012
+			min1 2
+			min2 3
+		VN0
+			eval 
+			min1  2 
+			temp  5 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  5 
+			Rsign 16843009 
+			Nmess 
+			min_  	 2 
+			Rsign  	 16843009 
+			Nmessage 2 
+			callAddSat 
+			min_  	 	2 
+			res temp  	7 
+		VN1
+			eval 
+			min1  2 
+			temp  -2 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -2 
+			Rsign 0 
+			Nmess 
+			min_  	 2 
+			Rsign  	 0 
+			Nmessage 254 
+			callAddSat 
+			min_  	 	2 
+			res temp  	-4 
+		VN2
+			eval 
+			min1  2 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -4 
+			Rsign 0 
+			Nmess 
+			min_  	 2 
+			Rsign  	 0 
+			Nmessage 254 
+			callAddSat 
+			min_  	 	2 
+			res temp  	-6 
+		VN3
+			eval 
+			min1  2 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -4 
+			Rsign 0 
+			Nmess 
+			min_  	 2 
+			Rsign  	 0 
+			Nmessage 254 
+			callAddSat 
+			min_  	 	2 
+			res temp  	-6 
+		VN4
+			eval 
+			min1  2 
+			temp  3 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  3 
+			Rsign 16843009 
+			Nmess 
+			min_  	 2 
+			Rsign  	 16843009 
+			Nmessage 2 
+			callAddSat 
+			min_  	 	2 
+			res temp  	5 
+		VN5
+			eval 
+			min1  2 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -4 
+			Rsign 0 
+			Nmess 
+			min_  	 2 
+			Rsign  	 0 
+			Nmessage 254 
+			callAddSat 
+			min_  	 	2 
+			res temp  	-6 
+	CN 12
+		VN0
+			indice  1 
+			subsat 
+			pVn  	3 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	3 
+			sign 	0 
+			a 	 3
+			min1 3
+			min2 127
+		VN1
+			indice  10 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	3 
+			sign 
+			vAccu  	-4 
+			sign 	1 
+			a 	 16843012
+			min1 3
+			min2 4
+		VN2
+			indice  15 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	-4 
+			sign 	0 
+			a 	 16843012
+			min1 3
+			min2 4
+		VN3
+			indice  18 
+			subsat 
+			pVn  	-1 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	-1 
+			sign 	1 
+			a 	 16843009
+			min1 1
+			min2 3
+		VN4
+			indice  22 
+			subsat 
+			pVn  	5 
+			msg  	0 
+			vAccu  	-1 
+			sign 
+			vAccu  	5 
+			sign 	1 
+			a 	 5
+			min1 1
+			min2 3
+		VN5
+			indice  32 
+			subsat 
+			pVn  	-9 
+			msg  	0 
+			vAccu  	5 
+			sign 
+			vAccu  	-9 
+			sign 	0 
+			a 	 16843017
+			min1 1
+			min2 3
+		VN0
+			eval 
+			min1  1 
+			temp  3 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  3 
+			Rsign 16843009 
+			Nmess 
+			min_  	 1 
+			Rsign  	 16843009 
+			Nmessage 1 
+			callAddSat 
+			min_  	 	1 
+			res temp  	4 
+		VN1
+			eval 
+			min1  1 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -4 
+			Rsign 0 
+			Nmess 
+			min_  	 1 
+			Rsign  	 0 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	-5 
+		VN2
+			eval 
+			min1  1 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -4 
+			Rsign 0 
+			Nmess 
+			min_  	 1 
+			Rsign  	 0 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	-5 
+		VN3
+			eval 
+			min1  1 
+			temp  -1 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -1 
+			Rsign 0 
+			Nmess 
+			min_  	 1 
+			Rsign  	 0 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	-2 
+		VN4
+			eval 
+			min1  1 
+			temp  5 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  5 
+			Rsign 16843009 
+			Nmess 
+			min_  	 1 
+			Rsign  	 16843009 
+			Nmessage 1 
+			callAddSat 
+			min_  	 	1 
+			res temp  	6 
+		VN5
+			eval 
+			min1  1 
+			temp  -9 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -9 
+			Rsign 0 
+			Nmess 
+			min_  	 1 
+			Rsign  	 0 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	-10 
+	CN 13
+		VN0
+			indice  0 
+			subsat 
+			pVn  	7 
+			msg  	0 
+			vAccu  	-9 
+			sign 
+			vAccu  	7 
+			sign 	0 
+			a 	 7
+			min1 7
+			min2 127
+		VN1
+			indice  11 
+			subsat 
+			pVn  	-6 
+			msg  	0 
+			vAccu  	7 
+			sign 
+			vAccu  	-6 
+			sign 	1 
+			a 	 16843014
+			min1 6
+			min2 7
+		VN2
+			indice  14 
+			subsat 
+			pVn  	-6 
+			msg  	0 
+			vAccu  	-6 
+			sign 
+			vAccu  	-6 
+			sign 	0 
+			a 	 16843014
+			min1 6
+			min2 6
+		VN3
+			indice  19 
+			subsat 
+			pVn  	-5 
+			msg  	0 
+			vAccu  	-6 
+			sign 
+			vAccu  	-5 
+			sign 	1 
+			a 	 16843013
+			min1 5
+			min2 6
+		VN4
+			indice  23 
+			subsat 
+			pVn  	5 
+			msg  	0 
+			vAccu  	-5 
+			sign 
+			vAccu  	5 
+			sign 	1 
+			a 	 5
+			min1 5
+			min2 5
+		VN5
+			indice  33 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	5 
+			sign 
+			vAccu  	-4 
+			sign 	0 
+			a 	 16843012
+			min1 4
+			min2 5
+		VN0
+			eval 
+			min1  4 
+			temp  7 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  7 
+			Rsign 16843009 
+			Nmess 
+			min_  	 4 
+			Rsign  	 16843009 
+			Nmessage 4 
+			callAddSat 
+			min_  	 	4 
+			res temp  	11 
+		VN1
+			eval 
+			min1  4 
+			temp  -6 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -6 
+			Rsign 0 
+			Nmess 
+			min_  	 4 
+			Rsign  	 0 
+			Nmessage 252 
+			callAddSat 
+			min_  	 	4 
+			res temp  	-10 
+		VN2
+			eval 
+			min1  4 
+			temp  -6 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -6 
+			Rsign 0 
+			Nmess 
+			min_  	 4 
+			Rsign  	 0 
+			Nmessage 252 
+			callAddSat 
+			min_  	 	4 
+			res temp  	-10 
+		VN3
+			eval 
+			min1  4 
+			temp  -5 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -5 
+			Rsign 0 
+			Nmess 
+			min_  	 4 
+			Rsign  	 0 
+			Nmessage 252 
+			callAddSat 
+			min_  	 	4 
+			res temp  	-9 
+		VN4
+			eval 
+			min1  4 
+			temp  5 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  5 
+			Rsign 16843009 
+			Nmess 
+			min_  	 4 
+			Rsign  	 16843009 
+			Nmessage 4 
+			callAddSat 
+			min_  	 	4 
+			res temp  	9 
+		VN5
+			eval 
+			min1  4 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -4 
+			Rsign 0 
+			Nmess 
+			min_  	 4 
+			Rsign  	 0 
+			Nmessage 252 
+			callAddSat 
+			min_  	 	4 
+			res temp  	-8 
+iter 1
+	CN 0
+		VN0
+			indice  1 
+			subsat 
+			pVn  	4 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	4 
+			sign 	0 
+			a 	 4
+			min1 4
+			min2 127
+		VN1
+			indice  3 
+			subsat 
+			pVn  	-7 
+			msg  	0 
+			vAccu  	4 
+			sign 
+			vAccu  	-7 
+			sign 	1 
+			a 	 16843015
+			min1 4
+			min2 7
+		VN2
+			indice  4 
+			subsat 
+			pVn  	1 
+			msg  	0 
+			vAccu  	-7 
+			sign 
+			vAccu  	1 
+			sign 	1 
+			a 	 1
+			min1 1
+			min2 4
+		VN3
+			indice  6 
+			subsat 
+			pVn  	0 
+			msg  	0 
+			vAccu  	1 
+			sign 
+			vAccu  	0 
+			sign 	1 
+			a 	 0
+			min1 0
+			min2 1
+		VN4
+			indice  13 
+			subsat 
+			pVn  	254 
+			msg  	0 
+			vAccu  	0 
+			sign 
+			vAccu  	254 
+			sign 	1 
+			a 	 2
+			min1 0
+			min2 1
+		VN5
+			indice  19 
+			subsat 
+			pVn  	-9 
+			msg  	0 
+			vAccu  	254 
+			sign 
+			vAccu  	-9 
+			sign 	0 
+			a 	 16843017
+			min1 0
+			min2 1
+		VN6
+			indice  20 
+			subsat 
+			pVn  	6 
+			msg  	0 
+			vAccu  	-9 
+			sign 
+			vAccu  	6 
+			sign 	0 
+			a 	 6
+			min1 0
+			min2 1
+		VN7
+			indice  22 
+			subsat 
+			pVn  	6 
+			msg  	0 
+			vAccu  	6 
+			sign 
+			vAccu  	6 
+			sign 	0 
+			a 	 6
+			min1 0
+			min2 1
+		VN0
+			eval 
+			min1  0 
+			temp  4 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  4 
+			Rsign 16843009 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843009 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	4 
+		VN1
+			eval 
+			min1  0 
+			temp  -7 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -7 
+			Rsign 0 
+			Nmess 
+			min_  	 0 
+			Rsign  	 0 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-7 
+		VN2
+			eval 
+			min1  0 
+			temp  1 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  1 
+			Rsign 16843009 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843009 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	1 
+		VN3
+			eval 
+			min1  0 
+			temp  0 
+			eval  -1 
+			Rsign 
+			sign  0 
+			temp  0 
+			Rsign 16843009 
+			Nmess 
+			min_  	 1 
+			Rsign  	 16843009 
+			Nmessage 1 
+			callAddSat 
+			min_  	 	1 
+			res temp  	1 
+		VN4
+			eval 
+			min1  0 
+			temp  254 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  254 
+			Rsign 16843008 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843008 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	254 
+		VN5
+			eval 
+			min1  0 
+			temp  -9 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -9 
+			Rsign 0 
+			Nmess 
+			min_  	 0 
+			Rsign  	 0 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-9 
+		VN6
+			eval 
+			min1  0 
+			temp  6 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  6 
+			Rsign 16843009 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843009 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	6 
+		VN7
+			eval 
+			min1  0 
+			temp  6 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  6 
+			Rsign 16843009 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843009 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	6 
+	CN 1
+		VN0
+			indice  0 
+			subsat 
+			pVn  	11 
+			msg  	0 
+			vAccu  	6 
+			sign 
+			vAccu  	11 
+			sign 	0 
+			a 	 11
+			min1 11
+			min2 127
+		VN1
+			indice  2 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	11 
+			sign 
+			vAccu  	-4 
+			sign 	1 
+			a 	 16843012
+			min1 4
+			min2 11
+		VN2
+			indice  5 
+			subsat 
+			pVn  	-8 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	-8 
+			sign 	0 
+			a 	 16843016
+			min1 4
+			min2 8
+		VN3
+			indice  7 
+			subsat 
+			pVn  	-5 
+			msg  	0 
+			vAccu  	-8 
+			sign 
+			vAccu  	-5 
+			sign 	1 
+			a 	 16843013
+			min1 4
+			min2 5
+		VN4
+			indice  12 
+			subsat 
+			pVn  	3 
+			msg  	1 
+			vAccu  	-5 
+			sign 
+			vAccu  	2 
+			sign 	1 
+			a 	 2
+			min1 2
+			min2 4
+		VN5
+			indice  18 
+			subsat 
+			pVn  	-2 
+			msg  	0 
+			vAccu  	2 
+			sign 
+			vAccu  	-2 
+			sign 	0 
+			a 	 16843010
+			min1 2
+			min2 2
+		VN6
+			indice  21 
+			subsat 
+			pVn  	7 
+			msg  	0 
+			vAccu  	-2 
+			sign 
+			vAccu  	7 
+			sign 	0 
+			a 	 7
+			min1 2
+			min2 2
+		VN7
+			indice  23 
+			subsat 
+			pVn  	9 
+			msg  	0 
+			vAccu  	7 
+			sign 
+			vAccu  	9 
+			sign 	0 
+			a 	 9
+			min1 2
+			min2 2
+		VN0
+			eval 
+			min1  2 
+			temp  11 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  11 
+			Rsign 16843009 
+			Nmess 
+			min_  	 2 
+			Rsign  	 16843009 
+			Nmessage 2 
+			callAddSat 
+			min_  	 	2 
+			res temp  	13 
+		VN1
+			eval 
+			min1  2 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -4 
+			Rsign 0 
+			Nmess 
+			min_  	 2 
+			Rsign  	 0 
+			Nmessage 254 
+			callAddSat 
+			min_  	 	2 
+			res temp  	-6 
+		VN2
+			eval 
+			min1  2 
+			temp  -8 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -8 
+			Rsign 0 
+			Nmess 
+			min_  	 2 
+			Rsign  	 0 
+			Nmessage 254 
+			callAddSat 
+			min_  	 	2 
+			res temp  	-10 
+		VN3
+			eval 
+			min1  2 
+			temp  -5 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -5 
+			Rsign 0 
+			Nmess 
+			min_  	 2 
+			Rsign  	 0 
+			Nmessage 254 
+			callAddSat 
+			min_  	 	2 
+			res temp  	-7 
+		VN4
+			eval 
+			min1  2 
+			temp  2 
+			eval  -1 
+			Rsign 
+			sign  0 
+			temp  2 
+			Rsign 16843009 
+			Nmess 
+			min_  	 2 
+			Rsign  	 16843009 
+			Nmessage 2 
+			callAddSat 
+			min_  	 	2 
+			res temp  	4 
+		VN5
+			eval 
+			min1  2 
+			temp  -2 
+			eval  0 
+			Rsign 
+			sign  0 
+			temp  -2 
+			Rsign 0 
+			Nmess 
+			min_  	 2 
+			Rsign  	 0 
+			Nmessage 254 
+			callAddSat 
+			min_  	 	2 
+			res temp  	-4 
+		VN6
+			eval 
+			min1  2 
+			temp  7 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  7 
+			Rsign 16843009 
+			Nmess 
+			min_  	 2 
+			Rsign  	 16843009 
+			Nmessage 2 
+			callAddSat 
+			min_  	 	2 
+			res temp  	9 
+		VN7
+			eval 
+			min1  2 
+			temp  9 
+			eval  -256 
+			Rsign 
+			sign  0 
+			temp  9 
+			Rsign 16843009 
+			Nmess 
+			min_  	 2 
+			Rsign  	 16843009 
+			Nmessage 2 
+			callAddSat 
+			min_  	 	2 
+			res temp  	11 
+	CN 2
+		VN0
+			indice  1 
+			subsat 
+			pVn  	4 
+			msg  	0 
+			vAccu  	9 
+			sign 
+			vAccu  	4 
+			sign 	0 
+			a 	 4
+			min1 4
+			min2 127
+		VN1
+			indice  6 
+			subsat 
+			pVn  	1 
+			msg  	0 
+			vAccu  	4 
+			sign 
+			vAccu  	1 
+			sign 	0 
+			a 	 1
+			min1 1
+			min2 4
+		VN2
+			indice  9 
+			subsat 
+			pVn  	253 
+			msg  	255 
+			vAccu  	1 
+			sign 
+			vAccu  	254 
+			sign 	0 
+			a 	 2
+			min1 1
+			min2 2
+		VN3
+			indice  11 
+			subsat 
+			pVn  	-10 
+			msg  	0 
+			vAccu  	254 
+			sign 
+			vAccu  	-10 
+			sign 	1 
+			a 	 16843018
+			min1 1
+			min2 2
+		VN4
+			indice  12 
+			subsat 
+			pVn  	4 
+			msg  	0 
+			vAccu  	-10 
+			sign 
+			vAccu  	4 
+			sign 	1 
+			a 	 4
+			min1 1
+			min2 2
+		VN5
+			indice  14 
+			subsat 
+			pVn  	-10 
+			msg  	0 
+			vAccu  	4 
+			sign 
+			vAccu  	-10 
+			sign 	0 
+			a 	 16843018
+			min1 1
+			min2 2
+		VN6
+			indice  16 
+			subsat 
+			pVn  	3 
+			msg  	0 
+			vAccu  	-10 
+			sign 
+			vAccu  	3 
+			sign 	0 
+			a 	 3
+			min1 1
+			min2 2
+		VN7
+			indice  18 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	3 
+			sign 
+			vAccu  	-4 
+			sign 	1 
+			a 	 16843012
+			min1 1
+			min2 2
+		VN8
+			indice  22 
+			subsat 
+			pVn  	6 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	6 
+			sign 	1 
+			a 	 6
+			min1 1
+			min2 2
+		VN9
+			indice  24 
+			subsat 
+			pVn  	0 
+			msg  	0 
+			vAccu  	6 
+			sign 
+			vAccu  	0 
+			sign 	1 
+			a 	 0
+			min1 0
+			min2 1
+		VN0
+			eval 
+			min1  0 
+			temp  4 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  4 
+			Rsign 16843008 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843008 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	4 
+		VN1
+			eval 
+			min1  0 
+			temp  1 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  1 
+			Rsign 16843008 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843008 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	1 
+		VN2
+			eval 
+			min1  0 
+			temp  254 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  254 
+			Rsign 16843009 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843009 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	254 
+		VN3
+			eval 
+			min1  0 
+			temp  -10 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -10 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-10 
+		VN4
+			eval 
+			min1  0 
+			temp  4 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  4 
+			Rsign 16843008 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843008 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	4 
+		VN5
+			eval 
+			min1  0 
+			temp  -10 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -10 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-10 
+		VN6
+			eval 
+			min1  0 
+			temp  3 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  3 
+			Rsign 16843008 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843008 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	3 
+		VN7
+			eval 
+			min1  0 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -4 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-4 
+		VN8
+			eval 
+			min1  0 
+			temp  6 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  6 
+			Rsign 16843008 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843008 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	6 
+		VN9
+			eval 
+			min1  0 
+			temp  0 
+			eval  -1 
+			Rsign 
+			sign  1 
+			temp  0 
+			Rsign 16843008 
+			Nmess 
+			min_  	 1 
+			Rsign  	 16843008 
+			Nmessage 255 
+			callAddSat 
+			min_  	 	1 
+			res temp  	255 
+	CN 3
+		VN0
+			indice  0 
+			subsat 
+			pVn  	13 
+			msg  	0 
+			vAccu  	0 
+			sign 
+			vAccu  	13 
+			sign 	0 
+			a 	 13
+			min1 13
+			min2 127
+		VN1
+			indice  7 
+			subsat 
+			pVn  	-7 
+			msg  	0 
+			vAccu  	13 
+			sign 
+			vAccu  	-7 
+			sign 	1 
+			a 	 16843015
+			min1 7
+			min2 13
+		VN2
+			indice  8 
+			subsat 
+			pVn  	-4 
+			msg  	0 
+			vAccu  	-7 
+			sign 
+			vAccu  	-4 
+			sign 	0 
+			a 	 16843012
+			min1 4
+			min2 7
+		VN3
+			indice  10 
+			subsat 
+			pVn  	-5 
+			msg  	0 
+			vAccu  	-4 
+			sign 
+			vAccu  	-5 
+			sign 	1 
+			a 	 16843013
+			min1 4
+			min2 5
+		VN4
+			indice  13 
+			subsat 
+			pVn  	254 
+			msg  	254 
+			vAccu  	-5 
+			sign 
+			vAccu  	0 
+			sign 	1 
+			a 	 0
+			min1 0
+			min2 4
+		VN5
+			indice  15 
+			subsat 
+			pVn  	-5 
+			msg  	0 
+			vAccu  	0 
+			sign 
+			vAccu  	-5 
+			sign 	0 
+			a 	 16843013
+			min1 0
+			min2 4
+		VN6
+			indice  17 
+			subsat 
+			pVn  	-9 
+			msg  	0 
+			vAccu  	-5 
+			sign 
+			vAccu  	-9 
+			sign 	1 
+			a 	 16843017
+			min1 0
+			min2 4
+		VN7
+			indice  19 
+			subsat 
+			pVn  	-9 
+			msg  	0 
+			vAccu  	-9 
+			sign 
+			vAccu  	-9 
+			sign 	0 
+			a 	 16843017
+			min1 0
+			min2 4
+		VN8
+			indice  23 
+			subsat 
+			pVn  	11 
+			msg  	0 
+			vAccu  	-9 
+			sign 
+			vAccu  	11 
+			sign 	0 
+			a 	 11
+			min1 0
+			min2 4
+		VN9
+			indice  25 
+			subsat 
+			pVn  	-3 
+			msg  	0 
+			vAccu  	11 
+			sign 
+			vAccu  	-3 
+			sign 	1 
+			a 	 16843011
+			min1 0
+			min2 3
+		VN0
+			eval 
+			min1  0 
+			temp  13 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  13 
+			Rsign 16843008 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843008 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	13 
+		VN1
+			eval 
+			min1  0 
+			temp  -7 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -7 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-7 
+		VN2
+			eval 
+			min1  0 
+			temp  -4 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -4 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-4 
+		VN3
+			eval 
+			min1  0 
+			temp  -5 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -5 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-5 
+		VN4
+			eval 
+			min1  0 
+			temp  0 
+			eval  -1 
+			Rsign 
+			sign  1 
+			temp  0 
+			Rsign 16843008 
+			Nmess 
+			min_  	 3 
+			Rsign  	 16843008 
+			Nmessage 253 
+			callAddSat 
+			min_  	 	3 
+			res temp  	253 
+		VN5
+			eval 
+			min1  0 
+			temp  -5 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -5 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-5 
+		VN6
+			eval 
+			min1  0 
+			temp  -9 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -9 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-9 
+		VN7
+			eval 
+			min1  0 
+			temp  -9 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -9 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-9 
+		VN8
+			eval 
+			min1  0 
+			temp  11 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  11 
+			Rsign 16843008 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843008 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	11 
+		VN9
+			eval 
+			min1  0 
+			temp  -3 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -3 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-3 
+	CN 4
+		VN0
+			indice  1 
+			subsat 
+			pVn  	4 
+			msg  	255 
+			vAccu  	-3 
+			sign 
+			vAccu  	5 
+			sign 	0 
+			a 	 5
+			min1 5
+			min2 127
+		VN1
+			indice  2 
+			subsat 
+			pVn  	-6 
+			msg  	1 
+			vAccu  	5 
+			sign 
+			vAccu  	-7 
+			sign 	1 
+			a 	 16843015
+			min1 5
+			min2 7
+		VN2
+			indice  6 
+			subsat 
+			pVn  	1 
+			msg  	255 
+			vAccu  	-7 
+			sign 
+			vAccu  	2 
+			sign 	1 
+			a 	 2
+			min1 2
+			min2 5
+		VN3
+			indice  8 
+			subsat 
+			pVn  	-4 
+			msg  	1 
+			vAccu  	2 
+			sign 
+			vAccu  	-5 
+			sign 	0 
+			a 	 16843013
+			min1 2
+			min2 5
+		VN4
+			indice  16 
+			subsat 
+			pVn  	3 
+			msg  	255 
+			vAccu  	-5 
+			sign 
+			vAccu  	4 
+			sign 	0 
+			a 	 4
+			min1 2
+			min2 4
+		VN5
+			indice  21 
+			subsat 
+			pVn  	9 
+			msg  	255 
+			vAccu  	4 
+			sign 
+			vAccu  	10 
+			sign 	0 
+			a 	 10
+			min1 2
+			min2 4
+		VN6
+			indice  24 
+			subsat 
+			pVn  	255 
+			msg  	255 
+			vAccu  	10 
+			sign 
+			vAccu  	0 
+			sign 	0 
+			a 	 0
+			min1 0
+			min2 2
+		VN7
+			indice  26 
+			subsat 
+			pVn  	-6 
+			msg  	1 
+			vAccu  	0 
+			sign 
+			vAccu  	-7 
+			sign 	1 
+			a 	 16843015
+			min1 0
+			min2 2
+		VN0
+			eval 
+			min1  0 
+			temp  5 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  5 
+			Rsign 16843008 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843008 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	5 
+		VN1
+			eval 
+			min1  0 
+			temp  -7 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -7 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-7 
+		VN2
+			eval 
+			min1  0 
+			temp  2 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  2 
+			Rsign 16843008 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843008 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	2 
+		VN3
+			eval 
+			min1  0 
+			temp  -5 
+			eval  0 
+			Rsign 
+			sign  1 
+			temp  -5 
+			Rsign 1 
+			Nmess 
+			min_  	 0 
+			Rsign  	 1 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	-5 
+		VN4
+			eval 
+			min1  0 
+			temp  4 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  4 
+			Rsign 16843008 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843008 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	4 
+		VN5
+			eval 
+			min1  0 
+			temp  10 
+			eval  -256 
+			Rsign 
+			sign  1 
+			temp  10 
+			Rsign 16843008 
+			Nmess 
+			min_  	 0 
+			Rsign  	 16843008 
+			Nmessage 0 
+			callAddSat 
+			min_  	 	0 
+			res temp  	10 
+		VN6

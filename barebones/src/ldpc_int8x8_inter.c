@@ -353,7 +353,7 @@ int main()
       	if( codw4[i] != decb )
         	printf("E") ;
       	else  
-        	printf("-") 
+        	printf("-") ; 	 
 
 	}
 				printf("Diff post: \n") ;
