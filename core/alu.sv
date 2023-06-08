@@ -294,12 +294,12 @@ module alu import ariane_pkg::*;(
 
             // need to compare with signed 
             // synth will do the rest 
-            assign func_subsat[ i*Q +:Q] =  ($signed(polar_res_aminusb[(i*9) +:9]) >  9'sd127)?  9'sd127 : 
-                                            ($signed(polar_res_aminusb[(i*9) +:9]) < -9'sd127)? -9'sd127 : 
-                                            polar_res_aminusb[(i*9) +:9];
+            assign func_subsat[ i*Q +:Q] =  ($signed(polar_res_aminusb[(i*9) +:9]) >  9'sd127)?  8'sd127 : 
+                                            ($signed(polar_res_aminusb[(i*9) +:9]) < -9'sd127)? -8'sd127 : 
+                                            polar_res_aminusb[(i*cle9) +:9];
 
-            assign func_addsat[ i*Q +:Q] =  ( $signed(polar_res_aplusb[(i*9) +:9])  >  9'sd127) ? 9'sd127 : 
-                                            ( $signed(polar_res_aplusb[(i*9) +:9])  < -9'sd127)? -9'sd127 : 
+            assign func_addsat[ i*Q +:Q] =  ( $signed(polar_res_aplusb[(i*9) +:9])  >  9'sd127) ? 8'sd127 : 
+                                            ( $signed(polar_res_aplusb[(i*9) +:9])  < -9'sd127)? -8'sd127 : 
                                             polar_res_aplusb[(i*9) +:9] ;
 
             assign decode[i*Q+:Q] =(fu_data_i.operand_b[i*Q:+Q] ==8'h00 ) ? fu_data_i.operand_a[i*Q+:Q] : 8'h00 ; 

@@ -6,7 +6,7 @@ LD=/opt/riscv/bin/riscv64-unknown-elf-ld
 DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
 
 # Programs 
-BINARIES = polar_int8_cst polar_int8x4_inter polar_int8x8_inter
+BINARIES = polar_int8 polar_int8_cst polar_int8x4_inter polar_int8x8_inter
 
 SRC=./src/stdlib.c
 SRC_ASM=./start.S
@@ -18,7 +18,7 @@ AS_FLAGS=-march=rv64imafc -mabi=lp64f
 LD_FLAGS=-nostdlib
 
 
-
+polar_int8 			: ./src/polar_int8.o
 polar_int8_cst 		: ./src/polar_int8_cst.o
 polar_int8x4_inter 	: ./src/polar_int8x4_inter.o
 polar_int8x8_inter 	: ./src/polar_int8x8_inter.o
