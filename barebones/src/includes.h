@@ -410,8 +410,6 @@ void node_top(int* ptr_sum, float *LLR , int N, char *fz_bits)
 /* Basic Functions 8 and 16 bits RV */ 
 #ifdef BASE_FUNC_8b
 
-
-
         int8_t func_f(int8_t la,int8_t lb)
         {
             int8_t min1 , min2 ; 
@@ -419,12 +417,11 @@ void node_top(int* ptr_sum, float *LLR , int N, char *fz_bits)
 
             min1 = abs(la) ; 
             min2 = abs(lb) ;
-
+            
             if(min1>min2) min1=min2 ; 
             sign = (la < 0) ^ (lb < 0) ; 
 
             return (sign == 0 )? min1 : -min1 ; 
-
         }
         
 

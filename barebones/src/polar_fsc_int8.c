@@ -22,10 +22,8 @@
 #include "includes.h"
 
 // goes in heap 
-
     int8_t LLR[2*codw_N]       = {0} ; 
     int8_t PS[codw_N]          = {0};    
-
     int8_t decode_out_[K ]     = {0} ; 
 
 // main 
@@ -45,7 +43,7 @@ int main(int argc , char * argv[])
     // node 8   => standard SC 
     // node top => Fast 
     
-    node_top( PS, LLR, codw_N, froozen_bits );
+    node_8( PS, LLR, codw_N, froozen_bits );
     // node_top( PS, LLR, codw_N, froozen_bits );
 
 	cycle_stop= cycles()-4;
