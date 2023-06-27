@@ -39,20 +39,20 @@ int8_t posVn[]= {
     0, 2, 11, 14, 22, 31,
     1, 10, 15, 18, 22, 32,
     0, 11, 14, 19, 23, 33,
-} ; 
+};
 
 
 #define callAbs(rd,rs1,rs2) asm volatile("ld.abs %0,%1,%2" \
 	                            : "=r" (rd) \
-	                            : "r" (rs1), "r" (rs2)); 
+	                            : "r" (rs1), "r" (rs2));
 
 #define callMax(rd,rs1,rs2) asm volatile("ld.max %0,%1,%2" \
 	                            : "=r" (rd) \
-	                            : "r" (rs1), "r" (rs2)); 
+	                            : "r" (rs1), "r" (rs2));
 
 #define callMin(rd,rs1,rs2) asm volatile("ld.min %0,%1,%2" \
 	                            : "=r" (rd) \
-	                            : "r" (rs1), "r" (rs2)); 
+	                            : "r" (rs1), "r" (rs2));
 
 #define callNmess(rd,rs1,rs2) asm volatile("ld.nmess %0,%1,%2" \
 	                            : "=r" (rd) \
@@ -60,20 +60,19 @@ int8_t posVn[]= {
 
 #define callSubSat(rd,rs1,rs2) asm volatile("ld.subsat %0,%1,%2" \
 	                            : "=r" (rd) \
-	                            : "r" (rs1), "r" (rs2)); 
-								
+	                            : "r" (rs1), "r" (rs2));
 #define callRsign(rd,rs1,rs2) asm volatile("ld.rsign %0,%1,%2" \
 	                            : "=r" (rd) \
-	                            : "r" (rs1), "r" (rs2)); 
+	                            : "r" (rs1), "r" (rs2));
 
 #define callEval(rd,rs1,rs2) asm volatile("ld.eval %0,%1,%2" \
 	                            : "=r" (rd) \
-	                            : "r" (rs1), "r" (rs2)); 
+	                            : "r" (rs1), "r" (rs2));
 
 
-#define callAddSat(rd,rs1,rs2) asm volatile("ld.invminand %0,%1,%2" \
+#define callAddSat(rd,rs1,rs2) asm volatile("ld.addsat %0,%1,%2" \
 	                            : "=r" (rd) \
-	                            : "r" (rs1), "r" (rs2)); 
+	                            : "r" (rs1), "r" (rs2));
 
 
 void process()

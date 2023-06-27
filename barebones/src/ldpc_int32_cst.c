@@ -67,8 +67,7 @@ int32_t posVn[]= {
 	                            : "=r" (rd) \
 	                            : "r" (rs1), "r" (rs2)); 
 
-
-#define callAddSat(rd,rs1,rs2) asm volatile("ld.invminand %0,%1,%2" \
+#define callAddSat(rd,rs1,rs2) asm volatile("ld.addsat %0,%1,%2" \
 	                            : "=r" (rd) \
 	                            : "r" (rs1), "r" (rs2)); 
 
