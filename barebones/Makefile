@@ -34,10 +34,10 @@ simd_unit_test 		: $(SRC_DIR)simd_unit_test.o
 OBJ=$(SRC:.c=.o)
 ASM=$(SRC_ASM:.S=.o)
 
-multi-all : 
-	 $(MAKE) -j8 all 
+all : 
+	 $(MAKE) -j$(NPROCsr) sall 
 
-all: $(BINARIES)
+sall: $(BINARIES)
 
 %: $(OBJ) $(ASM)
 	$(GCC) $(GCC_FLAGS) $(LD_FLAGS) -T $(LINKER_SCRIPT) $(ASM) $(OBJ) ./src/$@.o -o ./bin/$@

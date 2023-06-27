@@ -18,14 +18,12 @@ par slli / srai
 #define int8_tx8 int64_t 
 
 #ifdef debug
-/**/
 	void displayVector( int8_tx4 vector ){
 		printf("V4[31:24] %d ",   vector>>24) ;
 		printf("V3[23:16] %d ",  (vector<<8)>>24) ;
 		printf("V2[15:8]  %d ",  (vector<<16)>>24) ;
 		printf("V1[7:0]   %d \n",(vector<<24)>>24) ;
 	}
-
 	/**/
 	void displayVectorHex_int8x4( int8_tx4 vector ){
 		printf("V4[31:24] %x ",   vector>>24) ;
@@ -33,42 +31,32 @@ par slli / srai
 		printf("V2[15:8]  %x ",  (vector<<16)>>24) ;
 		printf("V1[7:0]   %x \n",(vector<<24)>>24) ;
 	}
-
 #endif
 
 #define callSign(rd,rs1,rs2) asm volatile("ld.sign %0,%1,%2" \
 	                            : "=r" (rd) \
 	                            : "r" (rs1), "r" (rs2)); 
-
 #define callAbs(rd,rs1,rs2) asm volatile("ld.abs %0,%1,%2" \
 	                            : "=r" (rd) \
 	                            : "r" (rs1), "r" (rs2)); 
-
 #define callMax(rd,rs1,rs2) asm volatile("ld.max %0,%1,%2" \
 	                            : "=r" (rd) \
 	                            : "r" (rs1), "r" (rs2)); 
-
 #define callMin(rd,rs1,rs2) asm volatile("ld.min %0,%1,%2" \
 	                            : "=r" (rd) \
 	                            : "r" (rs1), "r" (rs2)); 
-
 #define callNmess(rd,rs1,rs2) asm volatile("ld.nmess %0,%1,%2" \
 	                            : "=r" (rd) \
 	                            : "r" (rs1), "r" (rs2));
-
 #define callSubSat(rd,rs1,rs2) asm volatile("ld.subsat %0,%1,%2" \
 	                            : "=r" (rd) \
-	                            : "r" (rs1), "r" (rs2)); 
-								
+	                            : "r" (rs1), "r" (rs2)); 						
 #define callRsign(rd,rs1,rs2) asm volatile("ld.rsign %0,%1,%2" \
 	                            : "=r" (rd) \
 	                            : "r" (rs1), "r" (rs2)); 
-
 #define callEval(rd,rs1,rs2) asm volatile("ld.eval %0,%1,%2" \
 	                            : "=r" (rd) \
 	                            : "r" (rs1), "r" (rs2)); 
-
-
 #define callAddSat(rd,rs1,rs2) asm volatile("ld.addsat %0,%1,%2" \
 	                            : "=r" (rd) \
 	                            : "r" (rs1), "r" (rs2)); 
