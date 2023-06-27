@@ -41,6 +41,4 @@ dump: $(EXEC)
 clean:
 	find . -name *.o -delete
 	find . -name *.s -delete
-	rm trace*
 	rm -rf bin/*
-	rm dmp.txt
