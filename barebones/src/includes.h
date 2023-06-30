@@ -1,11 +1,8 @@
 /*
 Core depedent 
     printf     
-
 SIMD defines too 
-
 could use abs () 
-
 */
 
 // #define BASE_FUNC_32b
@@ -44,8 +41,6 @@ int8_t codw[]={
 
 
 /* TEST FUNCS */ 
-
-
 /*call les instrus customs 8b*/
 // #ifdef CUSTOM_BASE_FUNC_8b
 
@@ -66,345 +61,341 @@ int8_t codw[]={
 	                            : "r" (b), "r" (c)); 
 
 
-
-
-
 /* Basic Functions SC Float and 32 bits */ 
 #ifdef BASE_FUNC_32b
 
-#include <math.h>
+    #include <math.h>
 
-float func_f(float la,float lb)
-{
-    float min1 , min2 ; 
-    int sign = 0 ; 
-
-    min1 = abs(la) ; 
-    min2 = abs(lb) ;
-
-    if(min1>min2) min1=min2 ; 
-    sign = (la < 0) ^ (lb < 0) ; 
-
-    return (sign == 0 )? min1 : -min1 ; 
-
-}
-
-int func_r(float la,int  froozen)
-{
-    if(froozen)
+    float func_f(float la,float lb)
     {
-        return 0 ; 
-        
+        float min1 , min2 ; 
+        int sign = 0 ; 
+
+        min1 = abs(la) ; 
+        min2 = abs(lb) ;
+
+        if(min1>min2) min1=min2 ; 
+        sign = (la < 0) ^ (lb < 0) ; 
+
+        return (sign == 0 )? min1 : -min1 ; 
+
     }
-    else 
+
+    int func_r(float la,int  froozen)
     {
-        return (la < 0) ; 
+        if(froozen)
+        {
+            return 0 ;    
+        }
+        else 
+        {
+            return (la < 0) ; 
+        }
     }
-}
 
-float func_g(int sa,float la,float lb)
-{
-    return ( (1-2*sa)*la+lb ) ; 
-}
+    float func_g(int sa,float la,float lb)
+    {
+        return ( (1-2*sa)*la+lb ) ; 
+    }
 
-int func_h(int sa,int sb)
-{
-    return sa^sb; 
-}
+    int func_h(int sa,int sb)
+    {
+        return sa^sb; 
+    }
 
 #endif 
 
 /* Extended Functions SC Float and 32 bits */ 
 #ifdef EXT_FUNC_32b
 
-void node_8(int* ptr_sum, float *LLR , int N, char *fz_bits)
-{ 
-    if( N == 1 )
-    {     
-		*ptr_sum = func_r(*LLR, *fz_bits ); 
-        return;
-    }
+    void node_8(int* ptr_sum, float *LLR , int N, char *fz_bits)
+    { 
+        if( N == 1 )
+        {     
+            *ptr_sum = func_r(*LLR, *fz_bits ); 
+            return;
+        }
 
-    for( int x = 0 ; x < N/2; x += 1 )
-        (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ; 
- 
-    // ON CALCULE LA BRANCHE GAUCHE
-    node_8(ptr_sum, (LLR+N), N/2, fz_bits);
-
-    // ON CALCULE LES G
-    for( int x = 0;  x < N/2; x += 1 )
-    {
-        (LLR+N)[ x ] = func_g( ptr_sum[x] ,LLR[ x ], (LLR+N/2)[ x ]) ; 
-    }
-
-    // ON CALCULE LA BRANCHE DROITE
-    node_8(ptr_sum+ N/2, (LLR+N), N/2,  fz_bits+ N/2 );
+        for( int x = 0 ; x < N/2; x += 1 )
+            (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ; 
     
-    // ON FAIT LES CALCUL DES H (XOR DES SP)
-    for(int x = 0 ; x < N/2 ; x += 1 )
-    {          
-        ptr_sum[x] = func_h( ptr_sum[x], ptr_sum[ x + (N/2) ]); 
+        // ON CALCULE LA BRANCHE GAUCHE
+        node_8(ptr_sum, (LLR+N), N/2, fz_bits);
+
+        // ON CALCULE LES G
+        for( int x = 0;  x < N/2; x += 1 )
+        {
+            (LLR+N)[ x ] = func_g( ptr_sum[x] ,LLR[ x ], (LLR+N/2)[ x ]) ; 
+        }
+
+        // ON CALCULE LA BRANCHE DROITE
+        node_8(ptr_sum+ N/2, (LLR+N), N/2,  fz_bits+ N/2 );
+        
+        // ON FAIT LES CALCUL DES H (XOR DES SP)
+        for(int x = 0 ; x < N/2 ; x += 1 )
+        {          
+            ptr_sum[x] = func_h( ptr_sum[x], ptr_sum[ x + (N/2) ]); 
+        }
     }
-}
 
-void node(int* ptr_sum, float *LLR , int N, char *fz_bits)
-{
-    // ON CALCULE LA BRANCHE GAUCHE
-    // get the node status 
-    char enab1 = *fb_table_tileN++  ; 
-
-    if(enab1==0) // r0 
+    void node(int* ptr_sum, float *LLR , int N, char *fz_bits)
     {
-        // update res with G 
-        for( int x = 0;  x < N/2; x += 1 )
+        // ON CALCULE LA BRANCHE GAUCHE
+        // get the node status 
+        char enab1 = *fb_table_tileN++  ; 
+
+        if(enab1==0) // r0 
         {
-            (LLR+N)[ x ] = func_g( ptr_sum[x] ,LLR[ x ], (LLR+N/2)[ x ]) ; 
-        }
-
-    }else if (enab1==1) // r1 
-    {
-        // ON CALCULE LES F
-        for( int x = 0 ; x < N/2; x += 1 )
-        {
-            (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ; 
-            // possible opti de boucle 
-            ptr_sum[x] = func_r((LLR+N)[x], 0 ); 
-        }
-
-        // update Res with G 
-        for( int x = 0;  x < N/2; x += 1 )
-        {
-            (LLR+N)[ x ] = func_g( ptr_sum[x] ,LLR[ x ], (LLR+N/2)[ x ]) ; 
-        }
-
-    }else if (enab1==2) // REP
-    {
-        // Somme des LLR 
-        // x > 0 ? PS => 0 
-        // x < 0 ? PS => 1 
-
-        // ON CALCULE LES F
-        float tot = 0 ; 
-        for( int x = 0 ; x < N/2; x += 1 )
-        {
-            
-            (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ; 
-            tot += (LLR+N)[x] ;
-        }
-
-        if(tot < 0 )
-        {
-            for( int x = 0 ; x < N/2; x += 1 )
-                ptr_sum[x] = 1 ; 
-        } 
-
-        // update Res with G for next node 
-        for( int x = 0;  x < N/2; x += 1 )
-        {
-            (LLR+N)[ x ] = func_g( ptr_sum[x] ,LLR[ x ], (LLR+N/2)[ x ]) ; 
-        }
-
-
-    } else if (enab1==3 ) // SPC 
-    {
-
-        int sign=0;
-        float mina = 1000 , minb=1000 ; 
-        int idx_min= 0 ; 
-        for( int x = 0 ; x < N/2; x += 1 )
-        {
-            
-            (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ; 
-            // possible opti de boucle 
-            // force r1 
-            ptr_sum[x] = func_r((LLR+N)[x], 0 ); 
-            // parité on the fly 
-            sign ^= ptr_sum[x] ; 
-
-            float a = fabs((LLR+N)[ x ]) ; 
-
-			if(a < mina)
-			{
-				minb = mina;
-				mina = a;
-                idx_min = x ; 
-			}else if(a < minb) // min1 < a < min2
-				minb = a  ;
-        }
-            
-        // printf("sign %d min %f  idx %d " ,sign,  mina,idx_min); 
-        ptr_sum[idx_min]^=sign ;
-
-        // update Res with G for next node 
-        for( int x = 0;  x < N/2; x += 1 )
-        {
-            (LLR+N)[ x ] = func_g( ptr_sum[x] ,LLR[ x ], (LLR+N/2)[ x ]) ; 
-        }
-
-
-    } else // opération normale 
-    {   
-        if((N/2)==8){                          
-                                
-            // ON CALCULE LES F
-            for( int x = 0 ; x < N/2; x += 1 )
-            {
-                (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ; 
-            }
-
-            // Recursif Node_8 
-            node_8( ptr_sum, (LLR+N), N/2, fz_bits) ; 
-
-            // ON CALCULE LES G
+            // update res with G 
             for( int x = 0;  x < N/2; x += 1 )
             {
                 (LLR+N)[ x ] = func_g( ptr_sum[x] ,LLR[ x ], (LLR+N/2)[ x ]) ; 
             }
-        }
-        else{
+
+        }else if (enab1==1) // r1 
+        {
             // ON CALCULE LES F
             for( int x = 0 ; x < N/2; x += 1 )
             {
-
                 (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ; 
+                // possible opti de boucle 
+                ptr_sum[x] = func_r((LLR+N)[x], 0 ); 
             }
-            
-            node( ptr_sum, (LLR+N), N/2, fz_bits);
+
+            // update Res with G 
+            for( int x = 0;  x < N/2; x += 1 )
+            {
+                (LLR+N)[ x ] = func_g( ptr_sum[x] ,LLR[ x ], (LLR+N/2)[ x ]) ; 
+            }
+
+        }else if (enab1==2) // REP
+        {
+            // Somme des LLR 
+            // x > 0 ? PS => 0 
+            // x < 0 ? PS => 1 
+
+            // ON CALCULE LES F
+            float tot = 0 ; 
+            for( int x = 0 ; x < N/2; x += 1 )
+            {
                 
-            // ON CALCULE LES G
+                (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ; 
+                tot += (LLR+N)[x] ;
+            }
+
+            if(tot < 0 )
+            {
+                for( int x = 0 ; x < N/2; x += 1 )
+                    ptr_sum[x] = 1 ; 
+            } 
+
+            // update Res with G for next node 
             for( int x = 0;  x < N/2; x += 1 )
             {
                 (LLR+N)[ x ] = func_g( ptr_sum[x] ,LLR[ x ], (LLR+N/2)[ x ]) ; 
             }
-        }
-        
-    }
-        
 
-    // ON CALCULE LA BRANCHE DROITE
-    // get the node status 
-    char enab2 = *fb_table_tileN++  ; 
-    
-    if(enab2==0) // r0 
-    {
-        //gestion de ptr ... 
 
-    }else if (enab2==1) // r1 
-    {
-        // copy leaf calc to PS  
-        for( int x = 0 ; x < N/2; x += 1 )
+        } else if (enab1==3 ) // SPC 
         {
-            // +N puisque ne saute pas dans un nouveau node 
-            // force r0 
-            (ptr_sum+N/2)[x] = func_r( (LLR+N)[x], 0 );
-        }
 
-    }else if (enab2==2) // REP
-    {
-        // Somme LLRS et PS update 
-        float tot = 0 ; 
-        for (int x = 0; x < N/2; x++)
-            tot += (LLR+N)[x] ; 
-
-        if(tot <= 0 )
-        {
+            int sign=0;
+            float mina = 1000 , minb=1000 ; 
+            int idx_min= 0 ; 
             for( int x = 0 ; x < N/2; x += 1 )
-                (ptr_sum+N/2)[x] = 1 ; 
-        } 
+            {
+                
+                (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ; 
+                // possible opti de boucle 
+                // force r1 
+                ptr_sum[x] = func_r((LLR+N)[x], 0 ); 
+                // parité on the fly 
+                sign ^= ptr_sum[x] ; 
+
+                float a = fabs((LLR+N)[ x ]) ; 
+
+                if(a < mina)
+                {
+                    minb = mina;
+                    mina = a;
+                    idx_min = x ; 
+                }else if(a < minb) // min1 < a < min2
+                    minb = a  ;
+            }
+                
+            // printf("sign %d min %f  idx %d " ,sign,  mina,idx_min); 
+            ptr_sum[idx_min]^=sign ;
+
+            // update Res with G for next node 
+            for( int x = 0;  x < N/2; x += 1 )
+            {
+                (LLR+N)[ x ] = func_g( ptr_sum[x] ,LLR[ x ], (LLR+N/2)[ x ]) ; 
+            }
+
+
+        } else // opération normale 
+        {   
+            if((N/2)==8){                          
+                                    
+                // ON CALCULE LES F
+                for( int x = 0 ; x < N/2; x += 1 )
+                {
+                    (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ; 
+                }
+
+                // Recursif Node_8 
+                node_8( ptr_sum, (LLR+N), N/2, fz_bits) ; 
+
+                // ON CALCULE LES G
+                for( int x = 0;  x < N/2; x += 1 )
+                {
+                    (LLR+N)[ x ] = func_g( ptr_sum[x] ,LLR[ x ], (LLR+N/2)[ x ]) ; 
+                }
+            }
+            else{
+                // ON CALCULE LES F
+                for( int x = 0 ; x < N/2; x += 1 )
+                {
+
+                    (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ; 
+                }
+                
+                node( ptr_sum, (LLR+N), N/2, fz_bits);
+                    
+                // ON CALCULE LES G
+                for( int x = 0;  x < N/2; x += 1 )
+                {
+                    (LLR+N)[ x ] = func_g( ptr_sum[x] ,LLR[ x ], (LLR+N/2)[ x ]) ; 
+                }
+            }
+            
+        }
+            
+
+        // ON CALCULE LA BRANCHE DROITE
+        // get the node status 
+        char enab2 = *fb_table_tileN++  ; 
+        
+        if(enab2==0) // r0 
+        {
+            //gestion de ptr ... 
+
+        }else if (enab2==1) // r1 
+        {
+            // copy leaf calc to PS  
+            for( int x = 0 ; x < N/2; x += 1 )
+            {
+                // +N puisque ne saute pas dans un nouveau node 
+                // force r0 
+                (ptr_sum+N/2)[x] = func_r( (LLR+N)[x], 0 );
+            }
+
+        }else if (enab2==2) // REP
+        {
+            // Somme LLRS et PS update 
+            float tot = 0 ; 
+            for (int x = 0; x < N/2; x++)
+                tot += (LLR+N)[x] ; 
+
+            if(tot <= 0 )
+            {
+                for( int x = 0 ; x < N/2; x += 1 )
+                    (ptr_sum+N/2)[x] = 1 ; 
+            } 
+        }
+        else if (enab2==3) // SPC
+        {
+            // printf("\n SPC droit \n "); 
+            // parité + sign 
+            int sign=0 ; 
+            float mina = 1000 , minb=1000 ; 
+            int idx_min= 0 ; 
+            for( int x = 0 ; x < N/2; x += 1 )
+            {
+                // +N puisque ne saute pas dans un nouveau node 
+                // force R1 (ne tiens pas compte des bits gelés )
+                (ptr_sum+N/2)[x] = func_r( (LLR+N)[x], 0 );
+                sign ^= (ptr_sum+N/2)[x] ; 
+                float a = fabs((LLR+N)[ x ]) ; 
+                
+                if(a < mina)
+                {
+                    minb = mina;
+                    mina = a;
+                    idx_min = x ; 
+                }else if(a < minb) // min1 < a < min2
+                    minb = a  ;
+            }
+                
+            // printf("sign %d min %f  idx %d " ,sign,  mina,idx_min);
+            ptr_sum[idx_min]^=sign ;
+        }
+            
+        else // opération normale 
+        {
+            if( (N/2)==8 ){
+                node_8(ptr_sum+ N/2, (LLR+N), N/2,  fz_bits+ N/2 );
+            }else{
+                node(ptr_sum+ N/2, (LLR+N), N/2,  fz_bits+ N/2 );
+            }
+        }  
+
+        // ON FAIT LES CALCUL DES H (XOR DES SP)
+        for(int x = 0 ; x < N/2 ; x += 1 )
+        {          
+            ptr_sum[x] = func_h( ptr_sum[x], ptr_sum[ x + (N/2) ]);    
+        }
     }
-    else if (enab2==3) // SPC
+
+    // calcule unqiuement le premier f ,  g  et le dernier Xor(h)
+    void node_top(int* ptr_sum, float *LLR , int N, char *fz_bits)
     {
-        // printf("\n SPC droit \n "); 
-        // parité + sign 
-        int sign=0 ; 
-        float mina = 1000 , minb=1000 ; 
-        int idx_min= 0 ; 
+
+        // if (*fb_table_tileN != 4) {
+        //     printf("(EE) TOP LEVEL TILE IS FROZEN !\n");
+        //     exit(0);
+        // }
+
+        fb_table_tileN+=1 ; 
+
+        // une fois F pr la branche gauche 
         for( int x = 0 ; x < N/2; x += 1 )
         {
-            // +N puisque ne saute pas dans un nouveau node 
-            // force R1 (ne tiens pas compte des bits gelés )
-            (ptr_sum+N/2)[x] = func_r( (LLR+N)[x], 0 );
-            sign ^= (ptr_sum+N/2)[x] ; 
-            float a = fabs((LLR+N)[ x ]) ; 
-            
-			if(a < mina)
-			{
-				minb = mina;
-				mina = a;
-                idx_min = x ; 
-			}else if(a < minb) // min1 < a < min2
-				minb = a  ;
+            (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ;
         }
-            
-        // printf("sign %d min %f  idx %d " ,sign,  mina,idx_min);
-        ptr_sum[idx_min]^=sign ;
-    }
-        
-    else // opération normale 
-    {
-        if( (N/2)==8 ){
-            node_8(ptr_sum+ N/2, (LLR+N), N/2,  fz_bits+ N/2 );
-        }else{
-            node(ptr_sum+ N/2, (LLR+N), N/2,  fz_bits+ N/2 );
+
+        // tt la branche gauche 
+        const int not_frozen_value = 4;
+        if (*fb_table_tileN++ != not_frozen_value) {
+            printf("(EE) Un truc impossible vient de se produire (1:%d)\n", *(fb_table_tileN-1));
+            exit( 0 );
+        } else {
+            node( ptr_sum, (LLR+N), N/2, fz_bits);
         }
-    }  
 
-    // ON FAIT LES CALCUL DES H (XOR DES SP)
-    for(int x = 0 ; x < N/2 ; x += 1 )
-    {          
-        ptr_sum[x] = func_h( ptr_sum[x], ptr_sum[ x + (N/2) ]);    
+        // une fois G pour la branche droite   
+        for( int x = 0;  x < N/2; x += 1 )
+        {
+            // PS sont dispo
+            (LLR+N)[ x ] = func_g( ptr_sum[x] ,LLR[ x ], (LLR+N/2)[ x ]) ; 
+        }
+
+        // tt la branche droite 
+        if (*fb_table_tileN++ != not_frozen_value) {
+            printf("(EE) Un truc impossible vient de se produire (1:%d)\n", *(fb_table_tileN-1));
+            exit( 0 );
+        } else {
+            node( ptr_sum+ N/2, (LLR+N), N/2,  fz_bits+ N/2 );
+        }
+
+        // ON FAIT LES CALCUL DES H (XOR DES SP)
+        for(int x = 0 ; x < N/2 ; x += 1 )
+        {          
+            // xor
+            ptr_sum[x] = func_h( ptr_sum[x], ptr_sum[ x + (N/2) ]); 
+        }
+
     }
-}
-
-// calcule unqiuement le premier f ,  g  et le dernier Xor(h)
-void node_top(int* ptr_sum, float *LLR , int N, char *fz_bits)
-{
-
-    // if (*fb_table_tileN != 4) {
-    //     printf("(EE) TOP LEVEL TILE IS FROZEN !\n");
-    //     exit(0);
-    // }
-
-    fb_table_tileN+=1 ; 
-
-    // une fois F pr la branche gauche 
-    for( int x = 0 ; x < N/2; x += 1 )
-    {
-        (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ;
-    }
-
-    // tt la branche gauche 
-    const int not_frozen_value = 4;
-    if (*fb_table_tileN++ != not_frozen_value) {
-        printf("(EE) Un truc impossible vient de se produire (1:%d)\n", *(fb_table_tileN-1));
-        exit( 0 );
-    } else {
-        node( ptr_sum, (LLR+N), N/2, fz_bits);
-    }
-
-    // une fois G pour la branche droite   
-    for( int x = 0;  x < N/2; x += 1 )
-    {
-        // PS sont dispo
-        (LLR+N)[ x ] = func_g( ptr_sum[x] ,LLR[ x ], (LLR+N/2)[ x ]) ; 
-    }
-
-    // tt la branche droite 
-    if (*fb_table_tileN++ != not_frozen_value) {
-        printf("(EE) Un truc impossible vient de se produire (1:%d)\n", *(fb_table_tileN-1));
-        exit( 0 );
-    } else {
-         node( ptr_sum+ N/2, (LLR+N), N/2,  fz_bits+ N/2 );
-    }
-
-     // ON FAIT LES CALCUL DES H (XOR DES SP)
-    for(int x = 0 ; x < N/2 ; x += 1 )
-    {          
-        // xor
-        ptr_sum[x] = func_h( ptr_sum[x], ptr_sum[ x + (N/2) ]); 
-    }
-
-}
 #endif 
 
 /* Basic Functions 8 and 16 bits RV */ 
@@ -451,7 +442,6 @@ void node_top(int* ptr_sum, float *LLR , int N, char *fz_bits)
         #ifndef CUSTOM_BASE_FUNC_8b
         int16_t func_g(int8_t sa,int8_t la,int8_t lb)
         {
-
             if ( sa==0 )
             {
                 return la+lb ; 
@@ -461,18 +451,17 @@ void node_top(int* ptr_sum, float *LLR , int N, char *fz_bits)
                 return lb-la ; 
             }
         }
-    #endif
+        #endif
 
    
     /* custom fonction G , doublon volontaire pour tests */ 
     #ifdef CUSTOM_BASE_FUNC_8b
     int8_t func_g(int8_t sa,int16_t la,int16_t lb)
     {
-
         int8_t res ; 
         /* 
-        int16_t aprime = sa ? -la : la ; 
-        callAddbSat(res,lb,aprime); 
+            int16_t aprime = sa ? -la : la ; 
+            callAddbSat(res,lb,aprime); 
         */
         // provide better cycle count ( less insn)
         if ( sa==0 )
@@ -486,398 +475,393 @@ void node_top(int* ptr_sum, float *LLR , int N, char *fz_bits)
         return res ;
     }
     #endif
-
-
 #endif
 
 /* Extended Functions 8 and 16 bits RV */ 
 #ifdef EXT_FUNC_8b
 
-void node_8(int8_t* ptr_sum, int8_t *LLR , int N, char *fz_bits)
-{ 
-    if( N == 1 )
-    {     
-        #ifdef CUSTOM_BASE_FUNC_8b
-        callRinstr(*ptr_sum,*LLR, *fz_bits);
-        #else 
-		*ptr_sum = func_r(*LLR, *fz_bits ); 
-        #endif 
-
-        return;
-    }
-
-    for( int x = 0 ; x < N/2; x += 1 )
-    {
-        #ifdef CUSTOM_BASE_FUNC_8b
-        callFinstr( (LLR+N)[ x ], LLR[ x ],(LLR+N/2)[ x ])  ;
-
-        #else 
-        (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ;
-        #endif 
-    }
-
-         
-    // ON CALCULE LA BRANCHE GAUCHE
-    node_8(ptr_sum, (LLR+N), N/2, fz_bits);
-
-    // ON CALCULE LES G
-    for( int x = 0;  x < N/2; x += 1 )
-    {
-        #ifdef CUSTOM_BASE_FUNC_8b
-        (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
-        // printf( "Res %d  ( %d, %d , %d ) \n", (LLR+N)[ x ],  ptr_sum[x], (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]  ) ;
-
-        #else 
-        int16_t temp = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ; 
-        (LLR+N)[ x ] =sat( temp)  ;  
-        #endif 
-    }
-
-    // ON CALCULE LA BRANCHE DROITE
-    node_8(ptr_sum+ N/2, (LLR+N), N/2,  fz_bits+ N/2 );
-    
-    // ON FAIT LES CALCUL DES H (XOR DES SP)
-    for(int x = 0 ; x < N/2 ; x += 1 )
-    {          
-        ptr_sum[x] ^=ptr_sum[ x + (N/2) ]; 
-    }
-}
-
-
-void node(int8_t* ptr_sum, int8_t *LLR , int N, char *fz_bits)
-{
-    // ON CALCULE LA BRANCHE GAUCHE
-    // get the node status 
-    char enab1 = *fb_table_tileN++  ; 
-
-    if(enab1==0) // r0 
-    {
-        // update res with G 
-        for( int x = 0;  x < N/2; x += 1 )
-        {
+    void node_8(int8_t* ptr_sum, int8_t *LLR , int N, char *fz_bits)
+    { 
+        if( N == 1 )
+        {     
             #ifdef CUSTOM_BASE_FUNC_8b
-            (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
-        
+                callRinstr(*ptr_sum,*LLR, *fz_bits);
             #else 
-            int16_t temp = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ; 
-            (LLR+N)[ x ] =sat( temp)  ;  
+                *ptr_sum = func_r(*LLR, *fz_bits ); 
             #endif 
+
+            return;
         }
 
-    }else 
-    if (enab1==1) // r1 
-    {
-        // ON CALCULE LES F
         for( int x = 0 ; x < N/2; x += 1 )
         {
             #ifdef CUSTOM_BASE_FUNC_8b
-            // opti avec pointeur sur (LLR+N)[ x ] ?? 
-            callFinstr( (LLR+N)[ x ], LLR[ x ],(LLR+N/2)[ x ])  ;
-            callRinstr(ptr_sum[x],(LLR+N)[x], 0);
-
+                callFinstr( (LLR+N)[ x ], LLR[ x ],(LLR+N/2)[ x ])  ;
             #else 
-            (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ; 
-            ptr_sum[x] = func_r((LLR+N)[x], 0 ); 
+                (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ;
             #endif 
         }
 
-        // update Res with G 
-        for( int x = 0;  x < N/2; x += 1 )
-        {
-            #ifdef CUSTOM_BASE_FUNC_8b
-            (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
             
-            #else 
-            int16_t temp = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ; 
-            (LLR+N)[ x ] =sat( temp)  ;  
-            #endif 
-        }
+        // ON CALCULE LA BRANCHE GAUCHE
+        node_8(ptr_sum, (LLR+N), N/2, fz_bits);
 
-    }else 
-    if (enab1==2) // REP
-    {
-        // Somme des LLR 
-        // x > 0 ? PS => 0 
-        // x < 0 ? PS => 1 
-
-        // ON CALCULE LES F
-        int tot = 0 ; 
-        for( int x = 0 ; x < N/2; x += 1 )
+        // ON CALCULE LES G
+        for( int x = 0;  x < N/2; x += 1 )
         {
             #ifdef CUSTOM_BASE_FUNC_8b
-            callFinstr( (LLR+N)[ x ], LLR[ x ],(LLR+N/2)[ x ])  ;
-            #else
-            (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ; 
+                (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
+                // printf( "Res %d  ( %d, %d , %d ) \n", (LLR+N)[ x ],  ptr_sum[x], (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]  ) ;
+
+            #else 
+                int16_t temp = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ; 
+                (LLR+N)[ x ] =sat( temp)  ;  
             #endif 
-            tot += (LLR+N)[x] ;
         }
 
-        if(tot < 0 )
+        // ON CALCULE LA BRANCHE DROITE
+        node_8(ptr_sum+ N/2, (LLR+N), N/2,  fz_bits+ N/2 );
+        
+        // ON FAIT LES CALCUL DES H (XOR DES SP)
+        for(int x = 0 ; x < N/2 ; x += 1 )
+        {          
+            ptr_sum[x] ^=ptr_sum[ x + (N/2) ]; 
+        }
+    }
+
+
+    void node(int8_t* ptr_sum, int8_t *LLR , int N, char *fz_bits)
+    {
+        // ON CALCULE LA BRANCHE GAUCHE
+        // get the node status 
+        char enab1 = *fb_table_tileN++  ; 
+
+        if(enab1==0) // r0 
         {
+            // update res with G 
+            for( int x = 0;  x < N/2; x += 1 )
+            {
+                #ifdef CUSTOM_BASE_FUNC_8b
+                (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
+            
+                #else 
+                int16_t temp = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ; 
+                (LLR+N)[ x ] =sat( temp)  ;  
+                #endif 
+            }
+
+        }else 
+        if (enab1==1) // r1 
+        {
+            // ON CALCULE LES F
             for( int x = 0 ; x < N/2; x += 1 )
-                ptr_sum[x] = 1 ; 
+            {
+                #ifdef CUSTOM_BASE_FUNC_8b
+                    // opti avec pointeur sur (LLR+N)[ x ] ?? 
+                    callFinstr( (LLR+N)[ x ], LLR[ x ],(LLR+N/2)[ x ])  ;
+                    callRinstr(ptr_sum[x],(LLR+N)[x], 0);
+
+                #else 
+                    (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ; 
+                    ptr_sum[x] = func_r((LLR+N)[x], 0 ); 
+                #endif 
+            }
+
+            // update Res with G 
+            for( int x = 0;  x < N/2; x += 1 )
+            {
+                #ifdef CUSTOM_BASE_FUNC_8b
+                    (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
+                
+                #else 
+                    int16_t temp = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ; 
+                    (LLR+N)[ x ] =sat( temp)  ;  
+                #endif 
+            }
+
+        }else 
+        if (enab1==2) // REP
+        {
+            // Somme des LLR 
+            // x > 0 ? PS => 0 
+            // x < 0 ? PS => 1 
+
+            // ON CALCULE LES F
+            int tot = 0 ; 
+            for( int x = 0 ; x < N/2; x += 1 )
+            {
+                #ifdef CUSTOM_BASE_FUNC_8b
+                callFinstr( (LLR+N)[ x ], LLR[ x ],(LLR+N/2)[ x ])  ;
+                #else
+                (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ; 
+                #endif 
+                tot += (LLR+N)[x] ;
+            }
+
+            if(tot < 0 )
+            {
+                for( int x = 0 ; x < N/2; x += 1 )
+                    ptr_sum[x] = 1 ; 
+            } 
+
+            // update Res with G for next node 
+            for( int x = 0;  x < N/2; x += 1 )
+            {
+                #ifdef CUSTOM_BASE_FUNC_8b
+                (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
+                
+                #else 
+                int16_t temp = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ; 
+                (LLR+N)[ x ] =sat( temp)  ;  
+                #endif 
+            }
+
+
+        } else 
+        if (enab1==3 ) // SPC 
+        {
+
+            int8_t sign=0;
+            int mina = 100  ;
+            int8_t idx_min= 0 ; 
+            for( int x = 0 ; x < N/2; x += 1 )
+            {
+                #ifdef CUSTOM_BASE_FUNC_8b
+                callFinstr( (LLR+N)[ x ], LLR[ x ],(LLR+N/2)[ x ])  ;
+                callRinstr(ptr_sum[x],(LLR+N)[x], 0);
+                #else 
+                (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ; 
+                ptr_sum[x] = func_r((LLR+N)[x], 0 ); 
+                #endif 
+                
+                sign ^= ptr_sum[x] ; 
+
+                int a = abs((LLR+N)[ x ]) ; 
+
+                if(a < mina)
+                {
+                    mina = a;
+                    idx_min = x ; 
+                }
+            }
+                
+            // printf("sign %d min %f  idx %d " ,sign,  mina,idx_min); 
+            ptr_sum[idx_min]^=sign ;
+
+            // update Res with G for next node 
+            for( int x = 0;  x < N/2; x += 1 )
+            {
+                #ifdef CUSTOM_BASE_FUNC_8b
+                (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
+                
+                #else 
+                int16_t temp = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ; 
+                (LLR+N)[ x ] =sat( temp)  ;  
+                #endif 
+            }
+
+
         } 
+        else // opération normale 
+        {   
+            // if ici permet de mieux dérouler le code afterwards ( reduc insn reduc cycles ) ? 
+            if((N/2)==8){                          
+                                    
+                // ON CALCULE LES F
+                for( int x = 0 ; x < N/2; x += 1 )
+                {
+                    #ifdef CUSTOM_BASE_FUNC_8b
+                    callFinstr( (LLR+N)[ x ], LLR[ x ],(LLR+N/2)[ x ])  ;
+                    #else
+                    (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ; 
+                    #endif
+                }
 
-        // update Res with G for next node 
-        for( int x = 0;  x < N/2; x += 1 )
-        {
-            #ifdef CUSTOM_BASE_FUNC_8b
-            (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
-            
-            #else 
-            int16_t temp = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ; 
-            (LLR+N)[ x ] =sat( temp)  ;  
-            #endif 
-        }
+                // Recursif Node_8 
+                node_8( ptr_sum, (LLR+N), N/2, fz_bits) ; 
 
-
-    } else 
-    if (enab1==3 ) // SPC 
-    {
-
-        int8_t sign=0;
-        int mina = 100  ;
-        int8_t idx_min= 0 ; 
-        for( int x = 0 ; x < N/2; x += 1 )
-        {
-            #ifdef CUSTOM_BASE_FUNC_8b
-            callFinstr( (LLR+N)[ x ], LLR[ x ],(LLR+N/2)[ x ])  ;
-            callRinstr(ptr_sum[x],(LLR+N)[x], 0);
-            #else 
-            (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ; 
-            ptr_sum[x] = func_r((LLR+N)[x], 0 ); 
-            #endif 
-            
-            sign ^= ptr_sum[x] ; 
-
-            int a = abs((LLR+N)[ x ]) ; 
-
-			if(a < mina)
-			{
-				mina = a;
-                idx_min = x ; 
-			}
-        }
-            
-        // printf("sign %d min %f  idx %d " ,sign,  mina,idx_min); 
-        ptr_sum[idx_min]^=sign ;
-
-        // update Res with G for next node 
-        for( int x = 0;  x < N/2; x += 1 )
-        {
-            #ifdef CUSTOM_BASE_FUNC_8b
-            (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
-            
-            #else 
-            int16_t temp = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ; 
-            (LLR+N)[ x ] =sat( temp)  ;  
-            #endif 
-        }
-
-
-    } 
-    else // opération normale 
-    {   
-        // if ici permet de mieux dérouler le code afterwards ( reduc insn reduc cycles ) ? 
-        if((N/2)==8){                          
-                                
-            // ON CALCULE LES F
-            for( int x = 0 ; x < N/2; x += 1 )
-            {
-                #ifdef CUSTOM_BASE_FUNC_8b
-                callFinstr( (LLR+N)[ x ], LLR[ x ],(LLR+N/2)[ x ])  ;
-                #else
-                (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ; 
-                #endif
+                // ON CALCULE LES G
+                for( int x = 0;  x < N/2; x += 1 )
+                {
+                    #ifdef CUSTOM_BASE_FUNC_8b
+                    (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
+                    
+                    #else 
+                    int16_t temp = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ; 
+                    (LLR+N)[ x ] =sat( temp)  ;  
+                    #endif 
+                }
             }
-
-            // Recursif Node_8 
-            node_8( ptr_sum, (LLR+N), N/2, fz_bits) ; 
-
-            // ON CALCULE LES G
-            for( int x = 0;  x < N/2; x += 1 )
-            {
-                #ifdef CUSTOM_BASE_FUNC_8b
-                (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
+            else{
+                // ON CALCULE LES F
+                for( int x = 0 ; x < N/2; x += 1 )
+                {
+                    #ifdef CUSTOM_BASE_FUNC_8b
+                    callFinstr( (LLR+N)[ x ], LLR[ x ],(LLR+N/2)[ x ])  ;
+                    #else
+                    (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ; 
+                    #endif
+                }
                 
-                #else 
-                int16_t temp = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ; 
-                (LLR+N)[ x ] =sat( temp)  ;  
-                #endif 
-            }
-        }
-        else{
-            // ON CALCULE LES F
-            for( int x = 0 ; x < N/2; x += 1 )
-            {
-                #ifdef CUSTOM_BASE_FUNC_8b
-                callFinstr( (LLR+N)[ x ], LLR[ x ],(LLR+N/2)[ x ])  ;
-                #else
-                (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ; 
-                #endif
+                node( ptr_sum, (LLR+N), N/2, fz_bits);
+                    
+                // ON CALCULE LES G
+                for( int x = 0;  x < N/2; x += 1 )
+                {
+                    #ifdef CUSTOM_BASE_FUNC_8b
+                    (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
+                    
+                    #else 
+                    int16_t temp = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ; 
+                    (LLR+N)[ x ] =sat( temp)  ;  
+                    #endif 
+                }
             }
             
-            node( ptr_sum, (LLR+N), N/2, fz_bits);
-                
-            // ON CALCULE LES G
-            for( int x = 0;  x < N/2; x += 1 )
-            {
-                #ifdef CUSTOM_BASE_FUNC_8b
-                (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
-                
-                #else 
-                int16_t temp = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ; 
-                (LLR+N)[ x ] =sat( temp)  ;  
-                #endif 
-            }
         }
+            
+
+        // ON CALCULE LA BRANCHE DROITE
+        // get the node status 
+        char enab2 = *fb_table_tileN++  ; 
         
+        if(enab2==0) // r0 
+        {
+            //gestion de ptr ... 
+
+        }else 
+        if (enab2==1) // r1 
+        {
+            // copy leaf calc to PS  
+            for( int x = 0 ; x < N/2; x += 1 )
+            {
+                #ifdef CUSTOM_BASE_FUNC_8b
+                callRinstr((ptr_sum+N/2)[x],(LLR+N)[x], 0);
+                #else 
+                // +N puisque ne saute pas dans un nouveau node 
+                // force r1 
+                (ptr_sum+N/2)[x] = func_r( (LLR+N)[x], 0 );
+                #endif
+            }
+
+        }else 
+        if (enab2==2) // REP
+        {
+            // Somme LLRS et PS update 
+            int tot = 0 ; 
+            for (int x = 0; x < N/2; x++)
+                tot += (LLR+N)[x] ; 
+
+            if(tot <= 0 )
+            {
+                for( int x = 0 ; x < N/2; x += 1 )
+                    (ptr_sum+N/2)[x] = 1 ; 
+            } 
+        }else 
+        if (enab2==3) // SPC
+        {
+            // printf("\n SPC droit \n "); 
+            // parité + sign 
+            int8_t sign=0 ; 
+            int mina = 100  ; 
+            int8_t idx_min= 0 ; 
+            for( int x = 0 ; x < N/2; x += 1 )
+            {
+
+                #ifdef CUSTOM_BASE_FUNC_8b
+                callRinstr((ptr_sum+N/2)[x],(LLR+N)[x], 0);
+                #else 
+                // +N puisque ne saute pas dans un nouveau node 
+                // force R1 (ne tiens pas compte des bits gelés )
+                (ptr_sum+N/2)[x] = func_r( (LLR+N)[x], 0 );
+                #endif 
+                
+                sign ^= (ptr_sum+N/2)[x] ; 
+                int a = abs((LLR+N)[ x ]) ; 
+                
+                if(a < mina)
+                {	
+                    mina = a;
+                    idx_min = x ; 
+                }
+            }
+                
+            // printf("sign %d min %f  idx %d " ,sign,  mina,idx_min);
+            ptr_sum[idx_min]^=sign ;
+        }       
+        else // opération normale 
+        {
+            if( (N/2)==8 ){
+                node_8(ptr_sum+ N/2, (LLR+N), N/2,  fz_bits+ N/2 );
+            }else{
+                node(ptr_sum+ N/2, (LLR+N), N/2,  fz_bits+ N/2 );
+            }
+        }  
+
+        // ON FAIT LES CALCUL DES H (XOR DES SP)
+        for(int x = 0 ; x < N/2 ; x += 1 )
+        {          
+            ptr_sum[x] ^=ptr_sum[ x + (N/2) ];    
+        }
     }
-        
 
-    // ON CALCULE LA BRANCHE DROITE
-    // get the node status 
-    char enab2 = *fb_table_tileN++  ; 
-    
-    if(enab2==0) // r0 
+    // calcule unqiuement le premier f ,  g  et le dernier Xor(h)
+    void node_top(int8_t* ptr_sum, int8_t *LLR , int N, char *fz_bits)
     {
-        //gestion de ptr ... 
 
-    }else 
-    if (enab2==1) // r1 
-    {
-        // copy leaf calc to PS  
+        // if (*fb_table_tileN != 4) {
+        //     printf("(EE) TOP LEVEL TILE IS FROZEN !\n");
+        //     exit(0);
+        // }
+
+        fb_table_tileN+=1 ; 
+
+        // une fois F pr la branche gauche 
         for( int x = 0 ; x < N/2; x += 1 )
         {
             #ifdef CUSTOM_BASE_FUNC_8b
-            callRinstr((ptr_sum+N/2)[x],(LLR+N)[x], 0);
-            #else 
-            // +N puisque ne saute pas dans un nouveau node 
-            // force r1 
-            (ptr_sum+N/2)[x] = func_r( (LLR+N)[x], 0 );
+                callFinstr( (LLR+N)[ x ], LLR[ x ],(LLR+N/2)[ x ])  ;
+            #else
+                (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ; 
             #endif
         }
 
-    }else 
-    if (enab2==2) // REP
-    {
-        // Somme LLRS et PS update 
-        int tot = 0 ; 
-        for (int x = 0; x < N/2; x++)
-            tot += (LLR+N)[x] ; 
+        // tt la branche gauche 
+        const int not_frozen_value = 4;
+        if (*fb_table_tileN++ != not_frozen_value) {
+            printf("(EE) Un truc impossible vient de se produire (1:%d)\n", *(fb_table_tileN-1));
+            
+        } else {
+            node( ptr_sum, (LLR+N), N/2, fz_bits);
+        }
 
-        if(tot <= 0 )
+        // une fois G pour la branche droite   
+        for( int x = 0;  x < N/2; x += 1 )
         {
-            for( int x = 0 ; x < N/2; x += 1 )
-                (ptr_sum+N/2)[x] = 1 ; 
-        } 
-    }else 
-    if (enab2==3) // SPC
-    {
-        // printf("\n SPC droit \n "); 
-        // parité + sign 
-        int8_t sign=0 ; 
-        int mina = 100  ; 
-        int8_t idx_min= 0 ; 
-        for( int x = 0 ; x < N/2; x += 1 )
-        {
-
             #ifdef CUSTOM_BASE_FUNC_8b
-            callRinstr((ptr_sum+N/2)[x],(LLR+N)[x], 0);
+            (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
+
             #else 
-            // +N puisque ne saute pas dans un nouveau node 
-            // force R1 (ne tiens pas compte des bits gelés )
-            (ptr_sum+N/2)[x] = func_r( (LLR+N)[x], 0 );
+            int16_t temp = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ; 
+            (LLR+N)[ x ] =sat( temp)  ;  
             #endif 
-            
-            sign ^= (ptr_sum+N/2)[x] ; 
-            int a = abs((LLR+N)[ x ]) ; 
-            
-			if(a < mina)
-			{	
-				mina = a;
-                idx_min = x ; 
-			}
         }
+
+        // tt la branche droite 
+        if (*fb_table_tileN++ != not_frozen_value) {
+            printf("(EE) Un truc impossible vient de se produire (1:%d)\n", *(fb_table_tileN-1));
             
-        // printf("sign %d min %f  idx %d " ,sign,  mina,idx_min);
-        ptr_sum[idx_min]^=sign ;
-    }       
-    else // opération normale 
-    {
-        if( (N/2)==8 ){
-            node_8(ptr_sum+ N/2, (LLR+N), N/2,  fz_bits+ N/2 );
-        }else{
-            node(ptr_sum+ N/2, (LLR+N), N/2,  fz_bits+ N/2 );
+        } else {
+            node( ptr_sum+ N/2, (LLR+N), N/2,  fz_bits+ N/2 );
         }
-    }  
 
-    // ON FAIT LES CALCUL DES H (XOR DES SP)
-    for(int x = 0 ; x < N/2 ; x += 1 )
-    {          
-        ptr_sum[x] ^=ptr_sum[ x + (N/2) ];    
+        // ON FAIT LES CALCUL DES H (XOR DES SP)
+        for(int x = 0 ; x < N/2 ; x += 1 )
+        {          
+            // xor
+            ptr_sum[x] ^=ptr_sum[ x + (N/2) ]; 
+        }
+
     }
-}
-
-// calcule unqiuement le premier f ,  g  et le dernier Xor(h)
-void node_top(int8_t* ptr_sum, int8_t *LLR , int N, char *fz_bits)
-{
-
-    // if (*fb_table_tileN != 4) {
-    //     printf("(EE) TOP LEVEL TILE IS FROZEN !\n");
-    //     exit(0);
-    // }
-
-    fb_table_tileN+=1 ; 
-
-    // une fois F pr la branche gauche 
-    for( int x = 0 ; x < N/2; x += 1 )
-    {
-        #ifdef CUSTOM_BASE_FUNC_8b
-        callFinstr( (LLR+N)[ x ], LLR[ x ],(LLR+N/2)[ x ])  ;
-        #else
-        (LLR+N)[ x ] = func_f( LLR[ x ], (LLR+N/2)[ x ]) ; 
-        #endif
-    }
-
-    // tt la branche gauche 
-    const int not_frozen_value = 4;
-    if (*fb_table_tileN++ != not_frozen_value) {
-        printf("(EE) Un truc impossible vient de se produire (1:%d)\n", *(fb_table_tileN-1));
-        
-    } else {
-        node( ptr_sum, (LLR+N), N/2, fz_bits);
-    }
-
-    // une fois G pour la branche droite   
-    for( int x = 0;  x < N/2; x += 1 )
-    {
-        #ifdef CUSTOM_BASE_FUNC_8b
-        (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
-
-        #else 
-        int16_t temp = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ; 
-        (LLR+N)[ x ] =sat( temp)  ;  
-        #endif 
-    }
-
-    // tt la branche droite 
-    if (*fb_table_tileN++ != not_frozen_value) {
-        printf("(EE) Un truc impossible vient de se produire (1:%d)\n", *(fb_table_tileN-1));
-        
-    } else {
-         node( ptr_sum+ N/2, (LLR+N), N/2,  fz_bits+ N/2 );
-    }
-
-     // ON FAIT LES CALCUL DES H (XOR DES SP)
-    for(int x = 0 ; x < N/2 ; x += 1 )
-    {          
-        // xor
-        ptr_sum[x] ^=ptr_sum[ x + (N/2) ]; 
-    }
-
-}
 
 #endif 
-
-

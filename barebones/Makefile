@@ -1,5 +1,5 @@
 
-# System copmiler 
+# System compiler 
 GCC=/opt/riscv/bin/riscv64-unknown-elf-gcc
 AS=/opt/riscv/bin/riscv64-unknown-elf-as
 LD=/opt/riscv/bin/riscv64-unknown-elf-ld

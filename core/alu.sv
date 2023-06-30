@@ -304,7 +304,7 @@ module alu import ariane_pkg::*;(
 
             assign decode[i*Q+:Q] =(fu_data_i.operand_b[i*Q:+Q] ==8'h00 ) ? fu_data_i.operand_a[i*Q+:Q] : 8'h00 ; 
 
-            assign eval[i*Q+:Q] =(fu_data_i.operand_a[i*Q:+Q] ==8'd1 ) ? 8'hFF : 8'h00 ; 
+            assign eval[i*Q+:Q] =(fu_data_i.operand_a[i*Q:+Q] ==8'h01 ) ? 8'hFF : 8'h00 ; 
 
 
 
