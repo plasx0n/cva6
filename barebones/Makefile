@@ -26,7 +26,7 @@ ASM=$(SRC_ASM:.S=.o)
 all: $(BINARIES)
 
 %: $(OBJ) $(ASM)
-	$(GCC) $(GCC_FLAGS) $(LD_FLAGS) -T $(LINKER_SCRIPT) $(ASM) $(OBJ) ./src/$@.o -o ./bin/$@
+	$(GCC) $(GCC_FLAGS) $(LD_FLAGS) -T $(LINKER_SCRIPT) $(ASM) $(OBJ) src/$@.o -o ./bin/$@
 
 %.o: %.c
 	$(GCC) -o $@ -c $< $(GCC_FLAGS)

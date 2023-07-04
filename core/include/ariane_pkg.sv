@@ -525,10 +525,9 @@ package ariane_pkg;
                                // Bitmanip Logical with negate op (Bitmanip)
                                ANDN, ORN, XNOR,
                                // POLAR
-                               PL_F, PL_R,PL_ADDSAT,PL_SUBSAT,PL_DECODE, PL_EVAL,
-                               PL_REP_ADDLOW,
-                               PL_REP_ADDHI,
-                               PL_REP_ADDSIGN
+                                PL_F, PL_R,PL_ADDSAT,PL_SUBSAT,PL_DECODE, PL_EVAL,
+                                PL_REP_ADDLOW, PL_REP_ADDHI, PL_REP_ADDSIGN,
+                                PL_SPC_ACMP, PL_SPC_AMIN, PL_SPC_IDUP, PL_SPC_MAX
                              } fu_op;
 
     typedef struct packed {

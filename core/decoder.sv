@@ -91,7 +91,6 @@ module decoder import ariane_pkg::*; (
         if (~ex_i.valid) begin
             case (instr.rtype.opcode)
                 // TEST
-                
                 riscv::PL: begin
                     instruction_o.fu       = ALU; 
                     instruction_o.rs1[4:0] = instr.itype.rs1;
@@ -106,10 +105,16 @@ module decoder import ariane_pkg::*; (
                                 {7'b000_0000, 3'b011} : instruction_o.op = ariane_pkg::PL_SUBSAT;
                                 {7'b000_0000, 3'b100} : instruction_o.op = ariane_pkg::PL_DECODE;
                                 {7'b000_0000, 3'b101} : instruction_o.op = ariane_pkg::PL_EVAL;
+
                                 {7'b000_0000, 3'b110} : instruction_o.op = ariane_pkg::PL_REP_ADDLOW;
                                 {7'b000_0000, 3'b111} : instruction_o.op = ariane_pkg::PL_REP_ADDHI;
                                 {7'b000_0001, 3'b000} : instruction_o.op = ariane_pkg::PL_REP_ADDSIGN;
-                            endcase
+
+                                {7'b000_0001, 3'b001} : instruction_o.op = ariane_pkg::PL_SPC_ACMP;
+                                {7'b000_0001, 3'b010} : instruction_o.op = ariane_pkg::PL_SPC_AMIN;
+                                {7'b000_0001, 3'b011} : instruction_o.op = ariane_pkg::PL_SPC_IDUP;
+                                {7'b000_0001, 3'b100} : instruction_o.op = ariane_pkg::PL_SPC_MAX;
+                            endcase                            
                         end
                     endcase
                 end

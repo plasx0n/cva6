@@ -258,6 +258,16 @@ module alu import ariane_pkg::*;(
     logic [(V_LENGHT)-1:0]     decode;
     logic [(V_LENGHT)-1:0]     eval;
 
+    logic [63:0] repaddlow ;
+    logic [63:0] repaddhi ;
+    logic [63:0] repaddsum ;
+    logic [63:0] absvec_a ; 
+    logic [63:0] absvec_b ;
+    logic [63:0] spc_abscomp ;
+    logic [63:0] spc_absmin ; 
+    logic [63:0] spc_idup ; 
+    logic [63:0] spc_max ; 
+
 
     // cycle trought the vectors 
     generate
@@ -302,10 +312,47 @@ module alu import ariane_pkg::*;(
                                             ( $signed(polar_res_aplusb[(i*9) +:9])  < -9'sd127)? -8'sd127 : 
                                             polar_res_aplusb[(i*9) +:9] ;
 
-            assign decode[i*Q+:Q] =(fu_data_i.operand_b[i*Q:+Q] ==8'h00 ) ? fu_data_i.operand_a[i*Q+:Q] : 8'h00 ; 
+            assign decode[i*Q+:Q] =(fu_data_i.operand_b[i*Q +:Q] ==8'h00 ) ? fu_data_i.operand_a[i*Q+:Q] : 8'h00 ; 
 
-            assign eval[i*Q+:Q] =(fu_data_i.operand_a[i*Q:+Q] ==8'd1 ) ? 8'hFF : 8'h00 ; 
+            assign eval[i*Q+:Q] =(fu_data_i.operand_a[i*Q +:Q] ==8'd1 ) ? 8'hFF : 8'h00 ; 
 
+
+            assign repaddlow[15:0]  = { fu_data_i.operand_a[15:0]  + fu_data_i.operand_b[7:0] } ; 
+            assign repaddlow[31:16] = { fu_data_i.operand_a[31:16] + fu_data_i.operand_b[15:7] } ; 
+            assign repaddlow[47:32] = { fu_data_i.operand_a[47:32] + fu_data_i.operand_b[24:16] } ; 
+            assign repaddlow[63:47] = { fu_data_i.operand_a[63:47] + fu_data_i.operand_b[31:25] } ; 
+
+            assign repaddhi[15:0]   = { fu_data_i.operand_a[15:0]   + fu_data_i.operand_b[39:32] } ; 
+            assign repaddhi[31:16]  = { fu_data_i.operand_a[31:16]  + fu_data_i.operand_b[47:40] } ; 
+            assign repaddhi[47:32]  = { fu_data_i.operand_a[47:32]  + fu_data_i.operand_b[55:48] } ; 
+            assign repaddhi[63:47]  = { fu_data_i.operand_a[63:47]  + fu_data_i.operand_b[63:55] } ; 
+
+            assign repaddsum[i*Q+:Q] ={
+			        ($signed( fu_data_i.operand_a[15:0 ] )< 0 ) ? 8'h01 : 8'h00,
+			        ($signed( fu_data_i.operand_a[31:16] )< 0 ) ? 8'h01 : 8'h00,
+              ($signed( fu_data_i.operand_a[47:32] )< 0 ) ? 8'h01 : 8'h00,
+              ($signed( fu_data_i.operand_a[63:47] )< 0 ) ? 8'h01 : 8'h00,
+
+			        ($signed( fu_data_i.operand_b[15:0 ] )< 0 ) ? 8'h01 : 8'h00,
+			        ($signed( fu_data_i.operand_b[31:16] )< 0 ) ? 8'h01 : 8'h00,
+              ($signed( fu_data_i.operand_b[47:32] )< 0 ) ? 8'h01 : 8'h00,
+              ($signed( fu_data_i.operand_b[63:47] )< 0 ) ? 8'h01 : 8'h00
+            }; 
+
+          // SPC Absolute comparaison simd 
+          // Get absolute val 
+          // assign absvec_a[i*Q+:Q] =  ($signed(fu_data_i.operand_a[i*Q+:Q]) >=0 ) ? fu_data_i.operand_a[i*Q+:Q] :  fu_data_i.operand_a[i*Q+:Q] : 
+          // assign absvec_b[i*Q+:Q] =  ($signed(fu_data_i.operand_b[i*Q+:Q]) >=0 ) ? fu_data_i.operand_b[i*Q+:Q] :  fu_data_i.operand_b[i*Q+:Q] : 
+          assign spc_abscomp[i*Q+:Q] =( abs_a[i*Q+:Q] < abs_b[i*Q+:Q] ) ? 8'hff : 8'h00; 
+
+          // SPC Absolute Min 
+          assign spc_absmin[i*Q+:Q] =( abs_a[i*Q+:Q] >= abs_b[i*Q+:Q] ) ? abs_b[i*Q+:Q]  : abs_a[i*Q+:Q];
+
+          // SPC update           
+          assign spc_idup[i*Q+:Q] = fu_data_i.operand_a[i*Q+:Q] & fu_data_i.operand_b[7:0] ; 
+
+          // SPC MAX 
+          assign spc_max[i*Q+:Q] = ( fu_data_i.operand_a[i*Q+:Q] > fu_data_i.operand_b[i*Q+:Q]) ? fu_data_i.operand_a[i*Q+:Q] : fu_data_i.operand_b[i*Q+:Q] ; 
 
 
         end 
@@ -323,6 +370,16 @@ module alu import ariane_pkg::*;(
       PL_DECODE : polar_result =  decode ; 
       PL_EVAL   : polar_result =  eval ; 
 
+      PL_REP_ADDHI    : polar_result = repaddhi ; 
+      PL_REP_ADDLOW   : polar_result = repaddlow ; 
+      PL_REP_ADDSIGN   : polar_result = repaddhi ; 
+
+      PL_SPC_AMIN     : polar_result = spc_absmin ; 
+      PL_SPC_ACMP     : polar_result = spc_abscomp ; 
+      PL_SPC_IDUP     : polar_result = spc_idup ; 
+      PL_SPC_MAX      : polar_result = spc_max ; 
+
+
       default: polar_result='0 ; 
     endcase
   end 
@@ -335,12 +392,9 @@ module alu import ariane_pkg::*;(
         unique case (fu_data_i.operator)
             
             // polar  operations 
-            PL_F,
-            PL_R,
-            PL_DECODE,
-            PL_EVAL,
-            PL_ADDSAT, PL_SUBSAT : result_o = polar_result;
-
+            PL_F, PL_R, PL_DECODE,PL_EVAL, PL_ADDSAT, PL_SUBSAT,
+            PL_REP_ADDHI, PL_REP_ADDLOW, PL_REP_ADDSIGN,
+            PL_SPC_AMIN, PL_SPC_ACMP, PL_SPC_IDUP, PL_SPC_MAX: result_o = polar_result;
 
             // Standard Operations
             ANDL, ANDN: result_o = fu_data_i.operand_a & operand_b_neg[riscv::XLEN:1];
