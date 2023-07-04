@@ -25,8 +25,6 @@ long insn()
 	return insns;
 }
 
-
-
 static void printf_c(int c)
 {
 	*((volatile int*)0x10000000) = c;
