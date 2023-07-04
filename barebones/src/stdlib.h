@@ -1,6 +1,7 @@
 #include <stdarg.h>
 #include <stdint.h>
 
+void *memset(void *s, int c, int n) ; 
 long cycles();
 long insn();
 

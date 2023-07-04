@@ -1,0 +1,678 @@
+POLAR FSC 4*int8 vecto inter  N:1024 K:512
+[59252] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[59279] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[59306] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[59333] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[92706] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[92733] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[92760] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[92787] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[93664] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[93687] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[93705] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[93728] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[98331] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[98358] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[98385] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[98407] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[99250] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[99277] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[99304] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[99331] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[133677] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[133704] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[133731] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[133758] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[134597] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[134620] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[134643] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[134661] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[143841] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[143864] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[143887] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[143910] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[146718] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[146740] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[146767] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[146794] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[147633] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[147656] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[147679] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[147697] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[168593] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[168620] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[168647] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[168674] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[175061] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[175084] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[175107] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[175130] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[183160] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[183178] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[183196] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[183214] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+
+|=======================|
+cycles	: 203079 
+insn	: 149165 
+|=======================|
+errors 
+E @ 0 
+codw_out[i]: -98 
+U: 1 
+E @ 1 
+codw_out[i]: 116 
+U: 1 
+E @ 2 
+codw_out[i]: 0 
+U: 1 
+E @ 4 
+codw_out[i]: 0 
+U: 1 
+E @ 9 
+codw_out[i]: 0 
+U: 1 
+E @ 12 
+codw_out[i]: 0 
+U: 1 
+E @ 15 
+codw_out[i]: 0 
+U: 1 
+E @ 17 
+codw_out[i]: 0 
+U: 1 
+E @ 20 
+codw_out[i]: 1 
+U: 0 
+E @ 25 
+codw_out[i]: 15 
+U: 1 
+E @ 26 
+codw_out[i]: 1 
+U: 0 
+E @ 30 
+codw_out[i]: -1 
+U: 1 
+E @ 35 
+codw_out[i]: 0 
+U: 1 
+E @ 36 
+codw_out[i]: 0 
+U: 1 
+E @ 37 
+codw_out[i]: 0 
+U: 1 
+E @ 38 
+codw_out[i]: 0 
+U: 1 
+E @ 40 
+codw_out[i]: 0 
+U: 1 
+E @ 42 
+codw_out[i]: 0 
+U: 1 
+E @ 44 
+codw_out[i]: 0 
+U: 1 
+E @ 50 
+codw_out[i]: -4 
+U: 1 
+E @ 51 
+codw_out[i]: -9 
+U: 0 
+E @ 52 
+codw_out[i]: 0 
+U: 1 
+E @ 53 
+codw_out[i]: 0 
+U: 1 
+E @ 55 
+codw_out[i]: 0 
+U: 1 
+E @ 56 
+codw_out[i]: 1 
+U: 0 
+E @ 57 
+codw_out[i]: 1 
+U: 0 
+E @ 58 
+codw_out[i]: 0 
+U: 1 
+E @ 60 
+codw_out[i]: 0 
+U: 1 
+E @ 61 
+codw_out[i]: 0 
+U: 1 
+E @ 62 
+codw_out[i]: 0 
+U: 1 
+E @ 64 
+codw_out[i]: 0 
+U: 1 
+E @ 65 
+codw_out[i]: 0 
+U: 1 
+E @ 67 
+codw_out[i]: 0 
+U: 1 
+E @ 68 
+codw_out[i]: 0 
+U: 1 
+E @ 69 
+codw_out[i]: 0 
+U: 1 
+E @ 71 
+codw_out[i]: 1 
+U: 0 
+E @ 72 
+codw_out[i]: 0 
+U: 1 
+E @ 76 
+codw_out[i]: 0 
+U: 1 
+E @ 77 
+codw_out[i]: 0 
+U: 1 
+E @ 78 
+codw_out[i]: 0 
+U: 1 
+E @ 79 
+codw_out[i]: 0 
+U: 1 
+E @ 82 
+codw_out[i]: 0 
+U: 1 
+E @ 87 
+codw_out[i]: 0 
+U: 1 
+E @ 89 
+codw_out[i]: 0 
+U: 1 
+E @ 90 
+codw_out[i]: 0 
+U: 1 
+E @ 91 
+codw_out[i]: 0 
+U: 1 
+E @ 96 
+codw_out[i]: 0 
+U: 1 
+E @ 99 
+codw_out[i]: 0 
+U: 1 
+E @ 104 
+codw_out[i]: 1 
+U: 0 
+E @ 105 
+codw_out[i]: 0 
+U: 1 
+E @ 106 
+codw_out[i]: 0 
+U: 1 
+E @ 108 
+codw_out[i]: 0 
+U: 1 
+E @ 109 
+codw_out[i]: 0 
+U: 1 
+E @ 114 
+codw_out[i]: 0 
+U: 1 
+E @ 115 
+codw_out[i]: 0 
+U: 1 
+E @ 116 
+codw_out[i]: 0 
+U: 1 
+E @ 117 
+codw_out[i]: 0 
+U: 1 
+E @ 121 
+codw_out[i]: 1 
+U: 0 
+E @ 124 
+codw_out[i]: 0 
+U: 1 
+E @ 125 
+codw_out[i]: 0 
+U: 1 
+E @ 128 
+codw_out[i]: 0 
+U: 1 
+E @ 129 
+codw_out[i]: 0 
+U: 1 
+E @ 130 
+codw_out[i]: 0 
+U: 1 
+E @ 136 
+codw_out[i]: 1 
+U: 0 
+E @ 137 
+codw_out[i]: 0 
+U: 1 
+E @ 138 
+codw_out[i]: 1 
+U: 0 
+E @ 139 
+codw_out[i]: -3 
+U: 1 
+E @ 140 
+codw_out[i]: -6 
+U: 0 
+E @ 141 
+codw_out[i]: -4 
+U: 1 
+E @ 142 
+codw_out[i]: 1 
+U: 0 
+E @ 145 
+codw_out[i]: 0 
+U: 1 
+E @ 146 
+codw_out[i]: 7 
+U: 1 
+E @ 147 
+codw_out[i]: -6 
+U: 1 
+E @ 152 
+codw_out[i]: 1 
+U: 0 
+E @ 154 
+codw_out[i]: 0 
+U: 1 
+E @ 158 
+codw_out[i]: 0 
+U: 1 
+E @ 159 
+codw_out[i]: 0 
+U: 1 
+E @ 166 
+codw_out[i]: 0 
+U: 1 
+E @ 168 
+codw_out[i]: 0 
+U: 1 
+E @ 169 
+codw_out[i]: 1 
+U: 0 
+E @ 173 
+codw_out[i]: 0 
+U: 1 
+E @ 176 
+codw_out[i]: 1 
+U: 0 
+E @ 179 
+codw_out[i]: 0 
+U: 1 
+E @ 183 
+codw_out[i]: 0 
+U: 1 
+E @ 185 
+codw_out[i]: 1 
+U: 0 
+E @ 187 
+codw_out[i]: 0 
+U: 1 
+E @ 189 
+codw_out[i]: 0 
+U: 1 
+E @ 192 
+codw_out[i]: 0 
+U: 1 
+E @ 195 
+codw_out[i]: 0 
+U: 1 
+E @ 197 
+codw_out[i]: 0 
+U: 1 
+E @ 199 
+codw_out[i]: 0 
+U: 1 
+E @ 201 
+codw_out[i]: 0 
+U: 1 
+E @ 207 
+codw_out[i]: 0 
+U: 1 
+E @ 208 
+codw_out[i]: 0 
+U: 1 
+E @ 213 
+codw_out[i]: 0 
+U: 1 
+E @ 216 
+codw_out[i]: 0 
+U: 1 
+E @ 221 
+codw_out[i]: 0 
+U: 1 
+E @ 222 
+codw_out[i]: 0 
+U: 1 
+E @ 224 
+codw_out[i]: 0 
+U: 1 
+E @ 226 
+codw_out[i]: 0 
+U: 1 
+E @ 229 
+codw_out[i]: 0 
+U: 1 
+E @ 234 
+codw_out[i]: 0 
+U: 1 
+E @ 235 
+codw_out[i]: 1 
+U: 0 
+E @ 240 
+codw_out[i]: 0 
+U: 1 
+E @ 246 
+codw_out[i]: 0 
+U: 1 
+E @ 255 
+codw_out[i]: 0 
+U: 1 
+E @ 256 
+codw_out[i]: 0 
+U: 1 
+E @ 257 
+codw_out[i]: 0 
+U: 1 
+E @ 258 
+codw_out[i]: 0 
+U: 1 
+E @ 259 
+codw_out[i]: 0 
+U: 1 
+E @ 261 
+codw_out[i]: 0 
+U: 1 
+E @ 263 
+codw_out[i]: 0 
+U: 1 
+E @ 265 
+codw_out[i]: 1 
+U: 0 
+E @ 268 
+codw_out[i]: 0 
+U: 1 
+E @ 272 
+codw_out[i]: 0 
+U: 1 
+E @ 276 
+codw_out[i]: 0 
+U: 1 
+E @ 277 
+codw_out[i]: 0 
+U: 1 
+E @ 282 
+codw_out[i]: 0 
+U: 1 
+E @ 284 
+codw_out[i]: 0 
+U: 1 
+E @ 287 
+codw_out[i]: 0 
+U: 1 
+E @ 289 
+codw_out[i]: 0 
+U: 1 
+E @ 297 
+codw_out[i]: 0 
+U: 1 
+E @ 299 
+codw_out[i]: 0 
+U: 1 
+E @ 302 
+codw_out[i]: 0 
+U: 1 
+E @ 303 
+codw_out[i]: 0 
+U: 1 
+E @ 304 
+codw_out[i]: 0 
+U: 1 
+E @ 306 
+codw_out[i]: 1 
+U: 0 
+E @ 308 
+codw_out[i]: 0 
+U: 1 
+E @ 311 
+codw_out[i]: 0 
+U: 1 
+E @ 314 
+codw_out[i]: 0 
+U: 1 
+E @ 325 
+codw_out[i]: 1 
+U: 0 
+E @ 327 
+codw_out[i]: 0 
+U: 1 
+E @ 328 
+codw_out[i]: 0 
+U: 1 
+E @ 329 
+codw_out[i]: 0 
+U: 1 
+E @ 334 
+codw_out[i]: 0 
+U: 1 
+E @ 337 
+codw_out[i]: 0 
+U: 1 
+E @ 340 
+codw_out[i]: 1 
+U: 0 
+E @ 342 
+codw_out[i]: 1 
+U: 0 
+E @ 347 
+codw_out[i]: 1 
+U: 0 
+E @ 348 
+codw_out[i]: 0 
+U: 1 
+E @ 349 
+codw_out[i]: 0 
+U: 1 
+E @ 352 
+codw_out[i]: 0 
+U: 1 
+E @ 353 
+codw_out[i]: 0 
+U: 1 
+E @ 359 
+codw_out[i]: 0 
+U: 1 
+E @ 364 
+codw_out[i]: 0 
+U: 1 
+E @ 366 
+codw_out[i]: 0 
+U: 1 
+E @ 367 
+codw_out[i]: 0 
+U: 1 
+E @ 369 
+codw_out[i]: 0 
+U: 1 
+E @ 372 
+codw_out[i]: 0 
+U: 1 
+E @ 376 
+codw_out[i]: 0 
+U: 1 
+E @ 377 
+codw_out[i]: 1 
+U: 0 
+E @ 378 
+codw_out[i]: 0 
+U: 1 
+E @ 380 
+codw_out[i]: 1 
+U: 0 
+E @ 381 
+codw_out[i]: 0 
+U: 1 
+E @ 382 
+codw_out[i]: 0 
+U: 1 
+E @ 383 
+codw_out[i]: 0 
+U: 1 
+E @ 384 
+codw_out[i]: 0 
+U: 1 
+E @ 386 
+codw_out[i]: 0 
+U: 1 
+E @ 392 
+codw_out[i]: 0 
+U: 1 
+E @ 395 
+codw_out[i]: 1 
+U: 0 
+E @ 397 
+codw_out[i]: 0 
+U: 1 
+E @ 405 
+codw_out[i]: 0 
+U: 1 
+E @ 409 
+codw_out[i]: 0 
+U: 1 
+E @ 411 
+codw_out[i]: 0 
+U: 1 
+E @ 415 
+codw_out[i]: 0 
+U: 1 
+E @ 418 
+codw_out[i]: 0 
+U: 1 
+E @ 422 
+codw_out[i]: 0 
+U: 1 
+E @ 426 
+codw_out[i]: 0 
+U: 1 
+E @ 428 
+codw_out[i]: 0 
+U: 1 
+E @ 429 
+codw_out[i]: 1 
+U: 0 
+E @ 430 
+codw_out[i]: 0 
+U: 1 
+E @ 433 
+codw_out[i]: 0 
+U: 1 
+E @ 435 
+codw_out[i]: 0 
+U: 1 
+E @ 436 
+codw_out[i]: 0 
+U: 1 
+E @ 442 
+codw_out[i]: 0 
+U: 1 
+E @ 443 
+codw_out[i]: 0 
+U: 1 
+E @ 445 
+codw_out[i]: 0 
+U: 1 
+E @ 446 
+codw_out[i]: 0 
+U: 1 
+E @ 447 
+codw_out[i]: 0 
+U: 1 
+E @ 451 
+codw_out[i]: 1 
+U: 0 
+E @ 454 
+codw_out[i]: 0 
+U: 1 
+E @ 455 
+codw_out[i]: 0 
+U: 1 
+E @ 458 
+codw_out[i]: 0 
+U: 1 
+E @ 459 
+codw_out[i]: 0 
+U: 1 
+E @ 460 
+codw_out[i]: 0 
+U: 1 
+E @ 462 
+codw_out[i]: 0 
+U: 1 
+E @ 463 
+codw_out[i]: 0 
+U: 1 
+E @ 466 
+codw_out[i]: 0 
+U: 1 
+E @ 467 
+codw_out[i]: 0 
+U: 1 
+E @ 468 
+codw_out[i]: 0 
+U: 1 
+E @ 470 
+codw_out[i]: 0 
+U: 1 
+E @ 471 
+codw_out[i]: 0 
+U: 1 
+E @ 472 
+codw_out[i]: 0 
+U: 1 
+E @ 474 
+codw_out[i]: 0 
+U: 1 
+E @ 480 
+codw_out[i]: 0 
+U: 1 
+E @ 483 
+codw_out[i]: 0 
+U: 1 
+E @ 487 
+codw_out[i]: 0 
+U: 1 
+E @ 488 
+codw_out[i]: 0 
+U: 1 
+E @ 489 
+codw_out[i]: 0 
+U: 1 
+E @ 490 
+codw_out[i]: 0 
+U: 1 
+E @ 495 
+codw_out[i]: 0 
+U: 1 
+E @ 496 
+codw_out[i]: 0 
+U: 1 
+E @ 497 
+codw_out[i]: 0 
+U: 1 
+E @ 501 
+codw_out[i]: 0 
+U: 1 
+E @ 504 
+codw_out[i]: 0 
+U: 1 
+ DONE 
+- /home/dizzy/Documents/PHD/cva6/corev_apu/tb/rvfi_tracer.sv:63: Verilog $finish
+- /home/dizzy/Documents/PHD/cva6/corev_apu/tb/rvfi_tracer.sv:64: Verilog $finish
+- /home/dizzy/Documents/PHD/cva6/corev_apu/tb/rvfi_tracer.sv:64: Second verilog $finish, exiting

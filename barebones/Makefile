@@ -6,7 +6,7 @@ LD=/opt/riscv/bin/riscv64-unknown-elf-ld
 DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
 
 # Programs 
-BINARIES = polar_fsc_int8
+BINARIES = polar_fsc_inter
 
 SRC=./src/stdlib.c
 SRC_ASM=./start.S
@@ -18,7 +18,7 @@ AS_FLAGS=-march=rv64imafc -mabi=lp64f
 LD_FLAGS=-nostdlib
 
 
-polar_fsc_int8 			: ./src/polar_fsc_int8.o
+polar_fsc_inter 			: ./src/polar_fsc_inter.o
 
 OBJ=$(SRC:.c=.o)
 ASM=$(SRC_ASM:.S=.o)

@@ -1,6 +1,14 @@
 #include <stdarg.h>
 #include <stdint.h>
 
+void *memset(void *s, int c, int n)
+{
+    unsigned char* p=s;
+    while(n--)
+        *p++ = (unsigned char)c;
+    return s;
+}
+
 long cycles()
 {
 	int cycles;

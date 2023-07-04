@@ -1,0 +1,704 @@
+POLAR FSC 4*int8 vecto inter  N:1024 K:512
+
+|=======================|
+cycles	: 364430 
+insn	: 264421 
+|=======================|
+errors 
+E @ 6 
+codw_out[i]: 0 
+U: 1 
+E @ 8 
+codw_out[i]: 0 
+U: 1 
+E @ 9 
+codw_out[i]: 0 
+U: 1 
+E @ 11 
+codw_out[i]: 0 
+U: 1 
+E @ 15 
+codw_out[i]: 0 
+U: 1 
+E @ 22 
+codw_out[i]: 1 
+U: 0 
+E @ 23 
+codw_out[i]: 0 
+U: 1 
+E @ 26 
+codw_out[i]: 1 
+U: 0 
+E @ 27 
+codw_out[i]: 1 
+U: 0 
+E @ 31 
+codw_out[i]: 0 
+U: 1 
+E @ 34 
+codw_out[i]: 0 
+U: 1 
+E @ 36 
+codw_out[i]: 0 
+U: 1 
+E @ 37 
+codw_out[i]: 0 
+U: 1 
+E @ 38 
+codw_out[i]: 0 
+U: 1 
+E @ 41 
+codw_out[i]: 0 
+U: 1 
+E @ 46 
+codw_out[i]: 0 
+U: 1 
+E @ 51 
+codw_out[i]: 1 
+U: 0 
+E @ 54 
+codw_out[i]: 0 
+U: 1 
+E @ 55 
+codw_out[i]: 0 
+U: 1 
+E @ 56 
+codw_out[i]: 1 
+U: 0 
+E @ 58 
+codw_out[i]: 0 
+U: 1 
+E @ 59 
+codw_out[i]: 1 
+U: 0 
+E @ 60 
+codw_out[i]: 0 
+U: 1 
+E @ 64 
+codw_out[i]: 0 
+U: 1 
+E @ 67 
+codw_out[i]: 0 
+U: 1 
+E @ 69 
+codw_out[i]: 0 
+U: 1 
+E @ 70 
+codw_out[i]: 0 
+U: 1 
+E @ 71 
+codw_out[i]: 1 
+U: 0 
+E @ 72 
+codw_out[i]: 0 
+U: 1 
+E @ 74 
+codw_out[i]: 0 
+U: 1 
+E @ 75 
+codw_out[i]: 0 
+U: 1 
+E @ 78 
+codw_out[i]: 0 
+U: 1 
+E @ 79 
+codw_out[i]: 0 
+U: 1 
+E @ 81 
+codw_out[i]: 1 
+U: 0 
+E @ 82 
+codw_out[i]: 0 
+U: 1 
+E @ 84 
+codw_out[i]: 0 
+U: 1 
+E @ 85 
+codw_out[i]: 0 
+U: 1 
+E @ 87 
+codw_out[i]: 0 
+U: 1 
+E @ 89 
+codw_out[i]: 0 
+U: 1 
+E @ 90 
+codw_out[i]: 0 
+U: 1 
+E @ 95 
+codw_out[i]: 0 
+U: 1 
+E @ 96 
+codw_out[i]: 0 
+U: 1 
+E @ 97 
+codw_out[i]: 0 
+U: 1 
+E @ 101 
+codw_out[i]: 0 
+U: 1 
+E @ 104 
+codw_out[i]: 1 
+U: 0 
+E @ 106 
+codw_out[i]: 0 
+U: 1 
+E @ 108 
+codw_out[i]: 0 
+U: 1 
+E @ 111 
+codw_out[i]: 0 
+U: 1 
+E @ 113 
+codw_out[i]: 0 
+U: 1 
+E @ 114 
+codw_out[i]: 0 
+U: 1 
+E @ 115 
+codw_out[i]: 0 
+U: 1 
+E @ 116 
+codw_out[i]: 0 
+U: 1 
+E @ 122 
+codw_out[i]: 0 
+U: 1 
+E @ 123 
+codw_out[i]: 0 
+U: 1 
+E @ 124 
+codw_out[i]: 0 
+U: 1 
+E @ 127 
+codw_out[i]: 0 
+U: 1 
+E @ 129 
+codw_out[i]: 0 
+U: 1 
+E @ 130 
+codw_out[i]: 0 
+U: 1 
+E @ 131 
+codw_out[i]: 0 
+U: 1 
+E @ 133 
+codw_out[i]: 0 
+U: 1 
+E @ 136 
+codw_out[i]: 1 
+U: 0 
+E @ 142 
+codw_out[i]: 1 
+U: 0 
+E @ 145 
+codw_out[i]: 0 
+U: 1 
+E @ 146 
+codw_out[i]: 0 
+U: 1 
+E @ 148 
+codw_out[i]: 0 
+U: 1 
+E @ 149 
+codw_out[i]: 0 
+U: 1 
+E @ 152 
+codw_out[i]: 1 
+U: 0 
+E @ 154 
+codw_out[i]: 0 
+U: 1 
+E @ 155 
+codw_out[i]: 1 
+U: 0 
+E @ 156 
+codw_out[i]: 1 
+U: 0 
+E @ 158 
+codw_out[i]: 0 
+U: 1 
+E @ 160 
+codw_out[i]: 0 
+U: 1 
+E @ 164 
+codw_out[i]: 0 
+U: 1 
+E @ 166 
+codw_out[i]: 0 
+U: 1 
+E @ 167 
+codw_out[i]: 1 
+U: 0 
+E @ 168 
+codw_out[i]: 0 
+U: 1 
+E @ 171 
+codw_out[i]: 1 
+U: 0 
+E @ 175 
+codw_out[i]: 0 
+U: 1 
+E @ 176 
+codw_out[i]: 1 
+U: 0 
+E @ 177 
+codw_out[i]: 0 
+U: 1 
+E @ 178 
+codw_out[i]: 0 
+U: 1 
+E @ 179 
+codw_out[i]: 0 
+U: 1 
+E @ 180 
+codw_out[i]: 0 
+U: 1 
+E @ 182 
+codw_out[i]: 0 
+U: 1 
+E @ 183 
+codw_out[i]: 0 
+U: 1 
+E @ 185 
+codw_out[i]: 1 
+U: 0 
+E @ 190 
+codw_out[i]: 0 
+U: 1 
+E @ 191 
+codw_out[i]: 0 
+U: 1 
+E @ 193 
+codw_out[i]: 0 
+U: 1 
+E @ 194 
+codw_out[i]: 1 
+U: 0 
+E @ 196 
+codw_out[i]: 0 
+U: 1 
+E @ 205 
+codw_out[i]: 0 
+U: 1 
+E @ 209 
+codw_out[i]: 1 
+U: 0 
+E @ 210 
+codw_out[i]: 0 
+U: 1 
+E @ 212 
+codw_out[i]: 0 
+U: 1 
+E @ 214 
+codw_out[i]: 0 
+U: 1 
+E @ 222 
+codw_out[i]: 0 
+U: 1 
+E @ 224 
+codw_out[i]: 0 
+U: 1 
+E @ 228 
+codw_out[i]: 0 
+U: 1 
+E @ 229 
+codw_out[i]: 0 
+U: 1 
+E @ 231 
+codw_out[i]: 0 
+U: 1 
+E @ 233 
+codw_out[i]: 0 
+U: 1 
+E @ 234 
+codw_out[i]: 0 
+U: 1 
+E @ 235 
+codw_out[i]: 1 
+U: 0 
+E @ 237 
+codw_out[i]: 0 
+U: 1 
+E @ 238 
+codw_out[i]: 0 
+U: 1 
+E @ 240 
+codw_out[i]: 0 
+U: 1 
+E @ 243 
+codw_out[i]: 0 
+U: 1 
+E @ 246 
+codw_out[i]: 0 
+U: 1 
+E @ 247 
+codw_out[i]: 1 
+U: 0 
+E @ 249 
+codw_out[i]: 0 
+U: 1 
+E @ 256 
+codw_out[i]: 0 
+U: 1 
+E @ 259 
+codw_out[i]: 0 
+U: 1 
+E @ 263 
+codw_out[i]: 0 
+U: 1 
+E @ 264 
+codw_out[i]: 0 
+U: 1 
+E @ 268 
+codw_out[i]: 0 
+U: 1 
+E @ 270 
+codw_out[i]: 1 
+U: 0 
+E @ 271 
+codw_out[i]: 0 
+U: 1 
+E @ 272 
+codw_out[i]: 0 
+U: 1 
+E @ 275 
+codw_out[i]: 0 
+U: 1 
+E @ 277 
+codw_out[i]: 0 
+U: 1 
+E @ 280 
+codw_out[i]: 0 
+U: 1 
+E @ 281 
+codw_out[i]: 1 
+U: 0 
+E @ 282 
+codw_out[i]: 0 
+U: 1 
+E @ 283 
+codw_out[i]: 0 
+U: 1 
+E @ 285 
+codw_out[i]: 0 
+U: 1 
+E @ 286 
+codw_out[i]: 0 
+U: 1 
+E @ 288 
+codw_out[i]: 0 
+U: 1 
+E @ 293 
+codw_out[i]: 0 
+U: 1 
+E @ 294 
+codw_out[i]: 0 
+U: 1 
+E @ 299 
+codw_out[i]: 0 
+U: 1 
+E @ 300 
+codw_out[i]: 0 
+U: 1 
+E @ 301 
+codw_out[i]: 0 
+U: 1 
+E @ 302 
+codw_out[i]: 0 
+U: 1 
+E @ 303 
+codw_out[i]: 0 
+U: 1 
+E @ 306 
+codw_out[i]: 1 
+U: 0 
+E @ 307 
+codw_out[i]: 0 
+U: 1 
+E @ 308 
+codw_out[i]: 0 
+U: 1 
+E @ 309 
+codw_out[i]: 0 
+U: 1 
+E @ 310 
+codw_out[i]: 0 
+U: 1 
+E @ 311 
+codw_out[i]: 0 
+U: 1 
+E @ 317 
+codw_out[i]: 1 
+U: 0 
+E @ 319 
+codw_out[i]: 0 
+U: 1 
+E @ 322 
+codw_out[i]: 0 
+U: 1 
+E @ 323 
+codw_out[i]: 0 
+U: 1 
+E @ 325 
+codw_out[i]: 1 
+U: 0 
+E @ 326 
+codw_out[i]: 1 
+U: 0 
+E @ 328 
+codw_out[i]: 0 
+U: 1 
+E @ 330 
+codw_out[i]: 0 
+U: 1 
+E @ 331 
+codw_out[i]: 0 
+U: 1 
+E @ 336 
+codw_out[i]: 0 
+U: 1 
+E @ 337 
+codw_out[i]: 0 
+U: 1 
+E @ 340 
+codw_out[i]: 1 
+U: 0 
+E @ 344 
+codw_out[i]: 0 
+U: 1 
+E @ 345 
+codw_out[i]: 0 
+U: 1 
+E @ 350 
+codw_out[i]: 0 
+U: 1 
+E @ 353 
+codw_out[i]: 0 
+U: 1 
+E @ 354 
+codw_out[i]: 0 
+U: 1 
+E @ 356 
+codw_out[i]: 0 
+U: 1 
+E @ 357 
+codw_out[i]: 0 
+U: 1 
+E @ 360 
+codw_out[i]: 0 
+U: 1 
+E @ 362 
+codw_out[i]: 0 
+U: 1 
+E @ 363 
+codw_out[i]: 0 
+U: 1 
+E @ 366 
+codw_out[i]: 0 
+U: 1 
+E @ 367 
+codw_out[i]: 0 
+U: 1 
+E @ 369 
+codw_out[i]: 0 
+U: 1 
+E @ 370 
+codw_out[i]: 0 
+U: 1 
+E @ 373 
+codw_out[i]: 1 
+U: 0 
+E @ 377 
+codw_out[i]: 1 
+U: 0 
+E @ 378 
+codw_out[i]: 0 
+U: 1 
+E @ 379 
+codw_out[i]: 0 
+U: 1 
+E @ 380 
+codw_out[i]: 1 
+U: 0 
+E @ 387 
+codw_out[i]: 1 
+U: 0 
+E @ 388 
+codw_out[i]: 1 
+U: 0 
+E @ 389 
+codw_out[i]: 0 
+U: 1 
+E @ 390 
+codw_out[i]: 0 
+U: 1 
+E @ 392 
+codw_out[i]: 0 
+U: 1 
+E @ 397 
+codw_out[i]: 0 
+U: 1 
+E @ 399 
+codw_out[i]: 0 
+U: 1 
+E @ 404 
+codw_out[i]: 0 
+U: 1 
+E @ 407 
+codw_out[i]: 0 
+U: 1 
+E @ 408 
+codw_out[i]: 0 
+U: 1 
+E @ 409 
+codw_out[i]: 0 
+U: 1 
+E @ 410 
+codw_out[i]: 0 
+U: 1 
+E @ 411 
+codw_out[i]: 0 
+U: 1 
+E @ 414 
+codw_out[i]: 0 
+U: 1 
+E @ 416 
+codw_out[i]: 1 
+U: 0 
+E @ 423 
+codw_out[i]: 0 
+U: 1 
+E @ 429 
+codw_out[i]: 1 
+U: 0 
+E @ 430 
+codw_out[i]: 0 
+U: 1 
+E @ 431 
+codw_out[i]: 0 
+U: 1 
+E @ 433 
+codw_out[i]: 0 
+U: 1 
+E @ 439 
+codw_out[i]: 0 
+U: 1 
+E @ 442 
+codw_out[i]: 0 
+U: 1 
+E @ 443 
+codw_out[i]: 0 
+U: 1 
+E @ 444 
+codw_out[i]: 0 
+U: 1 
+E @ 446 
+codw_out[i]: 0 
+U: 1 
+E @ 447 
+codw_out[i]: 0 
+U: 1 
+E @ 448 
+codw_out[i]: 0 
+U: 1 
+E @ 449 
+codw_out[i]: 1 
+U: 0 
+E @ 451 
+codw_out[i]: 1 
+U: 0 
+E @ 452 
+codw_out[i]: 0 
+U: 1 
+E @ 454 
+codw_out[i]: 0 
+U: 1 
+E @ 455 
+codw_out[i]: 0 
+U: 1 
+E @ 460 
+codw_out[i]: 0 
+U: 1 
+E @ 461 
+codw_out[i]: 0 
+U: 1 
+E @ 462 
+codw_out[i]: 0 
+U: 1 
+E @ 463 
+codw_out[i]: 0 
+U: 1 
+E @ 467 
+codw_out[i]: 0 
+U: 1 
+E @ 470 
+codw_out[i]: 0 
+U: 1 
+E @ 471 
+codw_out[i]: 0 
+U: 1 
+E @ 472 
+codw_out[i]: 0 
+U: 1 
+E @ 475 
+codw_out[i]: 0 
+U: 1 
+E @ 477 
+codw_out[i]: 1 
+U: 0 
+E @ 478 
+codw_out[i]: 1 
+U: 0 
+E @ 479 
+codw_out[i]: 0 
+U: 1 
+E @ 483 
+codw_out[i]: 0 
+U: 1 
+E @ 484 
+codw_out[i]: 1 
+U: 0 
+E @ 486 
+codw_out[i]: 0 
+U: 1 
+E @ 488 
+codw_out[i]: 0 
+U: 1 
+E @ 489 
+codw_out[i]: 0 
+U: 1 
+E @ 490 
+codw_out[i]: 0 
+U: 1 
+E @ 492 
+codw_out[i]: 0 
+U: 1 
+E @ 495 
+codw_out[i]: 0 
+U: 1 
+E @ 496 
+codw_out[i]: 0 
+U: 1 
+E @ 497 
+codw_out[i]: 0 
+U: 1 
+E @ 500 
+codw_out[i]: 0 
+U: 1 
+E @ 503 
+codw_out[i]: 0 
+U: 1 
+E @ 507 
+codw_out[i]: 0 
+U: 1 
+E @ 509 
+codw_out[i]: 0 
+U: 1 
+E @ 510 
+codw_out[i]: 0 
+U: 1 
+ DONE 
+- /home/dizzy/Documents/PHD/cva6/corev_apu/tb/rvfi_tracer.sv:63: Verilog $finish
+- /home/dizzy/Documents/PHD/cva6/corev_apu/tb/rvfi_tracer.sv:64: Verilog $finish
+- /home/dizzy/Documents/PHD/cva6/corev_apu/tb/rvfi_tracer.sv:64: Second verilog $finish, exiting
