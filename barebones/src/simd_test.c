@@ -3,7 +3,6 @@
 #define int8_tx4 int32_t
 #define int8_tx8 int64_t 
 
-
 void displayVector( int8_tx4 vector ){
 	printf("V4[31:24] %d ",   vector>>24) ;
 	printf("V3[23:16] %d ",  (vector<<8)>>24) ;
