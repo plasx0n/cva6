@@ -19,7 +19,6 @@ void displayVectorHex_int8x4( int8_tx4 vector ){
 }
 
 
-
 void displayVector_int8x8( int8_tx8 vector ){
 	printf("=========================\n"); 
   printf("V8[64:56]:%d ",    vector     >>56) ;
