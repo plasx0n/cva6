@@ -1,4 +1,6 @@
-#include "./src/encoding.h"
+
+
+MSTATUS_FS = 0x00006000
 
 .section .init, "ax"
 .global _start

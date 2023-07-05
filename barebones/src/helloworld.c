@@ -27,27 +27,14 @@ static inline int ld_minmax( int rs1 , int rs2, int rs3  ){
 int main()
 {
     init_uart(50000000, 115200);
-    // print_uart("Hello World FROM RISCV BAREBONE\r\n");
+    print_uart("Hello World FROM RISCV BAREBONE\r\n");
     
-    // print_uart("After initialisation\r\n");
-    // int test=0 ; 
-    // test= template(1,2); 
-    // print_uart_byte(test);
-    // print_uart("After addition\r\n");
+    print_uart("After initialisation\r\n");
+    int test=0 ; 
+    test= template(1,2); 
+    print_uart_byte(test);
+    print_uart("After addition\r\n");
     
-    float testf = fmsub(2,2,2);
-    print_uart_byte(testf); 
-
-    int reg1,reg2,reg3 ; 
-    reg1 = 1 ; 
-    reg2 = 2 ; 
-    reg3 = 3 ; 
-
-    // ld_minmax(reg1,reg2,reg3); 
-    int test_int = template(reg1,reg2); 
-    print_uart_byte(test_int);
-    test_int =ld_minmax(reg1,reg2,reg3);
-    print_uart_byte(test_int);
 
     return 0;
 }
