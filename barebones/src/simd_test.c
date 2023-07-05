@@ -1,22 +1,5 @@
 #include "./stdlib.h"
 
-#define callRinstr(a,b,c) asm volatile("pl.r %0,%1,%2" \
-	                            : "=r" (a) \
-	                            : "r" (b), "r" (c)); 
-
-#define callFinstr(a,b,c) asm volatile("pl.f %0,%1,%2" \
-	                            : "=r" (a) \
-	                            : "r" (b), "r" (c)); 
-
-#define callSubSat(a,b,c) asm volatile("pl.subsat %0,%1,%2" \
-	                            : "=r" (a) \
-	                            : "r" (b), "r" (c)); 
-                                
-#define callAddSat(a,b,c) asm volatile("pl.addsat %0,%1,%2" \
-	                            : "=r" (a) \
-	                            : "r" (b), "r" (c)); 
-
-
 #define int8_tx4 int32_t
 #define int8_tx8 int64_t 
 
