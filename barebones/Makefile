@@ -3,8 +3,8 @@ AS=/opt/riscv/bin/riscv64-unknown-elf-as
 LD=/opt/riscv/bin/riscv64-unknown-elf-ld
 DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
 
-EXEC=hello.elf
-SRC=./src/helloworld.c ./src/uart.c
+EXEC=turbo
+SRC= src/stdlib.c src/turbo.c
 #SRC=./src/helloworld.c
 SRC_ASM=./start.S
 
