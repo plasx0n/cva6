@@ -6,18 +6,18 @@
 #include "turbo_k512.h"
 
 
-// #define CST 
+#define CST 
 
     #define callMax(rd,rs1,rs2) asm volatile("ld.max %0,%1,%2" \
-    	                            : "+r" (rd) \
+    	                            : "=r" (rd) \
     	                            : "r" (rs1), "r" (rs2));
 
     #define callsubsat(rd,rs1,rs2) asm volatile("ld.subsat %0,%1,%2" \
-    	                            : "+r" (rd) \
+    	                            : "=r" (rd) \
     	                            : "r" (rs1), "r" (rs2));
 
 
-
+ 
 void hard_decide_seq(int *in, int *out, const int size)
 {
 	for (int i = 0; i < size; i++)
@@ -232,11 +232,11 @@ void do_action(
             // int val = div0_75(i_ext[k]) ;
             // int val = (i_ext[k] *3)/4 ; 
             int val ; 
-            #ifdef CST
-            callsubsat(val,i_ext[k],0); 
-            #else 
-            val = (i_ext[k] *3)/4 ;
-            #endif 
+            // #ifdef CST
+            // callsubsat(val,i_ext[k],0); 
+            // #else 
+                val = (i_ext[k] *3)/4 ;
+            // #endif 
 
             if( lastIter == 0) llr_ext  = val ; 
             else               llr_ext  = i_ext[k];
@@ -337,8 +337,10 @@ void do_action(
 
 int main() {
 
+
+/**/
     printf(" Test start\n "); 
-    int nb_iter=1  ; 
+    int nb_iter = 3  ; 
 
     long insn_start , insn_stop, insn_tot ; 
     long cycle_start, cycle_stop, cycle_tot ; 
@@ -348,10 +350,9 @@ int main() {
 
     do_action( sys_N , par_N , l_e1n , l_e2n, 0 ) ;
 
-
     for (int iter = 0; iter < nb_iter; iter++){
 	
-        printf("iter n %d\n",iter);
+        // printf("%d\n",iter);
         // interl from siso_i => siso_n
         for (int i = 0; i < _KBITS; i++)
             l_e1i[i] = l_e2n[f_PI[i]] ; 

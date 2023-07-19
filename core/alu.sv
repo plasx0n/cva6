@@ -59,7 +59,7 @@ module alu import ariane_pkg::*;(
     logic [riscv::XLEN-1:0] operand_a_bitmanip, bit_indx;
 
     always_comb begin
-      adder_op_b_negate = 1'b0;
+      adder_op_b_negate = 1'b0; 
 
       unique case (fu_data_i.operator)
         // ADDER OPS
@@ -224,6 +224,12 @@ module alu import ariane_pkg::*;(
     always_comb begin
         result_o   = '0;
         unique case (fu_data_i.operator)
+
+            // use the current hw to simplify alu 
+            LDPC_MAX  : result_o = less ? fu_data_i.operand_b : fu_data_i.operand_a;
+            // sub sat is sacling by 0.75
+            // LDPC_SUB_SAT 
+            
             // Standard Operations
             ANDL, ANDN: result_o = fu_data_i.operand_a & operand_b_neg[riscv::XLEN:1];
             ORL, ORN  : result_o = fu_data_i.operand_a | operand_b_neg[riscv::XLEN:1];

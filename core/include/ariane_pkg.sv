@@ -463,7 +463,18 @@ package ariane_pkg;
     // EX Stage
     // ---------------
 
-    typedef enum logic [7:0] { // basic ALU op
+    typedef enum logic [7:0] { 
+                            // LDPC
+                            //    LDPC_IABS,
+                            //    LDPC_MIN,
+                               LDPC_MAX,
+                            //    LDPC_ABS,
+                            //    LDPC_NMESS,
+                               LDPC_SUB_SAT,
+                            //    LDPC_ADD_SAT,
+                            //    LDPC_EVAL,
+                            //    LDPC_RSIGN,
+                               // basic ALU op
                                ADD, SUB, ADDW, SUBW,
                                // logic operations
                                XORL, ORL, ANDL,
