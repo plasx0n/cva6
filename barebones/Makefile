@@ -1,7 +1,9 @@
-GCC=/opt/riscv/bin/riscv64-unknown-elf-gcc
-AS=/opt/riscv/bin/riscv64-unknown-elf-as
-LD=/opt/riscv/bin/riscv64-unknown-elf-ld
-DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
+RISCV_TC=/opt/riscv64i
+
+GCC=	$(RISCV_TC)/bin/riscv64-unknown-elf-gcc
+AS=		$(RISCV_TC)/bin/riscv64-unknown-elf-as
+LD=		$(RISCV_TC)/bin/riscv64-unknown-elf-ld
+DMP=	$(RISCV_TC)/bin/riscv64-unknown-elf-objdump
 
 EXEC=turbo
 SRC= src/stdlib.c src/turbo.c
@@ -10,7 +12,8 @@ SRC_ASM=./start.S
 
 LINKER_SCRIPT=./rv64.ld
 
-GCC_FLAGS=-Wall -Wextra -march=rv64imafc -mcmodel=medany -mabi=lp64f -ffreestanding
+GCC_FLAGS=-Wall -Wextra -march=rv64i -mcmodel=medany -ffreestanding
+# GCC_FLAGS=-Wall -Wextra -march=rv64imafc -mcmodel=medany -mabi=lp64f -ffreestanding
 AS_FLAGS=-march=rv64imafc -mabi=lp64f
 LD_FLAGS=-nostdlib
 

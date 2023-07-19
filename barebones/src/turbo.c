@@ -224,7 +224,7 @@ void do_action(
     
     for (int k = 0; k < _KBITS; k++){
 
-            printf("do_action() 1 \n"); 
+            // printf("do_action() 1 \n"); 
 
             alpha[k] = alpha_z1; // ON MEMORISE LES VALEURS DE ALPHA // necessaires pour next state 
 
@@ -262,7 +262,7 @@ void do_action(
         //  juste la tail 
         for (int k = (_KBITS_TB-1); k > (_KBITS-1); k--){
 
-            printf("do_action() 2 \n"); 
+            // printf("do_action() 2 \n"); 
             
             const int llr_sys = i_sys[k];
             const int llr_par = i_par[k];
@@ -280,7 +280,7 @@ void do_action(
        
         for (int k = _KBITS - 1; k >= 0; k--){
             
-            printf("do_action() 3 \n"); 
+            // printf("do_action() 3 \n"); 
 
             // redclération :: lisibilité ?? 
             t_metric g          = gamma[k];
@@ -337,28 +337,28 @@ void do_action(
 
 int main() {
 
-    printf(" test \n "); 
-
+    printf(" Test start\n "); 
     int nb_iter=1  ; 
 
-    long insn_start,insn_stop,insn_tot ; 
-    long cycle_start,cycle_stop , cycle_tot ; 
+    long insn_start , insn_stop, insn_tot ; 
+    long cycle_start, cycle_stop, cycle_tot ; 
 
     cycle_start= cycles()-4;
 	insn_start = insn()-4; 
 
-
     do_action( sys_N , par_N , l_e1n , l_e2n, 0 ) ;
-  /*
-    for (int iter = 0; iter < nb_iter; iter++)
-    {
+
+
+    for (int iter = 0; iter < nb_iter; iter++){
+	
+        printf("iter n %d\n",iter);
         // interl from siso_i => siso_n
         for (int i = 0; i < _KBITS; i++)
             l_e1i[i] = l_e2n[f_PI[i]] ; 
 
         // siso i 
         do_action( sys_I , par_I , l_e1i , l_e2i,0); 
-        
+
         // interl from siso_n => siso_i
         for (int i = 0; i < _KBITS; i++)
             l_e1n[ f_PI[i] ] = l_e2i[i] ;
@@ -369,8 +369,8 @@ int main() {
     }
     
     hard_decide_seq(l_e2n , s , KBITS) ; 
-*/
-    printf(" test \n "); 
+
+    printf(" test END \n "); 
 
     cycle_stop= cycles()-4;
 	insn_stop = insn()-4; 
