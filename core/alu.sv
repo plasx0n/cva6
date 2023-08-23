@@ -271,17 +271,7 @@ module alu import ariane_pkg::*;(
 
     // cycle trought the vectors 
     generate
-
-        for ( genvar i =0 ;  i<SIMD ;i++ ) begin
-            
-            // assign i = k*Q ; 
-            // assign byte0 = dword[0 +: 8];    // Same as dword[7:0]
-
-            // This is illegal due to the variable i, even though the width is always 8 bits
-            // assign byte = dword[(i*8)+7 : i*8];  // ** Not allowed!
-
-            // Use the indexed part select 
-            // assign byte = dword[i*8 +: 8];
+        for(genvar i=0 ; i<SIMD; i++)begin
             
             assign func_r[ i*Q +:Q ]  = ($signed(fu_data_i.operand_b[i*Q +:Q ] ) == 1) ? '0 : ($signed(fu_data_i.operand_a[i*Q +:Q ] ) < 0 ) ? {{Q{1'b0}}, 1 } : '0 ; 
 
@@ -294,13 +284,10 @@ module alu import ariane_pkg::*;(
             assign abs_a[ i*Q +:Q] = ( ( $signed( fu_data_i.operand_a[i*Q +:Q]   ) >= 0) ? fu_data_i.operand_a[i*Q +:Q]   : -fu_data_i.operand_a[i*Q +:Q] ) ;
             assign abs_b[ i*Q +:Q] = ( ( $signed( fu_data_i.operand_b[i*Q +:Q]   ) >= 0) ? fu_data_i.operand_b[i*Q +:Q]   : -fu_data_i.operand_b[i*Q +:Q] ) ;
 
-            assign func_f[i*Q +:Q] =
-                                        ( abs_a[i*Q +:Q] > abs_b[i*Q +:Q] ) ? 
-                                            (( sign[i*Q +:Q] == 1'b0 ) ? abs_b[i*Q +:Q] : 
-                                                                        -abs_b[i*Q +:Q] ) 
-                                            : 
-                                            (( sign[i*Q +:Q] == 1'b0 ) ? abs_a[i*Q +:Q] : 
-                                                                        -abs_a[i*Q +:Q] ) ; 
+            assign func_f[i*Q +:Q] =( abs_a[i*Q +:Q] > abs_b[i*Q +:Q] ) ? 
+                                    (( sign[i] == 1'b0 ) ? abs_b[i*Q +:Q] : -abs_b[i*Q +:Q] ) 
+                                    : 
+                                    (( sign[i] == 1'b0 ) ? abs_a[i*Q +:Q] : -abs_a[i*Q +:Q] ) ; 
 
             // need to compare with signed 
             // synth will do the rest 
@@ -320,41 +307,40 @@ module alu import ariane_pkg::*;(
             assign repaddlow[15:0]  = { fu_data_i.operand_a[15:0]  + fu_data_i.operand_b[7:0] } ; 
             assign repaddlow[31:16] = { fu_data_i.operand_a[31:16] + fu_data_i.operand_b[15:7] } ; 
             assign repaddlow[47:32] = { fu_data_i.operand_a[47:32] + fu_data_i.operand_b[24:16] } ; 
-            assign repaddlow[63:47] = { fu_data_i.operand_a[63:47] + fu_data_i.operand_b[31:25] } ; 
+            assign repaddlow[63:48] = { fu_data_i.operand_a[63:48] + fu_data_i.operand_b[31:25] } ; 
 
             assign repaddhi[15:0]   = { fu_data_i.operand_a[15:0]   + fu_data_i.operand_b[39:32] } ; 
             assign repaddhi[31:16]  = { fu_data_i.operand_a[31:16]  + fu_data_i.operand_b[47:40] } ; 
             assign repaddhi[47:32]  = { fu_data_i.operand_a[47:32]  + fu_data_i.operand_b[55:48] } ; 
-            assign repaddhi[63:47]  = { fu_data_i.operand_a[63:47]  + fu_data_i.operand_b[63:55] } ; 
+            assign repaddhi[63:48]  = { fu_data_i.operand_a[63:48]  + fu_data_i.operand_b[63:55] } ; 
 
+            // 64b tied
             assign repaddsum[i*Q+:Q] ={
 			        ($signed( fu_data_i.operand_a[15:0 ] )< 0 ) ? 8'h01 : 8'h00,
 			        ($signed( fu_data_i.operand_a[31:16] )< 0 ) ? 8'h01 : 8'h00,
-              ($signed( fu_data_i.operand_a[47:32] )< 0 ) ? 8'h01 : 8'h00,
-              ($signed( fu_data_i.operand_a[63:47] )< 0 ) ? 8'h01 : 8'h00,
-
+              ($signed( fu_data_i.operand_a[48:32] )< 0 ) ? 8'h01 : 8'h00,
+              ($signed( fu_data_i.operand_a[63:47] )< 0 ) ? 8'h01 : 8'h00, //half
 			        ($signed( fu_data_i.operand_b[15:0 ] )< 0 ) ? 8'h01 : 8'h00,
 			        ($signed( fu_data_i.operand_b[31:16] )< 0 ) ? 8'h01 : 8'h00,
-              ($signed( fu_data_i.operand_b[47:32] )< 0 ) ? 8'h01 : 8'h00,
+              ($signed( fu_data_i.operand_b[48:32] )< 0 ) ? 8'h01 : 8'h00,
               ($signed( fu_data_i.operand_b[63:47] )< 0 ) ? 8'h01 : 8'h00
             }; 
 
           // SPC Absolute comparaison simd 
           // Get absolute val 
-          // assign absvec_a[i*Q+:Q] =  ($signed(fu_data_i.operand_a[i*Q+:Q]) >=0 ) ? fu_data_i.operand_a[i*Q+:Q] :  fu_data_i.operand_a[i*Q+:Q] : 
-          // assign absvec_b[i*Q+:Q] =  ($signed(fu_data_i.operand_b[i*Q+:Q]) >=0 ) ? fu_data_i.operand_b[i*Q+:Q] :  fu_data_i.operand_b[i*Q+:Q] : 
-          assign spc_abscomp[i*Q+:Q] =( abs_a[i*Q+:Q] < abs_b[i*Q+:Q] ) ? 8'hff : 8'h00; 
+          assign absvec_a[i*Q+:Q]     = ($signed(fu_data_i.operand_a[i*Q+:Q]) >=0 ) ? fu_data_i.operand_a[i*Q+:Q] :  fu_data_i.operand_a[i*Q+:Q] ;
+          assign absvec_b[i*Q+:Q]     = ($signed(fu_data_i.operand_b[i*Q+:Q]) >=0 ) ? fu_data_i.operand_b[i*Q+:Q] :  fu_data_i.operand_b[i*Q+:Q] ; 
+          assign spc_abscomp[i*Q+:Q]  = ( abs_a[i*Q+:Q] < abs_b[i*Q+:Q] ) ? 8'hff : 8'h00; 
 
-          // SPC Absolute Min 
+          // // SPC Absolute Min 
           assign spc_absmin[i*Q+:Q] =( abs_a[i*Q+:Q] >= abs_b[i*Q+:Q] ) ? abs_b[i*Q+:Q]  : abs_a[i*Q+:Q];
 
-          // SPC update           
+          // // SPC update           
           assign spc_idup[i*Q+:Q] = fu_data_i.operand_a[i*Q+:Q] & fu_data_i.operand_b[7:0] ; 
 
-          // SPC MAX 
+          // // SPC MAX 
           assign spc_max[i*Q+:Q] = ( fu_data_i.operand_a[i*Q+:Q] > fu_data_i.operand_b[i*Q+:Q]) ? fu_data_i.operand_a[i*Q+:Q] : fu_data_i.operand_b[i*Q+:Q] ; 
-
-
+        
         end 
   endgenerate
 
