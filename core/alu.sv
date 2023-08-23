@@ -284,13 +284,9 @@ module alu import ariane_pkg::*;(
             assign abs_a[ i*Q +:Q] = ( ( $signed( fu_data_i.operand_a[i*Q +:Q]   ) >= 0) ? fu_data_i.operand_a[i*Q +:Q]   : -fu_data_i.operand_a[i*Q +:Q] ) ;
             assign abs_b[ i*Q +:Q] = ( ( $signed( fu_data_i.operand_b[i*Q +:Q]   ) >= 0) ? fu_data_i.operand_b[i*Q +:Q]   : -fu_data_i.operand_b[i*Q +:Q] ) ;
 
-            assign func_f[i*Q +:Q] =
-                                        ( abs_a[i*Q +:Q] > abs_b[i*Q +:Q] ) ? 
-                                            (( sign[i*Q +:Q] == 1'b0 ) ? abs_b[i*Q +:Q] : 
-                                                                        -abs_b[i*Q +:Q] ) 
-                                            : 
-                                            (( sign[i*Q +:Q] == 1'b0 ) ? abs_a[i*Q +:Q] : 
-                                                                        -abs_a[i*Q +:Q] ) ; 
+            assign func_f[i*Q +:Q] =( abs_a[i*Q +:Q] > abs_b[i*Q +:Q] ) ? 
+                                    (( sign[i] == 1'b0 ) ? abs_b[i*Q +:Q] : -abs_b[i*Q +:Q] ) : 
+                                    (( sign[i] == 1'b0 ) ? abs_a[i*Q +:Q] : -abs_a[i*Q +:Q] ) ; 
 
             // need to compare with signed 
             // synth will do the rest 
@@ -305,8 +301,7 @@ module alu import ariane_pkg::*;(
             assign decode[i*Q+:Q] =(fu_data_i.operand_b[i*Q+:Q] ==8'h00 ) ? fu_data_i.operand_a[i*Q+:Q] : 8'h00 ; 
 
             assign eval[i*Q+:Q]   =(fu_data_i.operand_a[i*Q+:Q] ==8'd1 ) ? 8'hFF : 8'h00 ; 
-
-
+            
             assign func_g[i*Q+:Q] =  (fu_data_i.imm[i*Q+:Q]==8'h00)?  polar_res_aplusb[(i*9) +:9]: 
                                                               polar_res_aminusb[(i*9) +:9]; 
 
