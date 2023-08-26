@@ -1,0 +1,16 @@
+ LDPC(34,20) Horizontal layered:: 10 ite :: int8 
+GENEREE : Aug 24 2023 - 21:34:32
+|=======================|
+diff in :
+----E---------------------------
+--
+|=======================|
+cycles	: 65977 
+insn	: 45960 
+|=======================|
+
+ diff out :
+--------------------------------
+--- /home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/tb/rvfi_tracer.sv:63: Verilog $finish
+- /home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/tb/rvfi_tracer.sv:64: Verilog $finish
+- /home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/tb/rvfi_tracer.sv:64: Second verilog $finish, exiting

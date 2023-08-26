@@ -1,3 +1,6 @@
+
+##ONLY FOR 8 BIT WIDE DATA
+
 ![Build Status](https://github.com/openhwgroup/cva6/actions/workflows/ci.yml/badge.svg?branch=master)
 
 # CVA6 RISC-V CPU
