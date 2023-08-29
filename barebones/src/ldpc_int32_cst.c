@@ -4,7 +4,7 @@ BUg
 */
 #include <stdint.h>
 
-#define debug 
+//#define debug 
 
 #define CODE   ("LDPC")
 #define ordo   ("Horizontal layered")

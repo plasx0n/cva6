@@ -3,6 +3,7 @@ AS=/opt/riscv/bin/riscv64-unknown-elf-as
 LD=/opt/riscv/bin/riscv64-unknown-elf-ld
 DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
 
+CVA=../work-ver/Variane_testharness
 
 BINARIES = ldpc_int64_cst ldpc_int64 ldpc_int32_cst ldpc_int32 ldpc_int8x8_inter ldpc_int8x4_inter ldpc_int8_cst simd_unit_test ldpc_int8
 SRC=./src/stdlib.c
@@ -34,8 +35,8 @@ simd_unit_test 		: $(SRC_DIR)simd_unit_test.o
 OBJ=$(SRC:.c=.o)
 ASM=$(SRC_ASM:.S=.o)
 
-all : 
-	 $(MAKE) -j$(NPROCsr) sall 
+all :
+	 $(MAKE) -j$(NPROC) sall
 
 sall: $(BINARIES)
 
@@ -48,6 +49,8 @@ sall: $(BINARIES)
 %.o: %.S
 	$(GCC) -o $@ -c $< $(AS_FLAGS)
 
+test:
+	$(CVA) bin/ldpc_int8 > ldpc_int8
 
 dump: ldpc_int8x4_inter
 	$(DMP) -d ./bin/$^ > $^.txt

@@ -5,7 +5,7 @@ par slli / srai
 
 */
 
-#define debug 
+//#define debug 
 #include <stdint.h>
 
 #define CODE   ("LDPC")
