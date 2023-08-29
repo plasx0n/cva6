@@ -1,0 +1,15 @@
+
+res/ldpc_int8:cycles	    : 96 236 
+res/ldpc_int8:insn	        : 66 658 
+res/ldpc_int8_cst:cycles	: 65 977 
+res/ldpc_int8_cst:insn	    : 45 960 
+
+res/ldpc_int32:cycles	    : 86 772 
+res/ldpc_int32:insn	        : 62 168 
+res/ldpc_int32_cst:cycles	: 58 993 
+res/ldpc_int32_cst:insn	    : 41 238 
+
+res/ldpc_int64:cycles	    : 64 247 
+res/ldpc_int64:insn	        : 45 799 
+res/ldpc_int64_cst:cycles	: 55 009 
+res/ldpc_int64_cst:insn	    : 38 972
