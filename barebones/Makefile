@@ -5,11 +5,11 @@ DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
 
 
 BINARIES = ldpc_int8_r3_cst ldpc_int8 
-SRC=./src/stdlib.c
+SRC=./common/stdlib.c
 
-SRC_ASM=./start.S
+SRC_ASM=./common/start.S
 
-LINKER_SCRIPT=./rv64.ld
+LINKER_SCRIPT=./common/rv64.ld
 
 GCC_FLAGS	=-Wall -Wextra -march=rv64imafc -mcmodel=medany -mabi=lp64f -ffreestanding -static -O3
 AS_FLAGS	=-march=rv64imafc -mabi=lp64f
@@ -26,11 +26,14 @@ all: $(BINARIES)
 %: $(OBJ) $(ASM)
 	$(GCC) $(GCC_FLAGS) $(LD_FLAGS) -T $(LINKER_SCRIPT) $(ASM) $(OBJ) ./src/$@.o -o ./bin/$@
 
+test_code : ldpc_int8
+	../work-ver/Variane_testharness bin/ldpc_int8 > res/$<
+
 %.o: %.c
 	$(GCC) -o $@ -c $< $(GCC_FLAGS) -I includes/
 
 %.o: %.S
-	$(GCC) -o $@ -c $< $(AS_FLAGS) -I includes/
+	$(GCC) -o $@ -c $< $(AS_FLAGS)
 
 
 dump: $(EXEC)

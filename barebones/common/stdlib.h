@@ -5,7 +5,7 @@ long cycles();
 long insn();
 void perfs_init();
 void perfs_end();
-void display_perfs(); 
+void display_perf(); 
 
 static void printf_c(int c);
 static void printf_s(char *p);

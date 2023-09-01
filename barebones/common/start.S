@@ -1,4 +1,4 @@
-#include "./src/encoding.h"
+#include "encoding.h"
 
 .section .init, "ax"
 .global _start
