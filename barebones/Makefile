@@ -27,10 +27,10 @@ all: $(BINARIES)
 	$(GCC) $(GCC_FLAGS) $(LD_FLAGS) -T $(LINKER_SCRIPT) $(ASM) $(OBJ) ./src/$@.o -o ./bin/$@
 
 %.o: %.c
-	$(GCC) -o $@ -c $< $(GCC_FLAGS)
+	$(GCC) -o $@ -c $< $(GCC_FLAGS) -I includes/
 
 %.o: %.S
-	$(GCC) -o $@ -c $< $(AS_FLAGS)
+	$(GCC) -o $@ -c $< $(AS_FLAGS) -I includes/
 
 
 dump: $(EXEC)
