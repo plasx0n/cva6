@@ -1,0 +1,18 @@
+|=======================|
+|LDPC(34,20)	
+|MPA - MIN-SUM Horizontal layered 		
+|iter: 10 , QTF: int8_t
+|GENEREE : Sep  1 2023 - 11:53:32
+|=======================|
+|diff in :
+----E-----------------------------
+|=======================|
+|Bench
+|cycles	: 65989 
+|insn	: 45958 
+|=======================|
+|diff out:
+--EE-EEEEEEE-EEE----E-EEEEEEE-----
+- /home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/tb/rvfi_tracer.sv:63: Verilog $finish
+- /home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/tb/rvfi_tracer.sv:64: Verilog $finish
+- /home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/tb/rvfi_tracer.sv:64: Second verilog $finish, exiting
