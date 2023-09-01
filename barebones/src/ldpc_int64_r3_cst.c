@@ -1,30 +1,28 @@
-/*
-*/
+
 #include <stdint.h>
-#include "stdlib.h"
 
 #define CODE   	("LDPC")
 #define ALGO	("MPA - MIN-SUM")
 #define ordo   	("Horizontal layered")
 
 #define iter 	10
-#define _8b 
+#define _64b 
 
 #include "trame_34_20_BG2.h"
-#include "insn_2r.h"
+#include "insn_2r_64b.h"
 
 void process()
 {
 	// DOIT COMMENCER ICI AVEC AccVun déja remplit 
     
 	// size 32 to compability 
-	int8_t Resu[32]  ;
+	int64_t Resu[32]  ;
 
 		for( int l=0; l<iter; l++)
 		{
 			// pour bouger dans le tableau d'indices
-			int8_t* ptr_posVn = posVn ;
-			int8_t* ptr_c2v   = c2v ;
+			int64_t* ptr_posVn = posVn ;
+			int64_t* ptr_c2v   = c2v ;
 
 			// parcours des CN
 			for( int idex_Cn = 0 ; idex_Cn < nb_CN ; idex_Cn++)
@@ -34,54 +32,59 @@ void process()
 				// degMax Cn -> 10
 
 				
-				int8_t min1    = INT8_MAX ;
-				int8_t min2    = INT8_MAX ;
-				int8_t sign    =  0 ;
+				int64_t min1    = 127 ;
+				int64_t min2    = 127 ;
+				int64_t sign    =  0 ;
 
 
 				// parcours des VN liés au Cn courant
-                int8_t degCN = deg_Cns[idex_Cn];
+                int64_t degCN = deg_Cns[idex_Cn];
 				for( int idex_Vn =0 ; idex_Vn < degCN ; idex_Vn++)
 				{
 
-                    int8_t indice = ptr_posVn[ idex_Vn ];
-					int8_t pVn  =	accuVn[ indice] 	;
-					int8_t msg    =	ptr_c2v  [ idex_Vn ];
+					// float Resu = nouveau - ancien
+					// ancien :     SOv = LLR + S c2v ( eq 1.6 )  | v2c = SOv - c2v eq 1.7
+
+					// de mem : 2 boucles l'une permet de maj les v2c pour chaque vn et de cac sign + xor
+
+                    int64_t indice = ptr_posVn[ idex_Vn ];
+					int64_t pVn  =	accuVn[ indice] 	;
+					int64_t msg    =	ptr_c2v  [ idex_Vn ];
 					
-					int8_t vAccu ;
-					int8_t a ;
-
-					callSubSat(vAccu,pVn,msg);					
-
-					Resu[idex_Vn] =  vAccu; 
+					int64_t vAccu ;
+					callSubSat(vAccu,pVn,msg);				
 
 					// check min & signe ;
 					// min avec vResu
 					sign  ^=  ( vAccu < 0);  
 				
+					int64_t a;
 					callAbs(a,vAccu,0); 
-					min2 = minmax(min1,a,min2); 
-					callMin(min1, a,min1) ; 
-				
+					// min2 = minmax(min1,a,min2); 
+					callMin(min1,a,min1) ; 
+					
+
 				}
 
 				// parcours des VN liés au Cn courant
 				for( int idex_Vn = 0 ; idex_Vn < degCN; idex_Vn++)
 				{
-					int8_t nMessage ;
-					int8_t temp = Resu[idex_Vn] ; 
+					int64_t nMessage ;
+					int64_t temp = Resu[idex_Vn] ; 
 
-					int8_t min_ = ld_min_sorting(min1,temp,min2);
+					// maj des messages c2v
+					// avec les mins et les signe
+					// mask pour supprimer les branches conds. 
+					int64_t min_ = ld_min_sorting(min1,temp,min2);
 
 					nMessage = ld_rsign_nmess(temp,sign,min_); 
 
 					// maj c2v
 					ptr_c2v[idex_Vn] = nMessage ;
-
 					callAddSat(temp,temp, nMessage) ;
 
 					// up accuVn ;
-                    int8_t    indice = ptr_posVn[ idex_Vn ];
+                    int64_t    indice = ptr_posVn[ idex_Vn ];
 					accuVn[ indice ] = temp ;
 
 
@@ -93,6 +96,7 @@ void process()
 		}
 
 }
+
 int main() {
 
 	printf("|=======================|\n");
@@ -115,7 +119,9 @@ int main() {
 	printf("\n"); 
 
 	perfs_init();
-   		process() ; 
+	
+   	process() ; 
+
 	perfs_end(); 
 	display_perf(); 
 
