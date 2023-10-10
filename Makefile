@@ -786,6 +786,12 @@ fpga: $(ariane_pkg) $(util) $(src) $(fpga_src) $(uart_src) $(copro_src)
 build-spike:
 	cd tb/riscv-isa-sim && mkdir -p build && cd build && ../configure --prefix=`pwd`/../install --with-fesvr=$(RISCV) --enable-commitlog && make -j8 install
 
+parse:
+	spike-dasm < trace_hart_00.dasm > log.txt
+	/bin/python3 logparser.py > data.txt
+	/bin/python3 dataparser.py data.txt
+
+
 clean:
 	rm -rf $(riscv-torture-dir)/output/test*
 	rm -rf $(library)/ $(dpi-library)/ $(ver-library)/ $(vcs-library)/
