@@ -4,7 +4,7 @@ LD=/opt/riscv/bin/riscv64-unknown-elf-ld
 DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
 
 
-BINARIES = ldpc_int8_cst ldpc_int8 ldpc_int32 ldpc_int32_cst ldpc_int64 ldpc_int64_cst 
+BINARIES = ldpc_int8_cst ldpc_int8 ldpc_int32 ldpc_int32_cst ldpc_int64 ldpc_int64_cst
 SRC=./src/stdlib.c
 
 SRC_ASM=./start.S
@@ -37,9 +37,9 @@ all: $(BINARIES)
 %.o: %.S
 	$(GCC) -o $@ -c $< $(AS_FLAGS)
 
-
-dump: $(EXEC)
-	$(DMP) -d ./bin/$^ > dmp.txt
+dump :
+	$(DMP) -D --disassemble=process bin/ldpc_int8_cst > dmp.txt
+	awk '/process/,/ret/' dmp.txt > process.txt
 
 .PHONY: all clean mrproper dump
 

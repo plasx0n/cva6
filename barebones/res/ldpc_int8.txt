@@ -1,0 +1,41 @@
+          type  data_nb  data_perc
+insn                              
+ret    control        1       0.00
+             0        2       0.00
+ld       loads        8       0.01
+sd       loads        8       0.01
+beqz   control       10       0.02
+auipc   intcom       11       0.02
+blt    control      139       0.21
+slli    intcom      140       0.21
+andi    intcom      140       0.21
+addiw   intcom      150       0.23
+j      control      289       0.43
+li       loads      423       0.63
+beq    control      781       1.17
+and     intcom     1040       1.56
+seqz    intcom     1040       1.56
+addw    intcom     1040       1.56
+sub     intcom     1040       1.56
+not     intcom     1040       1.56
+srli    intcom     2220       3.33
+bne    control     2479       3.72
+add     intcom     2640       3.96
+sb       loads     3120       4.68
+xor     intcom     3260       4.89
+subw    intcom     3734       5.60
+lb       loads     5340       8.01
+mv      intcom     5768       8.65
+bge    control     5842       8.77
+addi    intcom     6554       9.83
+slliw   intcom     8675      13.02
+sraiw   intcom     9715      14.58
+
+         data_nb  data_perc
+type                       
+control     9541      14.32
+intcom     48207      72.33
+loads       8899      13.34
+
+type     control  intcom  loads
+data_nb     9541   48207   8899

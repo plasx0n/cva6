@@ -787,9 +787,11 @@ build-spike:
 	cd tb/riscv-isa-sim && mkdir -p build && cd build && ../configure --prefix=`pwd`/../install --with-fesvr=$(RISCV) --enable-commitlog && make -j8 install
 
 parse:
-	spike-dasm < trace_hart_00.dasm > log.txt
+	./work-ver/Variane_testharness barebones/bin/ldpc_int8_cst
+	awk '/80000420/,/0x800005d0/' trace_hart_00.dasm > trace.dasm
+	spike-dasm < trace.dasm > log.txt
 	/bin/python3 logparser.py > data.txt
-	/bin/python3 dataparser.py data.txt > output.txt
+	/bin/python3 dataparser.py data.txt > ldpc_int8_cst.txt
 
 clean:
 	rm -rf $(riscv-torture-dir)/output/test*
