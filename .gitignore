@@ -40,4 +40,5 @@ tb/riscv-isa-sim/
 work-*/*
 install/
 xrun_results/
-barebone/bin/*
+barebones/bin/*
+barebones/bin/*.elf
