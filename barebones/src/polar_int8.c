@@ -4,7 +4,7 @@
 #define codw_N 1024
 #define K codw_N/2
 
-#define ABS(N) ((N<0)?(-N):(N))
+#define abs(N) ((N<0)?(-N):(N))
 
 // ds le heap 
     int8_t froozen_bits[]={

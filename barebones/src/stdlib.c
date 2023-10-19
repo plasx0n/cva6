@@ -1,6 +1,6 @@
 #include <stdarg.h>
 #include <stdint.h>
-
+#define abs(N) ((N<0)?(-N):(N))
 long cycles()
 {
 	int cycles;
@@ -16,8 +16,6 @@ long insn()
 	// printf("[insn() -> %d]", insns);
 	return insns;
 }
-
-
 
 static void printf_c(int c)
 {

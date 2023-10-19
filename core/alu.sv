@@ -296,7 +296,7 @@ module alu import ariane_pkg::*;(
             // synth will do the rest 
             assign func_subsat[ i*Q +:Q] =  ($signed(polar_res_aminusb[(i*9) +:9]) >  9'sd127)?  8'sd127 : 
                                             ($signed(polar_res_aminusb[(i*9) +:9]) < -9'sd127)? -8'sd127 : 
-                                            polar_res_aminusb[(i*cle9) +:9];
+                                            polar_res_aminusb[(i*9) +:9];
 
             assign func_addsat[ i*Q +:Q] =  ( $signed(polar_res_aplusb[(i*9) +:9])  >  9'sd127) ? 8'sd127 : 
                                             ( $signed(polar_res_aplusb[(i*9) +:9])  < -9'sd127)? -8'sd127 : 

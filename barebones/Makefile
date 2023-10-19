@@ -17,7 +17,6 @@ GCC_FLAGS=-Wall -Wextra -march=rv64imafc -mcmodel=medany -mabi=lp64f -ffreestand
 AS_FLAGS=-march=rv64imafc -mabi=lp64f
 LD_FLAGS=-nostdlib
 
-
 polar_int8 			: ./src/polar_int8.o
 polar_int8_cst 		: ./src/polar_int8_cst.o
 polar_int8x4_inter 	: ./src/polar_int8x4_inter.o
