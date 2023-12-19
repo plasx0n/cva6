@@ -3,7 +3,6 @@ AS=/opt/riscv/bin/riscv64-unknown-elf-as
 LD=/opt/riscv/bin/riscv64-unknown-elf-ld
 DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
 
-
 BINARIES = ldpc_int8_cst ldpc_int8 ldpc_int32 ldpc_int32_cst ldpc_int64 ldpc_int64_cst
 SRC=./src/stdlib.c
 
