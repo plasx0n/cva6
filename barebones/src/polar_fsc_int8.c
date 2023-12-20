@@ -1,32 +1,23 @@
-/*
-    Quantif du decodeur pour insertion sur le cibles RV
-	cible RV : la tc ne peut supporter des flotants
-	le test doit donc utiliser les trames Ldpcs déja mises en formes
-*/
 
-
-// CONFIGURATION SC SYS basique 
-
-// #define EXT_FUNC_8b
-
-// CONFIGURATION SC SYS basique + Instrus 
 #define abs(N) ((N<0)?(-N):(N))
 
+// CONFIGURATION SC SYS basique
 
-#define BASE_FUNC_8b
-#define CUSTOM_BASE_FUNC_8b 
 #define EXT_FUNC_8b
+#define BASE_FUNC_8b
+
+// CONFIGURATION SC SYS basique + Instrus
+// #define CUSTOM_BASE_FUNC_8b
 
 #include "includes.h"
 
-// goes in heap 
-    int8_t LLR[2*codw_N]   = {0}; 
-    int8_t PS[codw_N]      = {0};    
-    int8_t decode_out_[K ] = {0}; 
+// goes in heap
+    int8_t LLR[2*codw_N]   = {0};
+    int8_t PS[codw_N]      = {0};
+    int8_t decode_out_[K ] = {0};
 
 // main
-int main(int argc , char * argv[]) 
-{
+int main(){
 
     for (int i = 0; i < codw_N; i++)
         LLR[i] = codw[i] ;
@@ -41,8 +32,8 @@ int main(int argc , char * argv[])
     // node 8   => standard SC
     // node top => Fast
 
-    // node_8( PS, LLR, codw_N, froozen_bits );
-    node_top( PS, LLR, codw_N, froozen_bits );
+    node_8( PS, LLR, codw_N, froozen_bits );
+   	// node_top( PS, LLR, codw_N, froozen_bits );
 
 	cycle_stop  = cycles()-4;
 	insn_stop   = insn()-4;

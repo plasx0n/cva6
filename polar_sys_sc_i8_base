@@ -1,0 +1,7 @@
+cycles	: 425776 
+insn	: 318540 
+errors 
+ DONE 
+- /home/naptop/Documents/PHD/riscv/cva6_exp/cva6/corev_apu/tb/rvfi_tracer.sv:63: Verilog $finish
+- /home/naptop/Documents/PHD/riscv/cva6_exp/cva6/corev_apu/tb/rvfi_tracer.sv:64: Verilog $finish
+- /home/naptop/Documents/PHD/riscv/cva6_exp/cva6/corev_apu/tb/rvfi_tracer.sv:64: Second verilog $finish, exiting
