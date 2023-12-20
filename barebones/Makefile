@@ -22,6 +22,7 @@ polar_int8_cst 		: ./src/polar_int8_cst.o
 polar_int8x4_inter 	: ./src/polar_int8x4_inter.o
 polar_int8x8_inter 	: ./src/polar_int8x8_inter.o
 
+
 OBJ=$(SRC:.c=.o)
 ASM=$(SRC_ASM:.S=.o)
 
