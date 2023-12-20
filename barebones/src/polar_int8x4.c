@@ -12,7 +12,7 @@
 
 static inline int8_t func_g(int8_t rs1, int8_t rs2,int8_t rs3){
     int8_t rd ; 
-    asm volatile("pl3_g %0,%1,%2,%3" \
+    asm volatile("pl3.g %0,%1,%2,%3" \
                             :"=r"(rd) \
                             :"r"(rs1),"r"(rs2),"r"(rs3));           
     return rd;
