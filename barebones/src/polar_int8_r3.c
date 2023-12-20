@@ -2,7 +2,21 @@
 #include "stdint.h"
 #include "./stdlib.h"
 
-#define abs(N) ((N<0)?(-N):(N))
+#define callRinstr(a,b,c) asm volatile("pl.r %0,%1,%2" \
+	                            : "=r" (a) \
+	                            : "r" (b), "r" (c)); 
+
+#define callFinstr(a,b,c) asm volatile("pl.f %0,%1,%2" \
+	                            : "=r" (a) \
+	                            : "r" (b), "r" (c)); 
+
+static inline int8_t func_g(int8_t rs1, int8_t rs2,int8_t rs3){
+    int8_t rd ; 
+    asm volatile("pl3.g %0,%1,%2,%3" \
+                            :"=r"(rd) \
+                            :"r"(rs1),"r"(rs2),"r"(rs3));           
+    return rd;
+}
 
 // PARAMETERS 
 #define codw_N 1024
@@ -26,85 +40,41 @@
 ////////////////////////// 
 // main func 
 
-// low level polar funcs
-int8_t func_f(int8_t la,int8_t lb){
-    int8_t min1 , min2 ; 
-    int8_t sign = 0 ; 
-
-    min1 = abs(la) ; 
-    min2 = abs(lb) ;
-
-    if(min1>min2) min1=min2 ; 
-    sign = (la < 0) ^ (lb < 0) ; 
-
-    return (sign == 0 )? min1 : -min1 ; 
-}
-
-int8_t func_r(int8_t la,int8_t  froozen){
-    if(froozen){
-        return 0 ;
-    } 
-    else {
-        return (la < 0) ; 
-    }
-}
-
-int16_t func_g(int8_t sa,int16_t la,int16_t lb){
-    if ( sa==0 ){
-        return la+lb ; 
-    }
-    else{ 
-        return lb-la ; 
-    }
-}
-
-int8_t func_h(int8_t sa,int8_t sb){
-    return sa^sb; 
-}
-
-int8_t sat( int16_t val){
-    // evaluation uniquement sur G en 16 bits 
-    if( val >= 127 )
-        return 127 ; 
-    else if( val <= -127)
-        return -127 ; 
-    else 
-        return val ;
-}
-
-////////////////////////// 
-// main func 
-
 void node( int8_t* ptr_sum, int8_t *LLR , int N, int8_t *fz_bits,int8_t *decode)
 {
-    if( N == 1 ){    
-		*ptr_sum = func_r(*LLR, *fz_bits ); 
+    if( N == 1 )
+    {     
+        callRinstr( *ptr_sum,*LLR, *fz_bits ) ; 
         if ( *fz_bits == 0 )
 			*decode = *ptr_sum ;
 		else
 			*decode = 0;
+
         return;
     }
         // ON CALCULE LES F
-        for( int x = 0 ; x < N/2; x += 1 ){
-            (LLR+N)[ x ]= func_f( LLR[ x ], (LLR+N/2)[ x ]);  
+        for( int x = 0 ; x < N/2; x += 1 )
+        {
+            callFinstr( (LLR+N)[ x ] , LLR[ x ], (LLR+N/2)[ x ]);
         }
  
         // ON CALCULE LA BRANCHE GAUCHE
         node( ptr_sum, (LLR+N), N/2, fz_bits,decode);
 
         // ON CALCULE LES G
-        for( int x = 0;  x < N/2; x += 1 ){
-            int16_t temp = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ; 
-            (LLR+N)[ x ] =sat( temp)  ; 
+        for( int x = 0;  x < N/2; x += 1 )
+        {
+            (LLR+N)[ x ] = func_g( LLR[ x ], (LLR+N/2)[ x ] , ptr_sum[x] ) ;
         }
 
         // ON CALCULE LA BRANCHE DROITE
+
         node( ptr_sum+ N/2, (LLR+N), N/2,  fz_bits+ N/2, decode+N/2);
     
         // ON FAIT LES CALCUL DES H (XOR DES SP)
-        for(int x = 0 ; x < N/2 ; x += 1 ){          
-            ptr_sum[x] = func_h( ptr_sum[x], ptr_sum[ x + (N/2) ]);     
+        for(int x = 0 ; x < N/2 ; x += 1 )
+        {          
+            ptr_sum[x] ^=  ptr_sum[ x + (N/2)];     
         }
 }
 
