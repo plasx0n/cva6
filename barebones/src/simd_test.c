@@ -1,64 +1,76 @@
 #include "./stdlib.h"
+#include "stdint.h"
 
-#define int8_tx4 int32_t
-#define int8_tx8 int64_t 
+// #define int8_tx4 int32_t
+// #define int8_tx8 int64_t 
 
-void displayVector( int8_tx4 vector ){
-	printf("V4[31:24] %d ",   vector>>24) ;
-	printf("V3[23:16] %d ",  (vector<<8)>>24) ;
-	printf("V2[15:8]  %d ",  (vector<<16)>>24) ;
-	printf("V1[7:0]   %d \n",(vector<<24)>>24) ;
-}
+// void displayVector( int8_tx4 vector ){
+// 	printf("V4[31:24] %d ",   vector>>24) ;
+// 	printf("V3[23:16] %d ",  (vector<<8)>>24) ;
+// 	printf("V2[15:8]  %d ",  (vector<<16)>>24) ;
+// 	printf("V1[7:0]   %d \n",(vector<<24)>>24) ;
+// }
 
-void displayVectorHex_int8x4( int8_tx4 vector ){
-	printf("V4[31:24] %x ",   vector>>24) ;
-	printf("V3[23:16] %x ",  (vector<<8)>>24) ;
-	printf("V2[15:8]  %x ",  (vector<<16)>>24) ;
-	printf("V1[7:0]   %x \n",(vector<<24)>>24) ;
-}
+// void displayVectorHex_int8x4( int8_tx4 vector ){
+// 	printf("V4[31:24] %x ",   vector>>24) ;
+// 	printf("V3[23:16] %x ",  (vector<<8)>>24) ;
+// 	printf("V2[15:8]  %x ",  (vector<<16)>>24) ;
+// 	printf("V1[7:0]   %x \n",(vector<<24)>>24) ;
+// }
 
 
-void displayVector_int8x8( int8_tx8 vector ){
-	printf("=========================\n"); 
-  printf("V8[64:56]:%d ",    vector     >>56) ;
-	printf("V7[55:48]:%d ",   (vector<<8 )>>56) ;
-	printf("V6[47:40]:%d ",   (vector<<16)>>56) ;
-	printf("V5[39:32]:%d \n", (vector<<24)>>56) ;
-	printf("V4[31:24]:%d ",   (vector<<32)>>56) ;
-	printf("V3[23:16]:%d ",   (vector<<40)>>56) ;
-	printf("V2[15:8] :%d ",   (vector<<48)>>56) ;
-	printf("V1[7:0]  :%d \n", (vector<<56)>>56) ;
-	printf("=========================\n"); 
-}
+// void displayVector_int8x8( int8_tx8 vector ){
+// 	printf("=========================\n"); 
+//   printf("V8[64:56]:%d ",    vector     >>56) ;
+// 	printf("V7[55:48]:%d ",   (vector<<8 )>>56) ;
+// 	printf("V6[47:40]:%d ",   (vector<<16)>>56) ;
+// 	printf("V5[39:32]:%d \n", (vector<<24)>>56) ;
+// 	printf("V4[31:24]:%d ",   (vector<<32)>>56) ;
+// 	printf("V3[23:16]:%d ",   (vector<<40)>>56) ;
+// 	printf("V2[15:8] :%d ",   (vector<<48)>>56) ;
+// 	printf("V1[7:0]  :%d \n", (vector<<56)>>56) ;
+// 	printf("=========================\n"); 
+// }
 
+static inline int32_t func_g3( int32_t rs1 , int32_t  rs2, int32_t  rs3  ){
+		int32_t rd ; 
+		asm volatile(" pl3.g %0,%1,%2,%3" \
+								: "=r" (rd) \
+								: "r" (rs1), "r" (rs2), "r"(rs3)); 
+		return rd;
+	}
 
 
 int main() {
 
-  int8_tx8 vec64, 
-  vec64_test=0 ,
-  vec64_test2 = 0 ;  
-  vec64_test = 0x1122334455667788 ;  
 
-  printf("addsat \n"); 
-  displayVector_int8x8(vec64_test) ; 
-  callAddSat(vec64,vec64_test, vec64_test);
-  displayVector_int8x8(vec64) ;
+  int a = func_g3(0,1,2); 
+  printf("a%d",a); 
+
+  // int8_tx8 vec64, 
+  // vec64_test=0 ,
+  // vec64_test2 = 0 ;  
+  // vec64_test = 0x1122334455667788 ;  
+
+  // printf("addsat \n"); 
+  // displayVector_int8x8(vec64_test) ; 
+  // callAddSat(vec64,vec64_test, vec64_test);
+  // displayVector_int8x8(vec64) ;
 
 
-  vec64_test2 = 0x8899aa44ff55ee66 ;
-  printf("subsat \n "); 
-  displayVector_int8x8(vec64_test) ; 
-  callSubSat(vec64,vec64_test2, vec64_test);
-  displayVector_int8x8(vec64) ;
+  // vec64_test2 = 0x8899aa44ff55ee66 ;
+  // printf("subsat \n "); 
+  // displayVector_int8x8(vec64_test) ; 
+  // callSubSat(vec64,vec64_test2, vec64_test);
+  // displayVector_int8x8(vec64) ;
 
-  displayVector_int8x8(vec64_test) ; 
-  callFinstr(vec64,vec64_test, vec64_test);
-  displayVector_int8x8(vec64) ;
+  // displayVector_int8x8(vec64_test) ; 
+  // callFinstr(vec64,vec64_test, vec64_test);
+  // displayVector_int8x8(vec64) ;
 
-  displayVector_int8x8(vec64_test) ; 
-  callRinstr(vec64,vec64_test, vec64_test);
-  displayVector_int8x8(vec64) ;
+  // displayVector_int8x8(vec64_test) ; 
+  // callRinstr(vec64,vec64_test, vec64_test);
+  // displayVector_int8x8(vec64) ;
   
 
 /*

@@ -5,8 +5,9 @@ AS=/opt/riscv/bin/riscv64-unknown-elf-as
 LD=/opt/riscv/bin/riscv64-unknown-elf-ld
 DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
 
+
 # Programs 
-BINARIES = polar_fsc_inter
+BINARIES = polar_fsc_inter simd_test
 
 SRC=./src/stdlib.c
 SRC_ASM=./start.S
@@ -19,6 +20,7 @@ LD_FLAGS=-nostdlib
 
 
 polar_fsc_inter 			: ./src/polar_fsc_inter.o
+simd_test : src/simd_test.o
 
 OBJ=$(SRC:.c=.o)
 ASM=$(SRC_ASM:.S=.o)

@@ -1,0 +1,366 @@
+POLAR FSC 4*int8 vecto inter  N:1024 K:512
+[59033] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[59061] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[59089] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[59116] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[92486] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[92513] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[92540] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[92567] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[93451] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[93469] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[93487] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[93510] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[98104] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[98127] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[98150] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[98168] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[99009] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[99036] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[99058] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[99085] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[133470] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[133497] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[133524] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[133551] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[134388] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[134411] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[134434] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[134457] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[143627] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[143654] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[143681] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[143703] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[146513] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[146536] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[146559] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[146577] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[147418] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[147445] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[147472] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[147499] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[168372] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[168395] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[168418] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[168441] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[174814] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[174832] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[174855] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[174878] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[182921] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[182939] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[182957] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+[182975] %Warning: ariane_testharness.sv:649: Assertion failed in TOP.ariane_testharness.p_assert: R Response Errored
+
+|=======================|
+cycles	: 202860 
+insn	: 148950 
+|=======================|
+errors 
+E @ 1 
+codw_out[i]: 3 
+U: 1 
+E @ 6 
+codw_out[i]: 0 
+U: 1 
+E @ 10 
+codw_out[i]: 0 
+U: 1 
+E @ 20 
+codw_out[i]: 1 
+U: 0 
+E @ 23 
+codw_out[i]: 0 
+U: 1 
+E @ 24 
+codw_out[i]: 8 
+U: 0 
+E @ 29 
+codw_out[i]: 0 
+U: 1 
+E @ 35 
+codw_out[i]: 0 
+U: 1 
+E @ 40 
+codw_out[i]: 0 
+U: 1 
+E @ 43 
+codw_out[i]: 0 
+U: 1 
+E @ 46 
+codw_out[i]: 0 
+U: 1 
+E @ 50 
+codw_out[i]: 10 
+U: 1 
+E @ 51 
+codw_out[i]: -22 
+U: 0 
+E @ 52 
+codw_out[i]: 0 
+U: 1 
+E @ 56 
+codw_out[i]: 1 
+U: 0 
+E @ 57 
+codw_out[i]: 1 
+U: 0 
+E @ 58 
+codw_out[i]: 0 
+U: 1 
+E @ 67 
+codw_out[i]: 0 
+U: 1 
+E @ 68 
+codw_out[i]: 0 
+U: 1 
+E @ 84 
+codw_out[i]: 0 
+U: 1 
+E @ 89 
+codw_out[i]: 0 
+U: 1 
+E @ 97 
+codw_out[i]: 0 
+U: 1 
+E @ 98 
+codw_out[i]: 0 
+U: 1 
+E @ 104 
+codw_out[i]: 1 
+U: 0 
+E @ 113 
+codw_out[i]: 0 
+U: 1 
+E @ 114 
+codw_out[i]: 0 
+U: 1 
+E @ 116 
+codw_out[i]: 0 
+U: 1 
+E @ 118 
+codw_out[i]: 0 
+U: 1 
+E @ 119 
+codw_out[i]: 0 
+U: 1 
+E @ 127 
+codw_out[i]: 0 
+U: 1 
+E @ 136 
+codw_out[i]: 1 
+U: 0 
+E @ 138 
+codw_out[i]: 1 
+U: 0 
+E @ 139 
+codw_out[i]: -11 
+U: 1 
+E @ 140 
+codw_out[i]: -9 
+U: 0 
+E @ 141 
+codw_out[i]: -9 
+U: 1 
+E @ 146 
+codw_out[i]: -7 
+U: 1 
+E @ 147 
+codw_out[i]: 3 
+U: 1 
+E @ 156 
+codw_out[i]: 1 
+U: 0 
+E @ 169 
+codw_out[i]: 1 
+U: 0 
+E @ 173 
+codw_out[i]: 0 
+U: 1 
+E @ 184 
+codw_out[i]: 0 
+U: 1 
+E @ 186 
+codw_out[i]: 0 
+U: 1 
+E @ 187 
+codw_out[i]: 0 
+U: 1 
+E @ 196 
+codw_out[i]: 0 
+U: 1 
+E @ 197 
+codw_out[i]: 0 
+U: 1 
+E @ 200 
+codw_out[i]: 0 
+U: 1 
+E @ 201 
+codw_out[i]: 0 
+U: 1 
+E @ 206 
+codw_out[i]: 1 
+U: 0 
+E @ 207 
+codw_out[i]: 0 
+U: 1 
+E @ 218 
+codw_out[i]: 1 
+U: 0 
+E @ 228 
+codw_out[i]: 0 
+U: 1 
+E @ 229 
+codw_out[i]: 0 
+U: 1 
+E @ 233 
+codw_out[i]: 0 
+U: 1 
+E @ 240 
+codw_out[i]: 0 
+U: 1 
+E @ 254 
+codw_out[i]: 0 
+U: 1 
+E @ 257 
+codw_out[i]: 0 
+U: 1 
+E @ 259 
+codw_out[i]: 0 
+U: 1 
+E @ 264 
+codw_out[i]: 0 
+U: 1 
+E @ 271 
+codw_out[i]: 0 
+U: 1 
+E @ 277 
+codw_out[i]: -1 
+U: 1 
+E @ 278 
+codw_out[i]: 0 
+U: 1 
+E @ 284 
+codw_out[i]: 0 
+U: 1 
+E @ 286 
+codw_out[i]: 0 
+U: 1 
+E @ 291 
+codw_out[i]: 0 
+U: 1 
+E @ 298 
+codw_out[i]: 0 
+U: 1 
+E @ 303 
+codw_out[i]: 0 
+U: 1 
+E @ 304 
+codw_out[i]: 0 
+U: 1 
+E @ 307 
+codw_out[i]: 0 
+U: 1 
+E @ 315 
+codw_out[i]: 0 
+U: 1 
+E @ 320 
+codw_out[i]: 0 
+U: 1 
+E @ 324 
+codw_out[i]: 0 
+U: 1 
+E @ 332 
+codw_out[i]: 0 
+U: 1 
+E @ 334 
+codw_out[i]: 0 
+U: 1 
+E @ 338 
+codw_out[i]: 0 
+U: 1 
+E @ 344 
+codw_out[i]: 0 
+U: 1 
+E @ 345 
+codw_out[i]: 0 
+U: 1 
+E @ 370 
+codw_out[i]: 0 
+U: 1 
+E @ 377 
+codw_out[i]: 1 
+U: 0 
+E @ 383 
+codw_out[i]: 0 
+U: 1 
+E @ 385 
+codw_out[i]: 0 
+U: 1 
+E @ 393 
+codw_out[i]: 1 
+U: 0 
+E @ 396 
+codw_out[i]: 0 
+U: 1 
+E @ 397 
+codw_out[i]: 0 
+U: 1 
+E @ 417 
+codw_out[i]: 1 
+U: 0 
+E @ 420 
+codw_out[i]: 0 
+U: 1 
+E @ 421 
+codw_out[i]: 0 
+U: 1 
+E @ 424 
+codw_out[i]: 0 
+U: 1 
+E @ 426 
+codw_out[i]: 0 
+U: 1 
+E @ 431 
+codw_out[i]: 0 
+U: 1 
+E @ 432 
+codw_out[i]: 0 
+U: 1 
+E @ 433 
+codw_out[i]: 0 
+U: 1 
+E @ 434 
+codw_out[i]: 0 
+U: 1 
+E @ 438 
+codw_out[i]: 1 
+U: 0 
+E @ 442 
+codw_out[i]: 0 
+U: 1 
+E @ 451 
+codw_out[i]: 1 
+U: 0 
+E @ 454 
+codw_out[i]: 0 
+U: 1 
+E @ 455 
+codw_out[i]: 0 
+U: 1 
+E @ 458 
+codw_out[i]: 0 
+U: 1 
+E @ 459 
+codw_out[i]: 0 
+U: 1 
+E @ 478 
+codw_out[i]: 1 
+U: 0 
+E @ 498 
+codw_out[i]: 1 
+U: 0 
+ DONE 
+- /home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/tb/rvfi_tracer.sv:63: Verilog $finish
+- /home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/tb/rvfi_tracer.sv:64: Verilog $finish
+- /home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/tb/rvfi_tracer.sv:64: Second verilog $finish, exiting

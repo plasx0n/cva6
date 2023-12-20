@@ -2,7 +2,6 @@
 
 #include <stdio.h>
 #include <stdint.h>
-
 // Trame 
 #include "trames/n3_repspc_k512_inter.h"
 
@@ -18,8 +17,7 @@
 
 #define callSubSat(a,b,c) asm volatile("pl.subsat %0,%1,%2" \
 	                            : "=r" (a) \
-	                            : "r" (b), "r" (c)); 
-                                
+	                            : "r" (b), "r" (c));
 #define callAddSat(a,b,c) asm volatile("pl.addsat %0,%1,%2" \
 	                            : "=r" (a) \
 	                            : "r" (b), "r" (c)); 
@@ -56,6 +54,14 @@
                                 : "=r" (a) \
                                 : "r" (b),"r"(c)); 
 
+static inline int32_t func_g3( int32_t rs1 , int32_t  rs2, int32_t  rs3  ){
+		int32_t rd ; 
+		asm volatile(" pl3.g %0,%1,%2,%3" \
+								: "=r" (rd) \
+								: "r" (rs1), "r" (rs2), "r"(rs3)); 
+		return rd;
+	}
+
 
 void reorder(int32_t* dest, const int8_t* src, int N) // N: SIMD level 
 {
@@ -81,24 +87,33 @@ void ireorder(int8_t* dest, int32_t* src, int N) // N: SIMD level
     }
 }
 
-int32_t func_g(int32_t sa,int32_t la,int32_t lb)
-{
-    // solutionée par l'utilisation du masquage mais demande de faire les 2 calculs .. 
-    // modèle LDPC 
+#ifdef PL3 
+    inline int32_t func_g(int32_t sa,int32_t la,int32_t lb){
+        return func_g3(sa,la,lb); 
+    }
 
-    int32_t eval ;   
-    callEval(eval,sa,0) ;  
+#else
 
-    int32_t v1,v2,vf ; 
-    callAddSat(v1,la,lb) ;
-    callSubSat(v2,lb,la) ; 
+    int32_t func_g(int32_t sa,int32_t la,int32_t lb)
+    {
+        // solutionée par l'utilisation du masquage mais demande de faire les 2 calculs .. 
+        // modèle LDPC 
 
-    v1 = v1 & ~eval ;
-    v2 = v2 & eval ; 
-    vf = v1 | v2 ; 
+        int32_t eval ;   
+        callEval(eval,sa,0) ;  
 
-    return vf ; 
-}
+        int32_t v1,v2,vf ; 
+        callAddSat(v1,la,lb) ;
+        callSubSat(v2,lb,la) ; 
+
+        v1 = v1 & ~eval ;
+        v2 = v2 & eval ; 
+        vf = v1 | v2 ; 
+
+        return vf ; 
+    }
+
+#endif
 
 void node_8(int32_t* ptr_sum, int32_t *LLR , int N, char *fz_bits)
 { 

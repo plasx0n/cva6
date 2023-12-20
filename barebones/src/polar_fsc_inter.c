@@ -25,7 +25,8 @@ FSC only  :
      
 */
 
-#include <stdio.h>
+#include "stdint.h"
+//#define PL3
 #include "code.h"
 
     int32_t data_out[K] ;
@@ -55,17 +56,19 @@ int main()
     // ------------
 
     // direct node_8 => pas d'application du FSC
-    // node_top => controle pour le FSC  
-    node_8( PS, LLR, codw_N, froozen_bits );
+    // node_8( PS, LLR, codw_N, froozen_bits );
+
+   // node_top => controle pour le FSC
+    node_top( PS, LLR, codw_N, froozen_bits );
 
     // ------------
-    int j= 0; 
+    int j= 0;
     for( int i=0 ; i <codw_N ; i++)
     {
         if(!froozen_bits[i])
         data_out[j++] = PS[i] ;
     }
-    
+
     ireorder(codw_out,data_out,K) ; 
 
     // -------
