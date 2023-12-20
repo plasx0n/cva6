@@ -60,6 +60,14 @@ int8_t codw[]={
 	                            : "=r" (a) \
 	                            : "r" (b), "r" (c)); 
 
+static inline int8_t func_g3(int8_t rs1, int8_t rs2,int8_t rs3){
+    int8_t rd ; 
+    asm volatile("pl3.g %0,%1,%2,%3" \
+                            :"=r"(rd) \
+                            :"r"(rs1),"r"(rs2),"r"(rs3));           
+    return rd;
+}
+
 
 /* Basic Functions SC Float and 32 bits */ 
 #ifdef BASE_FUNC_32b
@@ -509,10 +517,12 @@ int8_t codw[]={
         // ON CALCULE LES G
         for( int x = 0;  x < N/2; x += 1 )
         {
-            #ifdef CUSTOM_BASE_FUNC_8b
+            #ifdef R3
+                (LLR+N)[ x ] = func_g3( ptr_sum[x] , LLR[ x ], (LLR+N/2)[ x ]) ;
+            
+            #elifdef CUSTOM_BASE_FUNC_8b
                 (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
-                // printf( "Res %d  ( %d, %d , %d ) \n", (LLR+N)[ x ],  ptr_sum[x], (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]  ) ;
-
+            
             #else 
                 int16_t temp = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ; 
                 (LLR+N)[ x ] =sat( temp)  ;  
@@ -838,9 +848,13 @@ int8_t codw[]={
         // une fois G pour la branche droite   
         for( int x = 0;  x < N/2; x += 1 )
         {
-            #ifdef CUSTOM_BASE_FUNC_8b
-            (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
-
+            
+            #ifdef R3
+                (LLR+N)[ x ] = func_g3( ptr_sum[x] , LLR[ x ], (LLR+N/2)[ x ]) ;
+            
+            #elifdef CUSTOM_BASE_FUNC_8b
+                (LLR+N)[ x ] = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ;
+            
             #else 
             int16_t temp = func_g( ptr_sum[x] , (int16_t) LLR[ x ], (int16_t) (LLR+N/2)[ x ]) ; 
             (LLR+N)[ x ] =sat( temp)  ;  

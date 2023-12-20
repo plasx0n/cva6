@@ -7,7 +7,9 @@
 #define BASE_FUNC_8b
 
 // CONFIGURATION SC SYS basique + Instrus
-// #define CUSTOM_BASE_FUNC_8b
+#define CUSTOM_BASE_FUNC_8b
+// R3 for G 
+#define R3
 
 #include "includes.h"
 

@@ -16,7 +16,6 @@ GCC_FLAGS=-Wall -Wextra -march=rv64imafc -mcmodel=medany -mabi=lp64f -ffreestand
 AS_FLAGS=-march=rv64imafc -mabi=lp64f
 LD_FLAGS=-nostdlib
 
-
 polar_fsc_int8 	: src/polar_fsc_int8.o
 
 OBJ=$(SRC:.c=.o)
