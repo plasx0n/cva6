@@ -1,0 +1,222 @@
+diff --git a/core/alu.sv b/core/alu.sv
+index 52481a4..db1cab5 100644
+--- a/core/alu.sv
++++ b/core/alu.sv
+@@ -218,12 +218,84 @@ module alu import ariane_pkg::*;(
+         );
+     end
+ 
++  ////////////////
++  //POLAR       //
++  ////////////////
++  // Pas d'optis 
++
++  logic [riscv::XLEN:0]  polar_result='0 ; 
++  parameter integer QTF_SIZE  = 8 ; 
++
++
++  // fonction G 
++  logic [QTF_SIZE:0]  polar_minus1 ;
++  logic [QTF_SIZE-1 : 0] res_minus1 ; 
++
++  logic [QTF_SIZE:0]  polar_plus1 ;
++  logic [QTF_SIZE-1 : 0] res_plus1 ; 
++
++  assign polar_minus1 = $signed( fu_data_i.operand_b[7:0])   - $signed( fu_data_i.operand_a[7:0]) ;
++  assign polar_plus1  = $signed( fu_data_i.operand_a[7:0])   + $signed( fu_data_i.operand_b[7:0]) ;
++
++  assign res_minus1 = ($signed(polar_minus1) > 127)? 8'h7f : ($signed(polar_minus1) < -127)? 8'h81 : polar_minus1[QTF_SIZE-1:0] ;
++  assign res_plus1  = ($signed(polar_plus1) >  127)? 8'h7f : ($signed(polar_plus1) < -127)? 8'h81 : polar_plus1[QTF_SIZE-1:0]  ;
++
++  // others fonctions 
++  logic                 sign1 ;
++  logic [QTF_SIZE-1:0]  min11 ; 
++  logic [QTF_SIZE-1:0]  min21 ;
++
++  assign sign1 = ( ( $signed( fu_data_i.operand_a[7:0]   ) >= 0) ? 0:1)  ^ ( ( $signed(fu_data_i.operand_b[7:0]   ) >= 0 )? 0:1)   ; 
++  assign min11 = ( ( $signed( fu_data_i.operand_a[7:0]   ) >= 0) ? fu_data_i.operand_a[7:0]   : -fu_data_i.operand_a[7:0]   ) ;
++  assign min21 = ( ( $signed( fu_data_i.operand_b[7:0]   ) >= 0) ? fu_data_i.operand_b[7:0]   : -fu_data_i.operand_b[7:0] ) ;
++
++
++  always_comb begin
++    // ouf 
++    polar_result='0 ; 
++    unique case (fu_data_i.operator)
++
++      PL_R: begin 
++        polar_result =  
++        {
++        24'h00 ,
++        ($signed(fu_data_i.operand_b[7:0] ) == 1) ? 8'h00 : ($signed(fu_data_i.operand_a[7:0] ) < 0 ) ? 8'h01 : 8'h00 
++        }; 
++      end 
++
++      PL_F : begin 
++        polar_result = 
++        {
++        24'h00 ,
++        ( min11 > min21 ) ? (( sign1 == 0 ) ? min21 : -min21 ) : (( sign1 == 0 ) ? min11 : -min11 )  
++        } ;
++      end
++
++      PL_G : begin 
++        // $display("imm %b",fu_data_i.imm);
++        polar_result =  (fu_data_i.imm[7:0]==8'h00)? res_plus1: res_minus1 ; 
++      end 
++
++
++      default: begin
++        polar_result='0 ; 
++      end
++    endcase
++  end 
++
+     // -----------
+     // Result MUX
+     // -----------
+     always_comb begin
+         result_o   = '0;
+         unique case (fu_data_i.operator)
++            
++            // polar  operations 
++            PL_F,
++            PL_R,
++            PL_G : result_o = polar_result;
++
++
+             // Standard Operations
+             ANDL, ANDN: result_o = fu_data_i.operand_a & operand_b_neg[riscv::XLEN:1];
+             ORL, ORN  : result_o = fu_data_i.operand_a | operand_b_neg[riscv::XLEN:1];
+diff --git a/core/decoder.sv b/core/decoder.sv
+index 1e316db..31c280e 100644
+--- a/core/decoder.sv
++++ b/core/decoder.sv
+@@ -90,6 +90,39 @@ module decoder import ariane_pkg::*; (
+ 
+         if (~ex_i.valid) begin
+             case (instr.rtype.opcode)
++                // TEST
++                
++                riscv::PL: begin
++                    instruction_o.fu       = ALU; 
++                    instruction_o.rs1[4:0] = instr.itype.rs1;
++                    instruction_o.rs2[4:0] = instr.rtype.rs2;
++                    instruction_o.rd[4:0]  = instr.itype.rd;
++                    unique case (instr.r4type.funct2)
++                        2'b00: begin // FC2 est clean 
++                            unique case ({instr.rtype.funct7, instr.rtype.funct3})
++                                {7'b000_0000, 3'b000} : begin
++                                    instruction_o.op = ariane_pkg::PL_F;
++                                    // $display("pl_f");
++                                end 
++                                {7'b000_0000, 3'b001} : begin
++                                    instruction_o.op = ariane_pkg::PL_R;
++                                    // $display("pl_R");
++                                end
++                            endcase
++                        end
++
++                        2'b11:begin 
++                            imm_select        = RS3; // rs3 into result field
++                            unique case (instr.r4type.funct3)
++                                {3'b000}:begin
++                                    instruction_o.op = ariane_pkg::PL_G;
++                                    // $display("PL_G");
++                                end 
++                            endcase
++                        end
++                    endcase
++                end
++     
+                 riscv::OpcodeSystem: begin
+                     instruction_o.fu       = CSR;
+                     instruction_o.rs1[4:0] = instr.itype.rs1;
+@@ -123,7 +156,7 @@ module decoder import ariane_pkg::*; (
+                                         //  do not change privilege level if this is an illegal instruction
+                                         instruction_o.op = ariane_pkg::ADD;
+                                     end
+-                                end
++                                end 
+                                 // MRET
+                                 12'b11_0000_0010: begin
+                                     instruction_o.op = ariane_pkg::MRET;
+diff --git a/core/include/ariane_pkg.sv b/core/include/ariane_pkg.sv
+index d24469b..3a692dd 100644
+--- a/core/include/ariane_pkg.sv
++++ b/core/include/ariane_pkg.sv
+@@ -463,7 +463,13 @@ package ariane_pkg;
+     // EX Stage
+     // ---------------
+ 
+-    typedef enum logic [7:0] { // basic ALU op
++    typedef enum logic [7:0] { 
++                               // POLAR
++                               PL_F,
++                               PL_R,
++                               PL_G,
++                            
++                               // basic ALU op
+                                ADD, SUB, ADDW, SUBW,
+                                // logic operations
+                                XORL, ORL, ANDL,
+@@ -607,6 +613,13 @@ package ariane_pkg;
+             return 1'b0;
+     endfunction
+ 
++    function automatic logic is_rs3_3reg (input fu_op op);
++            unique case (op) inside
++                PL_G              : return 1'b1; // Vectorial FP cast and pack ops
++                default           : return 1'b0; // all other ops
++            endcase
++    endfunction
++
+     function automatic logic is_amo (fu_op op);
+         case (op) inside
+             [AMO_LRW:AMO_MINDU]: begin
+diff --git a/core/include/riscv_pkg.sv b/core/include/riscv_pkg.sv
+index da40923..601996f 100644
+--- a/core/include/riscv_pkg.sv
++++ b/core/include/riscv_pkg.sv
+@@ -205,7 +205,7 @@ package riscv;
+     // Quadrant 0
+     localparam OpcodeLoad      = 7'b00_000_11;
+     localparam OpcodeLoadFp    = 7'b00_001_11;
+-    localparam OpcodeCustom0   = 7'b00_010_11;
++    localparam LDPC            = 7'b00_010_11;
+     localparam OpcodeMiscMem   = 7'b00_011_11;
+     localparam OpcodeOpImm     = 7'b00_100_11;
+     localparam OpcodeAuipc     = 7'b00_101_11;
+@@ -213,7 +213,7 @@ package riscv;
+     // Quadrant 1
+     localparam OpcodeStore     = 7'b01_000_11;
+     localparam OpcodeStoreFp   = 7'b01_001_11;
+-    localparam OpcodeCustom1   = 7'b01_010_11;
++    localparam PL              = 7'b01_010_11;
+     localparam OpcodeAmo       = 7'b01_011_11;
+     localparam OpcodeOp        = 7'b01_100_11;
+     localparam OpcodeLui       = 7'b01_101_11;
+diff --git a/core/issue_read_operands.sv b/core/issue_read_operands.sv
+index d50eeee..d8aa535 100644
+--- a/core/issue_read_operands.sv
++++ b/core/issue_read_operands.sv
+@@ -195,7 +195,7 @@ module issue_read_operands import ariane_pkg::*; #(
+ 
+     // Only check clobbered gpr for OFFLOADED instruction
+         if (is_imm_fpr(issue_instr_i.op) ? rd_clobber_fpr_i[issue_instr_i.result[REG_ADDR_SIZE-1:0]] != NONE
+-                     : issue_instr_i.op == OFFLOAD && NR_RGPR_PORTS == 3 ? rd_clobber_gpr_i[issue_instr_i.result[REG_ADDR_SIZE-1:0]] != NONE : 0) begin
++                     : is_rs3_3reg(issue_instr_i.op) && NR_RGPR_PORTS == 3 ? rd_clobber_gpr_i[issue_instr_i.result[REG_ADDR_SIZE-1:0]] != NONE : 0) begin
+             // if the operand is available, forward it. CSRs don't write to/from FPR so no need to check
+             if (rs3_valid_i) begin
+                 forward_rs3 = 1'b1;
+@@ -212,9 +212,10 @@ module issue_read_operands import ariane_pkg::*; #(
+         operand_b_n = operand_b_regfile;
+         // immediates are the third operands in the store case
+         // for FP operations, the imm field can also be the third operand from the regfile
++
+         if (NR_RGPR_PORTS == 3) begin
+             imm_n  = is_imm_fpr(issue_instr_i.op) ? {{riscv::XLEN-FLEN{1'b0}}, operand_c_regfile} :
+-                                                    issue_instr_i.op == OFFLOAD ? operand_c_regfile : issue_instr_i.result;
++                                                    is_rs3_3reg(issue_instr_i.op) ? operand_c_regfile : issue_instr_i.result;
+         end else begin
+             imm_n  = is_imm_fpr(issue_instr_i.op) ? {{riscv::XLEN-FLEN{1'b0}}, operand_c_regfile} : issue_instr_i.result;
+         end

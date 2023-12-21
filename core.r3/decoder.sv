@@ -110,6 +110,16 @@ module decoder import ariane_pkg::*; (
                                 end
                             endcase
                         end
+
+                        2'b11:begin 
+                            imm_select        = RS3; // rs3 into result field
+                            unique case (instr.r4type.funct3)
+                                {3'b000}:begin
+                                    instruction_o.op = ariane_pkg::PL_G;
+                                    // $display("PL_G");
+                                end 
+                            endcase
+                        end
                     endcase
                 end
      

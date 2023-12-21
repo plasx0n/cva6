@@ -224,7 +224,7 @@ package ariane_pkg;
     localparam NR_WB_PORTS = 5;
 
     // Read ports for general purpose register files
-    localparam NR_RGPR_PORTS = 2;
+    localparam NR_RGPR_PORTS = 3;
     typedef logic [(NR_RGPR_PORTS == 3 ? riscv::XLEN : FLEN)-1:0] rs3_len_t;
 
     // static debug hartinfo
@@ -467,6 +467,7 @@ package ariane_pkg;
                                // POLAR
                                PL_F,
                                PL_R,
+                               PL_G,
                             
                                // basic ALU op
                                ADD, SUB, ADDW, SUBW,
@@ -610,6 +611,13 @@ package ariane_pkg;
             endcase
         end else
             return 1'b0;
+    endfunction
+
+    function automatic logic is_rs3_3reg (input fu_op op);
+            unique case (op) inside
+                PL_G              : return 1'b1; // Vectorial FP cast and pack ops
+                default           : return 1'b0; // all other ops
+            endcase
     endfunction
 
     function automatic logic is_amo (fu_op op);

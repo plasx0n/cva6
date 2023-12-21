@@ -229,11 +229,16 @@ module alu import ariane_pkg::*;(
 
   // fonction G 
   logic [QTF_SIZE:0]  polar_minus1 ;
+  logic [QTF_SIZE-1 : 0] res_minus1 ; 
 
   logic [QTF_SIZE:0]  polar_plus1 ;
+  logic [QTF_SIZE-1 : 0] res_plus1 ; 
 
   assign polar_minus1 = $signed( fu_data_i.operand_b[7:0])   - $signed( fu_data_i.operand_a[7:0]) ;
   assign polar_plus1  = $signed( fu_data_i.operand_a[7:0])   + $signed( fu_data_i.operand_b[7:0]) ;
+
+  assign res_minus1 = ($signed(polar_minus1) > 127)? 8'h7f : ($signed(polar_minus1) < -127)? 8'h81 : polar_minus1[QTF_SIZE-1:0] ;
+  assign res_plus1  = ($signed(polar_plus1) >  127)? 8'h7f : ($signed(polar_plus1) < -127)? 8'h81 : polar_plus1[QTF_SIZE-1:0]  ;
 
   // others fonctions 
   logic                 sign1 ;
@@ -266,6 +271,12 @@ module alu import ariane_pkg::*;(
         } ;
       end
 
+      PL_G : begin 
+        // $display("imm %b",fu_data_i.imm);
+        polar_result =  (fu_data_i.imm[7:0]==8'h00)? res_plus1: res_minus1 ; 
+      end 
+
+
       default: begin
         polar_result='0 ; 
       end
@@ -281,7 +292,9 @@ module alu import ariane_pkg::*;(
             
             // polar  operations 
             PL_F,
-            PL_R : result_o = polar_result;
+            PL_R,
+            PL_G : result_o = polar_result;
+
 
             // Standard Operations
             ANDL, ANDN: result_o = fu_data_i.operand_a & operand_b_neg[riscv::XLEN:1];
