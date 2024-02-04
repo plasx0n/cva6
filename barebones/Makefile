@@ -4,7 +4,7 @@ LD=/opt/riscv/bin/riscv64-unknown-elf-ld
 DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
 
 EXEC=hello.elf
-SRC=./src/helloworld.c ./src/uart.c
+SRC=./src/helloworld.c ./src/stdlib.c
 #SRC=./src/helloworld.c
 SRC_ASM=./start.S
 
@@ -20,6 +20,7 @@ ASM=$(SRC_ASM:.S=.o)
 
 $(EXEC): $(OBJ) $(ASM)
 	$(GCC) $(GCC_FLAGS) $(LD_FLAGS) -T $(LINKER_SCRIPT) $(ASM) $(OBJ) -o ./bin/$@
+	$(DMP) -D bin/$@ > dmp
 
 %.o: %.c
 	$(GCC) -o $@ -c $< $(GCC_FLAGS)
