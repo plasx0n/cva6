@@ -522,7 +522,17 @@ package ariane_pkg;
                                // Shift with Add (Bitmanip)
                                SH1ADD, SH2ADD, SH3ADD,
                                // Bitmanip Logical with negate op (Bitmanip)
-                               ANDN, ORN, XNOR
+                               ANDN, ORN, XNOR,
+                                // LDPC
+                               LDPC_IABS,
+                               LDPC_MIN,
+                               LDPC_MAX,
+                               LDPC_ABS,
+                               LDPC_NMESS,
+                               LDPC_SUB_SAT,
+                               LDPC_ADD_SAT,
+                               LDPC_EVAL,
+                               LDPC_RSIGN
                              } fu_op;
 
     typedef struct packed {

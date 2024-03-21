@@ -217,6 +217,77 @@ module alu import ariane_pkg::*;(
           .empty_o (lz_tz_wempty)
         );
     end
+  ////////////////
+  // LDPC       //
+  ////////////////
+
+  logic [31:0]  ldpc_result=32'h0 ; 
+  // parameter integer QTF_SIZE  = 8 ; 
+  
+  // si la data d'entrée est définie sur 8 bits (int8) mauvaise interprétation liée au bit supplémentaire 
+  // -4 = xfc (8b) & xff ff ff fc (32b) => calcul devient faut puisque interprété comme x0fc sur (9 bits) 
+  // bit 9 est utilisé pour l'overflow et par la suite évalué 
+  logic [8:0]   ldpc_res_plus ; 
+  assign ldpc_res_plus = $signed( fu_data_i.operand_a[7:0]) + $signed( fu_data_i.operand_b[7:0]) ; 
+
+  logic [8:0]   ldpc_res_minus ; 
+  assign ldpc_res_minus = $signed( fu_data_i.operand_a[7:0]) - $signed( fu_data_i.operand_b[7:0]) ; 
+
+  // A VERIF 
+  logic  ldpc_comp ; 
+  assign ldpc_comp = ($signed(fu_data_i.operand_a[7:0]) >= $signed(fu_data_i.operand_b[7:0])) ? 1:0 ; 
+
+  always_comb begin
+    ldpc_result=32'h0 ; 
+    unique case (fu_data_i.operator)
+
+      LDPC_MIN: begin
+        ldpc_result ={24'h0,  (ldpc_comp)? fu_data_i.operand_b[7:0] : fu_data_i.operand_a[7:0] };
+      end
+
+      LDPC_MAX: begin 
+        ldpc_result ={24'h0, (ldpc_comp)? fu_data_i.operand_a[7:0] : fu_data_i.operand_b[7:0] };
+      end 
+
+      LDPC_ABS: begin 
+        ldpc_result ={24'h0,   ($signed(fu_data_i.operand_a[7:0]) >= 0 )? fu_data_i.operand_a[7:0]: -fu_data_i.operand_a[7:0] }; 
+      end 
+
+      LDPC_NMESS : begin 
+        ldpc_result ={24'h0, ( fu_data_i.operand_a >= 1 )? fu_data_i.operand_b[7:0]:-fu_data_i.operand_b[7:0] };
+      end 
+
+      LDPC_SUB_SAT : begin 
+        ldpc_result = 
+        ($signed(ldpc_res_minus) >  127)? 127 : 
+        ($signed(ldpc_res_minus) < -127)? -127 : 
+        {24'h0,ldpc_res_minus[7:0]} ; 
+      end 
+
+      LDPC_ADD_SAT : begin 
+        ldpc_result = 
+        ($signed(ldpc_res_plus) >  127)? 127 : 
+        ($signed(ldpc_res_plus) < -127)? -127 : 
+        {24'h0,ldpc_res_plus[7:0]} ; 
+      end 
+
+      // v2 
+
+      LDPC_EVAL : begin
+         ldpc_result = { 24'h0 , $signed(fu_data_i.operand_a) != $signed(fu_data_i.operand_b) ? 8'h0:8'hff}  ; 
+        
+      end 
+
+      LDPC_RSIGN : begin
+        ldpc_result =
+         fu_data_i.operand_a ^ (($signed(fu_data_i.operand_b) >= 0 )? 1 :0 ); 
+      end
+      
+      default begin
+        ldpc_result=32'h0 ; 
+      end
+    endcase
+  end 
 
     // -----------
     // Result MUX
@@ -224,6 +295,17 @@ module alu import ariane_pkg::*;(
     always_comb begin
         result_o   = '0;
         unique case (fu_data_i.operator)
+            
+            // LDPC operations 
+            LDPC_MAX,
+            LDPC_MIN,
+            LDPC_ABS,
+            LDPC_NMESS,
+            LDPC_SUB_SAT,
+            LDPC_ADD_SAT,
+            LDPC_EVAL,
+            LDPC_RSIGN : result_o = ldpc_result;
+
             // Standard Operations
             ANDL, ANDN: result_o = fu_data_i.operand_a & operand_b_neg[riscv::XLEN:1];
             ORL, ORN  : result_o = fu_data_i.operand_a | operand_b_neg[riscv::XLEN:1];
