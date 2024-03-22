@@ -3,7 +3,6 @@ AS=/opt/riscv/bin/riscv64-unknown-elf-as
 LD=/opt/riscv/bin/riscv64-unknown-elf-ld
 DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
 
-
 BINARIES = simd_unit_tests ldpc_int8x4_inter_r3_cst ldpc_int8x8_inter_r3_cst
 SRC=./src/stdlib.c
 
