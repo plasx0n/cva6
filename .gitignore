@@ -19,7 +19,6 @@ build/*
 /Bender.lock
 /Bender.local
 build/
-*.vcd
 *.log
 *.out
 *.jou
