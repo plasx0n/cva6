@@ -41,3 +41,4 @@ install/
 xrun_results/
 barebones/bin/*
 barebones/bin/*.elf
+vcd
