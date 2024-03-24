@@ -224,7 +224,7 @@ module alu import ariane_pkg::*;(
 
     logic [riscv::XLEN-1:0] ldpc_result;
     parameter integer Q       = 8 ;
-    parameter integer SIMD    = 4 ;
+    parameter integer SIMD    = 8 ;
     // Array of vectors [ SIMD_lvl | simd_lvl-1 | simd_lvl-2 | ect..]
     parameter integer V_LENGHT = (Q*SIMD) ;
 
@@ -287,7 +287,7 @@ module alu import ariane_pkg::*;(
         // RSIGN
 
         assign a_sign_v[i]        	    =  ( $signed(fu_data_i.operand_b[i*Q +:Q]) >= 8'sb0 )? 1'b1 : 1'b0  ; // OpB >= 0 , sign1
-        assign temp_eval[i*Q +:Q]       =  ( $signed(fu_data_i.operand_a[i*Q +:Q]) ) ^ a_sign_v[i] ; // check MSB for sign ..
+        assign temp_eval[i*Q +:Q]       =  ( $signed(fu_data_i.operand_a[i*Q +:Q]) ) ^ a_sign_v[i] ; // 0 ou 1 pour opA 
         assign r_rsign_nmess[ i*Q +:Q]  =  ( $signed( temp_eval[i*Q +:Q] )>=8'sb1)? fu_data_i.imm[i*Q +:Q] : -fu_data_i.imm[i*Q +:Q] ;
 
         assign r_abs[ i*Q +:Q]          =   ($signed(fu_data_i.operand_a[i*Q +:Q]) >= 0 )? fu_data_i.operand_a[i*Q +:Q]: -fu_data_i.operand_a[i*Q +:Q] ;
