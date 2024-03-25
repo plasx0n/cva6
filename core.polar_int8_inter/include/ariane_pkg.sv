@@ -463,7 +463,16 @@ package ariane_pkg;
     // EX Stage
     // ---------------
 
-    typedef enum logic [7:0] { // basic ALU op
+    typedef enum logic [7:0] { 
+                               // POLAR
+                               PL_F,
+                               PL_R,
+                               PL_ADDSAT,
+                               PL_SUBSAT,
+                               PL_DECODE, 
+                               PL_EVAL,
+                            
+                               // basic ALU op
                                ADD, SUB, ADDW, SUBW,
                                // logic operations
                                XORL, ORL, ANDL,
@@ -522,17 +531,7 @@ package ariane_pkg;
                                // Shift with Add (Bitmanip)
                                SH1ADD, SH2ADD, SH3ADD,
                                // Bitmanip Logical with negate op (Bitmanip)
-                               ANDN, ORN, XNOR,
-                                // LDPC
-                                LDPC_SIGN,
-                                LDPC_MIN,
-                                LDPC_MAX,
-                                LDPC_ABS,
-                                LDPC_NMESS,
-                                LDPC_SUB_SAT,
-                                LDPC_EVAL,
-                                LDPC_RSIGN , 
-                                LDPC_ADD_SAT 
+                               ANDN, ORN, XNOR
                              } fu_op;
 
     typedef struct packed {

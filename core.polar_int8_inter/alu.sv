@@ -217,135 +217,98 @@ module alu import ariane_pkg::*;(
           .empty_o (lz_tz_wempty)
         );
     end
-  
-  
-  ////////////////
-  // LDPC       //
-  ////////////////
-// need  : subsat sign abs Max Min eval Rsign Nmess Addsat 
+    //////////////////
+    //POLAR autogen //
+    //////////////////
+    // Pas d'optis 
 
-    logic [riscv::XLEN-1:0] ldpc_result;
+    logic [riscv::XLEN-1:0] polar_result; 
     parameter integer Q       = 8 ;
-    parameter integer SIMD    = 8 ;
-
-    // Array of vectors [ SIMD_lvl | simd_lvl-1 | simd_lvl-2 | ect..]
+    parameter integer SIMD    = 8 ; 
+    // Array of vectors [ SIMD_lvl | simd_lvl-1 | simd_lvl-2 | ect..]   
     parameter integer V_LENGHT = (Q*SIMD) ;
 
-// 9 bits to compute overflow for SIMD values
-    logic[9*SIMD:0] ldpc_res_plus,
-                    ldpc_res_minus;
-// 8bits holders
-    logic[(V_LENGHT-1):0]   ldpc_max_vector,
-                            r_addsat,
-                            r_subsat,
-                            r_sign,
-                            r_eval, 
-                            r_rsign, 
-                            r_nmess, 
-                            r_min, r_abs;
-// hold just 1 bit
-  logic[SIMD-1:0] ldpc_comp;
+// 9 bits to compute overflow for SIMD values.. .
+    logic [9*SIMD:0]    polar_res_aminusb, 
+                        polar_res_aplusb; 
 
+    // pl_r 
+    logic [(V_LENGHT)-1:0]  func_r,
+                            abs_a, 
+                            abs_b,
+                            func_f,
+                            func_addsat,
+                            func_subsat,
+                            decode,
+                            eval;
+    // sign 1 bit 
+    logic [SIMD-1:0]        sign ;
+
+    // cycle trought the vectors 
     generate
-      for(genvar i=0 ; i<SIMD; i++) begin
 
-        // SUBSAT 
-        assign ldpc_res_minus[(i*9) +:9]  = $signed( fu_data_i.operand_a[i*Q +:Q ]) - $signed( fu_data_i.operand_b[i*Q +:Q ]) ;
-        assign r_subsat[ i*Q +:Q]         = ($signed(ldpc_res_minus[(i*9) +:9]) >  9'sd127)?  8'sd127 :
-                                            ($signed(ldpc_res_minus[(i*9) +:9]) < -9'sd127)? -8'sd127 :
-                                            ldpc_res_minus[(i*9) +:9];
+        for ( genvar i =0 ;  i<SIMD ;i++ ) begin
+            
+            // assign i = k*Q ; 
+            // assign byte0 = dword[0 +: 8];    // Same as dword[7:0]
 
-        // SIGN 
-        assign r_sign[ i*Q +:Q]           = ( $signed(fu_data_i.operand_a[i*Q +:Q]) < 8'sb0) ? 8'h01 : 8'h00 ;
+            // This is illegal due to the variable i, even though the width is always 8 bits
+            // assign byte = dword[(i*8)+7 : i*8];  // ** Not allowed!
 
-        // ABS 
-        assign r_abs[ i*Q +:Q]          =   ($signed(fu_data_i.operand_a[i*Q +:Q]) >= 0 )? fu_data_i.operand_a[i*Q +:Q]: -fu_data_i.operand_a[i*Q +:Q] ;
+            // Use the indexed part select 
+            // assign byte = dword[i*8 +: 8];
+            
+            assign func_r[i*Q +:Q] =  ($signed(fu_data_i.operand_b[7:0] ) == 8'sb1) ?8'h00: ( $signed(fu_data_i.operand_a[i*Q +:Q ]) < 8'sb0 ) ? 8'h01 : 8'h00 ; 
+            
+            assign decode[i*Q +:Q] =  (fu_data_i.operand_b[7:0] ==8'h00 ) ? fu_data_i.operand_a[i*Q +:Q] : 8'h00 ; 
+            // we have to account for possible overflow
+            assign polar_res_aminusb[(i*9) +:9]  = $signed( fu_data_i.operand_a[ i*Q +:Q]) - $signed( fu_data_i.operand_b[i*Q +:Q]) ;
+            assign polar_res_aplusb[(i*9)  +:9]  = $signed( fu_data_i.operand_a[ i*Q +:Q]) + $signed( fu_data_i.operand_b[i*Q +:Q]) ;
 
+            assign sign[i]         =  ( ( $signed( fu_data_i.operand_a[i*Q +:Q ]  ) >= 0) ? 1'b0:1'b1)  ^ ( ( $signed(fu_data_i.operand_b[i*Q +:Q] ) >= 0 )? 1'b0:1'b1)   ;
 
+            assign abs_a[ i*Q +:Q] = ( ( $signed( fu_data_i.operand_a[i*Q +:Q]   ) >= 0) ? fu_data_i.operand_a[i*Q +:Q]   : -fu_data_i.operand_a[i*Q +:Q] ) ;
+            assign abs_b[ i*Q +:Q] = ( ( $signed( fu_data_i.operand_b[i*Q +:Q]   ) >= 0) ? fu_data_i.operand_b[i*Q +:Q]   : -fu_data_i.operand_b[i*Q +:Q] ) ;
 
+            assign func_f[i*Q +:Q] =  ( abs_a[i*Q +:Q] > abs_b[i*Q +:Q] ) ? 
+                                      (( sign[i*Q +:Q] == 1'b0 ) ? abs_b[i*Q +:Q] : -abs_b[i*Q +:Q] ) 
+                                      :  
+                                      (( sign[i*Q +:Q] == 1'b0 ) ? abs_a[i*Q +:Q] : -abs_a[i*Q +:Q] ) ; 
 
-        // return bit of comparison (a >= b)?
-        assign ldpc_comp[i] = ($signed(fu_data_i.operand_a[i*Q +:Q]) >= $signed(fu_data_i.operand_b[i*Q +:Q] )) ? 1'b1:1'b0 ;
+            // need to compare with signed 
+            // synth will do the rest 
+            assign func_subsat[ i*Q +:Q] =  ($signed(polar_res_aminusb[(i*9) +:9]) >  9'sd127)?  8'sd127 : 
+                                            ($signed(polar_res_aminusb[(i*9) +:9]) < -9'sd127)? -8'sd127 : 
+                                            polar_res_aminusb[(i*9) +:9];
 
-        // MAX 
-        // return val max
-        assign ldpc_max_vector[i*Q +:Q] = (ldpc_comp[i])? fu_data_i.operand_a[i*Q +:Q] : fu_data_i.operand_b[i*Q +:Q] ;
+            assign func_addsat[ i*Q +:Q] =  ( $signed(polar_res_aplusb[(i*9) +:9])  >  9'sd127) ? 8'sd127 : 
+                                            ( $signed(polar_res_aplusb[(i*9) +:9])  < -9'sd127)? -8'sd127 : 
+                                            polar_res_aplusb[(i*9) +:9] ;
 
+            
 
-        // MIN 
-        // return val min
-        assign r_min[ i*Q +:Q] = (ldpc_comp[i])? fu_data_i.operand_b[i*Q +:Q] : fu_data_i.operand_a[i*Q +:Q] ;
-        
-        // EVAL
-        // cmpeq inv. 
-        assign r_eval[i*Q +:Q] = ( $signed(fu_data_i.operand_a[i*Q +:Q]) != $signed(fu_data_i.operand_b[i*Q +:Q]) )? 8'h0:8'hff ;   
-
-
-        // RSIGN 
-        assign r_rsign[i*Q +:Q] = fu_data_i.operand_a[i*Q +:Q] ^ (($signed(fu_data_i.operand_b[i*Q +:Q]) >= 8'sb0 )? 1 :0 ); 
-
-        // NMESS 
-        assign r_nmess[i*Q +:Q] = ( fu_data_i.operand_a[i*Q +:Q] >= 1 )? fu_data_i.operand_b[i*Q +:Q]: -fu_data_i.operand_b[i*Q +:Q] ;
-
-
-        // ADDSAT 
-        assign ldpc_res_plus[(i*9) +:9]   = $signed( fu_data_i.operand_a[i*Q +:Q ]) + $signed( fu_data_i.operand_b[i*Q +:Q ]) ;
-        assign r_addsat[ i*Q +:Q]         = ($signed(ldpc_res_plus[(i*9) +:9]) >  9'sd127)?  8'sd127 :
-                                            ($signed(ldpc_res_plus[(i*9) +:9]) < -9'sd127)? -8'sd127 :
-                                            ldpc_res_plus[(i*9) +:9]; //let the synthesizer handle the conversion ?
-      end
-    endgenerate
+            assign eval[i*Q +:Q]   =(fu_data_i.operand_a[i*Q +:Q] ==8'd1 ) ? 8'hFF : 8'h00 ; 
 
 
 
+        end 
+  endgenerate
 
-  // Can be removed
+
   always_comb begin
-    ldpc_result='0 ;
-
+    polar_result='0 ; 
     unique case (fu_data_i.operator)
 
-        LDPC_SUB_SAT : begin
-            ldpc_result = r_subsat ;
-        end
+      PL_R:       polar_result =  func_r; 
+      PL_F:       polar_result =  func_f ;
+      PL_SUBSAT : polar_result =  func_subsat; 
+      PL_ADDSAT : polar_result =  func_addsat;
+      PL_DECODE : polar_result =  decode ; 
+      PL_EVAL   : polar_result =  eval ; 
 
-        LDPC_SIGN: begin
-            ldpc_result =r_sign ;
-        end
-
-        LDPC_ABS: begin
-            ldpc_result =r_abs;
-        end
-
-        LDPC_MAX: begin
-            ldpc_result =ldpc_max_vector ;
-        end
-
-        LDPC_MIN: begin
-            ldpc_result =r_min ;
-        end
-        
-        LDPC_EVAL: begin
-            ldpc_result =r_eval ;
-        end
-
-        LDPC_RSIGN:begin
-            ldpc_result = r_rsign; 
-        end 
-
-        LDPC_NMESS: begin
-            ldpc_result =r_nmess ;
-        end
-
-        LDPC_ADD_SAT : begin
-            ldpc_result =r_addsat ;
-        end
-
-        default: begin
-            ldpc_result='0 ;
-        end
+      default: polar_result='0 ; 
     endcase
-  end
+  end 
 
     // -----------
     // Result MUX
@@ -354,17 +317,13 @@ module alu import ariane_pkg::*;(
         result_o   = '0;
         unique case (fu_data_i.operator)
             
-            // LDPC operations 
+            // polar  operations 
+            PL_F,
+            PL_R,
+            PL_DECODE,
+            PL_EVAL,
+            PL_ADDSAT, PL_SUBSAT : result_o = polar_result;
 
-            LDPC_SUB_SAT,
-            LDPC_SIGN, 
-            LDPC_ABS,
-            LDPC_MAX,
-            LDPC_MIN,
-            LDPC_NMESS,
-            LDPC_ADD_SAT,
-            LDPC_EVAL,
-            LDPC_RSIGN : result_o = ldpc_result;
 
             // Standard Operations
             ANDL, ANDN: result_o = fu_data_i.operand_a & operand_b_neg[riscv::XLEN:1];
