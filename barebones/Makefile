@@ -3,7 +3,7 @@ AS=/opt/riscv/bin/riscv64-unknown-elf-as
 LD=/opt/riscv/bin/riscv64-unknown-elf-ld
 DMP=/opt/riscv/bin/riscv64-unknown-elf-objdump
 
-EXEC?=polar_int8
+EXEC?=polar_int8x4
 
 SRC=./src/stdlib.c ./src/$(EXEC).c
 #SRC=./src/helloworld.c

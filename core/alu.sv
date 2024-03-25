@@ -332,6 +332,7 @@ module alu import ariane_pkg::*;(
         result_o   = '0;
         unique case (fu_data_i.operator)
             
+            PL_G,
             PL_F,
             PL_R,
             PL_DECODE,
