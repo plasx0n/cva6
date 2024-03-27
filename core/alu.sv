@@ -241,7 +241,8 @@ module alu import ariane_pkg::*;(
                             func_addsat,
                             func_subsat,
                             decode,
-                            eval;
+                            eval,
+                            func_g;
     // sign 1 bit 
     logic [SIMD-1:0]        sign ;
 
@@ -278,7 +279,7 @@ module alu import ariane_pkg::*;(
             // synth will do the rest 
             
             // SUBSAT 
-            assign polar_res_aminusb[(i*9) +:9]  = $signed( fu_data_i.operand_a[ i*Q +:Q]) - $signed( fu_data_i.operand_b[i*Q +:Q]) ;
+            assign polar_res_aminusb[(i*9) +:9]  = $signed( fu_data_i.operand_b[ i*Q +:Q]) - $signed( fu_data_i.operand_a[i*Q +:Q]) ;
             assign func_subsat[ i*Q +:Q] =  ($signed(polar_res_aminusb[(i*9) +:9]) >  9'sd127)?  8'sd127 : 
                                             ($signed(polar_res_aminusb[(i*9) +:9]) < -9'sd127)? -8'sd127 : 
                                             polar_res_aminusb[(i*9) +:9];
@@ -293,7 +294,8 @@ module alu import ariane_pkg::*;(
 
             assign eval[i*Q +:Q]   =(fu_data_i.operand_a[i*Q +:Q] ==8'd1 ) ? 8'hFF : 8'h00 ; 
 
-
+            assign func_g[i*Q+:Q] =  (fu_data_i.imm[i*Q+:Q]==8'h00)?  func_addsat[ i*Q +:Q]: 
+                                                                      func_subsat[ i*Q +:Q]; 
 
         end 
   endgenerate
@@ -305,10 +307,9 @@ module alu import ariane_pkg::*;(
 
       PL_R:       polar_result =  func_r; 
       PL_F:       polar_result =  func_f ;
-      PL_SUBSAT : polar_result =  func_subsat; 
-      PL_ADDSAT : polar_result =  func_addsat;
       PL_DECODE : polar_result =  decode ; 
       PL_EVAL   : polar_result =  eval ; 
+      PL_G      : polar_result =  func_g ; 
 
       default: polar_result='0 ; 
     endcase
@@ -326,7 +327,7 @@ module alu import ariane_pkg::*;(
             PL_R,
             PL_DECODE,
             PL_EVAL,
-            PL_ADDSAT, PL_SUBSAT : result_o = polar_result;
+            PL_G : result_o = polar_result;
 
 
             // Standard Operations

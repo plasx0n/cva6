@@ -102,10 +102,18 @@ module decoder import ariane_pkg::*; (
                             unique case ({instr.rtype.funct7, instr.rtype.funct3})
                                 {7'b000_0000, 3'b000} : instruction_o.op = ariane_pkg::PL_F;
                                 {7'b000_0000, 3'b001} : instruction_o.op = ariane_pkg::PL_R;
-                                {7'b000_0000, 3'b010} : instruction_o.op = ariane_pkg::PL_ADDSAT;
-                                {7'b000_0000, 3'b011} : instruction_o.op = ariane_pkg::PL_SUBSAT;
                                 {7'b000_0000, 3'b100} : instruction_o.op = ariane_pkg::PL_DECODE;
                                 {7'b000_0000, 3'b101} : instruction_o.op = ariane_pkg::PL_EVAL;
+                            endcase
+                        end
+
+                        2'b11:begin 
+                            imm_select        = RS3; // rs3 into result field
+                            unique case (instr.r4type.funct3)
+                                {3'b000}:begin
+                                    instruction_o.op = ariane_pkg::PL_G;
+                                    // $display("PL_G");
+                                end 
                             endcase
                         end
                     endcase

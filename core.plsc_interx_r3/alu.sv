@@ -217,133 +217,101 @@ module alu import ariane_pkg::*;(
           .empty_o (lz_tz_wempty)
         );
     end
-    ////////////////
+    //////////////////
     //POLAR autogen //
-    ////////////////
+    //////////////////
     // Pas d'optis 
 
-  logic [31:0]  polar_result='0 ; 
-  parameter integer QTF_SIZE  = 8 ; 
+    logic [riscv::XLEN-1:0] polar_result; 
+    parameter integer Q       = 8 ;
 
-  logic [QTF_SIZE:0]  polar_Res_minus1 ; 
-  logic [QTF_SIZE:0]  polar_Res_minus2 ;
-  logic [QTF_SIZE:0]  polar_Res_minus3 ;
-  logic [QTF_SIZE:0]  polar_Res_minus4 ;
+    parameter integer SIMD    = 8 ; 
+    // Array of vectors [ SIMD_lvl | simd_lvl-1 | simd_lvl-2 | ect..]   
+    parameter integer V_LENGHT = (Q*SIMD) ;
 
-  logic [QTF_SIZE:0]  polar_Res_plus1 ;
-  logic [QTF_SIZE:0]  polar_Res_plus2 ;
-  logic [QTF_SIZE:0]  polar_Res_plus3 ;
-  logic [QTF_SIZE:0]  polar_Res_plus4 ;
+// 9 bits to compute overflow for SIMD values.. .
+    logic [9*SIMD:0]    polar_res_aminusb, 
+                        polar_res_aplusb; 
 
+    // pl_r 
+    logic [(V_LENGHT)-1:0]  func_r,
+                            abs_a, 
+                            abs_b,
+                            func_f,
+                            func_addsat,
+                            func_subsat,
+                            decode,
+                            eval,
+                            func_g;
+    // sign 1 bit 
+    logic [SIMD-1:0]        sign ;
 
-  assign polar_Res_minus1 = $signed( fu_data_i.operand_a[7:0])   - $signed( fu_data_i.operand_b[7:0]) ;
-  assign polar_Res_minus2 = $signed( fu_data_i.operand_a[15:8])  - $signed( fu_data_i.operand_b[15:8]) ;
-  assign polar_Res_minus3 = $signed( fu_data_i.operand_a[23:16]) - $signed( fu_data_i.operand_b[23:16]) ;
-  assign polar_Res_minus4 = $signed( fu_data_i.operand_a[31:24]) - $signed( fu_data_i.operand_b[31:24]) ;
-  
-  assign polar_Res_plus1  = $signed( fu_data_i.operand_a[7:0])   + $signed( fu_data_i.operand_b[7:0]) ;
-  assign polar_Res_plus2  = $signed( fu_data_i.operand_a[15:8])  + $signed( fu_data_i.operand_b[15:8]) ;
-  assign polar_Res_plus3  = $signed( fu_data_i.operand_a[23:16]) + $signed( fu_data_i.operand_b[23:16]) ;
-  assign polar_Res_plus4  = $signed( fu_data_i.operand_a[31:24]) + $signed( fu_data_i.operand_b[31:24]) ;  
+    // cycle trought the vectors 
+    generate
 
-  logic                 sign1 ;
-  logic                 sign2 ;
-  logic                 sign3 ;
-  logic                 sign4 ; 
-  
-  logic [QTF_SIZE-1:0]  min11 ; 
-  logic [QTF_SIZE-1:0]  min12 ;
-  logic [QTF_SIZE-1:0]  min13 ;
-  logic [QTF_SIZE-1:0]  min14 ;
-  
-  logic [QTF_SIZE-1:0]  min21 ;
-  logic [QTF_SIZE-1:0]  min22 ;
-  logic [QTF_SIZE-1:0]  min23 ;
-  logic [QTF_SIZE-1:0]  min24 ;
-  
-  assign sign1 = ( (	$signed( fu_data_i.operand_a[7:0]   ) >= 8'sb0) ? 8'h00:8'h01)  ^ ( ( $signed(fu_data_i.operand_b[7:0]   ) >= 8'sb0 )? 8'h00:8'h01)   ; 
-	assign sign2 = ( (	$signed( fu_data_i.operand_a[15:8]  ) >= 8'sb0) ? 8'h00:8'h01)  ^ ( ( $signed(fu_data_i.operand_b[15:8]  ) >= 8'sb0 )? 8'h00:8'h01)   ;
-  assign sign3 = ( (	$signed( fu_data_i.operand_a[23:16] ) >= 8'sb0) ? 8'h00:8'h01)  ^ ( ( $signed(fu_data_i.operand_b[23:16] ) >= 8'sb0 )? 8'h00:8'h01)   ;
-  assign sign4 = ( (	$signed( fu_data_i.operand_a[31:24] ) >= 8'sb0) ? 8'h00:8'h01)  ^ ( ( $signed(fu_data_i.operand_b[31:24] ) >= 8'sb0 )? 8'h00:8'h01)   ;
+        for ( genvar i =0 ;  i<SIMD ;i++ ) begin
+            
+            // assign i = k*Q ; 
+            // assign byte0 = dword[0 +: 8];    // Same as dword[7:0]
 
-  assign min11 = ( ( $signed( fu_data_i.operand_a[7:0]   ) >= 8'sb0) ? fu_data_i.operand_a[7:0]   : -fu_data_i.operand_a[7:0]   ) ;
-  assign min12 = ( ( $signed( fu_data_i.operand_a[15:8]  ) >= 8'sb0) ? fu_data_i.operand_a[15:8]  : -fu_data_i.operand_a[15:8]  ) ;
-  assign min13 = ( ( $signed( fu_data_i.operand_a[23:16] ) >= 8'sb0) ? fu_data_i.operand_a[23:16] : -fu_data_i.operand_a[23:16] ) ;
-  assign min14 = ( ( $signed( fu_data_i.operand_a[31:24] ) >= 8'sb0) ? fu_data_i.operand_a[31:24] : -fu_data_i.operand_a[31:24] ) ; 
-	
-  assign min21 = ( ( $signed( fu_data_i.operand_b[7:0]   ) >= 8'sb0) ? fu_data_i.operand_b[7:0]   : -fu_data_i.operand_b[7:0] ) ;
-  assign min22 = ( ( $signed( fu_data_i.operand_b[15:8]  ) >= 8'sb0) ? fu_data_i.operand_b[15:8]  : -fu_data_i.operand_b[15:8] ) ;
-  assign min23 = ( ( $signed( fu_data_i.operand_b[23:16] ) >= 8'sb0) ? fu_data_i.operand_b[23:16] : -fu_data_i.operand_b[23:16] ) ; 
-  assign min24 = ( ( $signed( fu_data_i.operand_b[31:24] ) >= 8'sb0) ? fu_data_i.operand_b[31:24] : -fu_data_i.operand_b[31:24] ) ; 
+            // This is illegal due to the variable i, even though the width is always 8 bits
+            // assign byte = dword[(i*8)+7 : i*8];  // ** Not allowed!
+
+            // Use the indexed part select 
+            // assign byte = dword[i*8 +: 8];
+            
+            assign func_r[i*Q +:Q] =  ($signed(fu_data_i.operand_b[7:0] ) == 8'sb1) ?8'h00: ( $signed(fu_data_i.operand_a[i*Q +:Q ]) < 8'sb0 ) ? 8'h01 : 8'h00 ; 
+            
+            assign decode[i*Q +:Q] =  (fu_data_i.operand_b[7:0] ==8'h00 ) ? fu_data_i.operand_a[i*Q +:Q] : 8'h00 ; 
+            // we have to account for possible overflow
+
+            assign sign[i]         =  ( ( $signed( fu_data_i.operand_a[i*Q +:Q ]  ) >= 0) ? 1'b0:1'b1)  ^ ( ( $signed(fu_data_i.operand_b[i*Q +:Q] ) >= 0 )? 1'b0:1'b1)   ;
+
+            assign abs_a[ i*Q +:Q] = ( ( $signed( fu_data_i.operand_a[i*Q +:Q]   ) >= 0) ? fu_data_i.operand_a[i*Q +:Q]   : -fu_data_i.operand_a[i*Q +:Q] ) ;
+            assign abs_b[ i*Q +:Q] = ( ( $signed( fu_data_i.operand_b[i*Q +:Q]   ) >= 0) ? fu_data_i.operand_b[i*Q +:Q]   : -fu_data_i.operand_b[i*Q +:Q] ) ;
+
+            assign func_f[i*Q +:Q] =  ( abs_a[i*Q +:Q] > abs_b[i*Q +:Q] ) ? 
+                                      (( sign[i] == 1'b0 ) ? abs_b[i*Q +:Q] : -abs_b[i*Q +:Q] ) 
+                                      :  
+                                      (( sign[i] == 1'b0 ) ? abs_a[i*Q +:Q] : -abs_a[i*Q +:Q] ) ; 
+
+            // need to compare with signed 
+            // synth will do the rest 
+            
+            // SUBSAT 
+            assign polar_res_aminusb[(i*9) +:9]  = $signed( fu_data_i.operand_b[ i*Q +:Q]) - $signed( fu_data_i.operand_a[i*Q +:Q]) ;
+            assign func_subsat[ i*Q +:Q] =  ($signed(polar_res_aminusb[(i*9) +:9]) >  9'sd127)?  8'sd127 : 
+                                            ($signed(polar_res_aminusb[(i*9) +:9]) < -9'sd127)? -8'sd127 : 
+                                            polar_res_aminusb[(i*9) +:9];
+            
+            // ADDSAT 
+            assign polar_res_aplusb[(i*9)  +:9]  = $signed( fu_data_i.operand_a[ i*Q +:Q]) + $signed( fu_data_i.operand_b[i*Q +:Q]) ;
+            assign func_addsat[ i*Q +:Q] =  ( $signed(polar_res_aplusb[(i*9) +:9])  >  9'sd127) ? 8'sd127 : 
+                                            ( $signed(polar_res_aplusb[(i*9) +:9])  < -9'sd127)? -8'sd127 : 
+                                            polar_res_aplusb[(i*9) +:9] ;
+
+            
+
+            assign eval[i*Q +:Q]   =(fu_data_i.operand_a[i*Q +:Q] ==8'd1 ) ? 8'hFF : 8'h00 ; 
+
+            assign func_g[i*Q+:Q] =  (fu_data_i.imm[i*Q+:Q]==8'h00)?  func_addsat[ i*Q +:Q]: 
+                                                                      func_subsat[ i*Q +:Q]; 
+
+        end 
+  endgenerate
+
 
   always_comb begin
-    // ouf 
     polar_result='0 ; 
     unique case (fu_data_i.operator)
 
-      PL_F : begin 
-        polar_result = 
-        {
-        ( min14 > min24 ) ? (( sign4 == 0 ) ? min24 : -min24 ) : (( sign4 == 0 ) ? min14 : -min14 ) , 
-        ( min13 > min23 ) ? (( sign3 == 0 ) ? min23 : -min23 ) : (( sign3 == 0 ) ? min13 : -min13 ) ,
-        ( min12 > min22 ) ? (( sign2 == 0 ) ? min22 : -min22 ) : (( sign2 == 0 ) ? min12 : -min12 ) ,
-        ( min11 > min21 ) ? (( sign1 == 0 ) ? min21 : -min21 ) : (( sign1 == 0 ) ? min11 : -min11 )  
-        } ;
-      end
+      PL_R:       polar_result =  func_r; 
+      PL_F:       polar_result =  func_f ;
+      PL_DECODE : polar_result =  decode ; 
+      PL_EVAL   : polar_result =  eval ; 
+      PL_G      : polar_result =  func_g ; 
 
-      PL_SUBSAT :begin
-        polar_result = 
-        {
-        ($signed(polar_Res_minus4) > 127)? 8'h7f : ($signed(polar_Res_minus4) < -127)? 8'h81 : polar_Res_minus4[QTF_SIZE-1:0] ,
-        ($signed(polar_Res_minus3) > 127)? 8'h7f : ($signed(polar_Res_minus3) < -127)? 8'h81 : polar_Res_minus3[QTF_SIZE-1:0] ,
-        ($signed(polar_Res_minus2) > 127)? 8'h7f : ($signed(polar_Res_minus2) < -127)? 8'h81 : polar_Res_minus2[QTF_SIZE-1:0] ,
-        ($signed(polar_Res_minus1) > 127)? 8'h7f : ($signed(polar_Res_minus1) < -127)? 8'h81 : polar_Res_minus1[QTF_SIZE-1:0] 
-        }; 
-      end
-
-      PL_ADDSAT :begin 
-        polar_result = 
-        {
-        ($signed(polar_Res_plus4) >  127)? 8'h7f : ($signed(polar_Res_plus4) < -127)? 8'h81 : polar_Res_plus4[QTF_SIZE-1:0] ,      
-        ($signed(polar_Res_plus3) >  127)? 8'h7f : ($signed(polar_Res_plus3) < -127)? 8'h81 : polar_Res_plus3[QTF_SIZE-1:0] ,
-        ($signed(polar_Res_plus2) >  127)? 8'h7f : ($signed(polar_Res_plus2) < -127)? 8'h81 : polar_Res_plus2[QTF_SIZE-1:0] ,
-        ($signed(polar_Res_plus1) >  127)? 8'h7f : ($signed(polar_Res_plus1) < -127)? 8'h81 : polar_Res_plus1[QTF_SIZE-1:0] 
-        }; 
-      end 
-
-      PL_DECODE :begin
-        polar_result = 
-        {
-          ((fu_data_i.operand_b[7:0]) == 8'h00)? fu_data_i.operand_a[31:24]: 8'h00 ,   
-          ((fu_data_i.operand_b[7:0]) == 8'h00)? fu_data_i.operand_a[23:16]: 8'h00 ,  
-          ((fu_data_i.operand_b[7:0]) == 8'h00)? fu_data_i.operand_a[15:8] : 8'h00 ,  
-          ((fu_data_i.operand_b[7:0]) == 8'h00)? fu_data_i.operand_a[7:0]  : 8'h00          
-        };
-      end 
-      
-      PL_R: begin 
-        polar_result =  
-        {
-        ($signed(fu_data_i.operand_b[7:0] ) == 8'sb1) ? 8'h00 : ($signed(fu_data_i.operand_a[31:24] ) < 0 ) ? 8'h01 : 8'h00 ,
-        ($signed(fu_data_i.operand_b[7:0] ) == 8'sb1) ? 8'h00 : ($signed(fu_data_i.operand_a[23:16] ) < 0 ) ? 8'h01 : 8'h00 ,
-        ($signed(fu_data_i.operand_b[7:0] ) == 8'sb1) ? 8'h00 : ($signed(fu_data_i.operand_a[15:8]  ) < 0 ) ? 8'h01 : 8'h00 ,
-        ($signed(fu_data_i.operand_b[7:0] ) == 8'sb1) ? 8'h00 : ($signed(fu_data_i.operand_a[7:0]   ) < 0 ) ? 8'h01 : 8'h00 
-        }; 
-      end 
-
-      PL_EVAL :begin
-        polar_result =
-        {
-          ((fu_data_i.operand_a[31:24]) == 8'h01 )? 8'hff : 8'h00 ,   
-          ((fu_data_i.operand_a[23:16]) == 8'h01 )? 8'hff : 8'h00 ,
-          ((fu_data_i.operand_a[15:8] ) == 8'h01 )? 8'hff : 8'h00 ,
-          ((fu_data_i.operand_a[7:0]  ) == 8'h01 )? 8'hff : 8'h00 
-        }; 
-      end
-
-      default: begin
-        polar_result='0 ; 
-      end
+      default: polar_result='0 ; 
     endcase
   end 
 
@@ -359,7 +327,7 @@ module alu import ariane_pkg::*;(
             PL_R,
             PL_DECODE,
             PL_EVAL,
-            PL_ADDSAT, PL_SUBSAT : result_o = polar_result;
+            PL_G : result_o = polar_result;
 
 
             // Standard Operations
