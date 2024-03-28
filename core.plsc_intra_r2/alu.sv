@@ -259,9 +259,9 @@ module alu import ariane_pkg::*;(
             // Use the indexed part select 
             // assign byte = dword[i*8 +: 8];
             
-            assign func_r[i*Q +:Q] =  ($signed(fu_data_i.operand_b[7:0] ) == 8'sb1) ?8'h00: ( $signed(fu_data_i.operand_a[i*Q +:Q ]) < 8'sb0 ) ? 8'h01 : 8'h00 ; 
+            assign func_r[i*Q +:Q] =  ($signed(fu_data_i.operand_b[i*Q +:Q] ) == 8'sb1) ?8'h00: ( $signed(fu_data_i.operand_a[i*Q +:Q ]) < 8'sb0 ) ? 8'h01 : 8'h00 ; 
             
-            assign decode[i*Q +:Q] =  (fu_data_i.operand_b[7:0] ==8'h00 ) ? fu_data_i.operand_a[i*Q +:Q] : 8'h00 ; 
+            assign decode[i*Q +:Q] =  (fu_data_i.operand_b[i*Q +:Q] ==8'h00 ) ? fu_data_i.operand_a[i*Q +:Q] : 8'h00 ; 
             // we have to account for possible overflow
 
             assign sign[i]         =  ( ( $signed( fu_data_i.operand_a[i*Q +:Q ]  ) >= 0) ? 1'b0:1'b1)  ^ ( ( $signed(fu_data_i.operand_b[i*Q +:Q] ) >= 0 )? 1'b0:1'b1)   ;
