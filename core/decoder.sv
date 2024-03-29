@@ -97,20 +97,19 @@ module decoder import ariane_pkg::*; (
                     instruction_o.rs1[4:0] = instr.itype.rs1;
                     instruction_o.rs2[4:0] = instr.rtype.rs2;
                     instruction_o.rd[4:0]  = instr.itype.rd;
-                    unique case (instr.r4type.funct2)
-                        2'b00: begin // FC2 est clean 
-                            unique case ({instr.rtype.funct7, instr.rtype.funct3})
-                                {7'b000_0000, 3'b000} : instruction_o.op = ariane_pkg::PL_F;
-                                {7'b000_0000, 3'b001} : instruction_o.op = ariane_pkg::PL_R;
-                                {7'b000_0000, 3'b010} : instruction_o.op = ariane_pkg::PL_ADDSAT;
-                                {7'b000_0000, 3'b011} : instruction_o.op = ariane_pkg::PL_SUBSAT;
-                                {7'b000_0000, 3'b100} : instruction_o.op = ariane_pkg::PL_DECODE;
-                                {7'b000_0000, 3'b101} : instruction_o.op = ariane_pkg::PL_EVAL;
-                                //REP
-                                {7'b000_0000, 3'b110}: instruction_o.op = ariane_pkg::PL_VADDREP1;
-                                {7'b000_0000, 3'b111}: instruction_o.op = ariane_pkg::PL_VADDREP2;
-                                {7'b000_0001, 3'b101}: instruction_o.op = ariane_pkg::PL_VREPSUM;
-                            endcase
+                    unique case ({instr.rtype.funct7, instr.rtype.funct3})
+                        {7'b000_0000, 3'b000} : instruction_o.op = ariane_pkg::PL_F;
+                        {7'b000_0000, 3'b001} : instruction_o.op = ariane_pkg::PL_R;
+                        {7'b000_0000, 3'b010} : instruction_o.op = ariane_pkg::PL_ADDSAT;
+                        {7'b000_0000, 3'b011} : instruction_o.op = ariane_pkg::PL_SUBSAT;
+                        {7'b000_0000, 3'b100} : instruction_o.op = ariane_pkg::PL_DECODE;
+                        {7'b000_0000, 3'b101} : instruction_o.op = ariane_pkg::PL_EVAL;
+                        //REP
+                        {7'b000_0000, 3'b110}: instruction_o.op = ariane_pkg::PL_VADDREP1;
+                        {7'b000_0000, 3'b111}: instruction_o.op = ariane_pkg::PL_VADDREP2;
+                        {7'b000_0001, 3'b101}:begin
+                        instruction_o.op = ariane_pkg::PL_VREPSUM;
+                        //  $display("Repsum selected");
                         end
                     endcase
                 end

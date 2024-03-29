@@ -249,8 +249,8 @@ module alu import ariane_pkg::*;(
     logic [7:0] a1,a2,b1,b2 ; 
     assign a1 = ($signed(fu_data_i.operand_a[31:16]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
     assign a2 = ($signed(fu_data_i.operand_a[15:0 ]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
-    assign b1 = ($signed(fu_data_i.operand_a[31:16]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
-    assign b2 = ($signed(fu_data_i.operand_a[15:0 ]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
+    assign b1 = ($signed(fu_data_i.operand_b[31:16]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
+    assign b2 = ($signed(fu_data_i.operand_b[15:0 ]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
 
     // cycle trought the vectors 
     generate
@@ -316,7 +316,7 @@ module alu import ariane_pkg::*;(
 			    { $signed( fu_data_i.operand_a[15:0])  + $signed( fu_data_i.operand_b[23:16]) }
         }; 
 
-        assign r_repaddsum =  {riscv::XLEN{0} }; 
+        assign r_repaddsum =  { a1,a2,b1,b2}; 
 
         end 
   endgenerate
@@ -334,8 +334,10 @@ module alu import ariane_pkg::*;(
       PL_EVAL     : polar_result =  eval ; 
       PL_VADDREP1 : polar_result =  r_addrep1 ;
       PL_VADDREP2 : polar_result =  r_addrep2 ;
-      PL_VREPSUM  : polar_result =  r_repaddsum ;
-
+      PL_VREPSUM  : begin
+        // $display("repaddsum is: %0x",r_repaddsum );
+        polar_result =  r_repaddsum ;
+      end 
       default: polar_result='0 ; 
     endcase
   end 
