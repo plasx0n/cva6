@@ -112,7 +112,6 @@ module decoder import ariane_pkg::*; (
                             unique case (instr.r4type.funct3)
                                 {3'b000}:begin
                                     instruction_o.op = ariane_pkg::PL_G;
-                                    // $display("PL_G");
                                 end 
                             endcase
                         end
