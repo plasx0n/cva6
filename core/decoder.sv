@@ -106,6 +106,10 @@ module decoder import ariane_pkg::*; (
                                 {7'b000_0000, 3'b011} : instruction_o.op = ariane_pkg::PL_SUBSAT;
                                 {7'b000_0000, 3'b100} : instruction_o.op = ariane_pkg::PL_DECODE;
                                 {7'b000_0000, 3'b101} : instruction_o.op = ariane_pkg::PL_EVAL;
+                                //REP
+                                {7'b000_0000, 3'b110}: instruction_o.op = ariane_pkg::PL_VADDREP1;
+                                {7'b000_0000, 3'b111}: instruction_o.op = ariane_pkg::PL_VADDREP2;
+                                {7'b000_0001, 3'b101}: instruction_o.op = ariane_pkg::PL_VREPSUM;
                             endcase
                         end
                     endcase
