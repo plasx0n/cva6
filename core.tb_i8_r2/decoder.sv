@@ -91,29 +91,14 @@ module decoder import ariane_pkg::*; (
         if (~ex_i.valid) begin
             case (instr.rtype.opcode)
                 // x5B
-                    riscv::OpcodeCustom2: begin
+                riscv::OpcodeCustom2: begin
                     instruction_o.fu       = ALU; 
                     instruction_o.rs1[4:0] = instr.itype.rs1;
                     instruction_o.rs2[4:0] = instr.rtype.rs2;
                     instruction_o.rd[4:0]  = instr.itype.rd;
-
-                    unique case (instr.r4type.funct2)
-                        2'b00: begin // FC2 est clean 
-                            unique case ({instr.rtype.funct7, instr.rtype.funct3})
-                                {7'b000_1000, 3'b010} : instruction_o.op = TB_MAX ;
-                                {7'b000_1000, 3'b100} : instruction_o.op = TB_SCALE;
-                            endcase
-                        end
-
-                        2'b01: begin // FC2 est clean 
-                            imm_select        = RS3; // rs3 into result field
-                            unique case (instr.r4type.funct3)
-                                {3'b000}:instruction_o.op = ariane_pkg::TB_ACCUMAX;
-                                {3'b001}:instruction_o.op = ariane_pkg::TB_ACCUPP;
-                                {3'b010}:instruction_o.op = ariane_pkg::TB_ACCUMP;
-                                {3'b100}:instruction_o.op = ariane_pkg::TB_MAXPM;
-                            endcase
-                        end
+                    unique case ({instr.rtype.funct7, instr.rtype.funct3})
+                        {7'b000_1000, 3'b010} : instruction_o.op = TB_MAX ;
+                        {7'b000_1000, 3'b100} : instruction_o.op = TB_SCALE;
                     endcase
                 end
 

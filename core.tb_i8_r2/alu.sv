@@ -234,35 +234,18 @@ module alu import ariane_pkg::*;(
           // shift right logical 
       assign tb_in_B = tb_in_A >> 2 ; 
       assign tb_in_C = tb_in_A - tb_in_B ; 
-
-      // MAXPM 
-      logic[7:0]  r_maxpm_1, r_maxpm_2 ; 
-      assign r_maxpm_1 = $signed(fu_data_i.operand_a[7:0]) + $signed(fu_data_i.operand_b[7:0]);
-      assign r_maxpm_2 = $signed(fu_data_i.imm[7:0])       - $signed(fu_data_i.operand_b[7:0]);
-
-      // ACCUMAX
-      logic[7:0]  r_max_1, r_max_2 ; 
-      assign r_max_1 = ( $signed(fu_data_i.operand_a[7:0])  < $signed(fu_data_i.operand_b[7:0]) ) ? fu_data_i.operand_b[7:0] : fu_data_i.operand_a[7:0] ;
-      assign r_max_2 = ( $signed(fu_data_i.imm[7:0])        < $signed(r_max_1))                   ? r_max_1 : fu_data_i.imm[7:0] ;
-
-
     // -----------
     // Result MUX
     // -----------
     always_comb begin
         result_o   = '0;
         unique case (fu_data_i.operator)
-            // TURBO
-            TB_MAX    : result_o = ( $signed(fu_data_i.operand_a[7:0]) <= $signed(fu_data_i.operand_b[7:0]) )  ? fu_data_i.operand_b[7:0] : fu_data_i.operand_a[7:0];
-            TB_SCALE  : result_o = (tb_sign)? tb_in_C : -tb_in_C ;
 
-            TB_MAXPM  : result_o =  ( $signed(r_maxpm_1) < $signed(r_maxpm_2) ) ? r_maxpm_2 :r_maxpm_1 ; 
-            TB_ACCUPP : result_o =   $signed(fu_data_i.operand_a[7:0]) + $signed(fu_data_i.operand_b[7:0]) + $signed(fu_data_i.imm[7:0]);  
-            TB_ACCUMP : result_o =   $signed(fu_data_i.operand_a[7:0]) - $signed(fu_data_i.operand_b[7:0]) + $signed(fu_data_i.imm[7:0]);  
-            TB_ACCUMAX: result_o =  r_max_2; 
-
-
-
+            // use the current hw to simplify alu 
+            TB_MAX  : result_o = ( $signed(fu_data_i.operand_a[7:0]) <= $signed(fu_data_i.operand_b[7:0]) )  ? fu_data_i.operand_b[7:0] : fu_data_i.operand_a[7:0];
+            // sub sat is sacling by 0.75
+            TB_SCALE : result_o = (tb_sign)? tb_in_C : -tb_in_C ; 
+            
             // Standard Operations
             ANDL, ANDN: result_o = fu_data_i.operand_a & operand_b_neg[riscv::XLEN:1];
             ORL, ORN  : result_o = fu_data_i.operand_a | operand_b_neg[riscv::XLEN:1];
