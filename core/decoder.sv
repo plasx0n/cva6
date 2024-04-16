@@ -90,37 +90,6 @@ module decoder import ariane_pkg::*; (
 
         if (~ex_i.valid) begin
             case (instr.rtype.opcode)
-                // x7B
-                riscv::OpcodeCustom3: begin
-                    instruction_o.fu       = ALU; 
-                    instruction_o.rs1[4:0] = instr.itype.rs1;
-                    instruction_o.rs2[4:0] = instr.rtype.rs2;
-                    instruction_o.rd[4:0]  = instr.itype.rd;
-
-                    unique case (instr.r4type.funct2)
-                        2'b00:begin
-                            unique case ({instr.rtype.funct7, instr.rtype.funct3})
-                                {7'b000_0000, 3'b000} : instruction_o.op = ariane_pkg::LDN_ADDUSAT;
-                                {7'b000_0000, 3'b101} : instruction_o.op = ariane_pkg::LDN_SUBUSAT;
-                                {7'b000_0000, 3'b010} : instruction_o.op = ariane_pkg::LDN_MIN;
-                                {7'b000_0001, 3'b001} : instruction_o.op = ariane_pkg::LDN_HMIN;
-                      
-                                {7'b000_0000, 3'b001} : instruction_o.op = ariane_pkg::LDN_IDXMINUP2;
-                                {7'b000_0000, 3'b110} : instruction_o.op = ariane_pkg::LDN_IDXMINCOMP;
-                                {7'b000_0000, 3'b111} : instruction_o.op = ariane_pkg::LDN_IDXMINUP;
-
-                            endcase
-                        end
-                        2'b11:begin
-                            imm_select        = RS3; // rs3 into result field
-                            unique case (instr.r4type.funct3)
-                               {3'b011}               : instruction_o.op = ariane_pkg::LDN_ADDSATMIN;
-                               {3'b101}               : instruction_o.op = ariane_pkg::LDN_IDXCOMPV3;
-                            endcase
-                        end
-                    endcase
-                end
-
                 riscv::OpcodeSystem: begin
                     instruction_o.fu       = CSR;
                     instruction_o.rs1[4:0] = instr.itype.rs1;

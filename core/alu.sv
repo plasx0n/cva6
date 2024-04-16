@@ -59,7 +59,7 @@ module alu import ariane_pkg::*;(
     logic [riscv::XLEN-1:0] operand_a_bitmanip, bit_indx;
 
     always_comb begin
-      adder_op_b_negate = 1'b0; 
+      adder_op_b_negate = 1'b0;
 
       unique case (fu_data_i.operator)
         // ADDER OPS
@@ -219,103 +219,11 @@ module alu import ariane_pkg::*;(
     end
 
     // -----------
-    //  TURBO
-    // -----------
-
-      //PARAMs
-      logic [riscv::XLEN-1:0] polar_result; 
-      parameter integer Q         = 8 ; //8 bit qtf 
-      parameter integer SIMD      = 8 ; 
-      // parameter integer idx_size  = 4 ; // 4 bits to cover 0->7 shuffle network in 64b varation  
-      // Array of vectors [ SIMD_lvl | simd_lvl-1 | simd_lvl-2 | ect..]   
-      parameter integer V_LENGHT  = (Q*SIMD) ; //32b ou 64b 
-
-      // min
-      logic [V_LENGHT-1:0]  r_min ;
-
-      // add/sub
-      // 9 bits to compute overflow for SIMD values.. .
-      logic [9*SIMD:0]  polar_res_aminusb, polar_res_aplusb;
-      logic [V_LENGHT-1:0]  r_addsat, r_subsat ;                
-
-      // addsatmin 
-      logic [V_LENGHT-1:0]  r_addsatmin ;                 
-                
-      // HMIN 
-      logic[7:0] elem1 ; 
-      logic[7:0] elem2 ; 
-      logic[7:0] elem3 ; 
-      logic[7:0] elem4 ; 
-
-      logic [7:0] iterm1 ; 
-      logic [7:0] iterm2 ; 
-      logic [7:0] iterm3 ; 
-
-
-      assign elem1 = fu_data_i.operand_a[31:24];
-      assign elem2 = fu_data_i.operand_a[23:16];
-      assign elem3 = fu_data_i.operand_a[15:8];
-      assign elem4 = fu_data_i.operand_a[7:0];
-
-      // 1st stage 
-      assign iterm1 = (elem1 > elem2)? elem2 : elem1 ; 
-      assign iterm2 = (elem3 > elem4)? elem4 : elem3 ;
-      // 2nd stage 
-      assign iterm3 = (iterm1 > iterm2)? iterm2 : iterm1 ; 
-
-      // idxminup / idxmincomp /idxminup2
-      logic [V_LENGHT-1:0] r_idxminup, r_idxmincomp, r_idxmincomp2 ; 
-
-      // vidxmincomp
-      logic [V_LENGHT-1:0] r_idxcompv3; 
-
-      // cycle trought the vectors 
-      generate
-        for ( genvar i=0 ; i<SIMD ; i++ ) begin
-
-          // min
-          assign r_min[i*Q +:Q]    = ( $signed(fu_data_i.operand_a[ i*Q +:Q] ) >= $signed(fu_data_i.operand_b[ i*Q +:Q]) ) ? fu_data_i.operand_b[ i*Q +:Q]: 
-                                                                                                                              fu_data_i.operand_a[ i*Q +:Q];
-          // SUBSAT 
-          assign polar_res_aminusb[(i*9) +:9]   = $signed( fu_data_i.operand_a[ i*Q +:Q]) - $signed( fu_data_i.operand_b[i*Q +:Q]) ;
-          assign r_subsat[ i*Q +:Q]             = ($signed(polar_res_aminusb[(i*9) +:9]) >  9'sd63)?  8'sd63 : 
-                                                polar_res_aminusb[(i*9) +:9];
-            
-          // ADDSAT 
-          assign polar_res_aplusb[(i*9)  +:9]   = $signed( fu_data_i.operand_a[ i*Q +:Q]) + $signed( fu_data_i.operand_b[i*Q +:Q]) ;
-          assign r_addsat[ i*Q +:Q]             = ( $signed(polar_res_aplusb[(i*9) +:9])  >  9'sd63)?  8'sd63 : 
-                                                polar_res_aplusb[(i*9) +:9] ;
-
-          assign r_addsatmin[i*Q +:Q]           = ( r_addsat[i*Q +:Q] > fu_data_i.imm[i*Q +:Q])? fu_data_i.imm[i*Q +:Q] : r_addsat[i*Q +:Q];    
-
-          // idxminup
-          assign r_idxminup[i*Q +:Q]            = fu_data_i.operand_a[i*Q +:Q] & fu_data_i.operand_b[7:0]; 
-          
-          assign r_idxmincomp[i*Q +:Q]          = ( $signed(fu_data_i.operand_a[ i*Q +:Q] ) >= $signed(fu_data_i.operand_b[ i*Q +:Q]) ) ? 8'hff : 8'h00;
-
-          assign r_idxmincomp2[i*Q +:Q]         = ( $signed(fu_data_i.operand_a[ i*Q +:Q] ) >= $signed(fu_data_i.operand_b[ i*Q +:Q]) ) ? fu_data_i.operand_a[ i*Q +:Q] : fu_data_i.operand_b[ i*Q +:Q];
-
-          assign r_idxcompv3[i*Q +:Q]           = ( $signed(fu_data_i.operand_a[ i*Q +:Q] ) >= $signed(fu_data_i.operand_b[ i*Q +:Q]) ) ? fu_data_i.imm[7:0] : 8'h00;     
-
-        end 
-      endgenerate
-    // -----------
     // Result MUX
     // -----------
     always_comb begin
         result_o   = '0;
         unique case (fu_data_i.operator)
-            // Turbo
-            LDN_MIN       : result_o = r_min;
-            LDN_SUBUSAT   : result_o = r_subsat;
-            LDN_ADDUSAT   : result_o = r_addsat;
-            LDN_HMIN      : result_o = ( iterm3 > fu_data_i.operand_b[7:0])? fu_data_i.operand_b[7:0] : iterm3; 
-            LDN_ADDSATMIN : result_o = r_addsatmin; 
-            LDN_IDXMINCOMP: result_o = r_idxmincomp;
-            LDN_IDXMINUP  : result_o = r_idxminup;
-            LDN_IDXMINUP2 : result_o = r_idxmincomp2;
-            LDN_IDXCOMPV3 : result_o = r_idxcompv3 ; 
-
             // Standard Operations
             ANDL, ANDN: result_o = fu_data_i.operand_a & operand_b_neg[riscv::XLEN:1];
             ORL, ORN  : result_o = fu_data_i.operand_a | operand_b_neg[riscv::XLEN:1];

@@ -225,7 +225,7 @@ module alu import ariane_pkg::*;(
     logic [riscv::XLEN-1:0] polar_result; 
     parameter integer Q       = 8 ;
 
-    parameter integer SIMD    = 8 ; 
+    parameter integer SIMD    = 1 ; 
     // Array of vectors [ SIMD_lvl | simd_lvl-1 | simd_lvl-2 | ect..]   
     parameter integer V_LENGHT = (Q*SIMD) ;
 

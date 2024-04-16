@@ -463,13 +463,7 @@ package ariane_pkg;
     // EX Stage
     // ---------------
 
-    typedef enum logic [7:0] { 
-                                // ldpcnb 
-                                LDN_MIN, LDN_HMIN,  LDN_SUBUSAT, LDN_ADDUSAT,  LDN_ADDSATMIN, 
-                                LDN_IDXMINUP, LDN_IDXMINUP2, LDN_IDXMINCOMP,  
-                                LDN_IDXCOMPV3,
-                               
-                               // basic ALU op
+    typedef enum logic [7:0] { // basic ALU op
                                ADD, SUB, ADDW, SUBW,
                                // logic operations
                                XORL, ORL, ANDL,
@@ -611,17 +605,6 @@ package ariane_pkg;
             endcase
         end else
             return 1'b0;
-    endfunction
-    
-    //Custom 3r  
-    function automatic logic is_rs3_3reg (input fu_op op);
-            unique case (op) inside
-                // TB_BLEND,
-                // TB_ACCUPP,
-                LDN_IDXCOMPV3,
-                LDN_ADDSATMIN   : return 1'b1;
-                default         : return 1'b0; // all other ops
-            endcase
     endfunction
 
     function automatic logic is_amo (fu_op op);

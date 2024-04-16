@@ -805,3 +805,33 @@ clean:
 	check-benchmarks check-asm-tests                                          \
 	torture-gen torture-itest torture-rtest                                   \
 	run-torture run-torture-verilator check-torture check-torture-verilator
+
+core_dir=
+
+# env. 12h de simu 
+server: 
+	make server_cmd core_dir=origi
+	make server_cmd core_dir=ldpc_r2
+	make server_cmd core_dir=ldpc_r3
+	make server_cmd core_dir=ldpc_i8x4_inter_r2
+	make server_cmd core_dir=ldpc_i8x4_inter_r3
+	make server_cmd core_dir=ldpc_i8x8_inter_r2
+	make server_cmd core_dir=ldpc_i8x8_inter_r3
+	make server_cmd core_dir=plsc_r2	
+	make server_cmd core_dir=plsc_i8x4_inter_r2
+	make server_cmd core_dir=plsc_i8x8_inter_r2
+	make server_cmd core_dir=plsc_i8x4_inter_r3
+	make server_cmd core_dir=plsc_i8x8_inter_r3
+	make server_cmd core_dir=plsc_i8x4_intra_r2
+	make server_cmd core_dir=plsc_i8x8_intra_r2
+	make server_cmd core_dir=plsc_i8x4_intra_r3
+	make server_cmd core_dir=plsc_i8x8_intra_r3
+
+
+server_cmd:
+	@if test -f corev_apu/fpga/work-fpga/ariane_xilinx.bit; then echo remove .bit && rm corev_apu/fpga/work-fpga/ariane_xilinx.bit; else echo no .bit; fi
+	@if test -d ../reports/$(core_dir); then echo dir exist; else mkdir ../reports/$(core_dir); fi  
+	rm -rf core/
+	cp -rf core.$(core_dir) core
+	make fpga
+	cp -rf corev_apu/fpga/reports ../reports/$(core_dir)
