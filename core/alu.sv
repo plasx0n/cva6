@@ -59,7 +59,7 @@ module alu import ariane_pkg::*;(
     logic [riscv::XLEN-1:0] operand_a_bitmanip, bit_indx;
 
     always_comb begin
-      adder_op_b_negate = 1'b0;
+      adder_op_b_negate = 1'b0; 
 
       unique case (fu_data_i.operator)
         // ADDER OPS
@@ -219,11 +219,105 @@ module alu import ariane_pkg::*;(
     end
 
     // -----------
+    //  TURBO
+    // -----------
+
+      //PARAMs
+      logic [riscv::XLEN-1:0] polar_result; 
+      parameter integer Q         = 8 ; //8 bit qtf 
+      parameter integer SIMD      = 4 ; 
+      // parameter integer idx_size  = 4 ; // 4 bits to cover 0->7 shuffle network in 64b varation  
+      // Array of vectors [ SIMD_lvl | simd_lvl-1 | simd_lvl-2 | ect..]   
+      parameter integer V_LENGHT  = (Q*SIMD) ; //32b ou 64b 
+
+      // add/sub
+      // 9 bits to compute overflow for SIMD values.. .
+      logic [9*SIMD:0]  polar_res_aminusb, polar_res_aplusb;
+      logic [V_LENGHT-1:0]  r_addsat, r_subsat ;                
+
+      // addsatmin 
+      logic [V_LENGHT-1:0]  r_addsatmin ;                 
+                
+      // HMIN 
+
+      logic[7:0] elem1 ; 
+      logic[7:0] elem2 ; 
+      logic[7:0] elem3 ; 
+      logic[7:0] elem4 ; 
+
+      logic[7:0] elem5 ; 
+      logic[7:0] elem6 ; 
+      logic[7:0] elem7 ; 
+      logic[7:0] elem8 ; 
+
+      logic [7:0] iterm1 ; 
+      logic [7:0] iterm2 ; 
+      logic [7:0] iterm3 ;
+      
+      logic [7:0] iterm4 ; 
+      logic [7:0] iterm5 ; 
+      logic [7:0] iterm6 ;  
+
+      logic [7:0] iterm7 ;  
+      logic [7:0] iterm8 ;  
+
+
+      assign elem1 = fu_data_i.operand_a[31:24];
+      assign elem2 = fu_data_i.operand_a[23:16];
+      assign elem3 = fu_data_i.operand_a[15:8];
+      assign elem4 = fu_data_i.operand_a[7:0];
+
+      assign elem5 = fu_data_i.operand_a[39:32];
+      assign elem6 = fu_data_i.operand_a[47:40];
+      assign elem7 = fu_data_i.operand_a[55:48];
+      assign elem8 = fu_data_i.operand_a[63:56];
+
+      // 1st stage 
+      assign iterm1 = (elem1 > elem2)? elem2 : elem1 ; 
+      assign iterm2 = (elem3 > elem4)? elem4 : elem3 ;
+
+      assign iterm4 = (elem5 > elem6)? elem6 : elem5 ; 
+      assign iterm5 = (elem7 > elem8)? elem8 : elem7 ; 
+
+      // 2nd stage 
+      assign iterm3 = (iterm1 > iterm2)? iterm2 : iterm1 ; 
+      assign iterm6 = (iterm4 > iterm5)? iterm5 : iterm4 ;
+
+      // 3rd
+      assign iterm7 =  (iterm3 > iterm6)? iterm6 : iterm3 ;
+
+
+      // cycle trought the vectors 
+      generate
+        for ( genvar i=0 ; i<SIMD ; i++ ) begin
+
+          // SUBSAT 
+          assign polar_res_aminusb[(i*9) +:9]   = $signed( fu_data_i.operand_a[ i*Q +:Q]) - $signed( fu_data_i.operand_b[i*Q +:Q]) ;
+          assign r_subsat[ i*Q +:Q]             = ($signed(polar_res_aminusb[(i*9) +:9]) >  9'sd63)?  8'sd63 : 
+                                                polar_res_aminusb[(i*9) +:9];
+            
+          // ADDSAT 
+          assign polar_res_aplusb[(i*9)  +:9]   = $signed( fu_data_i.operand_a[ i*Q +:Q]) + $signed( fu_data_i.operand_b[i*Q +:Q]) ;
+          assign r_addsat[ i*Q +:Q]             = ( $signed(polar_res_aplusb[(i*9) +:9])  >  9'sd63)?  8'sd63 : 
+                                                polar_res_aplusb[(i*9) +:9] ;
+
+          assign r_addsatmin[i*Q +:Q]           = ( r_addsat[i*Q +:Q] > fu_data_i.imm[i*Q +:Q])? fu_data_i.imm[i*Q +:Q] : r_addsat[i*Q +:Q];    
+      
+        end 
+      endgenerate
+    // -----------
     // Result MUX
     // -----------
     always_comb begin
         result_o   = '0;
         unique case (fu_data_i.operator)
+            // Turbo
+            LDN_SUBUSAT   : result_o = r_subsat;
+            LDN_ADDUSAT   : result_o = r_addsat;
+            LDN_HMIN      : result_o = ( iterm7 > fu_data_i.operand_b[7:0])? fu_data_i.operand_b[7:0] : iterm7 ; 
+            LDN_ADDSATMIN : result_o = r_addsatmin ; 
+
+
             // Standard Operations
             ANDL, ANDN: result_o = fu_data_i.operand_a & operand_b_neg[riscv::XLEN:1];
             ORL, ORN  : result_o = fu_data_i.operand_a | operand_b_neg[riscv::XLEN:1];

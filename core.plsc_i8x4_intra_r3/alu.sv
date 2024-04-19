@@ -288,10 +288,6 @@ module alu import ariane_pkg::*;(
                                             ( $signed(polar_res_aplusb[(i*9) +:9])  < -9'sd127)? -8'sd127 : 
                                             polar_res_aplusb[(i*9) +:9] ;
 
-            
-
-            
-
             assign func_g[i*Q+:Q] =  (fu_data_i.imm[i*Q+:Q]==8'h00)?  func_addsat[ i*Q +:Q]: 
                                                                       func_subsat[ i*Q +:Q]; 
 

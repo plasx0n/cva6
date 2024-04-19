@@ -813,38 +813,44 @@ server_run:
 
 # env. 12h de simu 
 server: 
-	# make server_cmd core_dir = origi 
-	# make server_cmd core_dir = ldpc_r2 
-	# make server_cmd core_dir = ldpc_r3 
-	# make server_cmd core_dir = ldpc_i8x4_inter_r2 
-	# make server_cmd core_dir = ldpc_i8x4_inter_r3 
-	# make server_cmd core_dir = ldpc_i8x8_inter_r2 
-	# make server_cmd core_dir = ldpc_i8x8_inter_r3 
-	# make server_cmd core_dir = plsc_r2 
-	# make server_cmd core_dir = plsc_r3 
-	# make server_cmd core_dir = plsc_i8x4_inter_r2 
-	# make server_cmd core_dir = plsc_i8x4_inter_r3  
-	# make server_cmd core_dir = plsc_i8x4_intra_r2 
-	# make server_cmd core_dir = plsc_i8x4_intra_r3 
-	# make server_cmd core_dir = plsc_i8x8_inter_r2
-	# make server_cmd core_dir = plsc_i8x8_inter_r3 
-	# make server_cmd core_dir = plsc_i8x8_intra_r2 
-	# make server_cmd core_dir = plsc_i8x8_intra_r3 
-	# make server_cmd core_dir = plfsc_i8x4_inter_r2 
-	# make server_cmd core_dir = plfsc_i8x8_inter_r2
-	# a check 
-	# make server_cmd core_dir = tb_i8_r2 
-	# make server_cmd core_dir = tb_i8_r3 
-	# make server_cmd core_dir = tb_i8x4_inter_r2 
-	# make server_cmd core_dir = tb_i8x4_inter_r3 
-	# make server_cmd core_dir = tb_i8x4_intra_r2 
-	# make server_cmd core_dir = tb_i8x4_intra_r3 
-	# make server_cmd core_dir = tb_i8x8_inter_r2 
-	# make server_cmd core_dir = tb_i8x8_inter_r3 
-	# make server_cmd core_dir = tb_i8x8_intra_r2
-	# >>>>here 
-	# make server_cmd core_dir = ldpcnb_i8_r2 
-	# make server_cmd core_dir = ldpcnb_i8_r3 
+	# make server_cmd core_dir=origi 
+	# make server_cmd core_dir=ldpc_r2 
+	# make server_cmd core_dir=ldpc_r3 
+	# make server_cmd core_dir=ldpc_i8x4_inter_r2 
+	# make server_cmd core_dir=ldpc_i8x4_inter_r3 
+	# make server_cmd core_dir=ldpc_i8x8_inter_r2 
+	# make server_cmd core_dir=ldpc_i8x8_inter_r3 
+	# make server_cmd core_dir=plsc_r2 
+	# make server_cmd core_dir=plsc_r3 
+	# make server_cmd core_dir=plsc_i8x4_inter_r2 
+	# make server_cmd core_dir=plsc_i8x4_inter_r3  
+	# make server_cmd core_dir=plsc_i8x4_intra_r2 
+	# make server_cmd core_dir=plsc_i8x4_intra_r3 
+	# make server_cmd core_dir=plsc_i8x8_inter_r2
+	# make server_cmd core_dir=plsc_i8x8_inter_r3 
+	# make server_cmd core_dir=plsc_i8x8_intra_r2 
+	# make server_cmd core_dir=plsc_i8x8_intra_r3 
+	# make server_cmd core_dir=plfsc_i8x4_inter_r2 
+	# make server_cmd core_dir=plfsc_i8x8_inter_r2
+	# make server_cmd core_dir=tb_i8_r2 
+	# make server_cmd core_dir=tb_i8_r3 
+	# make server_cmd core_dir=tb_i8x4_inter_r2 
+	# make server_cmd core_dir=tb_i8x4_inter_r3 
+	# make server_cmd core_dir=tb_i8x4_intra_r2 
+	# make server_cmd core_dir=tb_i8x4_intra_r3 
+	# make server_cmd core_dir=tb_i8x8_inter_r2 
+	# make server_cmd core_dir=tb_i8x8_inter_r3 
+	# make server_cmd core_dir=tb_i8x8_intra_r2
+	# make server_cmd core_dir=ldpcnb_i8_r2 
+	# make server_cmd core_dir=ldpcnb_i8_r3 
+	make server_cmd core_dir=ldpcnb_i8x4_inter_r2
+	make server_cmd core_dir=ldpcnb_i8x4_inter_r3
+	make server_cmd core_dir=ldpcnb_i8x8_inter_r2
+	make server_cmd core_dir=ldpcnb_i8x8_inter_r3
+	make server_cmd core_dir=ldpcnb_i8x4_intra_r2
+	make server_cmd core_dir=ldpcnb_i8x4_intra_r3
+	make server_cmd core_dir=ldpcnb_i8x8_intra_r2
+	make server_cmd core_dir=ldpcnb_i8x8_intra_r3
 
 
 server_cmd:

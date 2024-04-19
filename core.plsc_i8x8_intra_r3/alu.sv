@@ -323,7 +323,6 @@ module alu import ariane_pkg::*;(
             PL_F,
             PL_R,
             PL_DECODE,
-            PL_EVAL,
             PL_G : result_o = polar_result;
 
 

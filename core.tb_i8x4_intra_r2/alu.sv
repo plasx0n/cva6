@@ -304,7 +304,7 @@ module alu import ariane_pkg::*;(
           assign tb_in_B[ i*Q +:Q]  = tb_in_A[ i*Q +:Q] >> 2 ; 
           assign tb_in_C[ i*Q +:Q]  = tb_in_A[ i*Q +:Q] - tb_in_B[ i*Q +:Q] ; 
           // final 
-          assign r_scale[ i*Q +:Q]  = (tb_sign[i])? tb_in_C[ i*Q +:Q] : -tb_in_C[ i*Q +:Q] ;
+          assign r_scale[ i*Q +:Q]  = ((tb_sign[i])? tb_in_C[ i*Q +:Q] : -tb_in_C[ i*Q +:Q]) + fu_data_i.operand_b[i*Q +:Q] ;
 
           // // sign : inv of _sign 
           // assign r_sign[  i*Q +:Q]  = (tb_sign[i])? 0 : 1 ; 
@@ -349,7 +349,6 @@ module alu import ariane_pkg::*;(
             TB_DIV_ADD: result_o = r_divadd;
             TB_DIV_SUB: result_o = r_divsub;
             TB_SB_SAT : result_o = r_sb_sat;
-            TB_SAT_63 : result_o = r_sat63;
 
 
             // Standard Operations

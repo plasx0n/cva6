@@ -225,7 +225,7 @@ module alu import ariane_pkg::*;(
       //PARAMs
       logic [riscv::XLEN-1:0] polar_result; 
       parameter integer Q         = 8 ; //8 bit qtf 
-      parameter integer SIMD      = 8 ; 
+      parameter integer SIMD      = 4 ; 
       // parameter integer idx_size  = 4 ; // 4 bits to cover 0->7 shuffle network in 64b varation  
       // Array of vectors [ SIMD_lvl | simd_lvl-1 | simd_lvl-2 | ect..]   
       parameter integer V_LENGHT  = (Q*SIMD) ; //32b ou 64b 
@@ -316,7 +316,7 @@ module alu import ariane_pkg::*;(
           assign tb_in_B[ i*Q +:Q]  = tb_in_A[ i*Q +:Q] >> 2 ; 
           assign tb_in_C[ i*Q +:Q]  = tb_in_A[ i*Q +:Q] - tb_in_B[ i*Q +:Q] ; 
           // final 
-          assign r_scale[ i*Q +:Q]  = (tb_sign[i])? tb_in_C[ i*Q +:Q] : -tb_in_C[ i*Q +:Q] ;
+          assign r_scale[ i*Q +:Q]  = ((tb_sign[i])? tb_in_C[ i*Q +:Q] : -tb_in_C[ i*Q +:Q]) + fu_data_i.operand_b[i*Q +:Q] ;
 
           // // sign : inv of _sign 
           // assign r_sign[  i*Q +:Q]  = (tb_sign[i])? 0 : 1 ; 
@@ -367,19 +367,17 @@ module alu import ariane_pkg::*;(
         unique case (fu_data_i.operator)
             // Turbo
             TB_MAX    : result_o = tb_max;
-            TB_SCALE  : result_o = r_scale;
             TB_ADDS   : result_o = tb_add;
             TB_SUBS   : result_o = tb_sub;
+            TB_ACCUPP : result_o = r_accupp; 
+            TB_ACCUPM : result_o = r_accupm;  
             TB_SHUFFLE: result_o = r_shuffle;
             TB_DIV_ADD: result_o = r_divadd;
             TB_DIV_SUB: result_o = r_divsub;
             TB_SB_SAT : result_o = r_sb_sat;
-            TB_SAT_63 : result_o = r_sat63;
-            // r3
-            TB_ACCUPP : result_o =  r_accupp; 
-            TB_ACCUPM : result_o =  r_accupm;  
             TB_MAXPM  : result_o =  r_maxpm;
             TB_BLEND  : result_o =  r_blend; 
+            TB_SCALE  : result_o = r_scale;
 
 
             // Standard Operations
