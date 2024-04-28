@@ -59,7 +59,7 @@ module alu import ariane_pkg::*;(
     logic [riscv::XLEN-1:0] operand_a_bitmanip, bit_indx;
 
     always_comb begin
-      adder_op_b_negate = 1'b0; 
+      adder_op_b_negate = 1'b0;
 
       unique case (fu_data_i.operator)
         // ADDER OPS
@@ -217,106 +217,154 @@ module alu import ariane_pkg::*;(
           .empty_o (lz_tz_wempty)
         );
     end
+  
+  
+  ////////////////
+  // LDPC       //
+  ////////////////
+// need  : subsat sign abs Max Min eval Rsign Nmess Addsat 
 
-    // -----------
-    //  TURBO
-    // -----------
+    logic [riscv::XLEN-1:0] ldpc_result;
+    parameter integer Q       = 8 ;
+    parameter integer SIMD    = 4 ;
 
-      //PARAMs
-      logic [riscv::XLEN-1:0] polar_result; 
-      parameter integer Q         = 8 ; //8 bit qtf 
-      parameter integer SIMD      = 4 ; 
-      // parameter integer idx_size  = 4 ; // 4 bits to cover 0->7 shuffle network in 64b varation  
-      // Array of vectors [ SIMD_lvl | simd_lvl-1 | simd_lvl-2 | ect..]   
-      parameter integer V_LENGHT  = (Q*SIMD) ; //32b ou 64b 
+    // Array of vectors [ SIMD_lvl | simd_lvl-1 | simd_lvl-2 | ect..]
+    parameter integer V_LENGHT = (Q*SIMD) ;
 
-      // add/sub
-      // 9 bits to compute overflow for SIMD values.. .
-      logic [9*SIMD:0]  polar_res_aminusb, polar_res_aplusb;
-      logic [V_LENGHT-1:0]  r_addsat, r_subsat ;                
+// 9 bits to compute overflow for SIMD values
+    logic[9*SIMD:0] ldpc_res_plus,
+                    ldpc_res_minus;
+// 8bits holders
+    logic[(V_LENGHT-1):0]   ldpc_max_vector,
+                            r_addsat,
+                            r_subsat,
+                            r_sign,
+                            r_eval, 
+                            r_rsign, 
+                            r_nmess, 
+                            r_min, r_abs;
+// hold just 1 bit
+  logic[SIMD-1:0] ldpc_comp;
 
-      // addsatmin 
-      logic [V_LENGHT-1:0]  r_addsatmin ;                 
-                
-      // HMIN 
+    generate
+      for(genvar i=0 ; i<SIMD; i++) begin
 
-      logic[7:0] elem1 ; 
-      logic[7:0] elem2 ; 
-      logic[7:0] elem3 ; 
-      logic[7:0] elem4 ; 
+        // SUBSAT 
+        assign ldpc_res_minus[(i*9) +:9]  = $signed( fu_data_i.operand_a[i*Q +:Q ]) - $signed( fu_data_i.operand_b[i*Q +:Q ]) ;
+        assign r_subsat[ i*Q +:Q]         = ($signed(ldpc_res_minus[(i*9) +:9]) >  9'sd127)?  8'sd127 :
+                                            ($signed(ldpc_res_minus[(i*9) +:9]) < -9'sd127)? -8'sd127 :
+                                            ldpc_res_minus[(i*9) +:9];
 
-      logic[7:0] elem5 ; 
-      logic[7:0] elem6 ; 
-      logic[7:0] elem7 ; 
-      logic[7:0] elem8 ; 
+        // SIGN 
+        assign r_sign[ i*Q +:Q]           = ( $signed(fu_data_i.operand_a[i*Q +:Q]) < 8'sb0) ? 8'h01 : 8'h00 ;
 
-      logic [7:0] iterm1 ; 
-      logic [7:0] iterm2 ; 
-      logic [7:0] iterm3 ;
-      
-      logic [7:0] iterm4 ; 
-      logic [7:0] iterm5 ; 
-      logic [7:0] iterm6 ;  
-
-      logic [7:0] iterm7 ;  
-      logic [7:0] iterm8 ;  
-
-
-      assign elem1 = fu_data_i.operand_a[31:24];
-      assign elem2 = fu_data_i.operand_a[23:16];
-      assign elem3 = fu_data_i.operand_a[15:8];
-      assign elem4 = fu_data_i.operand_a[7:0];
-
-      assign elem5 = fu_data_i.operand_a[39:32];
-      assign elem6 = fu_data_i.operand_a[47:40];
-      assign elem7 = fu_data_i.operand_a[55:48];
-      assign elem8 = fu_data_i.operand_a[63:56];
-
-      // 1st stage 
-      assign iterm1 = (elem1 > elem2)? elem2 : elem1 ; 
-      assign iterm2 = (elem3 > elem4)? elem4 : elem3 ;
-
-      assign iterm4 = (elem5 > elem6)? elem6 : elem5 ; 
-      assign iterm5 = (elem7 > elem8)? elem8 : elem7 ; 
-
-      // 2nd stage 
-      assign iterm3 = (iterm1 > iterm2)? iterm2 : iterm1 ; 
-      assign iterm6 = (iterm4 > iterm5)? iterm5 : iterm4 ;
-
-      // 3rd
-      assign iterm7 =  (iterm3 > iterm6)? iterm6 : iterm3 ;
+        // ABS 
+        assign r_abs[ i*Q +:Q]          =   ($signed(fu_data_i.operand_a[i*Q +:Q]) >= 0 )? fu_data_i.operand_a[i*Q +:Q]: -fu_data_i.operand_a[i*Q +:Q] ;
 
 
-      // cycle trought the vectors 
-      generate
-        for ( genvar i=0 ; i<SIMD ; i++ ) begin
 
-          // SUBSAT 
-          assign polar_res_aminusb[(i*9) +:9]   = $signed( fu_data_i.operand_a[ i*Q +:Q]) - $signed( fu_data_i.operand_b[i*Q +:Q]) ;
-          assign r_subsat[ i*Q +:Q]             = ($signed(polar_res_aminusb[(i*9) +:9]) >  9'sd63)?  8'sd63 : 
-                                                polar_res_aminusb[(i*9) +:9];
-            
-          // ADDSAT 
-          assign polar_res_aplusb[(i*9)  +:9]   = $signed( fu_data_i.operand_a[ i*Q +:Q]) + $signed( fu_data_i.operand_b[i*Q +:Q]) ;
-          assign r_addsat[ i*Q +:Q]             = ( $signed(polar_res_aplusb[(i*9) +:9])  >  9'sd63)?  8'sd63 : 
-                                                polar_res_aplusb[(i*9) +:9] ;
 
-          assign r_addsatmin[i*Q +:Q]           = ( r_addsat[i*Q +:Q] > fu_data_i.imm[i*Q +:Q])? fu_data_i.imm[i*Q +:Q] : r_addsat[i*Q +:Q];    
-      
+        // return bit of comparison (a >= b)?
+        assign ldpc_comp[i] = ($signed(fu_data_i.operand_a[i*Q +:Q]) >= $signed(fu_data_i.operand_b[i*Q +:Q] )) ? 1'b1:1'b0 ;
+
+        // MAX 
+        // return val max
+        assign ldpc_max_vector[i*Q +:Q] = (ldpc_comp[i])? fu_data_i.operand_a[i*Q +:Q] : fu_data_i.operand_b[i*Q +:Q] ;
+
+
+        // MIN 
+        // return val min
+        assign r_min[ i*Q +:Q] = (ldpc_comp[i])? fu_data_i.operand_b[i*Q +:Q] : fu_data_i.operand_a[i*Q +:Q] ;
+        
+        // EVAL
+        // cmpeq inv. 
+        assign r_eval[i*Q +:Q] = ( $signed(fu_data_i.operand_a[i*Q +:Q]) != $signed(fu_data_i.operand_b[i*Q +:Q]) )? 8'h0:8'hff ;   
+
+
+        // RSIGN 
+        assign r_rsign[i*Q +:Q] = fu_data_i.operand_a[i*Q +:Q] ^ (($signed(fu_data_i.operand_b[i*Q +:Q]) >= 8'sb0 )? 1 :0 ); 
+
+        // NMESS 
+        assign r_nmess[i*Q +:Q] = ( fu_data_i.operand_a[i*Q +:Q] >= 1 )? fu_data_i.operand_b[i*Q +:Q]: -fu_data_i.operand_b[i*Q +:Q] ;
+
+
+        // ADDSAT 
+        assign ldpc_res_plus[(i*9) +:9]   = $signed( fu_data_i.operand_a[i*Q +:Q ]) + $signed( fu_data_i.operand_b[i*Q +:Q ]) ;
+        assign r_addsat[ i*Q +:Q]         = ($signed(ldpc_res_plus[(i*9) +:9]) >  9'sd127)?  8'sd127 :
+                                            ($signed(ldpc_res_plus[(i*9) +:9]) < -9'sd127)? -8'sd127 :
+                                            ldpc_res_plus[(i*9) +:9]; //let the synthesizer handle the conversion ?
+      end
+    endgenerate
+
+
+
+
+  // Can be removed
+  always_comb begin
+    ldpc_result='0 ;
+
+    unique case (fu_data_i.operator)
+
+        LDPC_SUB_SAT : begin
+            ldpc_result = r_subsat ;
+        end
+
+        LDPC_SIGN: begin
+            ldpc_result =r_sign ;
+        end
+
+        LDPC_ABS: begin
+            ldpc_result =r_abs;
+        end
+
+        LDPC_MAX: begin
+            ldpc_result =ldpc_max_vector ;
+        end
+
+        LDPC_MIN: begin
+            ldpc_result =r_min ;
+        end
+        
+        LDPC_EVAL: begin
+            ldpc_result =r_eval ;
+        end
+
+        LDPC_RSIGN:begin
+            ldpc_result = r_rsign; 
         end 
-      endgenerate
+
+        LDPC_NMESS: begin
+            ldpc_result =r_nmess ;
+        end
+
+        LDPC_ADD_SAT : begin
+            ldpc_result =r_addsat ;
+        end
+
+        default: begin
+            ldpc_result='0 ;
+        end
+    endcase
+  end
+
     // -----------
     // Result MUX
     // -----------
     always_comb begin
         result_o   = '0;
         unique case (fu_data_i.operator)
-            // Turbo
-            LDN_SUBUSAT   : result_o = r_subsat;
-            LDN_ADDUSAT   : result_o = r_addsat;
-            LDN_HMIN      : result_o = ( iterm7 > fu_data_i.operand_b[7:0])? fu_data_i.operand_b[7:0] : iterm7 ; 
-            LDN_ADDSATMIN : result_o = r_addsatmin ; 
+            
+            // LDPC operations 
 
+            LDPC_SUB_SAT,
+            LDPC_SIGN, 
+            LDPC_ABS,
+            LDPC_MAX,
+            LDPC_MIN,
+            LDPC_NMESS,
+            LDPC_ADD_SAT,
+            LDPC_EVAL,
+            LDPC_RSIGN : result_o = ldpc_result;
 
             // Standard Operations
             ANDL, ANDN: result_o = fu_data_i.operand_a & operand_b_neg[riscv::XLEN:1];

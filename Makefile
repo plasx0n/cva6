@@ -860,3 +860,43 @@ server_cmd:
 	cp -rf core.$(core_dir) core
 	make fpga
 	cp -rf corev_apu/fpga/reports ../reports/$(core_dir)
+
+cpy: 
+	cp core.ldpc_i8x4_inter_r2/alu.sv			../alu_dir/ldpc_i8x4_inter_r2_alu.sv
+	cp core.ldpc_i8x4_inter_r3/alu.sv			../alu_dir/ldpc_i8x4_inter_r3_alu.sv
+	cp core.ldpc_i8x8_inter_r2/alu.sv			../alu_dir/ldpc_i8x8_inter_r2_alu.sv
+	cp core.ldpc_i8x8_inter_r3/alu.sv			../alu_dir/ldpc_i8x8_inter_r3_alu.sv
+	cp core.ldpc_r2/alu.sv						../alu_dir/ldpc_r2_alu.sv
+	cp core.ldpc_r3/alu.sv						../alu_dir/ldpc_r3_alu.sv
+	cp core.ldpcnb_i8_r2/alu.sv					../alu_dir/ldpcnb_i8_r2_alu.sv
+	cp core.ldpcnb_i8_r3/alu.sv					../alu_dir/ldpcnb_i8_r3_alu.sv
+	cp core.ldpcnb_i8x4_inter_r2/alu.sv			../alu_dir/ldpcnb_i8x4_inter_r2_alu.sv
+	cp core.ldpcnb_i8x4_inter_r3/alu.sv			../alu_dir/ldpcnb_i8x4_inter_r3_alu.sv
+	cp core.ldpcnb_i8x4_intra_r2/alu.sv			../alu_dir/ldpcnb_i8x4_intra_r2_alu.sv
+	cp core.ldpcnb_i8x4_intra_r3/alu.sv			../alu_dir/ldpcnb_i8x4_intra_r3_alu.sv
+	cp core.ldpcnb_i8x8_inter_r2/alu.sv			../alu_dir/ldpcnb_i8x8_inter_r2_alu.sv
+	cp core.ldpcnb_i8x8_inter_r3/alu.sv			../alu_dir/ldpcnb_i8x8_inter_r3_alu.sv
+	cp core.origi/alu.sv						../alu_dir/origi_alu.sv
+	cp core.plfsc_i8x4_inter_r2/alu.sv			../alu_dir/plfsc_i8x4_inter_r2_alu.sv
+	cp core.plfsc_i8x4_inter_r3/alu.sv			../alu_dir/plfsc_i8x4_inter_r3_alu.sv
+	cp core.plfsc_i8x8_inter_r2/alu.sv			../alu_dir/plfsc_i8x8_inter_r2_alu.sv
+	cp core.plsc_i8x4_inter_r2/alu.sv			../alu_dir/plsc_i8x4_inter_r2_alu.sv
+	cp core.plsc_i8x4_inter_r3/alu.sv			../alu_dir/plsc_i8x4_inter_r3_alu.sv
+	cp core.plsc_i8x4_intra_r2/alu.sv			../alu_dir/plsc_i8x4_intra_r2_alu.sv
+	cp core.plsc_i8x4_intra_r3/alu.sv			../alu_dir/plsc_i8x4_intra_r3_alu.sv
+	cp core.plsc_i8x8_inter_r2/alu.sv			../alu_dir/plsc_i8x8_inter_r2_alu.sv
+	cp core.plsc_i8x8_inter_r3/alu.sv			../alu_dir/plsc_i8x8_inter_r3_alu.sv
+	cp core.plsc_i8x8_intra_r2/alu.sv			../alu_dir/plsc_i8x8_intra_r2_alu.sv
+	cp core.plsc_i8x8_intra_r3/alu.sv			../alu_dir/plsc_i8x8_intra_r3_alu.sv
+	cp core.plsc_r2/alu.sv						../alu_dir/plsc_r2_alu.sv
+	cp core.plsc_r3/alu.sv						../alu_dir/plsc_r3_alu.sv
+	cp core.tb_i8_r2/alu.sv						../alu_dir/tb_i8_r2_alu.sv
+	cp core.tb_i8_r3/alu.sv						../alu_dir/tb_i8_r3_alu.sv
+	cp core.tb_i8x4_inter_r2/alu.sv				../alu_dir/tb_i8x4_inter_r2_alu.sv
+	cp core.tb_i8x4_inter_r3/alu.sv				../alu_dir/tb_i8x4_inter_r3_alu.sv
+	cp core.tb_i8x4_intra_r2/alu.sv				../alu_dir/tb_i8x4_intra_r2_alu.sv
+	cp core.tb_i8x4_intra_r3/alu.sv				../alu_dir/tb_i8x4_intra_r3_alu.sv
+	cp core.tb_i8x8_inter_r2/alu.sv				../alu_dir/tb_i8x8_inter_r2_alu.sv
+	cp core.tb_i8x8_inter_r3/alu.sv				../alu_dir/tb_i8x8_inter_r3_alu.sv
+	cp core.tb_i8x8_intra_r2/alu.sv				../alu_dir/tb_i8x8_intra_r2_alu.sv
+	cp core.tb_i8x8_intra_r3/alu.sv				../alu_dir/tb_i8x8_intra_r3_alu.sv

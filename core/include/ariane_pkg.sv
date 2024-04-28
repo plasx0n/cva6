@@ -228,14 +228,14 @@ package ariane_pkg;
     typedef logic [(NR_RGPR_PORTS == 3 ? riscv::XLEN : FLEN)-1:0] rs3_len_t;
 
     // static debug hartinfo
-    localparam dm::hartinfo_t DebugHartInfo = '{
-                                                zero1:        '0,
-                                                nscratch:      2, // Debug module needs at least two scratch regs
-                                                zero0:        '0,
-                                                dataaccess: 1'b1, // data registers are memory mapped in the debugger
-                                                datasize: dm::DataCount,
-                                                dataaddr: dm::DataAddr
-                                              };
+//    localparam dm::hartinfo_t DebugHartInfo = '{
+//                                                zero1:        '0,
+//                                                nscratch:      2, // Debug module needs at least two scratch regs
+//                                                zero0:        '0,
+//                                                dataaccess: 1'b1, // data registers are memory mapped in the debugger
+//                                                datasize: dm::DataCount,
+//                                                dataaddr: dm::DataAddr
+//                                              };
 
     // enables a commit log which matches spikes commit log format for easier trace comparison
     localparam bit ENABLE_SPIKE_COMMIT_LOG = 1'b1;
@@ -304,7 +304,7 @@ package ariane_pkg;
     // ---------------
     // Enable BITMANIP
     // ---------------
-    localparam bit BITMANIP = 1'b1;
+    localparam bit BITMANIP = 1'b0;
 
     // Only use struct when signals have same direction
     // exception
@@ -463,11 +463,7 @@ package ariane_pkg;
     // EX Stage
     // ---------------
 
-    typedef enum logic [7:0] { 
-                                // ldpcnb 
-                                LDN_HMIN,  LDN_SUBUSAT, LDN_ADDUSAT,  LDN_ADDSATMIN, 
-                               
-                               // basic ALU op
+    typedef enum logic [7:0] { // basic ALU op
                                ADD, SUB, ADDW, SUBW,
                                // logic operations
                                XORL, ORL, ANDL,
@@ -526,7 +522,20 @@ package ariane_pkg;
                                // Shift with Add (Bitmanip)
                                SH1ADD, SH2ADD, SH3ADD,
                                // Bitmanip Logical with negate op (Bitmanip)
-                               ANDN, ORN, XNOR
+                               ANDN, ORN, XNOR,
+                                // LDPC
+                                LDPC_SIGN,
+                                LDPC_MIN,
+                                LDPC_MAX,
+                                LDPC_ABS,
+                                LDPC_NMESS,
+                                LDPC_SUB_SAT,
+                                LDPC_EVAL,
+                                LDPC_RSIGN , 
+                                LDPC_ADD_SAT ,
+                                // TURBO 
+                                TB_MAX,TB_SCALE,TB_ADDSRL,TB_SRL,TB_SIGN,TB_SUBS,TB_ADDS,TB_ACCUMAX,TB_ACCUMP,TB_ACCUPP,TB_MAXPM,TB_SHUFFLE,
+                                TB_DIV_ADD, TB_DIV_SUB, TB_SB_SAT
                              } fu_op;
 
     typedef struct packed {
@@ -609,17 +618,6 @@ package ariane_pkg;
             endcase
         end else
             return 1'b0;
-    endfunction
-    
-    //Custom 3r  
-    function automatic logic is_rs3_3reg (input fu_op op);
-            unique case (op) inside
-                // TB_BLEND,
-                // TB_ACCUPP,
-                // TB_MAXPM,
-                LDN_ADDSATMIN   : return 1'b1;
-                default         : return 1'b0; // all other ops
-            endcase
     endfunction
 
     function automatic logic is_amo (fu_op op);
