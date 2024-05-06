@@ -241,7 +241,6 @@ module alu import ariane_pkg::*;(
                             func_f,
                             func_addsat,
                             func_subsat,
-                            decode,
                             eval;
     // sign 1 bit 
     logic [SIMD-1:0]        sign ;
@@ -269,10 +268,6 @@ module alu import ariane_pkg::*;(
             // R
             assign func_r[i*Q +:Q] =  ($signed(fu_data_i.operand_b[7:0] ) == 8'sb1) ?8'h00: ( $signed(fu_data_i.operand_a[i*Q +:Q ]) < 8'sb0 ) ? 8'h01 : 8'h00 ; 
             
-            // DECODE
-            assign decode[i*Q +:Q] =  (fu_data_i.operand_b[7:0] ==8'h00 ) ? fu_data_i.operand_a[i*Q +:Q] : 8'h00 ; 
-            // we have to account for possible overflow
-
             // F
             assign sign[i]         =  ( ( $signed( fu_data_i.operand_a[i*Q +:Q ]  ) >= 0) ? 1'b0:1'b1)  ^ ( ( $signed(fu_data_i.operand_b[i*Q +:Q] ) >= 0 )? 1'b0:1'b1)   ;
 
@@ -332,7 +327,6 @@ module alu import ariane_pkg::*;(
       PL_VREPSUM  : polar_result  =  r_repaddsum ;
       PL_VADDREP1 : polar_result  =  r_addrep1 ;
       PL_VADDREP2 : polar_result  =  r_addrep2 ;
-      PL_DECODE   : polar_result  =  decode ; 
       PL_EVAL     : polar_result  =  eval ; 
       default     : polar_result  = '0 ; 
     endcase
@@ -348,7 +342,6 @@ module alu import ariane_pkg::*;(
             // polar  operations 
             PL_F,
             PL_R,
-            PL_DECODE,
             PL_EVAL,
             PL_VADDREP1, 
             PL_VADDREP2, 

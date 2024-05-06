@@ -1,3 +1,6 @@
+
+create_clock -period 50.000 -name clk_i [get_ports clk_i]
+
 ## Buttons
 set_property -dict {PACKAGE_PIN R19 IOSTANDARD LVCMOS33} [get_ports cpu_resetn]
 

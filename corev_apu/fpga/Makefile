@@ -17,16 +17,15 @@ ips := xlnx_axi_clock_converter.xci  \
 ips := $(addprefix $(work-dir)/, $(ips))
 ips-target := $(join $(addsuffix /ip/, $(addprefix $(ip-dir)/, $(basename $(ips)))), $(ips))
 
-all: $(mcs)
+all: $(bit)
 
 # Generate mcs from bitstream
 $(mcs): $(bit)
 	$(VIVADO) $(VIVADOFLAGS) -source scripts/write_cfgmem.tcl -tclargs $@ $^
 
-$(bit): $(ips)
+$(bit):
 	mkdir -p $(work-dir)
 	$(VIVADO) $(VIVADOFLAGS) -source scripts/run.tcl
-	cp ariane.runs/impl_1/ariane_xilinx* ./$(work-dir)
 
 $(ips): %.xci :
 	mkdir -p $(work-dir)

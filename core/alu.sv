@@ -59,7 +59,7 @@ module alu import ariane_pkg::*;(
     logic [riscv::XLEN-1:0] operand_a_bitmanip, bit_indx;
 
     always_comb begin
-      adder_op_b_negate = 1'b0;
+      adder_op_b_negate = 1'b0; 
 
       unique case (fu_data_i.operator)
         // ADDER OPS
@@ -217,135 +217,34 @@ module alu import ariane_pkg::*;(
           .empty_o (lz_tz_wempty)
         );
     end
-  
-  
-  ////////////////
-  // LDPC       //
-  ////////////////
-// need  : subsat sign abs Max Min eval Rsign Nmess Addsat 
 
-    logic [riscv::XLEN-1:0] ldpc_result;
-    parameter integer Q       = 8 ;
-    parameter integer SIMD    = 4 ;
-
-    // Array of vectors [ SIMD_lvl | simd_lvl-1 | simd_lvl-2 | ect..]
-    parameter integer V_LENGHT = (Q*SIMD) ;
-
-// 9 bits to compute overflow for SIMD values
-    logic[9*SIMD:0] ldpc_res_plus,
-                    ldpc_res_minus;
-// 8bits holders
-    logic[(V_LENGHT-1):0]   ldpc_max_vector,
-                            r_addsat,
-                            r_subsat,
-                            r_sign,
-                            r_eval, 
-                            r_rsign, 
-                            r_nmess, 
-                            r_min, r_abs;
-// hold just 1 bit
-  logic[SIMD-1:0] ldpc_comp;
-
-    generate
-      for(genvar i=0 ; i<SIMD; i++) begin
-
-        // SUBSAT 
-        assign ldpc_res_minus[(i*9) +:9]  = $signed( fu_data_i.operand_a[i*Q +:Q ]) - $signed( fu_data_i.operand_b[i*Q +:Q ]) ;
-        assign r_subsat[ i*Q +:Q]         = ($signed(ldpc_res_minus[(i*9) +:9]) >  9'sd127)?  8'sd127 :
-                                            ($signed(ldpc_res_minus[(i*9) +:9]) < -9'sd127)? -8'sd127 :
-                                            ldpc_res_minus[(i*9) +:9];
-
-        // SIGN 
-        assign r_sign[ i*Q +:Q]           = ( $signed(fu_data_i.operand_a[i*Q +:Q]) < 8'sb0) ? 8'h01 : 8'h00 ;
-
-        // ABS 
-        assign r_abs[ i*Q +:Q]          =   ($signed(fu_data_i.operand_a[i*Q +:Q]) >= 0 )? fu_data_i.operand_a[i*Q +:Q]: -fu_data_i.operand_a[i*Q +:Q] ;
+    // -----------
+    //  TURBO
+    // -----------
+      logic tb_sign ; 
+      logic [7:0] tb_in_A ;
+      logic [7:0] tb_in_B ;
+      logic [7:0] tb_in_C ; 
 
 
+      assign tb_sign = ($signed(fu_data_i.operand_a[7:0]) >=0 )? 1 : 0 ; 			
+          // sign gives immediate abs value 
+          // need to store abs A 
+      assign tb_in_A = (tb_sign) ? fu_data_i.operand_a[7:0] : - fu_data_i.operand_a[7:0] ; 
+          // shift right logical 
+      assign tb_in_B = tb_in_A >> 2 ; 
+      assign tb_in_C = tb_in_A - tb_in_B ; 
 
+      // MAXPM 
+      logic[7:0]  r_maxpm_1, r_maxpm_2 ; 
+      assign r_maxpm_1 = $signed(fu_data_i.operand_a[7:0]) + $signed(fu_data_i.operand_b[7:0]);
+      assign r_maxpm_2 = $signed(fu_data_i.imm[7:0])       - $signed(fu_data_i.operand_b[7:0]);
 
-        // return bit of comparison (a >= b)?
-        assign ldpc_comp[i] = ($signed(fu_data_i.operand_a[i*Q +:Q]) >= $signed(fu_data_i.operand_b[i*Q +:Q] )) ? 1'b1:1'b0 ;
+      // ACCUMAX
+      logic[7:0]  r_max_1, r_max_2 ; 
+      assign r_max_1 = ( $signed(fu_data_i.operand_a[7:0])  < $signed(fu_data_i.operand_b[7:0]) ) ? fu_data_i.operand_b[7:0] : fu_data_i.operand_a[7:0] ;
+      assign r_max_2 = ( $signed(fu_data_i.imm[7:0])        < $signed(r_max_1))                   ? r_max_1 : fu_data_i.imm[7:0] ;
 
-        // MAX 
-        // return val max
-        assign ldpc_max_vector[i*Q +:Q] = (ldpc_comp[i])? fu_data_i.operand_a[i*Q +:Q] : fu_data_i.operand_b[i*Q +:Q] ;
-
-
-        // MIN 
-        // return val min
-        assign r_min[ i*Q +:Q] = (ldpc_comp[i])? fu_data_i.operand_b[i*Q +:Q] : fu_data_i.operand_a[i*Q +:Q] ;
-        
-        // EVAL
-        // cmpeq inv. 
-        assign r_eval[i*Q +:Q] = ( $signed(fu_data_i.operand_a[i*Q +:Q]) != $signed(fu_data_i.operand_b[i*Q +:Q]) )? 8'h0:8'hff ;   
-
-
-        // RSIGN 
-        assign r_rsign[i*Q +:Q] = fu_data_i.operand_a[i*Q +:Q] ^ (($signed(fu_data_i.operand_b[i*Q +:Q]) >= 8'sb0 )? 1 :0 ); 
-
-        // NMESS 
-        assign r_nmess[i*Q +:Q] = ( fu_data_i.operand_a[i*Q +:Q] >= 1 )? fu_data_i.operand_b[i*Q +:Q]: -fu_data_i.operand_b[i*Q +:Q] ;
-
-
-        // ADDSAT 
-        assign ldpc_res_plus[(i*9) +:9]   = $signed( fu_data_i.operand_a[i*Q +:Q ]) + $signed( fu_data_i.operand_b[i*Q +:Q ]) ;
-        assign r_addsat[ i*Q +:Q]         = ($signed(ldpc_res_plus[(i*9) +:9]) >  9'sd127)?  8'sd127 :
-                                            ($signed(ldpc_res_plus[(i*9) +:9]) < -9'sd127)? -8'sd127 :
-                                            ldpc_res_plus[(i*9) +:9]; //let the synthesizer handle the conversion ?
-      end
-    endgenerate
-
-
-
-
-  // Can be removed
-  always_comb begin
-    ldpc_result='0 ;
-
-    unique case (fu_data_i.operator)
-
-        LDPC_SUB_SAT : begin
-            ldpc_result = r_subsat ;
-        end
-
-        LDPC_SIGN: begin
-            ldpc_result =r_sign ;
-        end
-
-        LDPC_ABS: begin
-            ldpc_result =r_abs;
-        end
-
-        LDPC_MAX: begin
-            ldpc_result =ldpc_max_vector ;
-        end
-
-        LDPC_MIN: begin
-            ldpc_result =r_min ;
-        end
-        
-        LDPC_EVAL: begin
-            ldpc_result =r_eval ;
-        end
-
-        LDPC_RSIGN:begin
-            ldpc_result = r_rsign; 
-        end 
-
-        LDPC_NMESS: begin
-            ldpc_result =r_nmess ;
-        end
-
-        LDPC_ADD_SAT : begin
-            ldpc_result =r_addsat ;
-        end
-
-        default: begin
-            ldpc_result='0 ;
-        end
-    endcase
-  end
 
     // -----------
     // Result MUX
@@ -353,18 +252,16 @@ module alu import ariane_pkg::*;(
     always_comb begin
         result_o   = '0;
         unique case (fu_data_i.operator)
-            
-            // LDPC operations 
+            // TURBO
+            TB_MAX    : result_o = ( $signed(fu_data_i.operand_a[7:0]) <= $signed(fu_data_i.operand_b[7:0]) )  ? fu_data_i.operand_b[7:0] : fu_data_i.operand_a[7:0];
+            TB_SCALE  : result_o = (tb_sign)? tb_in_C : -tb_in_C ;
 
-            LDPC_SUB_SAT,
-            LDPC_SIGN, 
-            LDPC_ABS,
-            LDPC_MAX,
-            LDPC_MIN,
-            LDPC_NMESS,
-            LDPC_ADD_SAT,
-            LDPC_EVAL,
-            LDPC_RSIGN : result_o = ldpc_result;
+            TB_MAXPM  : result_o =  ( $signed(r_maxpm_1) < $signed(r_maxpm_2) ) ? r_maxpm_2 :r_maxpm_1 ; 
+            TB_ACCUPP : result_o =   $signed(fu_data_i.operand_a[7:0]) + $signed(fu_data_i.operand_b[7:0]) + $signed(fu_data_i.imm[7:0]);  
+            TB_ACCUMP : result_o =   $signed(fu_data_i.operand_a[7:0]) - $signed(fu_data_i.operand_b[7:0]) + $signed(fu_data_i.imm[7:0]);  
+            TB_ACCUMAX: result_o =  r_max_2; 
+
+
 
             // Standard Operations
             ANDL, ANDN: result_o = fu_data_i.operand_a & operand_b_neg[riscv::XLEN:1];

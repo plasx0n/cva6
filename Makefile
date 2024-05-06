@@ -772,12 +772,9 @@ fpga_filter += $(addprefix $(root-dir), common/local/util/tc_sram_wrapper.sv)
 
 fpga: $(ariane_pkg) $(util) $(src) $(fpga_src) $(uart_src) $(copro_src)
 	@echo "[FPGA] Generate sources"
-	@echo read_vhdl        {$(uart_src)}    > corev_apu/fpga/scripts/add_sources.tcl
 	@echo read_verilog -sv {$(ariane_pkg)} >> corev_apu/fpga/scripts/add_sources.tcl
 	@echo read_verilog -sv {$(filter-out $(fpga_filter), $(util))}     >> corev_apu/fpga/scripts/add_sources.tcl
-	@echo read_verilog -sv {$(filter-out $(fpga_filter), $(copro_src))} >> corev_apu/fpga/scripts/add_sources.tcl
 	@echo read_verilog -sv {$(filter-out $(fpga_filter), $(src))} 	   >> corev_apu/fpga/scripts/add_sources.tcl
-	@echo read_verilog -sv {$(fpga_src)}   >> corev_apu/fpga/scripts/add_sources.tcl
 	@echo "[FPGA] Generate Bitstream"
 	cd corev_apu/fpga && make BOARD=$(BOARD) XILINX_PART=$(XILINX_PART) XILINX_BOARD=$(XILINX_BOARD) CLK_PERIOD_NS=$(CLK_PERIOD_NS)
 
@@ -813,53 +810,53 @@ server_run:
 
 
 server: 
-	# make server_cmd core_dir=origi 
-	# make server_cmd core_dir=ldpc_r2 
-	# make server_cmd core_dir=ldpc_r3 
-	# make server_cmd core_dir=ldpc_i8x4_inter_r2 
-	# make server_cmd core_dir=ldpc_i8x4_inter_r3 
-	# make server_cmd core_dir=ldpc_i8x8_inter_r2 
-	# make server_cmd core_dir=ldpc_i8x8_inter_r3 
-	# make server_cmd core_dir=plsc_r2 
-	# make server_cmd core_dir=plsc_r3 
-	# make server_cmd core_dir=plsc_i8x4_inter_r2 
-	# make server_cmd core_dir=plsc_i8x4_inter_r3  
-	# make server_cmd core_dir=plsc_i8x4_intra_r2 
-	# make server_cmd core_dir=plsc_i8x4_intra_r3 
-	# make server_cmd core_dir=plsc_i8x8_inter_r2
-	# make server_cmd core_dir=plsc_i8x8_inter_r3 
-	# make server_cmd core_dir=plsc_i8x8_intra_r2 
-	# make server_cmd core_dir=plsc_i8x8_intra_r3 
-	# make server_cmd core_dir=plfsc_i8x4_inter_r2 
-	# make server_cmd core_dir=plfsc_i8x8_inter_r2
-	# make server_cmd core_dir=tb_i8_r2 
-	# make server_cmd core_dir=tb_i8_r3 
-	# make server_cmd core_dir=tb_i8x4_inter_r2 
-	# make server_cmd core_dir=tb_i8x4_inter_r3 
-	# make server_cmd core_dir=tb_i8x4_intra_r2 
-	# make server_cmd core_dir=tb_i8x4_intra_r3 
-	# make server_cmd core_dir=tb_i8x8_inter_r2 
-	# make server_cmd core_dir=tb_i8x8_inter_r3 
-	# make server_cmd core_dir=tb_i8x8_intra_r2
-	# make server_cmd core_dir=ldpcnb_i8_r2 
-	# make server_cmd core_dir=ldpcnb_i8_r3 
-	# make server_cmd core_dir=ldpcnb_i8x4_inter_r2
-	# make server_cmd core_dir=ldpcnb_i8x4_inter_r3
-	# make server_cmd core_dir=ldpcnb_i8x8_inter_r2
-	# make server_cmd core_dir=ldpcnb_i8x8_inter_r3
-	# make server_cmd core_dir=ldpcnb_i8x4_intra_r2
-	# make server_cmd core_dir=ldpcnb_i8x4_intra_r3
-	# make server_cmd core_dir=ldpcnb_i8x8_intra_r2
-	# make server_cmd core_dir=ldpcnb_i8x8_intra_r3
+	make server_cmd core_dir=origi 
+	make server_cmd core_dir=ldpc_r2 
+	make server_cmd core_dir=ldpc_r3 
+	make server_cmd core_dir=ldpc_i8x4_inter_r2 
+	make server_cmd core_dir=ldpc_i8x4_inter_r3 
+	make server_cmd core_dir=ldpc_i8x8_inter_r2 
+	make server_cmd core_dir=ldpc_i8x8_inter_r3 
+	make server_cmd core_dir=plsc_r2 
+	make server_cmd core_dir=plsc_r3 
+	make server_cmd core_dir=plsc_i8x4_inter_r2 
+	make server_cmd core_dir=plsc_i8x4_inter_r3  
+	make server_cmd core_dir=plsc_i8x4_intra_r2 
+	make server_cmd core_dir=plsc_i8x4_intra_r3 
+	make server_cmd core_dir=plsc_i8x8_inter_r2
+	make server_cmd core_dir=plsc_i8x8_inter_r3 
+	make server_cmd core_dir=plsc_i8x8_intra_r2 
+	make server_cmd core_dir=plsc_i8x8_intra_r3 
+	make server_cmd core_dir=plfsc_i8x4_inter_r2 
+	make server_cmd core_dir=plfsc_i8x8_inter_r2
+	make server_cmd core_dir=tb_i8_r2 
+	make server_cmd core_dir=tb_i8_r3 
+	make server_cmd core_dir=tb_i8x4_inter_r2 
+	make server_cmd core_dir=tb_i8x4_inter_r3 
+	make server_cmd core_dir=tb_i8x4_intra_r2 
+	make server_cmd core_dir=tb_i8x4_intra_r3 
+	make server_cmd core_dir=tb_i8x8_inter_r2 
+	make server_cmd core_dir=tb_i8x8_inter_r3 
+	make server_cmd core_dir=tb_i8x8_intra_r2
+	make server_cmd core_dir=ldpcnb_i8_r2 
+	make server_cmd core_dir=ldpcnb_i8_r3 
+	make server_cmd core_dir=ldpcnb_i8x4_inter_r2
+	make server_cmd core_dir=ldpcnb_i8x4_inter_r3
+	make server_cmd core_dir=ldpcnb_i8x8_inter_r2
+	make server_cmd core_dir=ldpcnb_i8x8_inter_r3
+	make server_cmd core_dir=ldpcnb_i8x4_intra_r2
+	make server_cmd core_dir=ldpcnb_i8x4_intra_r3
+	make server_cmd core_dir=ldpcnb_i8x8_intra_r2
+	make server_cmd core_dir=ldpcnb_i8x8_intra_r3
 
 
 server_cmd:
 	@if test -f corev_apu/fpga/work-fpga/ariane_xilinx.bit; then echo remove .bit && rm corev_apu/fpga/work-fpga/ariane_xilinx.bit; else echo no .bit; fi
-	@if test -d ../reports/$(core_dir); then echo dir exist; else mkdir ../reports/$(core_dir); fi  
+	@if test -d ../reports_alu/$(core_dir); then echo dir exist; else mkdir ../reports_alu/$(core_dir); fi  
 	rm -rf core/
 	cp -rf core.$(core_dir) core
 	make fpga
-	cp -rf corev_apu/fpga/reports ../reports/$(core_dir)
+	cp -rf corev_apu/fpga/reports ../reports_alu/$(core_dir)
 
 cpy: 
 	cp core.ldpc_i8x4_inter_r2/alu.sv			../alu_dir/ldpc_i8x4_inter_r2_alu.sv
