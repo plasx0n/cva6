@@ -217,6 +217,120 @@ module alu import ariane_pkg::*;(
           .empty_o (lz_tz_wempty)
         );
     end
+    //////////////////
+    //POLAR autogen //
+    //////////////////
+    // Pas d'optis 
+
+    logic [riscv::XLEN-1:0] polar_result; 
+    parameter integer Q       = 8 ;
+
+    parameter integer SIMD    = 4 ; 
+    // Array of vectors [ SIMD_lvl | simd_lvl-1 | simd_lvl-2 | ect..]   
+    parameter integer V_LENGHT = (Q*SIMD) ;
+
+// 9 bits to compute overflow for SIMD values.. .
+    logic [9*SIMD:0]    polar_res_aminusb, 
+                        polar_res_aplusb; 
+
+    // pl_r 
+    logic [(V_LENGHT)-1:0]  r_addrep1,r_addrep2,r_repaddsum,
+                            func_r,
+                            abs_a, 
+                            abs_b,
+                            func_f,
+                            func_addsat,
+                            func_subsat,
+                            eval;
+    // sign 1 bit 
+    logic [SIMD-1:0]        sign ;
+
+    logic [7:0] a1,a2,b1,b2 ; 
+    assign a2 = ($signed(fu_data_i.operand_a[31:16]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
+    assign a1 = ($signed(fu_data_i.operand_a[15:0 ]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
+    assign b2 = ($signed(fu_data_i.operand_b[31:16]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
+    assign b1 = ($signed(fu_data_i.operand_b[15:0 ]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
+
+    // cycle trought the vectors 
+    generate
+
+        for ( genvar i =0 ;  i<SIMD ;i++ ) begin
+            
+            // assign i = k*Q ; 
+            // assign byte0 = dword[0 +: 8];    // Same as dword[7:0]
+
+            // This is illegal due to the variable i, even though the width is always 8 bits
+            // assign byte = dword[(i*8)+7 : i*8];  // ** Not allowed!
+
+            // Use the indexed part select 
+            // assign byte = dword[i*8 +: 8];
+
+            // R
+            assign func_r[i*Q +:Q] =  ($signed(fu_data_i.operand_b[7:0] ) == 8'sb1) ?8'h00: ( $signed(fu_data_i.operand_a[i*Q +:Q ]) < 8'sb0 ) ? 8'h01 : 8'h00 ; 
+            
+            // F
+            assign sign[i]         =  ( ( $signed( fu_data_i.operand_a[i*Q +:Q ]  ) >= 0) ? 1'b0:1'b1)  ^ ( ( $signed(fu_data_i.operand_b[i*Q +:Q] ) >= 0 )? 1'b0:1'b1)   ;
+
+            assign abs_a[ i*Q +:Q] = ( ( $signed( fu_data_i.operand_a[i*Q +:Q]   ) >= 0) ? fu_data_i.operand_a[i*Q +:Q]   : -fu_data_i.operand_a[i*Q +:Q] ) ;
+            assign abs_b[ i*Q +:Q] = ( ( $signed( fu_data_i.operand_b[i*Q +:Q]   ) >= 0) ? fu_data_i.operand_b[i*Q +:Q]   : -fu_data_i.operand_b[i*Q +:Q] ) ;
+
+            assign func_f[i*Q +:Q] =  ( abs_a[i*Q +:Q] > abs_b[i*Q +:Q] ) ? 
+                                      (( sign[i] == 1'b0 ) ? abs_b[i*Q +:Q] : -abs_b[i*Q +:Q] ) 
+                                      :  
+                                      (( sign[i] == 1'b0 ) ? abs_a[i*Q +:Q] : -abs_a[i*Q +:Q] ) ; 
+
+            // need to compare with signed 
+            // synth will do the rest 
+            
+            // SUBSAT 
+            assign polar_res_aminusb[(i*9) +:9]  = $signed( fu_data_i.operand_a[ i*Q +:Q]) - $signed( fu_data_i.operand_b[i*Q +:Q]) ;
+            assign func_subsat[ i*Q +:Q] =  ($signed(polar_res_aminusb[(i*9) +:9]) >  9'sd127)?  8'sd127 : 
+                                            ($signed(polar_res_aminusb[(i*9) +:9]) < -9'sd127)? -8'sd127 : 
+                                            polar_res_aminusb[(i*9) +:9];
+            
+            // ADDSAT 
+            assign polar_res_aplusb[(i*9)  +:9]  = $signed( fu_data_i.operand_a[ i*Q +:Q]) + $signed( fu_data_i.operand_b[i*Q +:Q]) ;
+            assign func_addsat[ i*Q +:Q] =  ( $signed(polar_res_aplusb[(i*9) +:9])  >  9'sd127) ? 8'sd127 : 
+                                            ( $signed(polar_res_aplusb[(i*9) +:9])  < -9'sd127)? -8'sd127 : 
+                                            polar_res_aplusb[(i*9) +:9] ;
+
+            
+            // EVAL
+            assign eval[i*Q +:Q]   =(fu_data_i.operand_a[i*Q +:Q] ==8'd1 ) ? 8'hFF : 8'h00 ; 
+
+
+      // evalutation signée correcte ici ? 
+        assign r_addrep1 = {
+         	{ $signed( fu_data_i.operand_a[31:16]) + $signed( fu_data_i.operand_b[15:8]) },
+			    { $signed( fu_data_i.operand_a[15:0])  + $signed( fu_data_i.operand_b[7:0]) }
+        };  
+
+        assign r_addrep2 =
+        {
+			    { $signed( fu_data_i.operand_a[31:16]) + $signed( fu_data_i.operand_b[31:24]) },
+			    { $signed( fu_data_i.operand_a[15:0])  + $signed( fu_data_i.operand_b[23:16]) }
+        }; 
+
+        assign r_repaddsum =  { b2,b1,a2,a1}; 
+
+        end 
+  endgenerate
+
+
+  always_comb begin
+    polar_result='0 ; 
+    unique case (fu_data_i.operator)
+      PL_ADDSAT   : polar_result  =  func_addsat;
+      PL_SUBSAT   : polar_result  =  func_subsat; 
+      PL_F        : polar_result  =  func_f ;
+      PL_R        : polar_result  =  func_r; 
+      PL_VREPSUM  : polar_result  =  r_repaddsum ;
+      PL_VADDREP1 : polar_result  =  r_addrep1 ;
+      PL_VADDREP2 : polar_result  =  r_addrep2 ;
+      PL_EVAL     : polar_result  =  eval ; 
+      default     : polar_result  = '0 ; 
+    endcase
+  end 
 
     // -----------
     // Result MUX
@@ -224,6 +338,18 @@ module alu import ariane_pkg::*;(
     always_comb begin
         result_o   = '0;
         unique case (fu_data_i.operator)
+            
+            // polar  operations 
+            PL_F,
+            PL_R,
+            PL_EVAL,
+            PL_VADDREP1, 
+            PL_VADDREP2, 
+            PL_VREPSUM,            
+            PL_ADDSAT,
+            PL_SUBSAT : result_o = polar_result;
+
+
             // Standard Operations
             ANDL, ANDN: result_o = fu_data_i.operand_a & operand_b_neg[riscv::XLEN:1];
             ORL, ORN  : result_o = fu_data_i.operand_a | operand_b_neg[riscv::XLEN:1];
