@@ -463,16 +463,7 @@ package ariane_pkg;
     // EX Stage
     // ---------------
 
-    typedef enum logic [7:0] { 
-                                // TURBO 
-                                TB_MAX,
-                                TB_SCALE,
-                                TB_MAXPM, 
-                                TB_ACCUPP,
-                                TB_ACCUMAX,
-                                TB_ACCUMP,
-
-                               // basic ALU op
+    typedef enum logic [7:0] { // basic ALU op
                                ADD, SUB, ADDW, SUBW,
                                // logic operations
                                XORL, ORL, ANDL,
@@ -614,17 +605,6 @@ package ariane_pkg;
             endcase
         end else
             return 1'b0;
-    endfunction
-    
-    //Custom 3r  
-    function automatic logic is_rs3_3reg (input fu_op op);
-            unique case (op) inside
-                TB_MAXPM, 
-                TB_ACCUPP,
-                TB_ACCUMAX,
-                TB_ACCUMP         : return 1'b1; // Vectorial FP cast and pack ops
-                default           : return 1'b0; // all other ops
-            endcase
     endfunction
 
     function automatic logic is_amo (fu_op op);
