@@ -245,9 +245,14 @@ module alu import ariane_pkg::*;(
     // sign 1 bit 
     logic [SIMD-1:0]        sign ;
 
-    logic [7:0] a1,a2,b1,b2 ; 
+    logic [7:0] a1,a2,a3,a4, b1,b2,b3,b4 ; 
+    assign a4 = ($signed(fu_data_i.operand_a[63:48]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
+    assign a3 = ($signed(fu_data_i.operand_a[47:32]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
     assign a2 = ($signed(fu_data_i.operand_a[31:16]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
     assign a1 = ($signed(fu_data_i.operand_a[15:0 ]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
+
+    assign b4 = ($signed(fu_data_i.operand_a[63:48]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
+    assign b3 = ($signed(fu_data_i.operand_a[47:32]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
     assign b2 = ($signed(fu_data_i.operand_b[31:16]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
     assign b1 = ($signed(fu_data_i.operand_b[15:0 ]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
 
@@ -302,17 +307,21 @@ module alu import ariane_pkg::*;(
 
       // evalutation signée correcte ici ? 
         assign r_addrep1 = {
+         	{ $signed( fu_data_i.operand_a[63:48]) + $signed( fu_data_i.operand_b[31:24]) },
+			    { $signed( fu_data_i.operand_a[47:32]) + $signed( fu_data_i.operand_b[23:16]) },
          	{ $signed( fu_data_i.operand_a[31:16]) + $signed( fu_data_i.operand_b[15:8]) },
-			    { $signed( fu_data_i.operand_a[15:0])  + $signed( fu_data_i.operand_b[7:0]) }
+			    { $signed( fu_data_i.operand_a[15:0] )  + $signed( fu_data_i.operand_b[7:0]) }
         };  
 
         assign r_addrep2 =
         {
-			    { $signed( fu_data_i.operand_a[31:16]) + $signed( fu_data_i.operand_b[31:24]) },
-			    { $signed( fu_data_i.operand_a[15:0])  + $signed( fu_data_i.operand_b[23:16]) }
+         	{ $signed( fu_data_i.operand_a[63:48]) + $signed( fu_data_i.operand_b[63:56]) },
+			    { $signed( fu_data_i.operand_a[47:32]) + $signed( fu_data_i.operand_b[55:48]) },
+         	{ $signed( fu_data_i.operand_a[31:16]) + $signed( fu_data_i.operand_b[47:40]) },
+			    { $signed( fu_data_i.operand_a[15:0])  + $signed( fu_data_i.operand_b[39:32])}
         }; 
 
-        assign r_repaddsum =  { b2,b1,a2,a1}; 
+        assign r_repaddsum = { b4,b3,b2,b1, a4,a3,a2,a1}; 
 
         end 
   endgenerate
@@ -343,7 +352,6 @@ module alu import ariane_pkg::*;(
             // polar  operations 
             PL_F,
             PL_R,
-            PL_DECODE,
             PL_EVAL,
             PL_VADDREP1, 
             PL_VADDREP2, 

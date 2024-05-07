@@ -225,7 +225,7 @@ module alu import ariane_pkg::*;(
     logic [riscv::XLEN-1:0] polar_result; 
     parameter integer Q       = 8 ;
 
-    parameter integer SIMD    = 8 ; 
+    parameter integer SIMD    = 4 ; 
     // Array of vectors [ SIMD_lvl | simd_lvl-1 | simd_lvl-2 | ect..]   
     parameter integer V_LENGHT = (Q*SIMD) ;
 
@@ -234,14 +234,16 @@ module alu import ariane_pkg::*;(
                         polar_res_aplusb; 
 
     // pl_r 
-    logic [(V_LENGHT)-1:0]  r_addrep1,r_addrep2,r_repaddsum,func_g,
+    logic [(V_LENGHT)-1:0]  r_addrep1,r_addrep2,
                             func_r,
+                            
                             abs_a, 
                             abs_b,
                             func_f,
+
+                            func_g,                            
                             func_addsat,
-                            func_subsat,
-                            decode;
+                            func_subsat;
     // sign 1 bit 
     logic [SIMD-1:0]        sign ;
 
@@ -267,10 +269,6 @@ module alu import ariane_pkg::*;(
 
             // R
             assign func_r[i*Q +:Q] =  ($signed(fu_data_i.operand_b[7:0] ) == 8'sb1) ?8'h00: ( $signed(fu_data_i.operand_a[i*Q +:Q ]) < 8'sb0 ) ? 8'h01 : 8'h00 ; 
-            
-            // DECODE
-            assign decode[i*Q +:Q] =  (fu_data_i.operand_b[7:0] ==8'h00 ) ? fu_data_i.operand_a[i*Q +:Q] : 8'h00 ; 
-            // we have to account for possible overflow
 
             // F
             assign sign[i]         =  ( ( $signed( fu_data_i.operand_a[i*Q +:Q ]  ) >= 0) ? 1'b0:1'b1)  ^ ( ( $signed(fu_data_i.operand_b[i*Q +:Q] ) >= 0 )? 1'b0:1'b1)   ;
@@ -310,7 +308,6 @@ module alu import ariane_pkg::*;(
 			    { $signed( fu_data_i.operand_a[15:0])  + $signed( fu_data_i.operand_b[23:16]) }
         }; 
 
-        assign r_repaddsum =  { b2,b1,a2,a1}; 
 
         assign func_g[i*Q+:Q] =  (fu_data_i.imm[i*Q+:Q]==8'h00)?  func_addsat[ i*Q +:Q]: 
                                                                   func_subsat[ i*Q +:Q]; 
@@ -325,10 +322,9 @@ module alu import ariane_pkg::*;(
 
       PL_R        : polar_result =  func_r; 
       PL_F        : polar_result =  func_f ;
-      PL_DECODE   : polar_result =  decode ; 
       PL_VADDREP1 : polar_result =  r_addrep1 ;
       PL_VADDREP2 : polar_result =  r_addrep2 ;
-      PL_VREPSUM  : polar_result =  r_repaddsum ;
+      PL_VREPSUM  : polar_result =  { b2,b1,a2,a1} ;
       PL_G        : polar_result =  func_g ;
 
       default: polar_result='0 ; 
@@ -345,7 +341,6 @@ module alu import ariane_pkg::*;(
             // polar  operations 
             PL_F,
             PL_R,
-            PL_DECODE,
             PL_VADDREP1, 
             PL_VADDREP2, 
             PL_VREPSUM,            

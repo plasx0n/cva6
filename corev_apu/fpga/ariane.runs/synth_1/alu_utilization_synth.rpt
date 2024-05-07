@@ -1,7 +1,7 @@
 Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2019.2 (lin64) Build 2708876 Wed Nov  6 21:39:14 MST 2019
-| Date         : Mon May  6 14:58:28 2024
+| Date         : Tue May  7 14:22:22 2024
 | Host         : desktop running 64-bit Ubuntu 24.04 LTS
 | Command      : report_utilization -file alu_utilization_synth.rpt -pb alu_utilization_synth.pb
 | Design       : alu
@@ -30,13 +30,13 @@ Table of Contents
 +-------------------------+------+-------+-----------+-------+
 |        Site Type        | Used | Fixed | Available | Util% |
 +-------------------------+------+-------+-----------+-------+
-| Slice LUTs*             | 2734 |     0 |    203800 |  1.34 |
-|   LUT as Logic          | 2734 |     0 |    203800 |  1.34 |
+| Slice LUTs*             | 2852 |     0 |    203800 |  1.40 |
+|   LUT as Logic          | 2852 |     0 |    203800 |  1.40 |
 |   LUT as Memory         |    0 |     0 |     64000 |  0.00 |
 | Slice Registers         |    0 |     0 |    407600 |  0.00 |
 |   Register as Flip Flop |    0 |     0 |    407600 |  0.00 |
 |   Register as Latch     |    0 |     0 |    407600 |  0.00 |
-| F7 Muxes                |   36 |     0 |    101900 |  0.04 |
+| F7 Muxes                |   13 |     0 |    101900 |  0.01 |
 | F8 Muxes                |    0 |     0 |     50950 |  0.00 |
 +-------------------------+------+-------+-----------+-------+
 * Warning! The Final LUT count, after physical optimizations and full implementation, is typically lower. Run opt_design after synthesis, if not already completed, for a more realistic count.
@@ -90,7 +90,7 @@ Table of Contents
 +-----------------------------+------+-------+-----------+-------+
 |          Site Type          | Used | Fixed | Available | Util% |
 +-----------------------------+------+-------+-----------+-------+
-| Bonded IOB                  |  209 |     0 |       500 | 41.80 |
+| Bonded IOB                  |  201 |     0 |       500 | 40.20 |
 | Bonded IPADs                |    0 |     0 |        50 |  0.00 |
 | Bonded OPADs                |    0 |     0 |        32 |  0.00 |
 | PHY_CONTROL                 |    0 |     0 |        10 |  0.00 |
@@ -151,16 +151,16 @@ Table of Contents
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
-| LUT6     | 1615 |                 LUT |
-| LUT5     |  595 |                 LUT |
-| LUT3     |  449 |                 LUT |
-| LUT4     |  360 |                 LUT |
-| LUT2     |  199 |                 LUT |
-| IBUF     |  144 |                  IO |
+| LUT6     | 1667 |                 LUT |
+| LUT5     |  628 |                 LUT |
+| LUT3     |  431 |                 LUT |
+| LUT4     |  367 |                 LUT |
+| LUT2     |  255 |                 LUT |
+| IBUF     |  136 |                  IO |
 | OBUF     |   65 |                  IO |
-| CARRY4   |   44 |          CarryLogic |
-| MUXF7    |   36 |               MuxFx |
-| LUT1     |    1 |                 LUT |
+| CARRY4   |   55 |          CarryLogic |
+| MUXF7    |   13 |               MuxFx |
+| LUT1     |    8 |                 LUT |
 +----------+------+---------------------+
 
 

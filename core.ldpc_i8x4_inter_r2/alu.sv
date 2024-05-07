@@ -256,10 +256,10 @@ module alu import ariane_pkg::*;(
                                             ldpc_res_minus[(i*9) +:9];
 
         // SIGN 
-        assign r_sign[ i*Q +:Q]           = ( $signed(fu_data_i.operand_a[i*Q +:Q]) < 8'sb0) ? 8'h01 : 8'h00 ;
+        assign r_sign[ i*Q +:Q]           = ($signed(fu_data_i.operand_a[i*Q +:Q]) < 8'sb0) ? 8'h01 : 8'h00 ;
 
         // ABS 
-        assign r_abs[ i*Q +:Q]          =   ($signed(fu_data_i.operand_a[i*Q +:Q]) >= 0 )? fu_data_i.operand_a[i*Q +:Q]: -fu_data_i.operand_a[i*Q +:Q] ;
+        assign r_abs[ i*Q +:Q]            = ($signed(fu_data_i.operand_a[i*Q +:Q]) >= 0 )? fu_data_i.operand_a[i*Q +:Q]: -fu_data_i.operand_a[i*Q +:Q] ;
 
 
 

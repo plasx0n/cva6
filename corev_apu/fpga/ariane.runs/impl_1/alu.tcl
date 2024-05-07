@@ -70,7 +70,7 @@ set ACTIVE_STEP write_bitstream
 set rc [catch {
   create_msg_db write_bitstream.pb
   set_param chipscope.maxJobs 1
-  set_param synth.incrementalSynthesisCache ./.Xil/Vivado-57950-desktop/incrSyn
+  set_param synth.incrementalSynthesisCache ./.Xil/Vivado-81824-desktop/incrSyn
   open_checkpoint alu_routed.dcp
   set_property webtalk.parent_dir /home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/fpga/ariane.cache/wt [current_project]
   catch { write_mem_info -force alu.mmi }
