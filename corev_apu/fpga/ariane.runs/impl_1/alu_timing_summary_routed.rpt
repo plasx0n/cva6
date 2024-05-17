@@ -1,7 +1,7 @@
 Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2019.2 (lin64) Build 2708876 Wed Nov  6 21:39:14 MST 2019
-| Date         : Tue May  7 14:24:12 2024
+| Date         : Wed May  8 13:29:49 2024
 | Host         : desktop running 64-bit Ubuntu 24.04 LTS
 | Command      : report_timing_summary -max_paths 10 -file alu_timing_summary_routed.rpt -pb alu_timing_summary_routed.pb -rpx alu_timing_summary_routed.rpx -warn_on_violation
 | Design       : alu

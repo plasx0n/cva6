@@ -2,8 +2,8 @@
 # Vivado v2019.2 (64-bit)
 # SW Build 2708876 on Wed Nov  6 21:39:14 MST 2019
 # IP Build 2700528 on Thu Nov  7 00:09:20 MST 2019
-# Start of session at: Tue May  7 14:20:40 2024
-# Process ID: 82313
+# Start of session at: Wed May  8 13:27:02 2024
+# Process ID: 204372
 # Current directory: /home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/fpga/ariane.runs/synth_1
 # Command line: vivado -log alu.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source alu.tcl
 # Log file: /home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/fpga/ariane.runs/synth_1/alu.vds
@@ -17,14 +17,14 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7k325
 INFO: [Common 17-1540] The version limit for your license is '2020.02' and has expired for new software. A version limit expiration means that, although you may be able to continue to use the current version of tools or IP with this license, you will not be eligible for any updates or new releases.
 INFO: [Device 21-403] Loading part xc7k325tffg900-2
 INFO: Launching helper process for spawning children vivado processes
-INFO: Helper process launched with PID 82590 
+INFO: Helper process launched with PID 204926 
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 1914.367 ; gain = 200.719 ; free physical = 3041 ; free virtual = 9995
+Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 1914.363 ; gain = 200.719 ; free physical = 1901 ; free virtual = 9700
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'alu' [/home/dizzy/Documents/PHD/cva6_dir/cva6/core/alu.sv:21]
 	Parameter Q bound to: 8 - type: integer 
-	Parameter SIMD bound to: 4 - type: integer 
-	Parameter V_LENGHT bound to: 32 - type: integer 
+	Parameter SIMD bound to: 8 - type: integer 
+	Parameter V_LENGHT bound to: 64 - type: integer 
 INFO: [Synth 8-6157] synthesizing module 'popcount' [/home/dizzy/Documents/PHD/cva6_dir/cva6/common/submodules/common_cells/src/popcount.sv:19]
 	Parameter INPUT_WIDTH bound to: 32'b00000000000000000000000001000000 
 	Parameter PopcountWidth bound to: 32'b00000000000000000000000000000111 
@@ -67,9 +67,8 @@ INFO: [Synth 8-6157] synthesizing module 'lzc__parameterized0' [/home/dizzy/Docu
 INFO: [Synth 8-6155] done synthesizing module 'lzc__parameterized0' (2#1) [/home/dizzy/Documents/PHD/cva6_dir/cva6/common/submodules/common_cells/src/lzc.sv:25]
 INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/dizzy/Documents/PHD/cva6_dir/cva6/core/alu.sv:64]
 INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/dizzy/Documents/PHD/cva6_dir/cva6/core/alu.sv:77]
-INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/dizzy/Documents/PHD/cva6_dir/cva6/core/alu.sv:304]
-INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/dizzy/Documents/PHD/cva6_dir/cva6/core/alu.sv:322]
-INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/dizzy/Documents/PHD/cva6_dir/cva6/core/alu.sv:365]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/dizzy/Documents/PHD/cva6_dir/cva6/core/alu.sv:309]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/dizzy/Documents/PHD/cva6_dir/cva6/core/alu.sv:350]
 INFO: [Synth 8-6155] done synthesizing module 'alu' (3#1) [/home/dizzy/Documents/PHD/cva6_dir/cva6/core/alu.sv:21]
 WARNING: [Synth 8-3331] design alu has unconnected port clk_i
 WARNING: [Synth 8-3331] design alu has unconnected port rst_ni
@@ -77,75 +76,11 @@ WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[fu][3]
 WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[fu][2]
 WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[fu][1]
 WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[fu][0]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][63]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][62]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][61]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][60]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][59]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][58]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][57]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][56]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][55]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][54]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][53]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][52]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][51]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][50]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][49]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][48]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][47]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][46]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][45]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][44]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][43]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][42]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][41]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][40]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][39]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][38]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][37]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][36]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][35]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][34]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][33]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][32]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][31]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][30]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][29]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][28]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][27]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][26]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][25]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][24]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][23]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][22]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][21]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][20]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][19]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][18]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][17]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][16]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][15]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][14]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][13]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][12]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][11]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][10]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][9]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][8]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][7]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][6]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][5]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][4]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][3]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][2]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][1]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][0]
 WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[trans_id][2]
 WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[trans_id][1]
 WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[trans_id][0]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1977.086 ; gain = 263.438 ; free physical = 3036 ; free virtual = 9990
+Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1977.082 ; gain = 263.438 ; free physical = 1898 ; free virtual = 9698
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -158,12 +93,12 @@ Report Check Netlist:
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 1983.023 ; gain = 269.375 ; free physical = 3058 ; free virtual = 10012
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 1983.020 ; gain = 269.375 ; free physical = 1903 ; free virtual = 9702
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 1983.023 ; gain = 269.375 ; free physical = 3058 ; free virtual = 10012
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 1983.020 ; gain = 269.375 ; free physical = 1903 ; free virtual = 9702
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.02 . Memory (MB): peak = 1983.023 ; gain = 0.000 ; free physical = 3053 ; free virtual = 10007
+Netlist sorting complete. Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.02 . Memory (MB): peak = 1983.020 ; gain = 0.000 ; free physical = 1903 ; free virtual = 9702
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
@@ -361,29 +296,29 @@ INFO: [Project 1-236] Implementation specific constraints were found while readi
 Resolution: To avoid this warning, move constraints listed in [.Xil/alu_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2160.680 ; gain = 0.000 ; free physical = 2979 ; free virtual = 9933
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2154.676 ; gain = 0.000 ; free physical = 1825 ; free virtual = 9624
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2160.680 ; gain = 0.000 ; free physical = 2979 ; free virtual = 9933
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2154.676 ; gain = 0.000 ; free physical = 1825 ; free virtual = 9624
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:10 ; elapsed = 00:00:13 . Memory (MB): peak = 2160.680 ; gain = 447.031 ; free physical = 3016 ; free virtual = 9971
+Finished Constraint Validation : Time (s): cpu = 00:00:10 ; elapsed = 00:00:13 . Memory (MB): peak = 2154.676 ; gain = 441.031 ; free physical = 1861 ; free virtual = 9658
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7k325tffg900-2
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:10 ; elapsed = 00:00:13 . Memory (MB): peak = 2160.680 ; gain = 447.031 ; free physical = 3016 ; free virtual = 9971
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:10 ; elapsed = 00:00:13 . Memory (MB): peak = 2154.676 ; gain = 441.031 ; free physical = 1861 ; free virtual = 9658
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:10 ; elapsed = 00:00:13 . Memory (MB): peak = 2160.680 ; gain = 447.031 ; free physical = 3017 ; free virtual = 9971
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:10 ; elapsed = 00:00:13 . Memory (MB): peak = 2154.676 ; gain = 441.031 ; free physical = 1861 ; free virtual = 9658
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:11 ; elapsed = 00:00:14 . Memory (MB): peak = 2160.680 ; gain = 447.031 ; free physical = 3015 ; free virtual = 9970
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:11 ; elapsed = 00:00:13 . Memory (MB): peak = 2154.676 ; gain = 441.031 ; free physical = 1868 ; free virtual = 9668
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -397,9 +332,8 @@ Start RTL Component Statistics
 Detailed RTL Component Info : 
 +---Adders : 
 	   2 Input     65 Bit       Adders := 1     
-	   3 Input      9 Bit       Adders := 4     
-	   2 Input      9 Bit       Adders := 4     
-	   2 Input      8 Bit       Adders := 16    
+	   3 Input      9 Bit       Adders := 8     
+	   2 Input      9 Bit       Adders := 8     
 	   2 Input      7 Bit       Adders := 3     
 	   2 Input      6 Bit       Adders := 3     
 	   2 Input      5 Bit       Adders := 4     
@@ -409,26 +343,24 @@ Detailed RTL Component Info :
 +---XORs : 
 	   2 Input     65 Bit         XORs := 1     
 	   2 Input     64 Bit         XORs := 2     
-	   2 Input      1 Bit         XORs := 4     
 +---Muxes : 
 	   2 Input     64 Bit        Muxes := 6     
 	  10 Input     64 Bit        Muxes := 1     
-	  29 Input     64 Bit        Muxes := 1     
-	   2 Input     32 Bit        Muxes := 3     
-	   2 Input      8 Bit        Muxes := 40    
+	  32 Input     64 Bit        Muxes := 1     
+	   2 Input     32 Bit        Muxes := 2     
+	   2 Input      8 Bit        Muxes := 35    
 	   8 Input      6 Bit        Muxes := 2     
 	   9 Input      6 Bit        Muxes := 2     
 	   2 Input      6 Bit        Muxes := 3     
 	   8 Input      5 Bit        Muxes := 2     
 	   9 Input      5 Bit        Muxes := 2     
 	   2 Input      5 Bit        Muxes := 2     
-	  31 Input      5 Bit        Muxes := 1     
+	  34 Input      5 Bit        Muxes := 1     
 	   9 Input      4 Bit        Muxes := 2     
 	  10 Input      4 Bit        Muxes := 1     
 	   5 Input      3 Bit        Muxes := 2     
 	   3 Input      2 Bit        Muxes := 2     
-	   2 Input      1 Bit        Muxes := 8     
-	   5 Input      1 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 4     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -440,26 +372,23 @@ Module alu
 Detailed RTL Component Info : 
 +---Adders : 
 	   2 Input     65 Bit       Adders := 1     
-	   3 Input      9 Bit       Adders := 4     
-	   2 Input      9 Bit       Adders := 4     
-	   2 Input      8 Bit       Adders := 16    
+	   3 Input      9 Bit       Adders := 8     
+	   2 Input      9 Bit       Adders := 8     
 	   2 Input      7 Bit       Adders := 2     
 	   2 Input      6 Bit       Adders := 1     
 +---XORs : 
 	   2 Input     65 Bit         XORs := 1     
 	   2 Input     64 Bit         XORs := 2     
-	   2 Input      1 Bit         XORs := 4     
 +---Muxes : 
 	   2 Input     64 Bit        Muxes := 6     
 	  10 Input     64 Bit        Muxes := 1     
-	  29 Input     64 Bit        Muxes := 1     
-	   2 Input     32 Bit        Muxes := 3     
-	   2 Input      8 Bit        Muxes := 40    
+	  32 Input     64 Bit        Muxes := 1     
+	   2 Input     32 Bit        Muxes := 2     
+	   2 Input      8 Bit        Muxes := 35    
 	   2 Input      6 Bit        Muxes := 1     
-	  31 Input      5 Bit        Muxes := 1     
+	  34 Input      5 Bit        Muxes := 1     
 	  10 Input      4 Bit        Muxes := 1     
-	   2 Input      1 Bit        Muxes := 6     
-	   5 Input      1 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 2     
 Module popcount__parameterized4 
 Detailed RTL Component Info : 
 +---Adders : 
@@ -529,30 +458,11 @@ WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[fu][3]
 WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[fu][2]
 WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[fu][1]
 WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[fu][0]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][63]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][62]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][61]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][60]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][59]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][58]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][57]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][56]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][55]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][54]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][53]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][52]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][51]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][50]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][49]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][48]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][47]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][46]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][45]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][44]
-WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[imm][43]
-INFO: [Common 17-14] Message 'Synth 8-3331' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[trans_id][2]
+WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[trans_id][1]
+WARNING: [Synth 8-3331] design alu has unconnected port fu_data_i[trans_id][0]
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:02 ; elapsed = 00:01:05 . Memory (MB): peak = 2253.664 ; gain = 540.016 ; free physical = 2956 ; free virtual = 9910
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:18 ; elapsed = 00:00:21 . Memory (MB): peak = 2169.660 ; gain = 456.016 ; free physical = 1847 ; free virtual = 9649
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -564,13 +474,13 @@ Report RTL Partitions:
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:07 ; elapsed = 00:01:12 . Memory (MB): peak = 2253.664 ; gain = 540.016 ; free physical = 2922 ; free virtual = 9876
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:23 ; elapsed = 00:00:28 . Memory (MB): peak = 2169.660 ; gain = 456.016 ; free physical = 1754 ; free virtual = 9556
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:01:07 ; elapsed = 00:01:12 . Memory (MB): peak = 2253.664 ; gain = 540.016 ; free physical = 2922 ; free virtual = 9876
+Finished Timing Optimization : Time (s): cpu = 00:00:23 ; elapsed = 00:00:28 . Memory (MB): peak = 2169.660 ; gain = 456.016 ; free physical = 1756 ; free virtual = 9558
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -589,7 +499,7 @@ INFO: [Synth 8-5816] Retiming module `alu' done
 
 
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:01:08 ; elapsed = 00:01:13 . Memory (MB): peak = 2253.664 ; gain = 540.016 ; free physical = 2877 ; free virtual = 9831
+Finished Technology Mapping : Time (s): cpu = 00:00:25 ; elapsed = 00:00:29 . Memory (MB): peak = 2169.660 ; gain = 456.016 ; free physical = 1722 ; free virtual = 9527
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -613,13 +523,13 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:01:11 ; elapsed = 00:01:16 . Memory (MB): peak = 2253.664 ; gain = 540.016 ; free physical = 2883 ; free virtual = 9837
+Finished IO Insertion : Time (s): cpu = 00:00:27 ; elapsed = 00:00:32 . Memory (MB): peak = 2169.660 ; gain = 456.016 ; free physical = 1727 ; free virtual = 9532
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:01:11 ; elapsed = 00:01:16 . Memory (MB): peak = 2253.664 ; gain = 540.016 ; free physical = 2883 ; free virtual = 9837
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:27 ; elapsed = 00:00:32 . Memory (MB): peak = 2169.660 ; gain = 456.016 ; free physical = 1727 ; free virtual = 9532
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -638,25 +548,25 @@ Report Check Netlist:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:11 ; elapsed = 00:01:16 . Memory (MB): peak = 2253.664 ; gain = 540.016 ; free physical = 2883 ; free virtual = 9837
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:27 ; elapsed = 00:00:32 . Memory (MB): peak = 2169.660 ; gain = 456.016 ; free physical = 1727 ; free virtual = 9532
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:01:11 ; elapsed = 00:01:16 . Memory (MB): peak = 2253.664 ; gain = 540.016 ; free physical = 2883 ; free virtual = 9837
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:27 ; elapsed = 00:00:32 . Memory (MB): peak = 2169.660 ; gain = 456.016 ; free physical = 1727 ; free virtual = 9532
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:01:11 ; elapsed = 00:01:16 . Memory (MB): peak = 2253.664 ; gain = 540.016 ; free physical = 2883 ; free virtual = 9837
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:27 ; elapsed = 00:00:32 . Memory (MB): peak = 2169.660 ; gain = 456.016 ; free physical = 1732 ; free virtual = 9534
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:01:11 ; elapsed = 00:01:16 . Memory (MB): peak = 2253.664 ; gain = 540.016 ; free physical = 2883 ; free virtual = 9837
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:27 ; elapsed = 00:00:32 . Memory (MB): peak = 2169.660 ; gain = 456.016 ; free physical = 1732 ; free virtual = 9534
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -672,15 +582,15 @@ Report Cell Usage:
 +------+-------+------+
 |      |Cell   |Count |
 +------+-------+------+
-|1     |CARRY4 |    55|
+|1     |CARRY4 |    94|
 |2     |LUT1   |     8|
-|3     |LUT2   |   255|
-|4     |LUT3   |   431|
-|5     |LUT4   |   367|
-|6     |LUT5   |   628|
-|7     |LUT6   |  1667|
-|8     |MUXF7  |    13|
-|9     |IBUF   |   136|
+|3     |LUT2   |   176|
+|4     |LUT3   |   530|
+|5     |LUT4   |   433|
+|6     |LUT5   |   653|
+|7     |LUT6   |  1807|
+|8     |MUXF7  |   136|
+|9     |IBUF   |   200|
 |10    |OBUF   |    65|
 +------+-------+------+
 
@@ -688,33 +598,33 @@ Report Instance Areas:
 +------+------------------------------+---------+------+
 |      |Instance                      |Module   |Cells |
 +------+------------------------------+---------+------+
-|1     |top                           |         |  3625|
-|2     |  \gen_bitmanip.i_cpop_count  |popcount |   384|
+|1     |top                           |         |  4102|
+|2     |  \gen_bitmanip.i_cpop_count  |popcount |   340|
 +------+------------------------------+---------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:01:11 ; elapsed = 00:01:16 . Memory (MB): peak = 2253.664 ; gain = 540.016 ; free physical = 2883 ; free virtual = 9837
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:27 ; elapsed = 00:00:32 . Memory (MB): peak = 2169.660 ; gain = 456.016 ; free physical = 1732 ; free virtual = 9534
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 73 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:01:09 ; elapsed = 00:01:14 . Memory (MB): peak = 2253.664 ; gain = 362.359 ; free physical = 2942 ; free virtual = 9895
-Synthesis Optimization Complete : Time (s): cpu = 00:01:11 ; elapsed = 00:01:16 . Memory (MB): peak = 2253.672 ; gain = 540.016 ; free physical = 2942 ; free virtual = 9895
+Synthesis finished with 0 errors, 0 critical warnings and 9 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:25 ; elapsed = 00:00:30 . Memory (MB): peak = 2169.660 ; gain = 284.359 ; free physical = 1787 ; free virtual = 9589
+Synthesis Optimization Complete : Time (s): cpu = 00:00:28 ; elapsed = 00:00:32 . Memory (MB): peak = 2169.668 ; gain = 456.016 ; free physical = 1787 ; free virtual = 9589
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2253.672 ; gain = 0.000 ; free physical = 3014 ; free virtual = 9968
-INFO: [Netlist 29-17] Analyzing 68 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2169.668 ; gain = 0.000 ; free physical = 1865 ; free virtual = 9667
+INFO: [Netlist 29-17] Analyzing 230 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 WARNING: [Netlist 29-101] Netlist 'alu' is not ideal for floorplanning, since the cellview 'alu' contains a large number of primitives.  Please consider enabling hierarchy in synthesis if you want to do floorplanning.
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2285.680 ; gain = 0.000 ; free physical = 2974 ; free virtual = 9928
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2201.676 ; gain = 0.000 ; free physical = 1828 ; free virtual = 9629
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
 INFO: [Common 17-83] Releasing license: Synthesis
-41 Infos, 164 Warnings, 61 Critical Warnings and 0 Errors encountered.
+39 Infos, 82 Warnings, 61 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:01:19 ; elapsed = 00:01:34 . Memory (MB): peak = 2285.680 ; gain = 850.984 ; free physical = 3087 ; free virtual = 10041
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2285.680 ; gain = 0.000 ; free physical = 3087 ; free virtual = 10041
+synth_design: Time (s): cpu = 00:00:35 ; elapsed = 00:00:49 . Memory (MB): peak = 2201.676 ; gain = 766.984 ; free physical = 1913 ; free virtual = 9715
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2201.676 ; gain = 0.000 ; free physical = 1913 ; free virtual = 9715
 WARNING: [Constraints 18-5210] No constraints selected for write.
 Resolution: This message can indicate that there are no constraints for the design, or it can indicate that the used_in flags are set such that the constraints are ignored. This later case is used when running synth_design to not write synthesis constraints to the resulting checkpoint. Instead, project constraints are read when the synthesized design is opened.
 INFO: [Common 17-1381] The checkpoint '/home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/fpga/ariane.runs/synth_1/alu.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file alu_utilization_synth.rpt -pb alu_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Tue May  7 14:22:22 2024...
+INFO: [Common 17-206] Exiting Vivado at Wed May  8 13:27:59 2024...

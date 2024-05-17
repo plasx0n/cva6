@@ -808,53 +808,11 @@ core_dir=
 server_run: 
 	make -i server
 
-
 server: 
-	make server_cmd core_dir=plfsc_i8x4_intra_r2 
-	make server_cmd core_dir=plfsc_i8x8_intra_r2
-	make server_cmd core_dir=plfsc_i8x4_intra_r3 
-	make server_cmd core_dir=plfsc_i8x8_intra_r3
-	# make server_cmd core_dir=origi 
-	# make server_cmd core_dir=ldpc_r2 
-	# make server_cmd core_dir=ldpc_r3 
-	# make server_cmd core_dir=ldpc_i8x4_inter_r2 
-	# make server_cmd core_dir=ldpc_i8x4_inter_r3 
-	# make server_cmd core_dir=ldpc_i8x8_inter_r2 
-	# make server_cmd core_dir=ldpc_i8x8_inter_r3 
-	# make server_cmd core_dir=plsc_r2 
-	# make server_cmd core_dir=plsc_r3 
-	# make server_cmd core_dir=plsc_i8x4_inter_r2 
-	# make server_cmd core_dir=plsc_i8x4_inter_r3  
-	# make server_cmd core_dir=plsc_i8x4_intra_r2 
-	# make server_cmd core_dir=plsc_i8x4_intra_r3 
-	# make server_cmd core_dir=plsc_i8x8_inter_r2
-	# make server_cmd core_dir=plsc_i8x8_inter_r3 
-	# make server_cmd core_dir=plsc_i8x8_intra_r2 
-	# make server_cmd core_dir=plsc_i8x8_intra_r3 
-	# make server_cmd core_dir=plfsc_i8x4_inter_r2 
-	# make server_cmd core_dir=plfsc_i8x8_inter_r2
-	# make server_cmd core_dir=plfsc_i8x4_inter_r3 
-	# make server_cmd core_dir=plfsc_i8x8_inter_r3
-	# make server_cmd core_dir=tb_i8_r2 
-	# make server_cmd core_dir=tb_i8_r3 
-	# make server_cmd core_dir=tb_i8x4_inter_r2 
-	# make server_cmd core_dir=tb_i8x4_inter_r3 
-	# make server_cmd core_dir=tb_i8x4_intra_r2 
-	# make server_cmd core_dir=tb_i8x4_intra_r3 
-	# make server_cmd core_dir=tb_i8x8_inter_r2 
-	# make server_cmd core_dir=tb_i8x8_inter_r3 
-	# make server_cmd core_dir=tb_i8x8_intra_r2
-	# make server_cmd core_dir=ldpcnb_i8_r2 
-	# make server_cmd core_dir=ldpcnb_i8_r3 
-	# make server_cmd core_dir=ldpcnb_i8x4_inter_r2
-	# make server_cmd core_dir=ldpcnb_i8x4_inter_r3
-	# make server_cmd core_dir=ldpcnb_i8x8_inter_r2
-	# make server_cmd core_dir=ldpcnb_i8x8_inter_r3
-	# make server_cmd core_dir=ldpcnb_i8x4_intra_r2
-	# make server_cmd core_dir=ldpcnb_i8x4_intra_r3
-	# make server_cmd core_dir=ldpcnb_i8x8_intra_r2
-	# make server_cmd core_dir=ldpcnb_i8x8_intra_r3
-
+	make server_cmd core_dir=ldpcnb_i8x4_intra_r2
+	make server_cmd core_dir=ldpcnb_i8x8_intra_r2
+	make server_cmd core_dir=ldpcnb_i8x4_intra_r3
+	make server_cmd core_dir=ldpcnb_i8x8_intra_r3
 
 server_cmd:
 	@if test -f corev_apu/fpga/work-fpga/ariane_xilinx.bit; then echo remove .bit && rm corev_apu/fpga/work-fpga/ariane_xilinx.bit; else echo no .bit; fi
@@ -863,43 +821,3 @@ server_cmd:
 	cp -rf core.$(core_dir) core
 	make fpga
 	cp -rf corev_apu/fpga/reports ../reports_alu/$(core_dir)
-
-cpy: 
-	cp core.ldpc_i8x4_inter_r2/alu.sv			../alu_dir/ldpc_i8x4_inter_r2_alu.sv
-	cp core.ldpc_i8x4_inter_r3/alu.sv			../alu_dir/ldpc_i8x4_inter_r3_alu.sv
-	cp core.ldpc_i8x8_inter_r2/alu.sv			../alu_dir/ldpc_i8x8_inter_r2_alu.sv
-	cp core.ldpc_i8x8_inter_r3/alu.sv			../alu_dir/ldpc_i8x8_inter_r3_alu.sv
-	cp core.ldpc_r2/alu.sv						../alu_dir/ldpc_r2_alu.sv
-	cp core.ldpc_r3/alu.sv						../alu_dir/ldpc_r3_alu.sv
-	cp core.ldpcnb_i8_r2/alu.sv					../alu_dir/ldpcnb_i8_r2_alu.sv
-	cp core.ldpcnb_i8_r3/alu.sv					../alu_dir/ldpcnb_i8_r3_alu.sv
-	cp core.ldpcnb_i8x4_inter_r2/alu.sv			../alu_dir/ldpcnb_i8x4_inter_r2_alu.sv
-	cp core.ldpcnb_i8x4_inter_r3/alu.sv			../alu_dir/ldpcnb_i8x4_inter_r3_alu.sv
-	cp core.ldpcnb_i8x4_intra_r2/alu.sv			../alu_dir/ldpcnb_i8x4_intra_r2_alu.sv
-	cp core.ldpcnb_i8x4_intra_r3/alu.sv			../alu_dir/ldpcnb_i8x4_intra_r3_alu.sv
-	cp core.ldpcnb_i8x8_inter_r2/alu.sv			../alu_dir/ldpcnb_i8x8_inter_r2_alu.sv
-	cp core.ldpcnb_i8x8_inter_r3/alu.sv			../alu_dir/ldpcnb_i8x8_inter_r3_alu.sv
-	cp core.origi/alu.sv						../alu_dir/origi_alu.sv
-	cp core.plfsc_i8x4_inter_r2/alu.sv			../alu_dir/plfsc_i8x4_inter_r2_alu.sv
-	cp core.plfsc_i8x4_inter_r3/alu.sv			../alu_dir/plfsc_i8x4_inter_r3_alu.sv
-	cp core.plfsc_i8x8_inter_r2/alu.sv			../alu_dir/plfsc_i8x8_inter_r2_alu.sv
-	cp core.plsc_i8x4_inter_r2/alu.sv			../alu_dir/plsc_i8x4_inter_r2_alu.sv
-	cp core.plsc_i8x4_inter_r3/alu.sv			../alu_dir/plsc_i8x4_inter_r3_alu.sv
-	cp core.plsc_i8x4_intra_r2/alu.sv			../alu_dir/plsc_i8x4_intra_r2_alu.sv
-	cp core.plsc_i8x4_intra_r3/alu.sv			../alu_dir/plsc_i8x4_intra_r3_alu.sv
-	cp core.plsc_i8x8_inter_r2/alu.sv			../alu_dir/plsc_i8x8_inter_r2_alu.sv
-	cp core.plsc_i8x8_inter_r3/alu.sv			../alu_dir/plsc_i8x8_inter_r3_alu.sv
-	cp core.plsc_i8x8_intra_r2/alu.sv			../alu_dir/plsc_i8x8_intra_r2_alu.sv
-	cp core.plsc_i8x8_intra_r3/alu.sv			../alu_dir/plsc_i8x8_intra_r3_alu.sv
-	cp core.plsc_r2/alu.sv						../alu_dir/plsc_r2_alu.sv
-	cp core.plsc_r3/alu.sv						../alu_dir/plsc_r3_alu.sv
-	cp core.tb_i8_r2/alu.sv						../alu_dir/tb_i8_r2_alu.sv
-	cp core.tb_i8_r3/alu.sv						../alu_dir/tb_i8_r3_alu.sv
-	cp core.tb_i8x4_inter_r2/alu.sv				../alu_dir/tb_i8x4_inter_r2_alu.sv
-	cp core.tb_i8x4_inter_r3/alu.sv				../alu_dir/tb_i8x4_inter_r3_alu.sv
-	cp core.tb_i8x4_intra_r2/alu.sv				../alu_dir/tb_i8x4_intra_r2_alu.sv
-	cp core.tb_i8x4_intra_r3/alu.sv				../alu_dir/tb_i8x4_intra_r3_alu.sv
-	cp core.tb_i8x8_inter_r2/alu.sv				../alu_dir/tb_i8x8_inter_r2_alu.sv
-	cp core.tb_i8x8_inter_r3/alu.sv				../alu_dir/tb_i8x8_inter_r3_alu.sv
-	cp core.tb_i8x8_intra_r2/alu.sv				../alu_dir/tb_i8x8_intra_r2_alu.sv
-	cp core.tb_i8x8_intra_r3/alu.sv				../alu_dir/tb_i8x8_intra_r3_alu.sv

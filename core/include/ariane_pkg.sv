@@ -463,7 +463,12 @@ package ariane_pkg;
     // EX Stage
     // ---------------
 
-    typedef enum logic [7:0] {                             
+    typedef enum logic [7:0] { 
+                                // TURBO 
+                                TB_MAX, TB_SUBS, TB_ADDS, TB_SCALE,
+                                TB_DIV_ADD, TB_DIV_SUB, TB_SHUFFLE, TB_SB_SAT,
+                                // 3r
+                                TB_BLEND, TB_ACCUPP, TB_MAXPM,TB_ACCUPM,
                                // basic ALU op
                                ADD, SUB, ADDW, SUBW,
                                // logic operations
@@ -523,12 +528,7 @@ package ariane_pkg;
                                // Shift with Add (Bitmanip)
                                SH1ADD, SH2ADD, SH3ADD,
                                // Bitmanip Logical with negate op (Bitmanip)
-                               ANDN, ORN, XNOR,
-                               
-                                // POLAR
-                                PL_F, PL_R,PL_G, 
-                                PL_VADDREP,
-                                PL_SPCXOR 
+                               ANDN, ORN, XNOR
                              } fu_op;
 
     typedef struct packed {
@@ -613,10 +613,14 @@ package ariane_pkg;
             return 1'b0;
     endfunction
     
+    //Custom 3r  
     function automatic logic is_rs3_3reg (input fu_op op);
             unique case (op) inside
-                PL_G              : return 1'b1; // Vectorial FP cast and pack ops
-                default           : return 1'b0; // all other ops
+                TB_BLEND,
+                TB_ACCUPP,
+                TB_MAXPM,
+                TB_ACCUPM   : return 1'b1;
+                default     : return 1'b0; // all other ops
             endcase
     endfunction
 

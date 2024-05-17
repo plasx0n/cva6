@@ -90,33 +90,41 @@ module decoder import ariane_pkg::*; (
 
         if (~ex_i.valid) begin
             case (instr.rtype.opcode)
-                // TEST
-                
-                riscv::PL: begin
+                // x5B
+                    riscv::OpcodeCustom2: begin
                     instruction_o.fu       = ALU; 
                     instruction_o.rs1[4:0] = instr.itype.rs1;
                     instruction_o.rs2[4:0] = instr.rtype.rs2;
                     instruction_o.rd[4:0]  = instr.itype.rd;
+
                     unique case (instr.r4type.funct2)
                         2'b00: begin // FC2 est clean 
                             unique case ({instr.rtype.funct7, instr.rtype.funct3})
-                                {7'b000_0000, 3'b000} : instruction_o.op = ariane_pkg::PL_F;
-                                {7'b000_0000, 3'b001} : instruction_o.op = ariane_pkg::PL_R;
+                                //4
+                                {7'b000_1000, 3'b010} : instruction_o.op = ariane_pkg::TB_MAX;
+                                {7'b000_1000, 3'b100} : instruction_o.op = ariane_pkg::TB_SCALE;
+                                {7'b000_1000, 3'b110} : instruction_o.op = ariane_pkg::TB_DIV_ADD;
+                                {7'b000_1000, 3'b111} : instruction_o.op = ariane_pkg::TB_DIV_SUB;
+                                //8 
+                                {7'b001_0000, 3'b001} : instruction_o.op = ariane_pkg::TB_SUBS;
+                                {7'b001_0000, 3'b010} : instruction_o.op = ariane_pkg::TB_ADDS;
+                                {7'b001_0000, 3'b100} : instruction_o.op = ariane_pkg::TB_SHUFFLE;
+                                {7'b001_0000, 3'b101} : instruction_o.op = ariane_pkg::TB_SB_SAT;
                             endcase
                         end
-
+                       
                         2'b01: begin // FC2 est clean 
-                            unique case ({instr.rtype.funct7, instr.rtype.funct3})
-                                {7'b000_0001, 3'b101}: instruction_o.op = ariane_pkg::PL_VADDREP;
-                                {7'b000_0001, 3'b110}: instruction_o.op = ariane_pkg::PL_SPCXOR;
-                            endcase
-                        end
-
-
-                        2'b11:begin 
                             imm_select        = RS3; // rs3 into result field
                             unique case (instr.r4type.funct3)
-                                {3'b000}:begin instruction_o.op = ariane_pkg::PL_G; end 
+                                {3'b110}:instruction_o.op = ariane_pkg::TB_BLEND;   //blend
+                                {3'b111}:instruction_o.op = ariane_pkg::TB_ACCUPP;  //ccaddadd
+                                {3'b011}:instruction_o.op = ariane_pkg::TB_MAXPM;   //maxaddsub
+                            endcase
+                        end
+                        2'b10: begin // FC2 est clean 
+                            imm_select        = RS3; // rs3 into result field
+                            unique case (instr.r4type.funct3)
+                                {3'b010}:instruction_o.op = ariane_pkg::TB_ACCUPM;  //ccaddsub
                             endcase
                         end
                     endcase
@@ -155,7 +163,7 @@ module decoder import ariane_pkg::*; (
                                         //  do not change privilege level if this is an illegal instruction
                                         instruction_o.op = ariane_pkg::ADD;
                                     end
-                                end 
+                                end
                                 // MRET
                                 12'b11_0000_0010: begin
                                     instruction_o.op = ariane_pkg::MRET;

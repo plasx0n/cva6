@@ -225,7 +225,7 @@ module alu import ariane_pkg::*;(
       //PARAMs
       logic [riscv::XLEN-1:0] polar_result; 
       parameter integer Q         = 8 ; //8 bit qtf 
-      parameter integer SIMD      = 8 ; 
+      parameter integer SIMD      = 4 ; 
       // parameter integer idx_size  = 4 ; // 4 bits to cover 0->7 shuffle network in 64b varation  
       // Array of vectors [ SIMD_lvl | simd_lvl-1 | simd_lvl-2 | ect..]   
       parameter integer V_LENGHT  = (Q*SIMD) ; //32b ou 64b 
