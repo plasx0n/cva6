@@ -464,11 +464,12 @@ package ariane_pkg;
     // ---------------
 
     typedef enum logic [7:0] { 
-                                // TURBO 
-                                TB_MAX, TB_SUBS, TB_ADDS, TB_SCALE,
-                                TB_DIV_ADD, TB_DIV_SUB, TB_SHUFFLE, TB_SB_SAT,
-                                // 3r
-                                TB_BLEND, TB_ACCUPP, TB_MAXPM,TB_ACCUPM,
+                               // POLAR
+                               PL_F,
+                               PL_R,
+                               PL_G, 
+                               PL_DECODE, 
+                            
                                // basic ALU op
                                ADD, SUB, ADDW, SUBW,
                                // logic operations
@@ -612,15 +613,11 @@ package ariane_pkg;
         end else
             return 1'b0;
     endfunction
-    
-    //Custom 3r  
+
     function automatic logic is_rs3_3reg (input fu_op op);
             unique case (op) inside
-                TB_BLEND,
-                TB_ACCUPP,
-                TB_MAXPM,
-                TB_ACCUPM   : return 1'b1;
-                default     : return 1'b0; // all other ops
+                PL_G              : return 1'b1; // Vectorial FP cast and pack ops
+                default           : return 1'b0; // all other ops
             endcase
     endfunction
 

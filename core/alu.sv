@@ -59,7 +59,7 @@ module alu import ariane_pkg::*;(
     logic [riscv::XLEN-1:0] operand_a_bitmanip, bit_indx;
 
     always_comb begin
-      adder_op_b_negate = 1'b0; 
+      adder_op_b_negate = 1'b0;
 
       unique case (fu_data_i.operator)
         // ADDER OPS
@@ -217,167 +217,113 @@ module alu import ariane_pkg::*;(
           .empty_o (lz_tz_wempty)
         );
     end
+    //////////////////
+    //POLAR autogen //
+    //////////////////
+    // Pas d'optis 
 
-    // -----------
-    //  TURBO
-    // -----------
+    logic [riscv::XLEN-1:0] polar_result; 
+    parameter integer Q       = 8 ;
+    parameter integer SIMD    = 1 ;
+     
+    // Array of vectors [ SIMD_lvl | simd_lvl-1 | simd_lvl-2 | ect..]   
+    parameter integer V_LENGHT = (Q*SIMD) ;
 
-      //PARAMs
-      logic [riscv::XLEN-1:0] polar_result; 
-      parameter integer Q         = 8 ; //8 bit qtf 
-      parameter integer SIMD      = 4 ; 
-      // parameter integer idx_size  = 4 ; // 4 bits to cover 0->7 shuffle network in 64b varation  
-      // Array of vectors [ SIMD_lvl | simd_lvl-1 | simd_lvl-2 | ect..]   
-      parameter integer V_LENGHT  = (Q*SIMD) ; //32b ou 64b 
+// 9 bits to compute overflow for SIMD values.. .
+    logic [9*SIMD:0]    polar_res_aminusb, 
+                        polar_res_aplusb; 
 
-      // scale /sign 
-      logic [(V_LENGHT)-1:0] tb_in_A, tb_in_B, tb_in_C, r_scale, r_sign ; 
-      logic [SIMD-1:0]       tb_sign ;
+    // pl_r 
+    logic [(V_LENGHT)-1:0]  func_r,
+                            abs_a, 
+                            abs_b,
+                            func_f,
+                            func_addsat,
+                            func_subsat,
+                            decode,
+                            func_g;
+    // sign 1 bit w
+    logic [SIMD-1:0]        sign ;
 
-      // MAX
-      logic [V_LENGHT-1:0]  tb_max ;
+    // cycle trought the vectors 
+    generate
 
-      // adds/subs
-      logic [V_LENGHT-1:0]  tb_add, tb_sub;  
+        for ( genvar i =0 ;  i<SIMD ;i++ ) begin
+            
+            // assign i = k*Q ; 
+            // assign byte0 = dword[0 +: 8];    // Same as dword[7:0]
 
-      // div2add div2sub
-      logic [V_LENGHT-1:0]  r_divadd, r_divsub;       
+            // This is illegal due to the variable i, even though the width is always 8 bits
+            // assign byte = dword[(i*8)+7 : i*8];  // ** Not allowed!
 
-      // sat63 :sb_at
-      logic [V_LENGHT-1:0]  r_sat63, r_sb_sat;  
+            // Use the indexed part select 
+            // assign byte = dword[i*8 +: 8];
+            
+            assign func_r[i*Q +:Q] =  ($signed(fu_data_i.operand_b[7:0] ) == 8'sb1) ?8'h00: ( $signed(fu_data_i.operand_a[i*Q +:Q ]) < 8'sb0 ) ? 8'h01 : 8'h00 ; 
+            
+            assign decode[i*Q +:Q] =  (fu_data_i.operand_b[7:0] ==8'h00 ) ? fu_data_i.operand_a[i*Q +:Q] : 8'h00 ; 
+            // we have to account for possible overflow
 
-      // MAXPM 
-      logic[V_LENGHT-1:0]  r_maxpm_1, r_maxpm_2, r_maxpm ; 
+            assign sign[i]         =  ( ( $signed( fu_data_i.operand_a[i*Q +:Q ]  ) >= 0) ? 1'b0:1'b1)  ^ ( ( $signed(fu_data_i.operand_b[i*Q +:Q] ) >= 0 )? 1'b0:1'b1)   ;
 
-      // ACCUMAX
-      logic[V_LENGHT-1:0]  r_max_1, r_max_2 ; 
+            assign abs_a[ i*Q +:Q] = ( ( $signed( fu_data_i.operand_a[i*Q +:Q]   ) >= 0) ? fu_data_i.operand_a[i*Q +:Q]   : -fu_data_i.operand_a[i*Q +:Q] ) ;
+            assign abs_b[ i*Q +:Q] = ( ( $signed( fu_data_i.operand_b[i*Q +:Q]   ) >= 0) ? fu_data_i.operand_b[i*Q +:Q]   : -fu_data_i.operand_b[i*Q +:Q] ) ;
 
-      // accu PM, PP 
-      logic[V_LENGHT-1:0]  r_accupp, r_accupm ; 
+            assign func_f[i*Q +:Q] =  ( abs_a[i*Q +:Q] > abs_b[i*Q +:Q] ) ? 
+                                      (( sign[i] == 1'b0 ) ? abs_b[i*Q +:Q] : -abs_b[i*Q +:Q] ) 
+                                      :  
+                                      (( sign[i] == 1'b0 ) ? abs_a[i*Q +:Q] : -abs_a[i*Q +:Q] ) ; 
 
-      // blendv
-      logic[V_LENGHT-1:0]  r_blend; 
+            // need to compare with signed 
+            // synth will do the rest 
+            
+            // SUBSAT 
+            assign polar_res_aminusb[(i*9) +:9]  = $signed( fu_data_i.operand_b[ i*Q +:Q]) - $signed( fu_data_i.operand_a[i*Q +:Q]) ;
+            assign func_subsat[ i*Q +:Q] =  ($signed(polar_res_aminusb[(i*9) +:9]) >  9'sd127)?  8'sd127 : 
+                                            ($signed(polar_res_aminusb[(i*9) +:9]) < -9'sd127)? -8'sd127 : 
+                                            polar_res_aminusb[(i*9) +:9];
+            
+            // ADDSAT 
+            assign polar_res_aplusb[(i*9)  +:9]  = $signed( fu_data_i.operand_a[ i*Q +:Q]) + $signed( fu_data_i.operand_b[i*Q +:Q]) ;
+            assign func_addsat[ i*Q +:Q] =  ( $signed(polar_res_aplusb[(i*9) +:9])  >  9'sd127) ? 8'sd127 : 
+                                            ( $signed(polar_res_aplusb[(i*9) +:9])  < -9'sd127)? -8'sd127 : 
+                                            polar_res_aplusb[(i*9) +:9] ;
+
+            
 
 
-      // shuffle
-      logic [V_LENGHT-1:0]  r_shuffle;  
-      logic [V_LENGHT-1:0]  r_shuffle_data;
-      logic [(4*SIMD)-1:0]  r_index; 
-      logic [SIMD-1:0]      r_shfl_mask; //peut partir par opti 
+            assign func_g[i*Q+:Q] =  (fu_data_i.imm[i*Q+:Q]==8'h00)?  func_addsat[ i*Q +:Q]: 
+                                                                      func_subsat[ i*Q +:Q]; 
 
-      assign r_index[15:12] = fu_data_i.operand_b[24+3:24] ;  
-      assign r_index[11: 8] = fu_data_i.operand_b[16+3:16] ;  
-      assign r_index[ 7: 4] = fu_data_i.operand_b[8+3 : 8] ;  
-      assign r_index[ 3: 0] = fu_data_i.operand_b[3   : 0] ;  
-
-      always_comb begin : shuffle_selection
-        r_shuffle_data ='b0 ; 
-
-        case(r_index[3:0])
-          4'b0000 : r_shuffle_data[7:0] = fu_data_i.operand_a[7:0]    ; 
-          4'b0001 : r_shuffle_data[7:0] = fu_data_i.operand_a[15:8]   ;
-          4'b0010 : r_shuffle_data[7:0] = fu_data_i.operand_a[23:16]  ;
-          4'b0011 : r_shuffle_data[7:0] = fu_data_i.operand_a[31:24]  ;
-          default : r_shuffle_data[7:0] = 0 ;  
-        endcase 
-
-        case( r_index[ 7: 4])
-          4'b0000 : r_shuffle_data[15:8] = fu_data_i.operand_a[7:0]    ;
-          4'b0001 : r_shuffle_data[15:8] = fu_data_i.operand_a[15:8]   ;
-          4'b0010 : r_shuffle_data[15:8] = fu_data_i.operand_a[23:16]  ;
-          4'b0011 : r_shuffle_data[15:8] = fu_data_i.operand_a[31:24]  ;
-          default : r_shuffle_data[15:8] = 0 ;
-        endcase 
-
-        case(r_index[11: 8])
-          4'b0000 : r_shuffle_data[23:16] = fu_data_i.operand_a[7:0]    ; 
-          4'b0001 : r_shuffle_data[23:16] = fu_data_i.operand_a[15:8]   ;
-          4'b0010 : r_shuffle_data[23:16] = fu_data_i.operand_a[23:16]  ;
-          4'b0011 : r_shuffle_data[23:16] = fu_data_i.operand_a[31:24]  ;
-          default : r_shuffle_data[23:16] = 0; 
-        endcase 
-
-        case(r_index[15:12])
-          4'b0000 : r_shuffle_data[31:24] = fu_data_i.operand_a[7:0]    ;
-          4'b0001 : r_shuffle_data[31:24] = fu_data_i.operand_a[15:8]   ;
-          4'b0010 : r_shuffle_data[31:24] = fu_data_i.operand_a[23:16]  ;
-          4'b0011 : r_shuffle_data[31:24] = fu_data_i.operand_a[31:24]  ;
-          default : r_shuffle_data[31:24] ='b0 ; 
-        endcase 
-    end
-
-      // cycle trought the vectors 
-      generate
-        for ( genvar i=0 ; i<SIMD ; i++ ) begin
-
-          // scale 
-          assign tb_sign[i]         = ($signed(fu_data_i.operand_a[ i*Q +:Q] ) >=0 )? 1 : 0 ; 			
-          assign tb_in_A[ i*Q +:Q]  = (tb_sign[i]) ? fu_data_i.operand_a[i*Q +:Q] : - fu_data_i.operand_a[i*Q +:Q] ; 
-          assign tb_in_B[ i*Q +:Q]  = tb_in_A[ i*Q +:Q] >> 2 ; 
-          assign tb_in_C[ i*Q +:Q]  = tb_in_A[ i*Q +:Q] - tb_in_B[ i*Q +:Q] ; 
-          // final 
-          assign r_scale[ i*Q +:Q]  = ((tb_sign[i])? tb_in_C[ i*Q +:Q] : -tb_in_C[ i*Q +:Q]) + fu_data_i.operand_b[i*Q +:Q] ;
-
-          // // sign : inv of _sign 
-          // assign r_sign[  i*Q +:Q]  = (tb_sign[i])? 0 : 1 ; 
-
-          // max 
-          assign tb_max[i*Q +:Q]    = ( $signed(fu_data_i.operand_a[ i*Q +:Q] ) <= $signed(fu_data_i.operand_b[ i*Q +:Q]) ) ? fu_data_i.operand_b[ i*Q +:Q]: 
-                                                                                                                              fu_data_i.operand_a[ i*Q +:Q];
-          // add/sub
-          assign tb_add[i*Q +:Q]    =  $signed(fu_data_i.operand_a[ i*Q +:Q] ) + $signed(fu_data_i.operand_b[ i*Q +:Q])  ;  
-          assign tb_sub[i*Q +:Q]    =  $signed(fu_data_i.operand_a[ i*Q +:Q] ) - $signed(fu_data_i.operand_b[ i*Q +:Q])  ;  
-          
-          // shuffle
-          assign r_shfl_mask[i]     = (fu_data_i.operand_b[i*Q +:Q]==8'h01) ? 1'b1 :1'b0; 
-          
-          // 4b wide is enough   
-          assign r_shuffle[i*Q +:Q] = (r_shfl_mask[i]==1'b1) ? 8'h00 : r_shuffle_data[i*Q +:Q] ; 
-
-          // divadd /sub
-          assign r_divadd[i*Q +:Q]  = (tb_add[i*Q +:Q])>>1;
-          assign r_divsub[i*Q +:Q]  = (tb_sub[i*Q +:Q])>>1;
-
-          // sat63
-          assign r_sat63[i*Q +:Q]   = ($signed(fu_data_i.operand_a[i*Q +:Q]) >  8'sd63)?  8'sd63 :
-                                      ($signed(fu_data_i.operand_a[i*Q +:Q]) < -8'sd63)? -8'sd63 :
-                                      fu_data_i.operand_a[i*Q +:Q]; 
-          // sb_sat
-          assign r_sb_sat[i*Q +:Q]  = $signed(r_sat63[i*Q +:Q]) - $signed(fu_data_i.operand_b[i*Q +:Q]);
-          
-          // maxpm
-          assign r_maxpm_1[i*Q +:Q] = $signed(fu_data_i.operand_a[i*Q +:Q]) + $signed(fu_data_i.operand_b[i*Q +:Q]);
-          assign r_maxpm_2[i*Q +:Q] = $signed(fu_data_i.imm[i*Q +:Q])       - $signed(fu_data_i.operand_b[i*Q +:Q]);
-          assign r_maxpm[i*Q +:Q]   = $signed(r_maxpm_1[i*Q +:Q]) < $signed(r_maxpm_2[i*Q +:Q])  ? r_maxpm_2[i*Q +:Q] :r_maxpm_1[i*Q +:Q] ;
-
-          // accu PM, MP 
-          assign r_accupp[i*Q +:Q]  = $signed(r_maxpm_1[i*Q +:Q]) + $signed(fu_data_i.imm[i*Q +:Q]);  
-          assign r_accupm[i*Q +:Q]  = $signed(fu_data_i.operand_a[i*Q +:Q]) + $signed(fu_data_i.operand_b[i*Q +:Q]) - $signed(fu_data_i.imm[i*Q +:Q]);  
-
-          // blenv
-          assign r_blend[i*Q +:Q]   = $signed(fu_data_i.operand_a[i*Q +:Q] &  fu_data_i.imm[i*Q +:Q] ) | 
-                                      $signed(fu_data_i.operand_b[i*Q +:Q] & ~fu_data_i.imm[i*Q +:Q] ) ; 
         end 
-      endgenerate
+  endgenerate
+
+
+  always_comb begin
+    polar_result='0 ; 
+    unique case (fu_data_i.operator)
+
+      PL_R:       polar_result =  func_r; 
+      PL_F:       polar_result =  func_f ;
+      PL_DECODE : polar_result =  decode ; 
+      PL_G      : polar_result =  func_g ; 
+
+      default: polar_result='0 ; 
+    endcase
+  end 
+
     // -----------
     // Result MUX
     // -----------
     always_comb begin
         result_o   = '0;
         unique case (fu_data_i.operator)
-            // Turbo
-            TB_MAX    : result_o = tb_max;
-            TB_ADDS   : result_o = tb_add;
-            TB_SUBS   : result_o = tb_sub;
-            TB_ACCUPP : result_o = r_accupp; 
-            TB_ACCUPM : result_o = r_accupm;  
-            TB_SHUFFLE: result_o = r_shuffle;
-            TB_DIV_ADD: result_o = r_divadd;
-            TB_DIV_SUB: result_o = r_divsub;
-            TB_SB_SAT : result_o = r_sb_sat;
-            TB_MAXPM  : result_o =  r_maxpm;
-            TB_BLEND  : result_o =  r_blend; 
-            TB_SCALE  : result_o = r_scale;
+            
+            // polar  operations 
+            PL_F,
+            PL_R,
+            PL_DECODE,
+            PL_G : result_o = polar_result;
 
 
             // Standard Operations
