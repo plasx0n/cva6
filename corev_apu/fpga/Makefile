@@ -1,5 +1,5 @@
 VIVADO ?= vivado
-VIVADOFLAGS ?= -nojournal -mode batch -source scripts/prologue.tcl
+VIVADOFLAGS ?= -nojournal -mode tcl -source scripts/prologue.tcl
 
 work-dir := work-fpga
 bit := $(work-dir)/ariane_xilinx.bit
@@ -17,7 +17,7 @@ ips := xlnx_axi_clock_converter.xci  \
 ips := $(addprefix $(work-dir)/, $(ips))
 ips-target := $(join $(addsuffix /ip/, $(addprefix $(ip-dir)/, $(basename $(ips)))), $(ips))
 
-all: $(mcs)
+all: $(bit)
 
 # Generate mcs from bitstream
 $(mcs): $(bit)
