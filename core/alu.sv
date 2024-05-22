@@ -224,8 +224,8 @@ module alu import ariane_pkg::*;(
 
     logic [riscv::XLEN-1:0] polar_result; 
     parameter integer Q       = 8 ;
-    parameter integer SIMD    = 1 ;
-     
+
+    parameter integer SIMD    = 8 ; 
     // Array of vectors [ SIMD_lvl | simd_lvl-1 | simd_lvl-2 | ect..]   
     parameter integer V_LENGHT = (Q*SIMD) ;
 
@@ -234,16 +234,29 @@ module alu import ariane_pkg::*;(
                         polar_res_aplusb; 
 
     // pl_r 
-    logic [(V_LENGHT)-1:0]  func_r,
+    logic [(V_LENGHT)-1:0]  r_addrep1,r_addrep2,r_repaddsum,
+                            func_r,
+                            
                             abs_a, 
                             abs_b,
                             func_f,
+
+                            func_g,                            
                             func_addsat,
-                            func_subsat,
-                            decode,
-                            func_g;
-    // sign 1 bit w
+                            func_subsat;
+    // sign 1 bit 
     logic [SIMD-1:0]        sign ;
+    
+    logic [7:0] a1,a2,a3,a4, b1,b2,b3,b4 ; 
+    assign a4 = ($signed(fu_data_i.operand_a[63:48]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
+    assign a3 = ($signed(fu_data_i.operand_a[47:32]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
+    assign a2 = ($signed(fu_data_i.operand_a[31:16]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
+    assign a1 = ($signed(fu_data_i.operand_a[15:0 ]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
+
+    assign b4 = ($signed(fu_data_i.operand_a[63:48]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
+    assign b3 = ($signed(fu_data_i.operand_a[47:32]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
+    assign b2 = ($signed(fu_data_i.operand_b[31:16]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
+    assign b1 = ($signed(fu_data_i.operand_b[15:0 ]) < 16'sb0 ) ? 8'h01 : 8'h00 ;  
 
     // cycle trought the vectors 
     generate
@@ -258,12 +271,11 @@ module alu import ariane_pkg::*;(
 
             // Use the indexed part select 
             // assign byte = dword[i*8 +: 8];
-            
-            assign func_r[i*Q +:Q] =  ($signed(fu_data_i.operand_b[7:0] ) == 8'sb1) ?8'h00: ( $signed(fu_data_i.operand_a[i*Q +:Q ]) < 8'sb0 ) ? 8'h01 : 8'h00 ; 
-            
-            assign decode[i*Q +:Q] =  (fu_data_i.operand_b[7:0] ==8'h00 ) ? fu_data_i.operand_a[i*Q +:Q] : 8'h00 ; 
-            // we have to account for possible overflow
 
+            // R
+            assign func_r[i*Q +:Q] =  ($signed(fu_data_i.operand_b[7:0] ) == 8'sb1) ?8'h00: ( $signed(fu_data_i.operand_a[i*Q +:Q ]) < 8'sb0 ) ? 8'h01 : 8'h00 ; 
+
+            // F
             assign sign[i]         =  ( ( $signed( fu_data_i.operand_a[i*Q +:Q ]  ) >= 0) ? 1'b0:1'b1)  ^ ( ( $signed(fu_data_i.operand_b[i*Q +:Q] ) >= 0 )? 1'b0:1'b1)   ;
 
             assign abs_a[ i*Q +:Q] = ( ( $signed( fu_data_i.operand_a[i*Q +:Q]   ) >= 0) ? fu_data_i.operand_a[i*Q +:Q]   : -fu_data_i.operand_a[i*Q +:Q] ) ;
@@ -289,11 +301,26 @@ module alu import ariane_pkg::*;(
                                             ( $signed(polar_res_aplusb[(i*9) +:9])  < -9'sd127)? -8'sd127 : 
                                             polar_res_aplusb[(i*9) +:9] ;
 
-            
+      // evalutation signée correcte ici ? 
+        assign r_addrep1 = {
+         	{ $signed( fu_data_i.operand_a[63:48]) + $signed( fu_data_i.operand_b[31:24]) },
+			    { $signed( fu_data_i.operand_a[47:32]) + $signed( fu_data_i.operand_b[23:16]) },
+         	{ $signed( fu_data_i.operand_a[31:16]) + $signed( fu_data_i.operand_b[15:8]) },
+			    { $signed( fu_data_i.operand_a[15:0] )  + $signed( fu_data_i.operand_b[7:0]) }
+        };  
 
+        assign r_addrep2 =
+        {
+         	{ $signed( fu_data_i.operand_a[63:48]) + $signed( fu_data_i.operand_b[63:56]) },
+			    { $signed( fu_data_i.operand_a[47:32]) + $signed( fu_data_i.operand_b[55:48]) },
+         	{ $signed( fu_data_i.operand_a[31:16]) + $signed( fu_data_i.operand_b[47:40]) },
+			    { $signed( fu_data_i.operand_a[15:0])  + $signed( fu_data_i.operand_b[39:32])}
+        }; 
 
-            assign func_g[i*Q+:Q] =  (fu_data_i.imm[i*Q+:Q]==8'h00)?  func_addsat[ i*Q +:Q]: 
-                                                                      func_subsat[ i*Q +:Q]; 
+        assign r_repaddsum = { b4,b3,b2,b1, a4,a3,a2,a1}; 
+
+        assign func_g[i*Q+:Q] =  (fu_data_i.imm[i*Q+:Q]==8'h00)?  func_addsat[ i*Q +:Q]: 
+                                                                  func_subsat[ i*Q +:Q]; 
 
         end 
   endgenerate
@@ -303,10 +330,12 @@ module alu import ariane_pkg::*;(
     polar_result='0 ; 
     unique case (fu_data_i.operator)
 
-      PL_R:       polar_result =  func_r; 
-      PL_F:       polar_result =  func_f ;
-      PL_DECODE : polar_result =  decode ; 
-      PL_G      : polar_result =  func_g ; 
+      PL_R        : polar_result =  func_r; 
+      PL_F        : polar_result =  func_f ;
+      PL_VADDREP1 : polar_result =  r_addrep1 ;
+      PL_VADDREP2 : polar_result =  r_addrep2 ;
+      PL_VREPSUM  : polar_result =  r_repaddsum ;
+      PL_G        : polar_result =  func_g ;
 
       default: polar_result='0 ; 
     endcase
@@ -322,7 +351,9 @@ module alu import ariane_pkg::*;(
             // polar  operations 
             PL_F,
             PL_R,
-            PL_DECODE,
+            PL_VADDREP1, 
+            PL_VADDREP2, 
+            PL_VREPSUM,            
             PL_G : result_o = polar_result;
 
 

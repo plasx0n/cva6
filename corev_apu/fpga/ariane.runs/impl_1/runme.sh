@@ -7,9 +7,9 @@
 # 
 
 if [ -z "$PATH" ]; then
-  PATH=/opt/Xilinx/Vivado/2019.2/ids_lite/ISE/bin/lin64:/opt/Xilinx/Vivado/2019.2/bin
+  PATH=/tools/Xilinx/Vivado/2019.2/ids_lite/ISE/bin/lin64:/tools/Xilinx/Vivado/2019.2/bin
 else
-  PATH=/opt/Xilinx/Vivado/2019.2/ids_lite/ISE/bin/lin64:/opt/Xilinx/Vivado/2019.2/bin:$PATH
+  PATH=/tools/Xilinx/Vivado/2019.2/ids_lite/ISE/bin/lin64:/tools/Xilinx/Vivado/2019.2/bin:$PATH
 fi
 export PATH
 
@@ -20,7 +20,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='/home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/fpga/ariane.runs/impl_1'
+HD_PWD='/home/naptop/Documents/PHD/riscv/cva6_dir/cva6/corev_apu/fpga/ariane.runs/impl_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log
@@ -37,7 +37,7 @@ EAStep()
 }
 
 # pre-commands:
-/bin/touch .write_bitstream.begin.rst
+/bin/touch .init_design.begin.rst
 EAStep vivado -log alu.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source alu.tcl -notrace
 
 

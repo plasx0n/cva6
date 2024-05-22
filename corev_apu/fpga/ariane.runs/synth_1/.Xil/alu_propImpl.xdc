@@ -1,5 +1,5 @@
-set_property SRC_FILE_INFO {cfile:/home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/fpga/constraints/genesys-2.xdc rfile:../../../constraints/genesys-2.xdc id:1} [current_design]
-set_property SRC_FILE_INFO {cfile:/home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/fpga/constraints/ariane.xdc rfile:../../../constraints/ariane.xdc id:2} [current_design]
+set_property SRC_FILE_INFO {cfile:/home/naptop/Documents/PHD/riscv/cva6_dir/cva6/corev_apu/fpga/constraints/genesys-2.xdc rfile:../../../constraints/genesys-2.xdc id:1} [current_design]
+set_property SRC_FILE_INFO {cfile:/home/naptop/Documents/PHD/riscv/cva6_dir/cva6/corev_apu/fpga/constraints/ariane.xdc rfile:../../../constraints/ariane.xdc id:2} [current_design]
 set_property src_info {type:XDC file:1 line:5 export:INPUT save:INPUT read:READ} [current_design]
 set_property -dict {PACKAGE_PIN R19 IOSTANDARD LVCMOS33} [get_ports cpu_resetn]
 set_property src_info {type:XDC file:1 line:8 export:INPUT save:INPUT read:READ} [current_design]

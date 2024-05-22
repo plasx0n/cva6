@@ -100,10 +100,8 @@ ariane_pkg += core/include/riscv_pkg.sv                              \
               corev_apu/tb/ariane_axi_soc_pkg.sv                     \
               core/include/ariane_axi_pkg.sv                         \
               core/include/std_cache_pkg.sv                          \
-              core/fpu/src/fpnew_pkg.sv                              \
               common/submodules/common_cells/src/cf_math_pkg.sv      \
-              core/cvxif_example/include/cvxif_instr_pkg.sv          \
-              core/fpu/src/fpu_div_sqrt_mvp/hdl/defs_div_sqrt_mvp.sv
+              core/cvxif_example/include/cvxif_instr_pkg.sv          
 ariane_pkg := $(addprefix $(root-dir), $(ariane_pkg))
 
 # utility modules
@@ -157,9 +155,6 @@ endif
 
 # this list contains the standalone components
 src :=  $(filter-out core/ariane_regfile.sv, $(wildcard core/*.sv))                  \
-        $(filter-out core/fpu/src/fpnew_pkg.sv, $(wildcard core/fpu/src/*.sv))       \
-        $(filter-out core/fpu/src/fpu_div_sqrt_mvp/hdl/defs_div_sqrt_mvp.sv,         \
-        $(wildcard core/fpu/src/fpu_div_sqrt_mvp/hdl/*.sv))                          \
         $(wildcard core/frontend/*.sv)                                               \
         $(filter-out core/cache_subsystem/std_no_dcache.sv,                          \
         $(wildcard core/cache_subsystem/*.sv))                                       \
@@ -809,10 +804,10 @@ server_run:
 	make -i server
 
 server: 
-	make server_cmd core_dir=ldpcnb_i8x4_intra_r2
-	make server_cmd core_dir=ldpcnb_i8x8_intra_r2
-	make server_cmd core_dir=ldpcnb_i8x4_intra_r3
-	make server_cmd core_dir=ldpcnb_i8x8_intra_r3
+	make server_cmd core_dir=plfsc_i8x4_inter_r2
+	make server_cmd core_dir=plfsc_i8x8_inter_r2
+	make server_cmd core_dir=plfsc_i8x4_inter_r3
+	make server_cmd core_dir=plfsc_i8x8_inter_r3
 
 server_cmd:
 	@if test -f corev_apu/fpga/work-fpga/ariane_xilinx.bit; then echo remove .bit && rm corev_apu/fpga/work-fpga/ariane_xilinx.bit; else echo no .bit; fi

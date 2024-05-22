@@ -17,7 +17,7 @@ proc create_report { reportName command } {
     send_msg_id runtcl-5 warning "$msg"
   }
 }
-set_param synth.incrementalSynthesisCache ./.Xil/Vivado-203631-desktop/incrSyn
+set_param synth.incrementalSynthesisCache ./.Xil/Vivado-37881-naptop-latitude/incrSyn
 set_msg_config -id {Synth 8-256} -limit 10000
 set_msg_config -id {Synth 8-4480} -limit 1000
 set_msg_config -id {Synth 8-638} -limit 10000
@@ -27,33 +27,33 @@ create_project -in_memory -part xc7k325tffg900-2
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
-set_property webtalk.parent_dir /home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/fpga/ariane.cache/wt [current_project]
-set_property parent.project_path /home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/fpga/ariane.xpr [current_project]
+set_property webtalk.parent_dir /home/naptop/Documents/PHD/riscv/cva6_dir/cva6/corev_apu/fpga/ariane.cache/wt [current_project]
+set_property parent.project_path /home/naptop/Documents/PHD/riscv/cva6_dir/cva6/corev_apu/fpga/ariane.xpr [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
 set_property board_part digilentinc.com:genesys2:part0:1.1 [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 set_property include_dirs {
-  /home/dizzy/Documents/PHD/cva6_dir/cva6/common/submodules/common_cells/include
-  /home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/register_interface/include
+  /home/naptop/Documents/PHD/riscv/cva6_dir/cva6/common/submodules/common_cells/include
+  /home/naptop/Documents/PHD/riscv/cva6_dir/cva6/corev_apu/register_interface/include
 } [current_fileset]
 read_verilog {
-  /home/dizzy/Documents/PHD/cva6_dir/cva6/common/submodules/common_cells/include/common_cells/registers.svh
-  /home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/fpga/src/genesysii.svh
+  /home/naptop/Documents/PHD/riscv/cva6_dir/cva6/common/submodules/common_cells/include/common_cells/registers.svh
+  /home/naptop/Documents/PHD/riscv/cva6_dir/cva6/corev_apu/fpga/src/genesysii.svh
 }
-set_property file_type "Verilog Header" [get_files /home/dizzy/Documents/PHD/cva6_dir/cva6/common/submodules/common_cells/include/common_cells/registers.svh]
-set_property is_global_include true [get_files /home/dizzy/Documents/PHD/cva6_dir/cva6/common/submodules/common_cells/include/common_cells/registers.svh]
-set_property file_type "Verilog Header" [get_files /home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/fpga/src/genesysii.svh]
-set_property is_global_include true [get_files /home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/fpga/src/genesysii.svh]
+set_property file_type "Verilog Header" [get_files /home/naptop/Documents/PHD/riscv/cva6_dir/cva6/common/submodules/common_cells/include/common_cells/registers.svh]
+set_property is_global_include true [get_files /home/naptop/Documents/PHD/riscv/cva6_dir/cva6/common/submodules/common_cells/include/common_cells/registers.svh]
+set_property file_type "Verilog Header" [get_files /home/naptop/Documents/PHD/riscv/cva6_dir/cva6/corev_apu/fpga/src/genesysii.svh]
+set_property is_global_include true [get_files /home/naptop/Documents/PHD/riscv/cva6_dir/cva6/corev_apu/fpga/src/genesysii.svh]
 read_verilog -library xil_defaultlib -sv {
-  /home/dizzy/Documents/PHD/cva6_dir/cva6/common/submodules/common_cells/src/cf_math_pkg.sv
-  /home/dizzy/Documents/PHD/cva6_dir/cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv
-  /home/dizzy/Documents/PHD/cva6_dir/cva6/core/include/riscv_pkg.sv
-  /home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/riscv-dbg/src/dm_pkg.sv
-  /home/dizzy/Documents/PHD/cva6_dir/cva6/core/include/ariane_pkg.sv
-  /home/dizzy/Documents/PHD/cva6_dir/cva6/common/submodules/common_cells/src/lzc.sv
-  /home/dizzy/Documents/PHD/cva6_dir/cva6/common/submodules/common_cells/src/popcount.sv
-  /home/dizzy/Documents/PHD/cva6_dir/cva6/core/alu.sv
+  /home/naptop/Documents/PHD/riscv/cva6_dir/cva6/common/submodules/common_cells/src/cf_math_pkg.sv
+  /home/naptop/Documents/PHD/riscv/cva6_dir/cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv
+  /home/naptop/Documents/PHD/riscv/cva6_dir/cva6/core/include/riscv_pkg.sv
+  /home/naptop/Documents/PHD/riscv/cva6_dir/cva6/corev_apu/riscv-dbg/src/dm_pkg.sv
+  /home/naptop/Documents/PHD/riscv/cva6_dir/cva6/core/include/ariane_pkg.sv
+  /home/naptop/Documents/PHD/riscv/cva6_dir/cva6/common/submodules/common_cells/src/lzc.sv
+  /home/naptop/Documents/PHD/riscv/cva6_dir/cva6/common/submodules/common_cells/src/popcount.sv
+  /home/naptop/Documents/PHD/riscv/cva6_dir/cva6/core/alu.sv
 }
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
@@ -63,11 +63,11 @@ read_verilog -library xil_defaultlib -sv {
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc /home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/fpga/constraints/genesys-2.xdc
-set_property used_in_implementation false [get_files /home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/fpga/constraints/genesys-2.xdc]
+read_xdc /home/naptop/Documents/PHD/riscv/cva6_dir/cva6/corev_apu/fpga/constraints/genesys-2.xdc
+set_property used_in_implementation false [get_files /home/naptop/Documents/PHD/riscv/cva6_dir/cva6/corev_apu/fpga/constraints/genesys-2.xdc]
 
-read_xdc /home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/fpga/constraints/ariane.xdc
-set_property used_in_implementation false [get_files /home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/fpga/constraints/ariane.xdc]
+read_xdc /home/naptop/Documents/PHD/riscv/cva6_dir/cva6/corev_apu/fpga/constraints/ariane.xdc
+set_property used_in_implementation false [get_files /home/naptop/Documents/PHD/riscv/cva6_dir/cva6/corev_apu/fpga/constraints/ariane.xdc]
 
 set_param ips.enableIPCacheLiteLoad 1
 close [open __synthesis_is_running__ w]

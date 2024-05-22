@@ -102,9 +102,18 @@ module decoder import ariane_pkg::*; (
                             unique case ({instr.rtype.funct7, instr.rtype.funct3})
                                 {7'b000_0000, 3'b000} : instruction_o.op = ariane_pkg::PL_F;
                                 {7'b000_0000, 3'b001} : instruction_o.op = ariane_pkg::PL_R;
-                                {7'b000_0000, 3'b100} : instruction_o.op = ariane_pkg::PL_DECODE;
+                                {7'b000_0000, 3'b101} : instruction_o.op = ariane_pkg::PL_EVAL;
+                                {7'b000_0000, 3'b110} : instruction_o.op = ariane_pkg::PL_VADDREP1;
+                                {7'b000_0000, 3'b111} : instruction_o.op = ariane_pkg::PL_VADDREP2;
                             endcase
                         end
+
+                        2'b01: begin // FC2 est clean 
+                            unique case ({instr.rtype.funct7, instr.rtype.funct3})
+                               {7'b000_0001, 3'b101}: instruction_o.op = ariane_pkg::PL_VREPSUM;
+                            endcase
+                        end
+
 
                         2'b11:begin 
                             imm_select        = RS3; // rs3 into result field
@@ -116,7 +125,7 @@ module decoder import ariane_pkg::*; (
                         end
                     endcase
                 end
-     
+
                 riscv::OpcodeSystem: begin
                     instruction_o.fu       = CSR;
                     instruction_o.rs1[4:0] = instr.itype.rs1;
