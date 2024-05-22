@@ -90,27 +90,6 @@ module decoder import ariane_pkg::*; (
 
         if (~ex_i.valid) begin
             case (instr.rtype.opcode)
-
-                // TEST                
-                riscv::LDPC: begin
-                    instruction_o.fu       = ALU; 
-                    instruction_o.rs1[4:0] = instr.itype.rs1;
-                    instruction_o.rs2[4:0] = instr.rtype.rs2;
-                    instruction_o.rd[4:0]  = instr.itype.rd;
-                    unique case ({instr.rtype.funct7, instr.rtype.funct3})
-                        {7'b000_0000, 3'b000} : instruction_o.op = LDPC_SIGN;
-                        {7'b000_0000, 3'b011} : instruction_o.op = LDPC_MIN;
-                        {7'b000_0000, 3'b010} : instruction_o.op = LDPC_MAX;
-                        {7'b000_0000, 3'b001} : instruction_o.op = LDPC_ABS;
-                        {7'b000_0000, 3'b100} : instruction_o.op = LDPC_NMESS;
-                        {7'b000_0000, 3'b101} : instruction_o.op = LDPC_SUB_SAT;
-                        // kit v2 
-                        {7'b000_0001, 3'b000} : instruction_o.op = LDPC_EVAL ;
-                        {7'b000_0001, 3'b001} : instruction_o.op = LDPC_RSIGN ; 
-                        {7'b000_0001, 3'b010} : instruction_o.op = LDPC_ADD_SAT ;
-                    endcase
-                end
-                
                 riscv::OpcodeSystem: begin
                     instruction_o.fu       = CSR;
                     instruction_o.rs1[4:0] = instr.itype.rs1;

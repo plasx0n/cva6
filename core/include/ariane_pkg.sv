@@ -463,8 +463,7 @@ package ariane_pkg;
     // EX Stage
     // ---------------
 
-    typedef enum logic [7:0] {                             
-                               // basic ALU op
+    typedef enum logic [7:0] { // basic ALU op
                                ADD, SUB, ADDW, SUBW,
                                // logic operations
                                XORL, ORL, ANDL,
@@ -523,13 +522,7 @@ package ariane_pkg;
                                // Shift with Add (Bitmanip)
                                SH1ADD, SH2ADD, SH3ADD,
                                // Bitmanip Logical with negate op (Bitmanip)
-                               ANDN, ORN, XNOR,
-                               
-                                // POLAR
-                                PL_F, PL_R,PL_ADDSAT,PL_SUBSAT, PL_EVAL, PL_G, 
-                                PL_VADDREP1,
-                                PL_VADDREP2,
-                                PL_VREPSUM
+                               ANDN, ORN, XNOR
                              } fu_op;
 
     typedef struct packed {
@@ -612,13 +605,6 @@ package ariane_pkg;
             endcase
         end else
             return 1'b0;
-    endfunction
-    
-    function automatic logic is_rs3_3reg (input fu_op op);
-            unique case (op) inside
-                PL_G              : return 1'b1; // Vectorial FP cast and pack ops
-                default           : return 1'b0; // all other ops
-            endcase
     endfunction
 
     function automatic logic is_amo (fu_op op);

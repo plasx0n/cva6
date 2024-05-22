@@ -1,7 +1,7 @@
 Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2019.2 (lin64) Build 2708876 Wed Nov  6 21:39:14 MST 2019
-| Date             : Wed May 22 13:37:16 2024
+| Date             : Wed May 22 17:09:51 2024
 | Host             : desktop running 64-bit Ubuntu 24.04 LTS
 | Command          : report_power -file ariane_xilinx_power_routed.rpt -pb ariane_xilinx_power_summary_routed.pb -rpx ariane_xilinx_power_routed.rpx
 | Design           : ariane_xilinx
@@ -30,10 +30,10 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 2.071        |
+| Total On-Chip Power (W)  | 2.063        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 1.893        |
+| Dynamic (W)              | 1.885        |
 | Device Static (W)        | 0.178        |
 | Effective TJA (C/W)      | 1.8          |
 | Max Ambient (C)          | 81.3         |
@@ -52,17 +52,17 @@ Table of Contents
 +--------------------------+-----------+----------+-----------+-----------------+
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
-| Clocks                   |     0.162 |       43 |       --- |             --- |
-| Slice Logic              |     0.070 |   117993 |       --- |             --- |
-|   LUT as Logic           |     0.065 |    55189 |    203800 |           27.08 |
-|   CARRY4                 |     0.002 |     2921 |     50950 |            5.73 |
-|   Register               |     0.002 |    41765 |    407600 |           10.25 |
+| Clocks                   |     0.164 |       43 |       --- |             --- |
+| Slice Logic              |     0.066 |   121169 |       --- |             --- |
+|   LUT as Logic           |     0.061 |    58032 |    203800 |           28.47 |
+|   CARRY4                 |     0.002 |     2895 |     50950 |            5.68 |
+|   Register               |     0.002 |    41979 |    407600 |           10.30 |
 |   LUT as Distributed RAM |    <0.001 |     1224 |     64000 |            1.91 |
 |   LUT as Shift Register  |    <0.001 |      368 |     64000 |            0.58 |
-|   F7/F8 Muxes            |    <0.001 |     2457 |    203800 |            1.21 |
+|   F7/F8 Muxes            |    <0.001 |     2440 |    203800 |            1.20 |
 |   Others                 |    <0.001 |     1114 |       --- |             --- |
 |   BUFG                   |    <0.001 |        1 |        32 |            3.13 |
-| Signals                  |     0.093 |    91290 |       --- |             --- |
+| Signals                  |     0.088 |    94419 |       --- |             --- |
 | Block RAM                |     0.029 |       86 |       445 |           19.33 |
 | MMCM                     |     0.322 |        3 |        10 |           30.00 |
 | PLL                      |     0.133 |        1 |        10 |           10.00 |
@@ -71,7 +71,7 @@ Table of Contents
 | PHASER                   |     0.456 |       28 |       --- |             --- |
 | XADC                     |     0.004 |        1 |       --- |             --- |
 | Static Power             |     0.178 |          |           |                 |
-| Total                    |     2.071 |          |           |                 |
+| Total                    |     2.063 |          |           |                 |
 +--------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -81,7 +81,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
-| Vccint    |       1.000 |     0.577 |       0.496 |      0.081 |
+| Vccint    |       1.000 |     0.570 |       0.489 |      0.081 |
 | Vccaux    |       1.800 |     0.482 |       0.453 |      0.029 |
 | Vcco33    |       3.300 |     0.002 |       0.001 |      0.001 |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |
@@ -191,42 +191,42 @@ Table of Contents
 +---------------------------------------------------+-----------+
 | Name                                              | Power (W) |
 +---------------------------------------------------+-----------+
-| ariane_xilinx                                     |     1.893 |
-|   i_ariane                                        |     0.106 |
-|     i_cva6                                        |     0.106 |
-|       csr_regfile_i                               |     0.003 |
-|       ex_stage_i                                  |     0.019 |
+| ariane_xilinx                                     |     1.885 |
+|   i_ariane                                        |     0.099 |
+|     i_cva6                                        |     0.099 |
+|       csr_regfile_i                               |     0.004 |
+|       ex_stage_i                                  |     0.020 |
 |       i_cache_subsystem                           |     0.043 |
 |       i_frontend                                  |     0.010 |
-|       i_perf_counters                             |     0.002 |
-|       id_stage_i                                  |     0.001 |
-|       issue_stage_i                               |     0.028 |
+|       i_perf_counters                             |     0.003 |
+|       issue_stage_i                               |     0.021 |
 |   i_ariane_peripherals                            |     0.034 |
-|     gen_ethernet.eth_rgmii                        |     0.021 |
+|     gen_ethernet.eth_rgmii                        |     0.020 |
 |       RAMB16_inst_tx                              |     0.004 |
-|       rgmii_soc1                                  |     0.015 |
+|       rgmii_soc1                                  |     0.014 |
 |     gen_spi.i_xlnx_axi_quad_spi                   |     0.002 |
 |       U0                                          |     0.002 |
 |     gen_timer.i_axi2apb_64_32_timer               |     0.002 |
 |     gen_uart.i_apb_uart                           |     0.003 |
-|       UART_RXFF                                   |     0.001 |
+|       UART_RXFF                                   |     0.002 |
 |     i_axi2apb_64_32_plic                          |     0.003 |
 |       slave_ar_buffer_i                           |     0.001 |
 |   i_axi_riscv_atomics                             |     0.002 |
 |     i_atomics                                     |     0.002 |
 |       i_amos                                      |     0.001 |
 |       i_lrsc                                      |     0.001 |
-|   i_axi_xbar                                      |     0.011 |
-|     i_xbar                                        |     0.011 |
+|   i_axi_xbar                                      |     0.012 |
+|     i_xbar                                        |     0.012 |
+|       gen_mst_port_mux[0].i_axi_mux               |     0.001 |
 |       gen_slv_port_demux[0].i_axi_demux           |     0.002 |
 |       gen_slv_port_demux[1].i_axi_demux           |     0.002 |
-|   i_ddr                                           |     1.601 |
-|     u_xlnx_mig_7_ddr3_mig                         |     1.599 |
-|       temp_mon_enabled.u_tempmon                  |     0.008 |
+|   i_ddr                                           |     1.599 |
+|     u_xlnx_mig_7_ddr3_mig                         |     1.598 |
+|       temp_mon_enabled.u_tempmon                  |     0.007 |
 |       u_ddr3_clk_ibuf                             |     0.007 |
 |       u_ddr3_infrastructure                       |     0.233 |
 |       u_iodelay_ctrl                              |     0.125 |
-|       u_memc_ui_top_axi                           |     1.227 |
+|       u_memc_ui_top_axi                           |     1.226 |
 |   i_dm_top                                        |     0.001 |
 |     i_dm_csrs                                     |     0.001 |
 |   i_xlnx_axi_clock_converter_ddr                  |     0.010 |

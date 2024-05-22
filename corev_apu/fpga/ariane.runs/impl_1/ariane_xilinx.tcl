@@ -70,7 +70,7 @@ set ACTIVE_STEP write_bitstream
 set rc [catch {
   create_msg_db write_bitstream.pb
   set_param chipscope.maxJobs 1
-  set_param synth.incrementalSynthesisCache ./.Xil/Vivado-44504-desktop/incrSyn
+  set_param synth.incrementalSynthesisCache ./.Xil/Vivado-106198-desktop/incrSyn
   open_checkpoint ariane_xilinx_routed.dcp
   set_property webtalk.parent_dir /home/dizzy/Documents/PHD/cva6_dir/cva6/corev_apu/fpga/ariane.cache/wt [current_project]
   set_property XPM_LIBRARIES {XPM_CDC XPM_FIFO XPM_MEMORY} [current_project]
