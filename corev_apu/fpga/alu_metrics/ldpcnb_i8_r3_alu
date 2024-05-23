@@ -1,0 +1,29 @@
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.2 (lin64) Build 2708876 Wed Nov  6 21:39:14 MST 2019
+| Date         : Thu May 23 11:23:52 2024
+| Host         : desktop running 64-bit Ubuntu 24.04 LTS
+| Command      : report_utilization -force -hierarchical -file alu_metrics/ldpcnb_i8_r3_alu
+| Design       : alu
+| Device       : 7k325tffg900-2
+| Design State : Synthesized
+--------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++-----------------------------+----------+------------+------------+---------+------+-----+--------+--------+--------------+
+|           Instance          |  Module  | Total LUTs | Logic LUTs | LUTRAMs | SRLs | FFs | RAMB36 | RAMB18 | DSP48 Blocks |
++-----------------------------+----------+------------+------------+---------+------+-----+--------+--------+--------------+
+| alu                         |    (top) |       2556 |       2556 |       0 |    0 |   0 |      0 |      0 |            0 |
+|   (alu)                     |    (top) |       2261 |       2261 |       0 |    0 |   0 |      0 |      0 |            0 |
+|   gen_bitmanip.i_cpop_count | popcount |        295 |        295 |       0 |    0 |   0 |      0 |      0 |            0 |
++-----------------------------+----------+------------+------------+---------+------+-----+--------+--------+--------------+
+
+

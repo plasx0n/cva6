@@ -103,7 +103,7 @@ module decoder import ariane_pkg::*; (
                                 {7'b000_0000, 3'b000} : instruction_o.op = ariane_pkg::LDN_ADDUSAT;
                                 {7'b000_0000, 3'b101} : instruction_o.op = ariane_pkg::LDN_SUBUSAT;
                                 {7'b000_0000, 3'b010} : instruction_o.op = ariane_pkg::LDN_MIN;
-                                {7'b000_0001, 3'b001} : instruction_o.op = ariane_pkg::LDN_HMIN;
+                                // {7'b000_0001, 3'b001} : instruction_o.op = ariane_pkg::LDN_HMIN;
                       
                                 {7'b000_0000, 3'b001} : instruction_o.op = ariane_pkg::LDN_IDXMINUP2;
                                 {7'b000_0000, 3'b110} : instruction_o.op = ariane_pkg::LDN_IDXMINCOMP;
@@ -111,13 +111,13 @@ module decoder import ariane_pkg::*; (
 
                             endcase
                         end
-                        2'b11:begin
-                            imm_select        = RS3; // rs3 into result field
-                            unique case (instr.r4type.funct3)
-                               {3'b011}               : instruction_o.op = ariane_pkg::LDN_ADDSATMIN;
-                               {3'b101}               : instruction_o.op = ariane_pkg::LDN_IDXCOMPV3;
-                            endcase
-                        end
+                        // 2'b11:begin
+                        //     imm_select        = RS3; // rs3 into result field
+                        //     unique case (instr.r4type.funct3)
+                        //        {3'b011}               : instruction_o.op = ariane_pkg::LDN_ADDSATMIN;
+                        //        {3'b101}               : instruction_o.op = ariane_pkg::LDN_IDXCOMPV3;
+                        //     endcase
+                        // end
                     endcase
                 end
 
