@@ -256,7 +256,7 @@ module alu import ariane_pkg::*;(
       logic[V_LENGHT-1:0]  r_accupp, r_accupm ; 
 
       // blendv
-      logic[V_LENGHT-1:0]  r_blend; 
+      // logic[V_LENGHT-1:0]  r_blend; 
 
 
       // shuffle
@@ -355,8 +355,8 @@ module alu import ariane_pkg::*;(
           assign r_accupm[i*Q +:Q]  = $signed(fu_data_i.operand_a[i*Q +:Q]) + $signed(fu_data_i.operand_b[i*Q +:Q]) - $signed(fu_data_i.imm[i*Q +:Q]);  
 
           // blenv
-          assign r_blend[i*Q +:Q]   = $signed(fu_data_i.operand_a[i*Q +:Q] &  fu_data_i.imm[i*Q +:Q] ) | 
-                                      $signed(fu_data_i.operand_b[i*Q +:Q] & ~fu_data_i.imm[i*Q +:Q] ) ; 
+          // assign r_blend[i*Q +:Q]   = $signed(fu_data_i.operand_a[i*Q +:Q] &  fu_data_i.imm[i*Q +:Q] ) | 
+          //                             $signed(fu_data_i.operand_b[i*Q +:Q] & ~fu_data_i.imm[i*Q +:Q] ) ; 
         end 
       endgenerate
     // -----------
@@ -376,7 +376,7 @@ module alu import ariane_pkg::*;(
             TB_DIV_SUB: result_o = r_divsub;
             TB_SB_SAT : result_o = r_sb_sat;
             TB_MAXPM  : result_o =  r_maxpm;
-            TB_BLEND  : result_o =  r_blend; 
+            // TB_BLEND  : result_o =  r_blend; 
             TB_SCALE  : result_o = r_scale;
 
 
